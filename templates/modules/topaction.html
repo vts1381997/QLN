@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .topaction button {
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div th:fragment="topaction">
+        <div class="row ACTIONS well well-sm topaction" style=" position: fixed;
+        width: 110%;
+        margin-top: -10px;
+        z-index: 1;">
+            <button type="button" class="btn btn-info btn-sm CREATE" id="btnAddNew" data-toggle="modal"
+                data-target="#exampleModalCenter"><i class="glyphicon glyphicon-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnEdit" data-toggle="modal"
+                data-target="#exampleModalCenter" disabled><i class="glyphicon glyphicon-edit"></i> Sửa</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnDelete" disabled><i
+                    class="glyphicon glyphicon-trash"></i> Xóa</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnPhanQuyen" data-toggle="modal"
+                data-target="#exampleModal"><i class="glyphicon glyphicon-user"></i>
+                Phân quyền user
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnTraLai" data-toggle="modal"
+                data-target="#TraLaiModal"><i class="glyphicon glyphicon-usd"></i></i>
+                Trả lãi
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnTroNo" data-toggle="modal"><i
+                    class="fa fa-reply-all"></i>
+                Trả nợ trả lãi
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnPheDuyetDuToan" data-toggle="modal"><i
+                    class="fa fa-check"></i>
+                Thay đổi dự toán
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnExportTemplate" data-toggle="modal"><i
+                    class="glyphicon glyphicon-export"></i>
+                Xuất file mẫu
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnImport" data-toggle="modal"
+                data-target="#modalImport"><i class="glyphicon glyphicon-import"></i>
+                Nhận dữ liệu excell
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnExport" data-toggle="modal"
+                data-target="#modalExport"><i class="glyphicon glyphicon-export"></i>
+                Xuất excell
+            </button>
+            <button type="button" class="btn btn-info btn-sm" id="btnResetpassword"><i class="glyphicon glyphicon-wrench"></i>
+               Reset password
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

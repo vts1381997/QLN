@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+    <script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/DuAnCTView.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/DuAn.js"></script>
+    <script type="text/javascript">
+        var oDuAnCTView = new DuAnCTView();
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="row" id="FORM">
+                <div class="row">
+                    <div class="col-sm-2"><label>Mã dự án<span class="require">(*)</span></label></div>
+                    <div class="col-sm-4">
+                        <input type="text" style="text-align: center" class="form-control" name="name" id="MA" value="" />
+                    </div>
+                    <div class="col-sm-2"><label>Tên dự án</label></div>
+                    <div class="col-sm-4">
+                        <input type="text" style="text-align: center"  class="form-control" name="name" id="TEN" value="" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-2"><label>Chủ đầu tư</label></div>
+                        <div class="col-sm-4">
+                            <input type="text" style="text-align: center"  class="form-control" name="name" id="CHUDAUTU" value="" />
+                        </div>
+                        <div class="col-sm-2"><label>Đơn vị thực hiện</label></div>
+                        <div class="col-sm-4">
+                            <input type="text" style="text-align: center"  class="form-control" name="name" id="DONVITHUCHIEN" value="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"><label>Chú ý</label></div>
+                    <div class="col-sm-4">
+                        <input type="text" style="text-align: center"  class="form-control" name="NOTE" id="NOTE" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="row pull-right ACTIONS" style="padding:10px; margin-left: 1030px">
+                <button type="button" style="text-align: center"  class="btn btn-info btn-sm" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+                    Lưu</button>
+            </div>
+        </div>
+</body>
+
+</html>

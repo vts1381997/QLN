@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/VayKhac/VayTCTCTDTNViewCT.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/VayTCTCTDTN.js"></script>
+	<script type="text/javascript">
+		var oVayTCTCTDTNViewCT = new VayTCTCTDTNViewCT();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="row">
+				<div class="col-sm-2"><label>Tỉnh thành</label></div>
+				<div class="col-sm-4">
+					<select style="text-align: center" class="form-control" id="TINHTHANHID">
+					</select>
+				</div>
+				<div class="col-sm-2"><label>Ngày vay</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control wec-control-date"
+							name="NGAYVAY" id="NGAYVAY" value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#NGAYVAY').focus()"><i
+									class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Thời hạn vay</label></div>
+				<div class="col-sm-4">
+					<input type="text" style="text-align: center" class="form-control" name="THOIHANVAY" id="THOIHANVAY"
+						value="" />
+				</div>
+				<div class="col-sm-2"><label>Số tiền vay</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" value=""
+							id="SOTIENVAY" name="SOTIENVAY" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Lãi/phí</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" name="LAIPHI" id="LAIPHI"
+							value="" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">%</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Số tiền trả</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" value=""
+							id="SOTIENTRA" name="SOTIENTRA" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Lũy kế trả nợ</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" disabled class="form-control" value=""
+							id="LUYKETRANO" name="LUYKETRANO" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Dư nợ</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" name="DUNO" id="DUNO"
+							value="" disabled autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ACTIONS" style="padding:10px">
+			<button type="button" style="margin-left: 860px" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Tổ chức mua trái phiếu</title>
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/ToChucMuaTPView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/ToChucMuaTP.js"></script>
+	<script type="text/javascript">
+		oToChucMuaTPView = new ToChucMuaTPView();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<label style="color: red;"> DANH MỤC TỔ CHỨC MUA TRÁI PHIẾU</label>
+			<hr />
+			<div class="col-sm-12">
+				<div class="row ACTIONS well well-sm">
+					<button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i
+							class="glyphicon glyphicon-plus"></i> Thêm</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnEdit"><i
+							class="glyphicon glyphicon-edit"></i> Sửa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnDelete"><i
+							class="glyphicon glyphicon-trash"></i> Xóa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnExport"><i
+							class="glyphicon glyphicon-export"></i> Kết xuất</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnImport"><i
+							class="glyphicon glyphicon-import"></i> Import</button>
+				</div>
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading">Danh sách tổ chức mua TP</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="Grid1">
+							<thead>
+								<tr>
+									<th style="width:40px">STT</th>
+									<th>Mã</th>
+									<th>Tổ chức</th>
+									<th>Loại</th>
+									<th>Số điện thoại</th>
+									<th>Địa chỉ</th>
+									<th>Email</th>
+									<th>Trạng thái</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Hợp đồng vay lại</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+    <script type="text/javascript" src="/qln/public/js/qln/app/VayODA/HopDongVayLaiView.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/HopDongVayLai.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/DuAn.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/TienTe.js"></script>
+    <script src="/qln/public/libs/jqueryloading/waitMe.js"></script>
+    <script type="text/javascript" src="/qln/public/libs/utils/jquery.freezeheader.js"></script>
+    <link type="text/css" rel="stylesheet" href="/qln/public/libs/jqueryloading/waitMe.css" />
+    <script src="/qln/public/skinqln/js/validate.js"></script>
+    <script src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+
+
+    <script>
+        var ExcelToJSON = function () {
+            var resultExcel = []
+
+            this.parseExcel = function (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var data = e.target.result;
+                    var workbook = XLSX.read(data, {
+                        type: 'binary'
+                    });
+                    workbook.SheetNames.forEach(function (sheetName) {
+                        // Here is your object
+                        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                        var json_object = JSON.stringify(XL_row_object);
+                        resultExcel.push(XL_row_object)
+
+                    })
+
+                };
+
+                reader.onerror = function (ex) {
+
+                };
+
+                reader.readAsBinaryString(file);
+                return resultExcel;
+            };
+        };
+
+    </script>
+    <script type="text/javascript">
+        var id = 1;
+        $(document).ready(function () {
+            var oExcelToJSON = new ExcelToJSON()
+            $(document).ready(function () {
+                $('#sdas').change(function (e) {
+                    e.preventDefault
+                    var dataImport = oExcelToJSON.parseExcel(e.target.files[0])
+                    $(this).val('')
+                })
+            })
+            $(".price table").freezeHeader({
+                'height': '100px'
+            })
+            oHopDongVayLaiView = new HopDongVayLaiView();
+            oHopDongVayLaiView.bindModal()
+            CurrentLayout = "HOPDONGVAYLAI"
+            // Jquery Dependency
+            $("input[data-type='currency']").on({
+                keyup: function () {
+                    formatCurrency($(this));
+                },
+                blur: function () {
+                    formatCurrency($(this), "blur");
+                }
+            });
+
+            function formatNumber(n) {
+                // format number 1000000 to 1,234,567
+                return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+
+            function formatCurrency(input, blur) {
+                // appends $ to value, validates decimal side
+                // and puts cursor back in right position.      
+                // get input value
+                var input_val = input.val();
+                // don't validate empty input
+                if (input_val === "") {
+                    return;
+                }
+                // original length
+                var original_len = input_val.length;
+                // initial caret position 
+                var caret_pos = input.prop("selectionStart");
+                // check for decimal
+                if (input_val.indexOf(".") >= 0) {
+                    // get position of first decimal
+                    // this prevents multiple decimals from
+                    // being entered
+                    var decimal_pos = input_val.indexOf(".");
+                    // split number by decimal point
+                    var left_side = input_val.substring(0, decimal_pos);
+                    var right_side = input_val.substring(decimal_pos);
+                    // add commas to left side of number
+                    left_side = formatNumber(left_side);
+                    // validate right side
+                    right_side = formatNumber(right_side);
+                    // On blur make sure 2 numbers after decimal
+                    if (blur === "blur") {
+                        right_side += "";
+                    }
+                    // Limit decimal to only 2 digits
+                    right_side = right_side.substring(0, 2);
+                    // join number by .
+                    input_val = "" + left_side + "." + right_side;
+                } else {
+                    // no decimal entered
+                    // add commas to number
+                    // remove all non-digits
+                    input_val = formatNumber(input_val);
+                    input_val = "" + input_val;
+                    // final formatting
+                    if (blur === "blur") {
+                        input_val += "";
+                    }
+                }
+                // send updated string to input
+                input.val(input_val);
+                // put caret back in the right position
+                var updated_len = input_val.length;
+                caret_pos = updated_len - original_len + caret_pos;
+                input[0].setSelectionRange(caret_pos, caret_pos);
+            }
+            $('body').on('click', '#ActionThemMoi', function () {
+                var option = '<tr class="input-table" id="element-' + id + '"><td><input type="text" class="MAPHULUC" id="MAPHULUC' + id + '" />\
+                    </td><td><input type="text" class="TENPHULUC" id="TENPHULUC'+ id + '" />\
+                    </td><td><input type="date" class="NGAYKYPHULUC" id="NGAYKYPHULUC'+ id + '" value="' + NgayHomNay + '" />\
+                    </td><td><input type="text" class="NGUOIKYPHULUC" id="NGUOIKYPHULUC'+ id + '" /></td>\
+                    <td><button class="btn btn-danger button-clear" id="element-' + id + '">Xóa</button></td>\
+                    </tr>'
+                $('#table-multi').append(option);
+                var ypos = $('#hdScrolltbl-1 table tr').offset().top;
+                $('#hdScrolltbl-1').animate({
+                    scrollTop: $('#hdScrolltbl-1').scrollTop() + ypos
+                }, 500);
+                var my = setInterval(() => {
+                    $('#hdtbl-1') ? $('#hdtbl-1').css('top', '') : () => {
+                        return
+                    };
+                }, 10);
+                id++;
+            })
+            $('body').on('click', '.button-clear', function () {
+                var id_1 = $(this).attr('id')
+                $('tr#' + id_1).remove()
+            })
+        })
+    </script>
+    <script>
+        $("select").change(function () {
+            var str = "";
+            $("select option:selected").each(function () {
+                str += $(this).text() + " ";
+            });
+        })
+    </script>
+    <style>
+        table tr td:nth-child(2n-1) {
+            text-align: center
+        }
+
+        table tr td:nth-child(4n-2) {
+            text-align: left
+        }
+
+        table tr td:nth-child(6n-3) {
+            text-align: left
+        }
+
+        table tr td:nth-child(8n-4) {
+            text-align: left
+        }
+
+        table tr td:nth-child(10n-5) {
+            text-align: center
+        }
+
+        table tr td:nth-child(12n-6) {
+            text-align: center
+        }
+
+        table tr td:nth-child(14n-7) {
+            text-align: left
+        }
+
+        table tr td:nth-child(16n-8) {
+            text-align: left
+        }
+
+        table tr td:nth-child(18n-9) {
+            text-align: right
+        }
+
+        table tr td:nth-child(20n-10) {
+            text-align: right
+        }
+
+        #row-custom>div {
+            padding: 0px !important;
+        }
+
+        #row-custom .wec-control-date {
+            font-size: 15px !important;
+        }
+
+        #row-custom {
+            margin: 0px 0px 0px 0px;
+        }
+
+        .custom-radio label {
+            font-size: 12px !important;
+            transform: translate(0px, -2px);
+        }
+
+        #custom-radio>div>div {
+            padding: 0px !important;
+        }
+
+        .custom-radio {
+            padding: 3px 6px 0px 7px;
+        }
+
+        /* input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		input[type=number] {
+			-moz-appearance: textfield;
+		} */
+    </style>
+    <style>
+        .NUMBER_DISABLED {
+            background-color: #d5d5d5;
+            text-align: right;
+        }
+
+        .input-table input,
+        .input-table select {
+            border: 1px solid #2a9bf5;
+            box-shadow: none;
+            width: 100%;
+            min-height: 25px;
+            border-radius: 3px;
+        }
+    </style>
+    <style>
+        .select2-selection__rendered {
+            font-size: 15px !important;
+        }
+
+        .select2-results__option {
+            font-size: 15px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row" style="margin-top:10px">
+            <span class="glyphicon glyphicon-align-justify"></span><label style="color:red;">&nbspHỢP ĐỒNG VAY
+                LẠI</label>
+            <hr />
+            <div class="col-sm-12">
+                <div class="row panel panel-primary" id="LIST" style="margin-top: 11px;">
+                    <div class="panel-heading">Danh sách hợp đồng vay lại </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover table-columned text-center"
+                            id="Grid01" style="margin-top: 5px;">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px">STT</th>
+                                    <th>Số hợp đồng</th>
+                                    <th>Tên hợp đồng</th>
+                                    <th>Tên dự án</th>
+                                    <th>Ngày ký hợp đồng</th>
+                                    <th>Ngày hiệu lực</th>
+                                    <th>Bên cho vay</th>
+                                    <th>Bên vay</th>
+                                    <th>Số tiền ký vay</th>
+                                    <th>Lãi suất</th>
+                                    <th>Phụ lục hợp đồng</th>
+                                    <th>File đính kèm</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div role="document" style="width: 100%; height: 100%;">
+                <div class="modal-content" style="height: 100%; overflow: hidden !important">
+                    <div class="modal-header" style="display: flex">
+                        <h5 style="width: 99%" class="modal-title" id="exampleModalLongTitle">
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="height: 80%;">
+                        <div class="brow">
+                            <div class="row">
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Tên dự án</label></div>
+                                        <div class="col-sm-9">
+                                            <select id="DUANID" style="width:100%" class="abcd">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Số hợp đồng <span class="require">*</span></label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control validate-form" name="MA" id="MA"
+                                                autocomplete="off" value="" />
+                                        </div>
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Tên hợp đồng</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" name="TEN" id="TEN" value=""
+                                                autocomplete="off" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Ngày ký hợp đồng</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control wec-control-date" value=""
+                                                    id="NGAYKY" name="NGAYKY" autocomplete="off" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"
+                                                        onclick="$('#NGAYKY').focus()"><i
+                                                            class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Ngày hiệu lực</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control wec-control-date" value=""
+                                                    id="NGAYHIEULUC" name="NGAYHIEULUC" autocomplete="off" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"
+                                                        onclick="$('#NGAYHIEULUC').focus()"><i
+                                                            class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Cơ quan ủy quyền cho vay
+                                                lại</label></div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" name="COQUANUYQUYENVAYLAI"
+                                                id="COQUANUYQUYENVAYLAI" value="Bộ Tài Chính" autocomplete="off" />
+                                        </div>
+                                        <div class="col-sm-3"><label>Đơn vị</label></div>
+                                        <div class="col-sm-3">
+                                            <select id="DONVIID" class="form-control">
+                                                <select id="DONVIID" class="form-control">
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Số tiền vay</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group" style="width: 100%;">
+                                                <input type="text" class="form-control"
+                                                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"
+                                                    style="text-align: right;" id="TIENKYVAY" name="TIENKYVAY"
+                                                    autocomplete="off" />
+                                                <input type="hidden" class="form-control" id="TIENKYVAYNGUYENTE"
+                                                    name="TIENKYVAYNGUYENTE" />
+                                                <span style="width: 44%" class="input-group-btn">
+                                                    <select id="TIENTEID" disabled class="form-control">
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"><label>Lãi phạt</label></div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" value="0.0" min="0.0"
+                                                    style="text-align: right;" max="10.0" step="0.01" id="TIENLAIPHAT"
+                                                    name="TIENLAIPHAT" autocomplete="off" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="phantramlaiphat"
+                                                        class="btn btn-default">%</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Lãi suất vay</label></div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" value="0.0" min="0.0"
+                                                    style="text-align: right;" max="10.0" step="0.01" id="LAISUATVAY"
+                                                    name="LAISUATVAY" autocomplete="off" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" id="phantramlaisuatvay"
+                                                        class="btn btn-default">%</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"><label>Loại lãi suất</label></div>
+                                        <div class="col-sm-3">
+                                            <select id="LOAILAISUAT" class="form-control">
+                                                <option value="1">Cố định</option>
+                                                <option value="2">Thả nối</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Phương thức trả nợ gốc</label></div>
+                                        <div class="col-sm-3">
+                                            <select id="PHUONGTHUCTRANOGOC" class="form-control">
+                                                <option value="1">Trả đều</option>
+                                                <option value="2">Phương thức khác</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Phương thức trả nợ
+                                                lãi</label></div>
+                                        <div class="col-sm-3">
+                                            <select id="PHUONGTHUCTRANOLAI" class="form-control">
+                                                <option value="1">Bán niên</option>
+                                                <option value="2">Hằng năm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Ngày trả nợ gốc đầu tiên và cuối cùng</label></div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <div class='row' id='row-custom'>
+                                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                                        <input type="text" class="form-control wec-control-date"
+                                                            value="" id="NGAYTRANOGOCDAUTIEN" name="NGAYTRANOGOCDAUTIEN"
+                                                            autocomplete="off" />
+                                                    </div>
+                                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                                        <button type="button" id="NGAYTRANOGOCDAUTIEN_BTN"
+                                                            class="btn btn-default"
+                                                            onclick="$('#NGAYTRANOGOCDAUTIEN').focus()"><i
+                                                                class="glyphicon glyphicon-calendar"></i></button>
+                                                    </div>
+                                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+                                                        style="text-align: center;">
+                                                        <label> - </label>
+                                                    </div>
+                                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                                        <input type="text" class="form-control wec-control-date"
+                                                            value="" id="NGAYTRANOGOCCUOICUNG"
+                                                            name="NGAYTRANOGOCCUOICUNG" autocomplete="off" />
+                                                    </div>
+                                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                                        <button type="button" id="NGAYTRANOGOCCUOICUNG_BTN"
+                                                            class="btn btn-default"
+                                                            onclick="$('#NGAYTRANOGOCCUOICUNG').focus()"><i
+                                                                class="glyphicon glyphicon-calendar"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"><label>Ngày trả nợ lãi đầu tiên và cuối cùng</label></div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <div class='row' id='row-custom'>
+                                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                                        <input type="text" class="form-control wec-control-date"
+                                                            value="" id="NGAYTRANOLAIDAUTIEN" name="NGAYTRANOLAIDAUTIEN"
+                                                            autocomplete="off" />
+                                                    </div>
+                                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                                        <button type="button" id="NGAYTRANOLAIDAUTIEN_BTN"
+                                                            class="btn btn-default"
+                                                            onclick="$('#NGAYTRANOLAIDAUTIEN').focus()"><i
+                                                                class="glyphicon glyphicon-calendar"></i></button>
+                                                    </div>
+                                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+                                                        style="text-align: center;">
+                                                        <label> - </label>
+                                                    </div>
+                                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                                        <input type="text" class="form-control wec-control-date"
+                                                            value="" id="NGAYTRANOLAICUOICUNG"
+                                                            name="NGAYTRANOLAICUOICUNG" autocomplete="off" />
+                                                    </div>
+                                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                                        <button type="button" id="NGAYTRANOLAICUOICUNG_BTN"
+                                                            class="btn btn-default"
+                                                            onclick="$('#NGAYTRANOLAICUOICUNG').focus()"><i
+                                                                class="glyphicon glyphicon-calendar"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Phí theo hiệp định vay nước ngoài</label></div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group" style="width: 100%;">
+                                                <input type="text" class="form-control" name="TIENPHIHIEPDINHVAYNN"
+                                                    style="text-align: right;" id="TIENPHIHIEPDINHVAYNN"
+                                                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"
+                                                    autocomplete="off" />
+                                                <span style="width: 44%" class="input-group-btn">
+                                                    <select id="TIENTENNID" disabled class="form-control">
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="padding-left:30px;"><label>Số hiệp định vay nước
+                                                ngoài</label></div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" name="SOHIEPDINHVAYNN"
+                                                id="SOHIEPDINHVAYNN" value="" autocomplete="off" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-3"><label>Phí quản lý cho vay
+                                                lại</label></div>
+                                        <div class="col-sm-3" id="custom-radio">
+                                            <div class="row" style="margin-left: 0px;">
+                                                <div class=col-sm-6>
+                                                    <div class="custom-control custom-radio" style="padding-left: 0px;">
+                                                        <input type="radio" class="custom-control-input"
+                                                            id="customRadio1" name="example1" value="customEx0">
+                                                        <label class="custom-control-label" for="customRadio">0%</label>
+                                                        <input type="radio" class="custom-control-input"
+                                                            id="customRadio2" name="example1" value="customEx25">
+                                                        <label class="custom-control-label"
+                                                            for="customRadio">0,25%</label>
+                                                        <input type="radio" class="custom-control-input"
+                                                            id="customRadio3" name="example1" value="customExkhac">
+                                                        <label class="custom-control-label"
+                                                            for="customRadio">Khác</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="input-group mb-3" style="padding: 0px 3px 0px 8px;">
+                                                        <div class="input-group">
+                                                            <input type="number" id="TIENPHIQUANLYCHOVAYLAI"
+                                                                class="form-control" value="0.0" min="0.0" max="0.25"
+                                                                step="0.01" style="width: 114px;">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" id="phiquanlychovaylai"
+                                                                    class="btn btn-default">%</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px; padding-left: 35px;">
+                                    <form id="uploadForm" enctype="multipart/form-data" style="height: 0">
+                                        <input type="file" name="userPhoto" />
+                                        <input type="hidden" id="idrowtable" name='idrowtable' />
+                                        <input type="hidden" id="tablename" name='tablename' />
+                                        <span id="status"></span>
+                                    </form>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px">
+                                    <div class="row"
+                                        style="width: 60%; font-weight: bold; margin-left: 20%; text-align: center; color: #b7422e !important; padding: 10px 0px;margin-bottom: 15px; font-size: 16px;border-bottom: 2px solid  #b7422e;">
+                                        Phụ lục hợp đồng vay lại</div>
+                                </div>
+                                <div class="panel-body" style="width: 98%;		
+                                margin-left: 1%;		
+								float: left;
+								height: 100%;
+                                padding-bottom: 0px;
+								background: #F5F5F5;
+								margin-bottom: 25px;">
+                                    <div class="row price">
+                                        <table
+                                            class="table table-striped table-bordered table-hover table-columned text-center"
+                                            style="border: 1px; background: oldlace; margin-bottom: 0px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã phụ lục</th>
+                                                    <th>Tên phụ lục</th>
+                                                    <th>Ngày ký phụ lục</th>
+                                                    <th>Người ký</th>
+                                                    <th> <button type="button" class="btn btn-info" id="ActionThemMoi"
+                                                            style="float: center;">Thêm</button></th>
+                                            </thead>
+                                            <tbody style="margin-top: 5px;" id='table-multi'>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;padding-right: 100px; margin-bottom: 5px;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary btnSave">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

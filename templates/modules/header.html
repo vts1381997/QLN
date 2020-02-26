@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel='stylesheet' th:href="@{/public/skinqln/vendor/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <header id="header" class="header" th:fragment="header">
+        <script type="text/javascript" th:src="@{/public/js/qln/modules/Header.js?20190701.001}"></script>
+        <script type="text/javascript">
+            var oHeader = new Header();
+        </script>
+        <div class="header-left pull-left">
+            <div class="nav-icon">
+                <img src="/qln/public/skinqln/img/logo-btc.png" />
+            </div>
+            <div class="sub-title" style="text-transform:uppercase">Cục Quản lý nợ và Tài chính đối ngoại</div>
+            <div class="title">Phần mềm Cơ sở dữ liệu nợ chính quyền địa phương</div>
+        </div>
+        <div class="header-right pull-right" style="position: absolute;
+		transform: translateY(42px);
+		z-index: 999;
+		right: 0px;">
+
+            <div class="item -user" id="UserInfo">
+                <div class="user">
+                    <div class="avatar"
+                        style="background-image: url(/qln/public/skinqln/uploads/avatar.png); top: -4px;">
+                    </div>
+                    <div class="username">
+                        <p class="name"></p>
+                        <p class="pos"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" id="dangnhapboi"
+                    style="color: #f1f890;border: none;margin-top: -5px;">
+                </button>
+                <div class="dropdown-menu" style="text-align: left; padding-left: 15px;">
+                    <a class="dropdown-item" href="/qln/app/HeThong/DoiMatKhau"><span
+                            class="fa fa-edit icon"></span> Đổi mật khẩu</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" id="btnSignOut" style="margin-top: 10px; display: block;"><span
+                            class="fa fa-sign-out icon"></span> Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

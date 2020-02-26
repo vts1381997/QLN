@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Thông tin hỗ trợ</title>
+	<script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+	<style type="text/css">
+		body .cc-index-contact>.cc-title div:first-child {
+			text-align: center;
+			font-family: Montserrat-Bold;
+			font-size: 26px;
+			line-height: 32px;
+			color: #263C8F;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+	</style>
+	<script type="text/javascript">
+		function fnc_keyup() {
+			String.prototype.replaceAll = function (search, replacement) {
+				var target = this;
+				return target.replace(new RegExp(search, 'g'), replacement);
+			};
+			if ($("#txtPassword").val().includes(' ')) {
+				var stringCode = String($("#txtPassword").val()).split(" ").join('')
+				$("#txtPassword").val(stringCode)
+			}
+		}
+		function fnc_change() {
+			if ($("#txtPassword").val()) {
+				if (validateEmail($("#txtPassword").val())) {
+					return;
+				}
+				else {
+					var oAlert = new AlertDialog('Thông báo');
+					oAlert.show('Email không hợp lệ', '40%', '50px');
+				}
+			}
+		}
+		function fnc_sendMail() {
+			if ($("#txtPassword").val()) {
+				String.prototype.replaceAll = function (search, replacement) {
+					var target = this;
+					return target.replace(new RegExp(search, 'g'), replacement);
+				};
+				var vtxtEmail = $("#txtPassword").val()
+				var vtxtDienThoai = $("#txtDienthoai").val()
+				var vtxtNoiDung = $("#txtNoiDung").val().replaceAll('\n', '<br />&nbsp;&nbsp;')
+				var vtxtHoVaTen = $("#txtHoVaTen").val()
+				var vtxttaikhoan = jwt.userName
+				var vtxtdonvi = jwt.unitid
+				var data = {
+					hovaten: vtxtHoVaTen,
+					sodienthoai: vtxtDienThoai,
+					email: vtxtEmail,
+					noidung: vtxtNoiDung,
+					taikhoan: vtxttaikhoan,
+					donvi: vtxtdonvi
+				}
+				var nguoiDung = new NguoiDung();
+				var rs = nguoiDung.SENDMAIL(data)
+				var oAlert = new AlertDialog('Thông báo');
+				oAlert.show(rs.message, '40%', '50px');
+			}
+			else {
+				var oAlert = new AlertDialog('Thông báo');
+				oAlert.show('Email không được để trống', '40%', '50px');
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="content-container">
+			<div class="cc-contact-container">
+				<div class="cc-index-contact">
+					<div class="cc-title">
+						<div>Khi có câu hỏi hay góp ý, xin vui lòng liên hệ theo thông tin bên dưới</div>
+						<div></div>
+					</div>
+					<div class="pc-contact-group">
+						<div class="pc-contact-input">
+							<div class="pc-contact-content">
+								<div class="pc-contact-item"><span>Email
+										(*):</span><input type="text" onchange="fnc_change()" onkeyup="fnc_keyup()"
+										autofocus="" id="txtPassword" style="width: 100%;" class="ant-input"
+										autocomplete="off">
+								</div>
+								<div class="pc-contact-item"><span>Họ tên:</span><input id="txtHoVaTen" type="text"
+										style="width: 100%;" class="ant-input"></div>
+								<div class="pc-contact-item"><span>Số điện thoại:</span><input id="txtDienthoai"
+										type="text" style="width: 100%;" class="ant-input"></div>
+								<div class="pc-contact-mess"><textarea id="txtNoiDung" placeholder="Câu hỏi/ góp ý *"
+										style="width: 100%; height: 100px;" class="ant-input"></textarea></div>
+							</div>
+							<div class="pc-contact-footer"><button onclick="fnc_sendMail()" type="button"
+									class="ant-btn ant-btn-primary" id="btnGui"><span>Gửi</span></button></div>
+						</div>
+						<div class="pc-contact-detail">
+							<div id="title-group-cd" style="color: #28a52a;">Kênh hỗ trợ</div><a target="_blank">
+								<div class="pc-contact-d pc-contact-d-phone">
+									<div class="phone-title"><img width=48px height=48px
+											src="/qln/public/skinmedic/img/247-icon.png">
+										<div>
+											<div id="title-hotline">Hotline</div>
+											<div id="hotline"> 0246 6886 722/ 0246 6514 866</div>
+										</div>
+									</div>
+									<div id="service">8:00 AM - 17:30 PM<br>Thứ 2 - Thứ 7 (Trừ ngày lễ)</div>
+								</div>
+							</a><a target="_blank">
+								<div class="pc-contact-d pc-contact-d-mes">
+									<div class="mes-title"><img width=48px height=48px
+											src="/qln/public/skinmedic/img/Email-icon.png">
+										<div>
+											<div id="title-mes">Email</div>
+											<div id="mes">fschcmgroup@gmail.com</div>
+										</div>
+									</div>
+									<div id="service">8:00 AM - 17:30 PM<br>Thứ 2 - Thứ 7 (Trừ ngày lễ)</div>
+								</div>
+							</a>
+							<div class="pc-contact-d pc-contact-d-fb">
+								<div class="fb-title"><img width=48px height=48px
+										src="/qln/public/skinmedic/img/support-icon.png">
+									<div>
+										<div id="title-group">Bộ Tài Chính</div>
+										<div id="path-group">Cục QL Nợ và Tài chính đối ngoại <br> 024 2220 2828
+											(ext 111)</div>
+									</div>
+								</div>
+								<div id="service">8:00 AM - 17:00 PM<br>Thứ 2 - Thứ 6 (Trừ ngày lễ)</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<style>
+					body .cc-index-footer {
+						margin-top: 10px;
+					}
+
+					@media screen and (min-height: 1000px) {
+						body .cc-index-footer {
+							position: fixed;
+							width: 100%;
+							bottom: 0;
+						}
+					}
+
+					body .cc-contact-container {
+						position: relative;
+					}
+
+					body .cc-contact-container .cc-index-contact {
+						background-color: #FAFAFA;
+						display: -webkit-box;
+						display: -ms-flexbox;
+						display: flex;
+						-webkit-box-orient: vertical;
+						-webkit-box-direction: normal;
+						-ms-flex-direction: column;
+						flex-direction: column;
+						-webkit-box-align: center;
+						-ms-flex-align: center;
+						align-items: center;
+						margin: 5px;
+						height: 100%;
+					}
+
+					body .cc-contact-container .cc-index-contact>.cc-title {
+						margin-top: 10px;
+					}
+
+					body .cc-contact-container .cc-index-contact>.cc-title div:first-child {
+						font-family: Montserrat-Bold;
+						font-size: 26px;
+						line-height: 32px;
+						color: #263C8F;
+						text-align: center;
+						margin-bottom: 10px;
+					}
+
+					body .cc-contact-container .cc-index-contact>.cc-title div:last-child {
+						font-family: Montserrat-Regular;
+						font-size: 24px;
+						line-height: 29px;
+						color: #828282;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail {
+						position: absolute;
+						top: 196px;
+						width: 500px;
+						border-radius: 10px;
+						overflow: hidden;
+						-webkit-box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						background: #fff;
+						z-index: 1;
+						border: 1px solid #E0E0E0;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content {
+						padding: 32px;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-item {
+						margin-bottom: 32px;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-item span {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #555555;
+						cursor: default;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-item .ant-input {
+						border: none;
+						border-bottom: 1px solid #E0E0E0;
+						border-radius: 0;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-item .ant-input:focus {
+						-webkit-box-shadow: none;
+						box-shadow: none;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-mess .ant-input::-webkit-input-placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-mess .ant-input:-ms-input-placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-mess .ant-input::-ms-input-placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-mess .ant-input::placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-mess .ant-input {
+						font-size: 14px;
+						height: 128px;
+						border: none;
+						resize: none;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-content .cc-contact-mess .ant-input:focus {
+						-webkit-box-shadow: none;
+						box-shadow: none;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-footer {
+						text-align: right;
+						background: #F2F2F2;
+						border-top: 1px solid #E0E0E0;
+						-webkit-box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						padding: 20px;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-footer .ant-btn {
+						height: unset;
+						padding: 13px 56px;
+						border-style: solid;
+						background-color: #43B5C3;
+						border-color: #43B5C3;
+					}
+
+					body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-footer .ant-btn span {
+						font-family: Montserrat-SemiBold;
+						font-size: 16px;
+						line-height: 20px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group {
+						width: 740px;
+						-webkit-box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						margin-top: 0px;
+						border-radius: 10px;
+						z-index: 1;
+						border: 1px solid #E0E0E0;
+						background: #fff;
+						display: -webkit-box;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input {
+						width: 370px;
+						overflow: hidden;
+						border-right: 1px solid #E0E0E0;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content {
+						padding: 32px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-item {
+						margin-bottom: 32px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-item span {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #555555;
+						cursor: default;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-item .ant-input {
+						border: none;
+						border-bottom: 1px solid #E0E0E0;
+						border-radius: 0;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-item .ant-input:focus {
+						-webkit-box-shadow: none;
+						box-shadow: none;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-mess .ant-input::-webkit-input-placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-mess .ant-input:-ms-input-placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-mess .ant-input::-ms-input-placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-mess .ant-input::placeholder {
+						font-family: Montserrat-Regular;
+						font-size: 14px;
+						line-height: 17px;
+						color: #BDBDBD;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-mess .ant-input {
+						font-size: 14px;
+						height: 128px;
+						border: none;
+						resize: none;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-content .pc-contact-mess .ant-input:focus {
+						-webkit-box-shadow: none;
+						box-shadow: none;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-footer {
+						text-align: right;
+						background: #F2F2F2;
+						border-top: 1px solid #E0E0E0;
+						-webkit-box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						box-shadow: 0px 10px 40px rgba(51, 51, 51, 0.1);
+						padding: 20px;
+						border-radius: 0px 0px 0px 10px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-footer .ant-btn {
+						height: unset;
+						padding: 13px 150px;
+						border-style: solid;
+						background-color: #43B5C3;
+						border-color: #43B5C3;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-input .pc-contact-footer .ant-btn span {
+						font-family: Montserrat-SemiBold;
+						font-size: 16px;
+						line-height: 20px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail {
+						/* background-image: url(static/cc-assets/images/bg-contact-detail.png); */
+						width: 370px;
+						border-radius: 0px 10px 10px 0px;
+						padding: 20px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail #title-group-cd {
+						display: -webkit-box;
+						font-family: Montserrat-Bold;
+						font-size: 40px;
+						margin-bottom: 15px;
+						line-height: 30px;
+						color: #263C8F;
+						text-align: -webkit-center;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d {
+						padding: 3px 0px;
+						margin-top: 10px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail #service {
+						text-align: center;
+						padding: 0px 10px;
+						font-weight: 900;
+						color: #3d5b97;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-fb .fb-title {
+						display: -webkit-box;
+						margin-bottom: 5px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-fb .fb-title img {
+						margin-right: 10px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-fb .fb-title #title-group {
+						display: -webkit-box;
+						font-family: Montserrat-Bold;
+						font-size: 20px;
+						line-height: 20px;
+						color: #263C8F;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-fb .fb-title #path-group {
+						font-family: Montserrat-Regular;
+						font-size: 16px;
+						line-height: 24px;
+						font-weight: 900;
+						color: #828282;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-phone .phone-title {
+						display: -webkit-box;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-phone .phone-title img {
+						width: 46px;
+						margin-left: 2px;
+						margin-right: 8px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-phone .phone-title #title-hotline {
+						display: -webkit-box;
+						font-family: Montserrat-Bold;
+						font-size: 20px;
+						line-height: 20px;
+						color: #263C8F;
+						margin-top: 4px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-phone .phone-title #hotline {
+						font-family: Montserrat-Regular;
+						font-size: 16px;
+						line-height: 24px;
+						font-weight: 900;
+						color: #828282;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-mes .mes-title {
+						display: -webkit-box;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-mes .mes-title img {
+						margin-right: 6px;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-mes .mes-title #title-mes {
+						display: -webkit-box;
+						font-family: Montserrat-Bold;
+						font-size: 20px;
+						line-height: 22px;
+						color: #263C8F;
+					}
+
+					body .cc-contact-container .cc-index-contact .pc-contact-group .pc-contact-detail .pc-contact-d-mes .mes-title #mes {
+						font-family: Montserrat-Regular;
+						font-size: 16px;
+						line-height: 24px;
+						font-weight: 900;
+						color: #828282;
+					}
+
+					@media all and (max-width: 768px) {
+						body .cc-contact-container .cc-index-contact .cc-title {
+							margin-top: 40px;
+							margin-bottom: 55px;
+						}
+
+						body .cc-contact-container .cc-index-contact .cc-title div:first-child {
+							font-family: Montserrat-SemiBold;
+							font-size: 26px;
+							line-height: 32px;
+							margin-bottom: 15px;
+						}
+
+						body .cc-contact-container .cc-index-contact .cc-title div:last-child {
+							font-size: 22px;
+							line-height: 27px;
+							text-align: center;
+						}
+
+						body .cc-contact-container .cc-index-contact .cc-contact-detail {
+							width: 85%;
+						}
+
+						body .cc-contact-container .cc-index-contact .cc-contact-detail .cc-contact-footer {
+							text-align: center;
+						}
+					}
+				</style>
+				<div></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

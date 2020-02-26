@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <title>Bảng tin</title>
+    <script th:src="@{/public/libs/highcharts.js}"></script>
+    <script th:src="@{/public/libs/highcharts-3d.js}"></script>
+    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/highcharts.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/highchart.js"></script>
+    <script th:src="@{/public/libs/accessibility.js}"></script>
+    <link rel="stylesheet" href="/qln/public/skinqln/css/dashboard.css">
+    <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/dashboard.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/common/dashboard.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            CurrentLayout = "DASHBOARD"
+        })
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content-home">
+        <div class="dashboard-canvas statistics" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 thongke">
+                    <div class="item c-green">
+                        <div class="detail">
+                            <span class="text" id="pTongKeHoachTrongNamText">Tổng số kế hoạch trong năm</span>
+                            <br>
+                            <span class="number" id="pTongKeHoachTrongNamNumber">0</span>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-list-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 thongke">
+                    <div class="item item c-yellow">
+                        <div class="detail">
+                            <span class="text  c-yellow" id="pTongDuAnText">Tổng số dự án đang theo dõi</span>
+                            <br>
+                            <span class="number" id="pTongDuAnNumber">0</span>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-map"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 thongke">
+                    <div class="item item c-blue">
+                        <div class="detail">
+                            <span class="text" id="pTongDeAnTraiPhieuText">Tổng số đề án trái phiếu trong năm</span>
+                            <br>
+                            <span class="number" id="pTongDeAnTraiPhieuNumber">0</span>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-puzzle-piece"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 thongke">
+                    <div class="item item c-red">
+                        <div class="detail">
+                            <span class="text" id="pTongKhacText">Tổng số lần vay khác trong năm</span>
+                            <br>
+                            <span class="number" id="pTongKhacNumber">0</span>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-sitemap"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-canvas">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="text-center title">Biểu đồ so sánh giữa các khoản vay trong năm
+                                <script>
+                                    document.write((new Date()).getFullYear())
+                                </script>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-bar"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="title text-center title">Biểu đồ cơ cấu các nguồn vay</div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart-pie"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

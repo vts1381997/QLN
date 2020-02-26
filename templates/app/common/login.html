@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/login">
+
+<head>
+    <title>Đăng nhập</title>
+    <meta charset="utf-8" />
+    <!--  <script type="text/javascript" src="@{public/skinmedic/vendor/highchart/highchart.js"></script> -->
+    <link rel="stylesheet" th:href="@{/public/skinmedic/vendor/ap8/css/style.css}">
+    <link rel="stylesheet" th:href="@{/public/skinmedic/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/public/skinmedic/css/login.css}">
+    <script type="text/javascript" th:src="@{/public/js/qln/core/AuthenHelper.js}"></script>
+    <script type="text/javascript" th:src="@{/public/js/qln/app/common/LoginView.js?20190701.001}"></script>
+    <script type="text/javascript">
+        var oLoginView = new LoginView();
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="login-canvas">
+            <div class="bg"></div>
+            <!--  <img src="~/Assets/SkinPhongKham/img/logo-entic.png" alt=""> -->
+            <div class="top-login">
+                <div class="content">
+                    <img src="/qln/public/skinmedic/img/bg-btc.png" class="img-btc" />
+                    <!-- <div class="txt-btc">BỘ TÀI CHÍNH</div> -->
+                    <div class="title">PHẦN MỀM CƠ SỞ DỮ LIỆU NỢ CHÍNH QUYỀN ĐỊA PHƯƠNG</div>
+                </div>
+
+
+            </div>
+            <div id="loginbox" class="login-form panel">
+                <div class="panel-heading">
+                    <div class="panel-title login-title">Đăng nhập hệ thống</div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" style="margin-bottom: 1px !important">
+                        <label>Tài khoản:</label>
+                        <div class="input">
+                            <i class="icon icon-user6 -ap"></i>
+                            <input type="text" class="form-control" id="Username" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mật khẩu:</label>
+                        <div class="input">
+                            <i class="icon icon-uniF148 -ap"></i>
+                            <input type="password" class="form-control" id="Password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <canvas id="canvas" width="120px" height="80" style="border:1px solid #d3d3d3;">
+                                </canvas>
+
+
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="font-size: 16px !important;">Mã bảo mật</label>
+                                <input type="text" class="form-control" id="captcha" style="padding-left: 10px;" />
+                                <button class="btn btn-primary" title="Thử mã khác" style="line-height: 12px;" id="btnrefreshCaptcha"><i
+                                        class="fa fa-refresh"></i><span style="display: inline-block;"></span></button>
+                            </div>
+                        </div>
+                        <div>
+                            <span id="error-captcha" style="color: red; display: none;"></span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-submit" type="button" id="btnLogin"
+                            style="padding: 5px;height: 42px;">Đăng nhập</button>
+                        <p style="font-style:italic; font-weight:bold; color:red; margin-top:10px" id="Message"></p>
+                    </div>
+                    <div class="bottom">
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="title">Địa chỉ: số 28 Trần Hưng Đạo - Quận Hoàn Kiếm - Hà Nội</div>
+                <div>Điện thoại Cổng thông tin điện tử: (84-24) 2220 2828 Fax:(08-24) 2220 8091</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

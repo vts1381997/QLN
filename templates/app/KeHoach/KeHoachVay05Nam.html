@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Kế hoạch vay 5 năm</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/all.css}">
+    <script type="text/javascript" src="/qln/public/js/qln/app/KeHoach/KeHoachVay05NamView.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/KeHoachVay05Nam.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/DonViTienTe.js"></script>
+    <script type="text/javascript" src="/qln/public/libs/utils/jquery.freezeheader.js"></script>
+    <script src="/qln/public/skinqln/js/validate.js"></script>
+    <script src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            oKeHoachVay05NamView = new KeHoachVay05NamView();
+            var id = 100
+            $(".price table").freezeHeader({
+                'height': '150px'
+            })
+            CurrentLayout = "KEHOACHVAY5NAM"
+            $("input[data-type='currency']").on({
+                keyup: function () {
+                    formatCurrency($(this));
+                },
+                blur: function () {
+                    formatCurrency($(this), "blur");
+                }
+            });
+
+            function formatNumber(n) {
+                return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+
+            function formatCurrency(input, blur) {
+                var input_val = input.val();
+                if (input_val === "") {
+                    return;
+                }
+                var original_len = input_val.length;
+                var caret_pos = input.prop("selectionStart");
+                if (input_val.indexOf(".") >= 0) {
+                    var decimal_pos = input_val.indexOf(".");
+                    var left_side = input_val.substring(0, decimal_pos);
+                    var right_side = input_val.substring(decimal_pos);
+                    left_side = formatNumber(left_side);
+                    right_side = formatNumber(right_side);
+                    if (blur === "blur") {
+                        right_side += "";
+                    }
+                    right_side = right_side.substring(0, 2);
+                    input_val = "" + left_side + "." + right_side;
+                } else {
+                    input_val = formatNumber(input_val);
+                    input_val = "" + input_val;
+                    if (blur === "blur") {
+                        input_val += "";
+                    }
+                }
+                input.val(input_val);
+                var updated_len = input_val.length;
+                caret_pos = updated_len - original_len + caret_pos;
+                input[0].setSelectionRange(caret_pos, caret_pos);
+            }
+            var date = moment(); //Get the current date
+            var year = date.format("YYYY")
+            var ngayQuyetDinh = date.format("DD/MM/YYYY")
+            var sum = parseInt(year) + 1
+            var sum1 = parseInt(year) + 6
+            $("#NAMBATDAU").val(sum)
+            $("#NAMKETTHUC").val(sum1)
+            $('#NGAYQUYETDINH').val(ngayQuyetDinh)
+            var selectNam = '<select class="NAM" data-index=0"' + '">' +
+                '<option value="NAM1" selected>Năm thứ nhất</option>' +
+                '<option value="NAM2">Năm thứ hai</option>' +
+                '<option value="NAM3">Năm thứ ba</option>' +
+                '<option value="NAM4">Năm thứ tư</option>' +
+                '<option value="NAM5">Năm thứ năm</option>' +
+                '</select>'
+            var selectNam1 = '<select class="NAM" data-index=1"' + '">' +
+                '<option value="NAM1">Năm thứ nhất</option>' +
+                '<option value="NAM2" selected>Năm thứ hai</option>' +
+                '<option value="NAM3">Năm thứ ba</option>' +
+                '<option value="NAM4">Năm thứ tư</option>' +
+                '<option value="NAM5">Năm thứ năm</option>' +
+                '</select>'
+            var selectNam2 = '<select class="NAM" data-index=2"' + '">' +
+                '<option value="NAM1">Năm thứ nhất</option>' +
+                '<option value="NAM2">Năm thứ hai</option>' +
+                '<option value="NAM3" selected>Năm thứ ba</option>' +
+                '<option value="NAM4">Năm thứ tư</option>' +
+                '<option value="NAM5">Năm thứ năm</option>' +
+                '</select>'
+            var selectNam3 = '<select class="NAM" data-index=3"' + '">' +
+                '<option value="NAM1">Năm thứ nhất</option>' +
+                '<option value="NAM2">Năm thứ hai</option>' +
+                '<option value="NAM3">Năm thứ ba</option>' +
+                '<option value="NAM4" selected>Năm thứ tư</option>' +
+                '<option value="NAM5">Năm thứ năm</option>' +
+                '</select>'
+            var selectNam4 = '<select class="NAM" data-index=4"' + '">' +
+                '<option value="NAM1">Năm thứ nhất</option>' +
+                '<option value="NAM2">Năm thứ hai</option>' +
+                '<option value="NAM3">Năm thứ ba</option>' +
+                '<option value="NAM4">Năm thứ tư</option>' +
+                '<option value="NAM5" selected>Năm thứ năm</option>' +
+                '</select>'
+            var selectNguonvon = '<select class="NGUONVAY" data-index=1"' + '">' +
+                '<option value="VAYODA" selected>Vay ODA</option>' +
+                '<option value="VAYUUDAI">Vay ưu đãi</option>' +
+                '<option value="VAYTRAIPHIEU">Vay trái phiếu CQĐP</option>' +
+                '<option value="VAYKHAC">Vay khác</option>' +
+                '</select>'
+            var elemnt = '<tr class="input-table" id="element-1' + '"><td>' + selectNam + '</td><td>' + selectNguonvon + '</td><td><input style="text-align: right" type="text" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" style="text-align: right" class="SOTIENTRA" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" class="NGUONTRA"></td><td><input type="text" class="GHICHU"></td><td style="text-align: center"><button class="btn btn-danger button-clear" id="element-1' + '">Xóa</button></td></tr>';
+            var elemnt1 = '<tr class="input-table" id="element-2' + '"><td>' + selectNam1 + '</td><td>' + selectNguonvon + '</td><td><input type="text" style="text-align: right" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" style="text-align: right" class="SOTIENTRA" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" class="NGUONTRA"></td><td><input type="text" class="GHICHU"></td><td style="text-align: center"><button class="btn btn-danger button-clear" id="element-2' + '">Xóa</button></td></tr>';
+            var elemnt2 = '<tr class="input-table" id="element-3' + '"><td>' + selectNam2 + '</td><td>' + selectNguonvon + '</td><td><input type="text" style="text-align: right" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" style="text-align: right" class="SOTIENTRA" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" class="NGUONTRA"></td><td><input type="text" class="GHICHU"></td><td style="text-align: center"><button class="btn btn-danger button-clear" id="element-3' + '">Xóa</button></td></tr>';
+            var elemnt3 = '<tr class="input-table" id="element-4' + '"><td>' + selectNam3 + '</td><td>' + selectNguonvon + '</td><td><input type="text" style="text-align: right" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" style="text-align: right" class="SOTIENTRA" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" class="NGUONTRA"></td><td><input type="text" class="GHICHU"></td><td style="text-align: center"><button class="btn btn-danger button-clear" id="element-4' + '">Xóa</button></td></tr>';
+            var elemnt4 = '<tr class="input-table" id="element-5' + '"><td>' + selectNam4 + '</td><td>' + selectNguonvon + '</td><td><input type="text" style="text-align: right" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" style="text-align: right" class="SOTIENTRA" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" class="NGUONTRA"></td><td><input type="text" class="GHICHU"></td><td style="text-align: center"><button class="btn btn-danger button-clear" id="element-5' + '">Xóa</button></td></tr>';
+            $('#table-multi').append(elemnt)
+            $('#table-multi').append(elemnt1)
+            $('#table-multi').append(elemnt2)
+            $('#table-multi').append(elemnt3)
+            $('#table-multi').append(elemnt4)
+            $('#ActionThemMoi').click(function () {
+                var elemnt = '<tr class="input-table" id="element-' + id + '"><td>' + selectNam + '</td><td>' + selectNguonvon + '</td><td><input type="text" style="text-align: right" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" style="text-align: right" class="SOTIENTRA" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></td><td><input type="text" class="NGUONTRA"></td><td><input type="text" class="GHICHU"></td><td style="text-align: center"><button class="btn btn-danger button-clear" id="element-' + id + '">Xóa</button></td></tr>';
+                $('#table-multi').append(elemnt)
+                id++
+                var ypos = $('#hdScrolltbl-1 table tr').offset().top;
+                $('#hdScrolltbl-1').animate({
+                    scrollTop: $('#hdScrolltbl-1').scrollTop() + ypos
+                }, 500);
+                var my = setInterval(() => {
+                    $('#hdtbl-1') ? $('#hdtbl-1').css('top', '') : () => {
+                        return
+                    };
+                }, 10);
+            })
+
+            $('body').on('click', '.button-clear', function () {
+                var id = $(this).attr('id')
+                $('tr#' + id).remove()
+                $(".SOTIENVAY").trigger('keyup')
+            })
+
+            $('body').on('keyup', '.SOTIENVAY', function () {
+                $("input[data-type='currency']").on({
+                    keyup: function () {
+                        formatCurrency($(this));
+                    },
+                    blur: function () {
+                        formatCurrency($(this), "blur");
+                    }
+                });
+
+                function formatNumber(n) {
+                    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+
+                function formatCurrency(input, blur) {
+                    var input_val = input.val();
+                    if (input_val === "") {
+                        return;
+                    }
+                    var original_len = input_val.length;
+                    var caret_pos = input.prop("selectionStart");
+                    if (input_val.indexOf(".") >= 0) {
+                        var decimal_pos = input_val.indexOf(".");
+                        var left_side = input_val.substring(0, decimal_pos);
+                        var right_side = input_val.substring(decimal_pos);
+                        left_side = formatNumber(left_side);
+                        right_side = formatNumber(right_side);
+                        if (blur === "blur") {
+                            right_side += "";
+                        }
+                        right_side = right_side.substring(0, 2);
+                        input_val = "" + left_side + "." + right_side;
+                    } else {
+                        input_val = formatNumber(input_val);
+                        input_val = "" + input_val;
+                        if (blur === "blur") {
+                            input_val += "";
+                        }
+                    }
+                    input.val(input_val);
+                    var updated_len = input_val.length;
+                    caret_pos = updated_len - original_len + caret_pos;
+                    input[0].setSelectionRange(caret_pos, caret_pos);
+                }
+            })
+            $('body').on('keyup', '.SOTIENTRA', function () {
+                $("input[data-type='currency']").on({
+                    keyup: function () {
+                        formatCurrency($(this));
+                    },
+                    blur: function () {
+                        formatCurrency($(this), "blur");
+                    }
+                });
+
+                function formatNumber(n) {
+                    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+
+                function formatCurrency(input, blur) {
+                    var input_val = input.val();
+                    if (input_val === "") {
+                        return;
+                    }
+                    var original_len = input_val.length;
+                    var caret_pos = input.prop("selectionStart");
+                    if (input_val.indexOf(".") >= 0) {
+                        var decimal_pos = input_val.indexOf(".");
+                        var left_side = input_val.substring(0, decimal_pos);
+                        var right_side = input_val.substring(decimal_pos);
+                        left_side = formatNumber(left_side);
+                        right_side = formatNumber(right_side);
+                        if (blur === "blur") {
+                            right_side += "";
+                        }
+                        right_side = right_side.substring(0, 2);
+                        input_val = "" + left_side + "." + right_side;
+                    } else {
+                        input_val = formatNumber(input_val);
+                        input_val = "" + input_val;
+                        if (blur === "blur") {
+                            input_val += "";
+                        }
+                    }
+                    input.val(input_val);
+                    var updated_len = input_val.length;
+                    caret_pos = updated_len - original_len + caret_pos;
+                    input[0].setSelectionRange(caret_pos, caret_pos);
+                }
+            })
+        })
+    </script>
+    <style>
+        table tr td:nth-child(8n-4) {
+            text-align: center
+        }
+
+        table tr td:nth-child(2n-1) {
+            text-align: center
+        }
+
+        table tr td:nth-child(6n-3) {
+            text-align: left
+        }
+
+        table tr td:nth-child(10n-5) {
+            text-align: center
+        }
+
+        table tr td:nth-child(12n-6) {
+            text-align: center
+        }
+
+        table tr td:nth-child(14n-7) {
+            text-align: left
+        }
+
+        table tr td:nth-child(16n-8) {
+            text-align: right;
+        }
+
+        table tr td:nth-child(18n-9) {
+            text-align: right;
+        }
+
+        table tr td:nth-child(20n-10) {
+            text-align: right;
+        }
+
+        table tr td:nth-child(22n-11) {
+            text-align: right;
+        }
+    </style>
+    <style>
+        .input-table input,
+        .input-table select {
+            border: 1px solid #2a9bf5;
+            box-shadow: none;
+            width: 100%;
+            min-height: 25px;
+            border-radius: 3px;
+        }
+
+        #hdtbl-1 {
+            top: 245px !important;
+        }
+    </style>
+    <style>
+        .select2-selection__rendered {
+            font-size: 15px !important;
+        }
+
+        .select2-results__option {
+            font-size: 15px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row" style="margin-top:10px">
+            <span class="glyphicon glyphicon-align-justify"></span><label style="color:red;">&nbspKẾ HOẠCH VAY 5
+                NĂM</label>
+            <hr />
+            <div class="col-sm-12">
+                <div class="row panel panel-primary" id="LIST" style="margin-top: 11px;">
+                    <div class="panel-heading">Danh sách Kế hoạch vay 05 năm</div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover table-columned" id="Grid01"
+                            style="margin-top: 5px;">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px">STT</th>
+                                    <th>Mã kế hoạch</th>
+                                    <th>Tên kế hoạch</th>
+                                    <th>Năm bắt đầu</th>
+                                    <th>Năm kết thúc</th>
+                                    <th>Ngày quyết định</th>
+                                    <th>Đơn vị</th>
+                                    <th>Hạn mức vay</th>
+                                    <th>Dư nợ CQĐP</th>
+                                    <th>Dự kiến vay</th>
+                                    <th>Dự kiến trả</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div role="document" style="width: 100%; height: 100%;">
+                <div class="modal-content" style="height: 100%">
+                    <div class="modal-header" style="display: flex">
+                        <h5 style="width: 99%" class="modal-title" id="exampleModalLongTitle">
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="height: 80%; padding-left: 30px; padding-right: 30px;">
+                        <div class="brow" style="margin-top: 20px">
+                            <div class="row" id="FORM">
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2"><label>Mã kế hoạch<span class="require">(*)</span></label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control validate-form" name="MA" id="MA"
+                                            value="" />
+                                    </div>
+                                    <div class="col-sm-2"><label>Tên kế hoạch</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="TEN" id="TEN" value="" />
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2"><label>Năm bắt đầu</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="number" class="form-control" name="NAMBATDAU" id="NAMBATDAU"
+                                            value="" />
+                                    </div>
+                                    <div class="col-sm-2"><label>Năm kết thúc</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="number" class="form-control" name="NAMKETTHUC" id="NAMKETTHUC"
+                                            value="" />
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2"><label>Ngày quyết định</label></div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control wec-control-date" value=""
+                                                id="NGAYQUYETDINH" name="NGAYQUYETDINH" autocomplete="off" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="$('#NGAYQUYETDINH').focus()"><i
+                                                        class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2"><label>Đơn vị</label></div>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" id="DONVIID" name="DONVIID">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2"><label>Hạn mức vay</label></div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="HANMUCVAY" name="HANMUCVAY"
+                                                pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"
+                                                autocomplete="off" style="text-align: right" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default">VNĐ</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2"><label>Dư nợ vay</label></div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"
+                                                id="DUNOVAY" name="DUNOVAY" autocomplete="off"
+                                                style="text-align: right" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default">VNĐ</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2"><label>Dự kiến vay</label></div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input disabled type="text" class="form-control" id="DUKIENVAY"
+                                                name="DUKIENVAY" autocomplete="off" style="text-align: right" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default">VNĐ</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2"><label>Dự kiến trả nợ</label></div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input disabled type="text" class="form-control" value="" id="DUKIENTRANO"
+                                                name="DUKIENTRANO" autocomplete="off" style="text-align: right" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default">VNĐ</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-md-6" style="margin-bottom: 5px;">
+                                        <form id="uploadForm" enctype="multipart/form-data">
+                                            <input type="file" name="userPhoto" />
+                                            <input type="hidden" id="idrowtable" name='idrowtable' />
+                                            <input type="hidden" id="tablename" name='tablename' />
+                                            <span id="status"></span>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="panel-body"
+                                    style="width: 98%; margin-left: 1%; height: 100%; background: #F5F5F5;">
+                                    <div class="row price">
+                                        <table
+                                            class="table table-striped table-bordered table-hover table-columned text-center"
+                                            style="border: 1px; background: oldlace">
+                                            <thead>
+                                                <tr>
+                                                    <th>Năm</th>
+                                                    <th>Nguồn vay</th>
+                                                    <th>Số tiền dự kiến vay</th>
+                                                    <th>Số tiền dự kiến trả</th>
+                                                    <th>Nguồn trả</th>
+                                                    <th>Ghi chú</th>
+                                                    <th><button type="button" class="btn btn-info" id="ActionThemMoi">
+                                                            Thêm</button></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id='table-multi'>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;padding-right: 100px;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary btnSave">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

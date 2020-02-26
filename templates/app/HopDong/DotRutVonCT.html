@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-sm-2"><label>Lựa chọn dự án</label></div>
+			<div class="col-sm-4">
+				<select class="form-control">
+					<option>Dự án DA-001 </option>
+					<option>Dự án DA-002 </option>
+					<option>Dự án DA-003 </option>
+				</select>
+			</div>
+			<div class="col-sm-2"><label>Số đơn rút vốn/tham chiếu <span class="require">(*)</span></label></div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-2"><label>Ngày nhận nợ</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Số hợp đồng vay lại</label></div>
+			<div class="col-sm-4">
+				<select class="form-control">
+					<option></option>
+					<option></option>
+				</select>
+			</div>
+			<div class="col-sm-2"><label>Nhà tài trợ</label></div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-2"><label>Phương thức giải ngân</label></div>
+			<div class="col-sm-4">
+				<select class="form-control">
+					<option>Giải ngân trực tiếp</option>
+					<option>Giải ngân về tài khoản đặc biệt</option>
+					<option>LC</option>
+				</select>
+			</div>
+			<div class="col-sm-2"><label>Giá trị giải ngân vay lại </label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Nguyên tệ</label></div>
+			<div class="col-sm-4">
+				<select class="form-control" id="MoneyUnit">
+					<option value="VND">VND</option>
+					<option value="USD">USD</option>
+					<option value="EUR">EURO</option>
+				</select>
+			</div>
+			<div class="col-sm-2"><label>Lũy kế giải ngân vay lại </label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Quy ra VNĐ </label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID" />
+			<button type="button" class="btn btn-info" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

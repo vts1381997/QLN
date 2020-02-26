@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/model/BCQuanTri.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/exportExcell.js"></script>
+	<script type="text/javascript" th:src="@{/public/js/qln/core/DataHelper.js}"></script>
+	<script type="text/javascript" th:src="@{/public/js/qln/core/ControlHelper.js}"></script>
+	<script>
+		$(document).ready(function () {
+			let ngaybatdau = Util.Url.getParameterByName('ngaybatdau')
+			let ngayketthuc = Util.Url.getParameterByName('ngayketthuc')
+			let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+			let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
+			let dvt = Util.Url.getParameterByName('dvt')
+			let tendvt = Util.Url.getParameterByName('tendvt')
+			labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
+			$("#txtTinhThanh").text(labelTinhThanh)
+			$("#labelTinhThanh").text(tentinhthanh.toUpperCase())
+			$("#txtTuNgayDenNgay").text('Từ ngày ' + ngaybatdau + ' đến ngày ' + ngayketthuc)
+			$("#txtDvt").text(tendvt)
+			let donvitinh = Util.Url.getParameterByName('donvitinh')
+			$("#donvitinh").text(donvitinh)
+			$("#titlebc").text("BÁO CÁO ĐỐI CHIẾU SỐ LIỆU VAY TỪ NHÀ TÀI TRỢ VÀ SỐ LIỆU VAY TỪ NGÂN QUỸ NHÀ NƯỚC TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " ")
+			$("#tinhthanhid").text(tentinhthanh)
+			$("#tentinhthanh").text(tentinhthanh)
+			$("#thaymat").text(tentinhthanh)
+			var ngay = fnc_ngayhientai().split("-")[2]
+			var thang = fnc_ngayhientai().split("-")[1]
+			var nam = fnc_ngayhientai().split("-")[0]
+			$("#txtNgay").text(ngay)
+			$("#txtThang").text(thang)
+			$("#txtNam").text(nam)
+			var bcquantri = new BCQuanTri();
+			var option = ''
+			var dt = {
+				thanhpho: Number(tinhthanhid),
+				tungay: ngaybatdau,
+				denngay: ngayketthuc,
+				i_dvt: Number(dvt)
+			}
+			var listdt = bcquantri.getBCDoiChieuSoLieuVayNQNN(dt)
+			for (var i = 0; i < listdt.length; i++) {
+				var _item = listdt[i];
+				option = option + '<tr>\
+							<td style="text-align:center" colspan="1" >'+ Number(i + 1) + '</td>\
+							<td style="text-align:left" colspan="1" >\
+									'+ _item.TENDONVI + '\
+								</td>\
+							<td  style="text-align:left" colspan="1" >\
+								'+ _item.HOPDONG + '\
+							</td>\
+							<td  style="text-align:right" colspan="1" >\
+									'+ formatMoney(_item.SOTIEN) + '\
+							</td>\
+							<td  style="text-align:right" colspan="1" >'+ formatMoney(Number(_item.SOTIENNQNN1) + Number(_item.SOTIENNQNN2)) + '</td>\
+							<td colspan="1" >\
+							</td>\
+						</tr>'
+			}
+			$("#tblDanhSach tbody").append(option)
+			var ngay = fnc_ngayhientai().split("-")[2]
+			var thang = fnc_ngayhientai().split("-")[1]
+			var nam = fnc_ngayhientai().split("-")[0]
+			$("#txtNgay").text(ngay)
+			$("#txtThang").text(thang)
+			$("#txtNam").text(nam)
+			$('#exportExcell').click(function () {
+				exportTableToExcel('tblDanhSach', 'BCDoiChieuSoLieuVayNQNN')
+			})
+		})
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<button class="btn btn-primary" id="exportExcell">Kết xuất excel</button>
+			<button class="btn btn-primary" onclick="window.print()">In báo cáo</button>
+			<table id='tableDanhsachParent' class="table table-striped text-center"
+				style="width: 100%; border: none; border: 1">
+				<tr>
+					<td colspan="10" style="border: none;">
+						<table style="width: 100%; border: none;">
+							<tr>
+								<td class="size14 inhoa" colspan="5" s style="border: none;width: 50%"><label
+										style="font-weight: bold;font-size: 17px !important;" id="tentinhthanh"></label>
+								</td>
+								<td class="size14 inhoa" colspan="5" style="text-align: center !important;width: 50%">
+									CỘNG HÒA XÃ
+									HỘI CHỦ
+									NGHĨA
+									VIỆT NAM</td>
+							</tr>
+							<tr>
+								<td class="size14" colspan="5">***********</td>
+								<td class="size14" colspan="5" style="text-align: center !important">Độc lập - Tự do -
+									Hạnh phúc
+								</td>
+							</tr>
+							<tr>
+								<td class="size14" colspan="5">Số: </td>
+
+								<td class="size14" colspan="5" style="text-align: center !important">***********</td>
+							</tr>
+							<tr>
+								<td class="size14" colspan="8" style="text-align: center !important"></td>
+							</tr>
+							<tr>
+								<td class="size14" colspan="5">V/v Báo cáo đối chiếu số liệu vay từ nhà tài trợ và số
+									liệu vay từ NQNN
+								</td>
+								<td class="size14" colspan="5" style="text-align: center !important"><i>
+										<i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i
+											id="txtThang"></i>, năm <i id="txtNam"></i>
+									</i></i>
+								</td>
+							</tr>
+							<br>
+							<tr>
+								<td class="size14" colspan="10"><label
+										style="font-weight: bold;font-size: 17px !important;font-family: Times New Roman, Times, serif;"
+										id="titlebc"></label></td>
+							</tr>
+							<tr>
+								<td class="size14" colspan="10" style="text-align: right !important"> Đơn vị: <label
+										id="donvitinh"></label></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr style="border: none;">
+					<td colspan="12" style="border: none;">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="tblDanhSach" style="border: 1px  solid gray" border="1">
+							<thead>
+								<tr>
+									<th style="width:40px; text-align: center;">STT</th>
+									<th>
+										Tên đơn vị
+									</th>
+									<th style="text-align: center;">
+										Hợp đồng
+									</th>
+									<th style="text-align: center;">
+										Số tiền
+									</th>
+									<th style="text-align: center;">
+										Số tiền ngân quỹ
+									</th>
+									<th style="text-align: center;">
+										Ghi chú
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr style="border: none;">
+					<td colspan="10" style="border: none;width: 100%;">
+						<table style="width: 100%; border: none;">
+							<tr style="border: none;">
+								<td style="border: none; text-align: center;width: 50%">
+									<strong>
+										Nơi nhận:<br />
+									</strong>
+									- Như trên<br />
+									- Lưu:…..<br />
+								</td>
+								<td style="border: none; text-align: center;width: 50%">
+									<strong>
+										TM. <label class="inhoa" id="thaymat"></label>
+										<br>
+									</strong>
+									<i>(Ký, ghi rõ họ tên và đóng dấu)</i>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</body>
+
+</html>

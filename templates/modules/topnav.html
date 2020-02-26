@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" th:src="@{/public/js/qln/modules/TopNav.js?20190701.001}"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+
+
+</head>
+
+<body>
+    <div th:fragment="topnav">
+        <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul id="topnav-bar" class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a href="/qln/app/common/dashboard" class="nav-link"><span
+								class="icon -ap  icon-home"></span></a>
+                    </li>
+                    <!-- <li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Quản trị hệ thống<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+
+								<a href="/qln/app/HeThong/NguoiDung">1. Danh sách người sử dụng</a>
+								<a href="/qln/app/HeThong/NhomNguoiDung">2. Danh sách nhóm người sử dụng</a>
+								<a href="/qln/app/HeThong/PhanQuyenBaoCao">3. Phân quyền báo cáo</a>
+								<a href="#">4. Danh sách các chức năng</a>
+								<a href="/qln/app/HeThong/PhanQuyenChucNang">5. Phân quyền chức năng</a>
+								<a href="/qln/app/HeThong/TraCuuLichSu">6. Tra cứu lịch sử</a>
+								<a href="/qln/app/HeThong/Menu">7. Menu</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Danh mục<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+								<a href="/qln/app/danhmuc/TinhThanh">1. Tỉnh/Thành phố</a>
+								<a href="/qln/app/danhmuc/ToChucTaiChinh">2. Tổ chức tài chính, tín dụng</a>
+								<a href="/qln/app/danhmuc/ToChucMuaTraiPhieu">3. Tổ chức mua trái phiếu</a>
+								<a href="/qln/app/danhmuc/NhaTaiTro">4. Danh mục nhà tài trợ</a>
+								<a href="/qln/app/danhmuc/DuAn">5. Dự án</a>
+								<a href="/qln/app/danhmuc/TyGia">6. Tỷ giá ngân hàng</a>
+								<a href="/qln/app/danhmuc/BieuMauBaoCao">7. Danh sách báo cáo</a>
+								<a href="/qln/app/danhmuc/DonVi">8. Đơn Vị</a>
+
+
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Kế hoạch vay vốn<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+
+								<a href="/qln/app/KeHoach/KeHoachVayHangNam">1. Kế hoạch vay hàng năm</a>
+								<a href="/qln/app/KeHoach/KeHoachVay03Nam">2. Kế hoạch vay 03 năm</a>
+								<a href="/qln/app/KeHoach/KeHoachVay05Nam">3. Kế hoạch vay 05 năm</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Vay ODA<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+								<a href="/qln/app/VayODA/HopDongVayLai">1. Hợp đồng vay lại</a>
+								<a href="/qln/app/VayODA/PhuLucHopDongVayLai">2. Phụ lục hợp đồng vay lại</a>
+								<a href="/qln/app/VayODA/DotRutVon">3. Rút vốn </a>
+								<a href="/qln/app/VayODA/DotTraNo">4. Trả nợ, trả lãi</a>
+								<a href="/qln/app/VayODA/BienDongTS">5. Biến động tài sản bảo đảm tiền vay</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Vay trái phiếu CQĐP<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+								<a href="/qln/app/TraiPhieu/DeAnPHTP">1. Đề án phát hành trái phiếu</a>
+								<a href="/qln/app/TraiPhieu/DotPHTP">2. Đợt phát hành trái phiếu</a>
+								<a href="/qln/app/TraiPhieu/MuaLaiTP">3. Đợt mua lại trái phiếu</a>
+								<a href="/qln/app/TraiPhieu/HoanDoiTP">4. Đợt hoán đổi trái phiếu</a>
+								<a href="/qln/app/TraiPhieu/HoanDoiTP">5. Tổng hợp báo cáo định kì CQĐP</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Vay khác<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+								<a href="/qln/app/VayKhac/VayKBNN">1. Ngân quỹ Nhà nước (KBNN)</a>
+								<a href="/qln/app/VayKhac/VayQuyDuTruTinh">2. Quỹ dự trữ cấp Tỉnh</a>
+								<a href="/qln/app/VayKhac/VayVDB">3. Ngân hàng VDB</a>
+								<a href="/qln/app/VayKhac/VayTCTCTDTN">4. TCTC, TCTD trong nước</a>
+
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Báo cáo<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+								<a href="/qln/app/BaoCao/BCQuanTri">1. Báo cáo quản trị</a>
+								<a href="/qln/app/BaoCao/BCTheoThongTu">2. Báo cáo theo NĐ 93</a>
+								<a href="/qln/app/BaoCao/BCTT80">3. Báo cáo theo TT 80</a>
+								<a href="/qln/app/BaoCao/BCTT84">4. Báo cáo theo TT 84</a>
+								<a href="/qln/app/BaoCao/BCKhac">5. Báo cáo khác</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="dropdown menu_level_1">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Hỗ trợ <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="active menu_level_2">
+								<a href="/qln/app/BaoCao/BCQuanTri">1. Thông tin hỗ trợ (*)</a>
+								<a href="/qln/app/BaoCao/BCTheoThongTu">2. Hướng dẫn sử dụng</a>
+								<a href="/qln/app/BaoCao/BCKhac">3. Các câu hỏi thường gặp</a>
+								<a href="/qln/app/BaoCao/BCKhac">4. Sơ đồ trang</a>
+							</li>
+						</ul>
+					</li> -->
+                </ul>
+            </div>
+        </nav>
+    </div>
+</body>
+
+</html>

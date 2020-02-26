@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/main">
+<head>
+<meta charset="utf-8" />
+<title>Test</title>
+<style type="text/css">
+th {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="row DmNhanVienList">
+			<h2 class="screen-label">Chức năng test dispactch</h2>
+			<div class="col-sm-12" style="margin: 0px">
+				<div class="row ACTIONS well well-sm">
+
+					<button type="button" class="btn btn-default btn-sm" id="btnAddNew">
+						<i class="fa fa-plus-circle"></i> Thêm mới
+					</button>
+					<button type="button" class="btn btn-default btn-sm" id="btnEdit"
+						disabled="disabled">
+						<i class="fa fa-edit"></i> Sửa
+					</button>
+					<button type="button" class="btn btn-default btn-sm" id="btnSave"
+						disabled="disabled">
+						<i class="fa fa-save"></i> Lưu
+					</button>
+					<button type="button" class="btn btn-default btn-sm" id="btnDelete"
+						disabled>
+						<i class="fa fa-trash"></i> Xóa
+					</button>
+					<button type="button" class="btn btn-default btn-sm" id="btnCancel">
+						<i class="fa fa-remove"></i> Hủy
+					</button>
+				</div>
+				<div class="col-sm-4">
+					<form class="row FORM well well-sm">
+						<div class="col-sm-4">
+							<label>Component</label>
+						</div>
+						<div class="col-sm-8">
+							<label th:text="${component}"></label>
+						</div>
+						<div class="col-sm-4">
+							<label>Screen</label>
+						</div>
+						<div class="col-sm-8">
+							<label th:text="${screen}"></label>
+						</div>
+						<div class="col-sm-4">
+							<label>Params</label>
+						</div>
+						<div class="col-sm-8">
+							<label th:text="${params}"></label>
+						</div>
+
+
+					</form>
+				</div>
+				<div class="col-sm-8">
+					<div class="row panel panel-default" id="LIST">
+						<div class="panel-body"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/model/BCKhac.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+	<script>
+		$(document).ready(function () {
+			let ngaybatdau = Util.Url.getParameterByName('ngaybatdau')
+			let ngayketthuc = Util.Url.getParameterByName('ngayketthuc')
+			let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
+			let donvitinh = Util.Url.getParameterByName('donvitinh')
+			let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+			var bckhac = new BCKhac();
+			var txtTinhThanh = tentinhthanh.replace('UBND', '').replace('Tỉnh', '').replace('Thành phố', '')
+			$("#txtTinhThanh").text(txtTinhThanh)
+			var ngay = fnc_ngayhientai().split("-")[2]
+			var thang = fnc_ngayhientai().split("-")[1]
+			var nam = fnc_ngayhientai().split("-")[0]
+			$("#txtNgay").text(ngay)
+			$("#txtThang").text(thang)
+			$("#txtNam").text(nam)
+			$("#tentinhthanh").text(tentinhthanh)
+			$("#thaymat").text(tentinhthanh)
+			$("#donvitinh").text(donvitinh)
+			$("#titlebc").text("BÁO CÁO NỘI DUNG TRẢ NỢ VAY LẠI")
+			var dt = {
+				tinhthanhid,
+				ngaybatdau,
+				ngayketthuc
+			}
+			var listdt = bckhac.getBCTNTL(dt)
+			var option = ''
+			for (var i = 0; i < listdt.length; i++) {
+
+
+				var _item = listdt[i];
+				var a = listtiente.filter(a => a.TIENTEID == _item.TIENTEID)
+
+				var tigia = Number(_item.TYGIA.replace(',', ''))
+				var tien = _item.TONGSOTIENPHAITRA * tigia
+				var nghiavu = ''
+				if (_item.SOTIENTRAGOC > 0) {
+					nghiavu = nghiavu + 'Gốc, '
+				}
+				if (_item.SOTIENTRALAI > 0) {
+					nghiavu = nghiavu + 'Lãi, '
+				}
+				if (_item.SOTIENTRAPHI > 0) {
+					nghiavu = nghiavu + 'Phí, '
+				}
+				nghiavu = nghiavu.substring(0, nghiavu.length - 2)
+				option = option + '<tr>\
+						<td style="text-align:left" colspan="1" >'+ (i + 1) + '</td>\
+						<td style="text-align:left" colspan="1" >\
+								'+ _item.TENDUAN + '\
+							</td>\
+						<td  style="text-align:left" colspan="1" >\
+							'+ nghiavu + '\
+						</td>\
+						<td  style="text-align:left" colspan="1" >\
+							'+ _item.TENNHATAITRO + '\
+						</td>\
+						<td  style="text-align:left" colspan="1" >\
+								'+ _item.SOHD + '\
+						</td>\
+						<td  style="text-align:center;width:100px" colspan="1" >'+ chuyentien(_item.TONGSOTIENPHAITRA) + '</td>\
+						<td  style="text-align:left;width:100px" colspan="1" >'+ chuyentien(String(tien).split('.')[0]) + '</td>\
+						<td  style="text-align:left;width:100px" colspan="1" >'+ _item.TYGIA + '</td>\
+						<td style="text-align:center" colspan="1" >\
+							'+ _item.NGAYTRA + '\
+						</td>\
+						<td   style="text-align:right">\
+								'+ _item.SOLENHCHI + '\
+						</td>\
+					</tr>'
+			}
+			$("#tblDanhSach tbody").append(option)
+		})
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-sm-12" style="margin-top:50px">
+					<table style="width: 100%;">
+                            <tr>
+                                <td class="size14 inhoa" colspan="5"><label
+                                        style="font-weight: bold;font-size: 17px !important;" id="tentinhthanh"></label></td>
+                                <td class="size14 inhoa" colspan="5" style="text-align: center !important;">CỘNG HÒA XÃ HỘI CHỦ
+                                    NGHĨA
+                                    VIỆT NAM</td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="5">***********</td>
+        
+                                <td class="size14" colspan="5" style="text-align: center !important">Độc lập - Tự do - Hạnh phúc
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="5">Số: </td>
+        
+                                <td class="size14" colspan="5" style="text-align: center !important">***********</td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="10" style="text-align: center !important"></td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="5">V/v Báo cáo kết quả phát hành trái phiếu</td>
+                                <td class="size14" colspan="5" style="text-align: center !important"><i>
+                                        <i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i id="txtThang"></i>, năm <i
+                                            id="txtNam"></i>
+                                    </i></i>
+                                </td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <td class="size14" colspan="10"><label
+                                        style="font-weight: bold;font-size: 17px !important;font-family: Times New Roman, Times, serif;"
+                                        id="titlebc"></label></td>
+                            </tr>
+                            <!-- <tr>
+                                <td class="size14" colspan="9" style="text-align: right !important"> Đơn vị: <label
+                                        id="donvitinh"></label></td>
+                                <td></td>
+                            </tr> -->
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+				<table class="table table-striped table-bordered table-hover table-columned text-center"
+					id="tblDanhSach">
+					<thead>
+						<!-- <tr>
+							<td colspan="10">
+								<div class="row">
+									<div class="col-sm-6" style="text-align: center; font-size: 15px;">
+										<strong class="inhoa">
+											<span id="tentinhthanh"></span><br>
+											-----------<br>
+										</strong> Số: …..<br> V/v Báo kết kế hoạch vay lũy kế
+									</div>
+									<div class="col-sm-6" style=" text-align: center; font-size: 15px;">
+										<strong class="inhoa" style="text-align: center; display: block;">
+											CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br>
+											<span style="display: block; text-align: center;">
+												Độc lập - Tự do - Hạnh phúc
+											</span>
+											------------<br>
+										</strong>
+										<i>
+											<i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i
+												id="txtThang"></i>, năm <i id="txtNam"></i>
+										</i>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="10" class="text-center">
+								<label class="text-center">
+									<strong style="font-size:17px" class="inhoa">BÁO CÁO NỘI DUNG TRẢ NỢ VAY
+										LẠI</strong><br />
+
+								</label>
+								<br>
+							</td>
+						</tr> -->
+						<tr>
+							<th rowspan="2">STT</th>
+							<th rowspan="2">Tên dự án</th>
+							<th rowspan="2">Nghĩa vụ nợ (gốc, lãi, phí)</th>
+							<th rowspan="2">Nhà tài trợ</th>
+							<th rowspan="2">Số hợp đồng CVL</th>
+							<th colspan="3">Số tiền</th>
+							<th rowspan="2">Ngày trả nợ</th>
+							<th rowspan="2">Số lệnh chi</th>
+						</tr>
+						<tr>
+							<th>Nguyên tệ</th>
+							<th>Quy VNĐ</th>
+							<th>Tỉ giá</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+					<tfoot>
+
+						<tr>
+							<td colspan="10" style="padding-top: 20px !important;">
+								<div class="row">
+									<div class="col-sm-6" style="text-align: center;">
+										<strong>
+											Nơi nhận:<br />
+										</strong> - Như trên<br /> - Lưu:…..<br />
+									</div>
+									<div class="col-sm-6" style=" text-align: center;">
+										<strong>
+											TM. <label class="inhoa" id="thaymat"></label>
+
+										</strong>
+										<br>
+
+										<i>(Ký, ghi rõ họ tên và đóng dấu)</i>
+									</div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<br />
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

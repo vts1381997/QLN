@@ -1,0 +1,193 @@
+.login-canvas {
+    position: absolute;
+    background: #003d4f;
+    height: 100%;
+    background: -moz-linear-gradient(-45deg, #003d4f 0, #003d4f 13%, #88a86d 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, #003d4f), color-stop(13%, #003d4f), color-stop(100%, #88a86d));
+    background: -webkit-linear-gradient(-45deg, #003d4f 0, #003d4f 13%, #88a86d 100%);
+    background: -o-linear-gradient(-45deg, #003d4f 0, #003d4f 13%, #88a86d 100%);
+    background: -ms-linear-gradient(-45deg, #003d4f 0, #003d4f 13%, #88a86d 100%);
+    background: linear-gradient(135deg, #003d4f 0, #003d4f 13%, #88a86d 100%);
+    width: 100%
+}
+
+.login-canvas .bg {
+    background-image: url("../img/bg-banner.jpg");
+    background-position: fixed;
+    background-size: cover;
+    opacity: .08;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0
+}
+
+.login-canvas .logo {
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2
+}
+
+.login-canvas .logo img {
+    height: 80px;
+    display: inline-block
+}
+
+.login-canvas .login-title {
+    display: block !important;
+    font-weight: bold !important;
+    font-size: 16px;
+    color: #004e9e;
+}
+
+.login-canvas .top-login .content .txt-btc {
+    font-weight: bold;
+    font-size: 30px;
+    color: red;
+    text-shadow: 4px 4px 3px #1c1f21;
+}
+
+.login-canvas .img-btc {
+    margin-top: -40px;
+    width: 150px;
+    height: 130px;
+}
+
+.login-canvas .top-login {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+}
+
+.login-canvas .top-login .content {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+    text-align: center;
+    align-content: center;
+}
+
+.login-canvas .top-login .content .title {
+    margin-top: 1px;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    text-shadow: 4px 4px 3px #1c1f21;
+}
+
+.login-canvas .footer {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    opacity: .8;
+}
+
+.login-canvas .login-form {
+    position: absolute !important;
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 0;
+    position: relative;
+    z-index: 2;
+    box-shadow: 3px 3px 7px;
+    top: 31% !important;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.login-canvas .login-form .panel-heading {
+    background: #f6f6f6;
+    border-bottom: 1px solid #ddd;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 1px 10px;
+    text-align: center
+}
+
+.panel-body {
+    padding: 0px 10px !important;
+}
+
+.login-canvas .login-form .panel-body {
+    padding: 1px 10px !important;
+}
+
+.login-canvas .login-form .form-control {
+    border-radius: 2px;
+    height: auto;
+    padding: 5px 5px;
+    padding-left: 30px;
+    box-shadow: none
+}
+
+.login-canvas .login-form .input {
+    position: relative
+}
+
+.login-canvas .login-form .input .icon {
+    width: 30px;
+    height: 30px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    line-height: 30px;
+    opacity: .6;
+    position: absolute;
+    border-right: 1px solid #ddd
+}
+
+.login-canvas .login-form .actions {
+    margin: 10px 0
+}
+
+.login-canvas .login-form .btn-submit {
+    width: 100%;
+    padding: 10px;
+    display: block;
+    border-radius: 3px;
+    background: #f92d00;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase
+}
+
+.login-canvas .login-form .btn-submit:hover {
+    background: #c62400
+}
+
+.login-canvas .login-form .bottom {
+    text-align: center;
+    margin-top: 20px
+}
+
+.login-canvas .login-form .bottom .note {
+    opacity: .6
+}
+
+.login-canvas .login-form .bottom .btn-reg {
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #1E88E5;
+    width: 100%;
+    display: block;
+    color: #1E88E5;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold
+}
+
+.login-canvas .login-form .bottom .btn-reg:hover {
+    background: #1E88E5;
+    color: #fff
+}

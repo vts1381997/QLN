@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/VayKhac/VayVDBViewCT.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/VayVDB.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/DuAn.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+	<script type="text/javascript">
+		oVayVDBViewCT = new VayVDBViewCT();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="row">
+				<div class="col-sm-2"><label>Tỉnh thành</label></div>
+				<div class="col-sm-4">
+					<select style="text-align: center" class="form-control" id="TINHTHANHID">
+					</select>
+				</div>
+				<div class="col-sm-2"><label>Ngày vay</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control wec-control-date"
+							name="NGAYVAY" id="NGAYVAY" value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#NGAYVAY').focus()"><i
+									class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Dư nợ đầu kỳ</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" name="DUNODAUKY"
+							id="DUNODAUKY" value="" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Vay trong kỳ</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" value="" id="VAYTRONGKY"
+							name="VAYTRONGKY" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Trả nợ gốc</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" name="TRANOGOC" id="TRANOGOC"
+							value="" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Lũy kế trả gốc</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" value="" id="LUYKETRAGOC"
+							name="LUYKETRAGOC" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Trả lãi/phí</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" name="TRALAIPHI" id="TRALAIPHI"
+							value="" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">%</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Số tiền còn lại</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" style="text-align: center" class="form-control" value="" id="SOTIENCONLAI"
+							name="SOTIENCONLAI" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default MoneyUnitLabel">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="ACTIONS" style="padding:10px">
+				<button type="button" style="margin-left: 860px" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+					Lưu</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

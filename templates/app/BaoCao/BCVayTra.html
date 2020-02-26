@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-sm-3 pull-left text-center">
+				BỘ TÀI CHÍNH <br>
+				CỤC QUẢN LÝ NỢ VÀ ĐỐI NGOẠI
+			</div>
+		   
+			<div class="text-center col-sm-12">
+				<label class="text-center" style="font-size:17px">BÁO CÁO TÌNH HÌNH VAY TRẢ NỢ CỦA CQĐP NĂM 2018</label>
+				<br />
+				<div style="font-style:italic;font-size:15px">
+					Ngày 16/09/2018
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<br />
+				<table class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach">
+					<thead>
+						<tr>
+							<th><input type="checkbox" name="name" value="" /></th>
+							<th style="width:40px">STT</th>
+							<th>
+								Tên đơn vị
+							</th>
+							<th>
+								Nguồn vay
+							</th>
+							<th>
+								Hợp đồng
+							</th>
+							<th>
+								Ngày hợp đồng
+							</th>
+							<th>
+								Kỳ hạn
+							</th>
+							<th>
+								Thời hạn vay
+							</th>
+							<th>
+								Dư nợ đầu kỳ
+							</th>
+							<th>
+								Số tiền vay
+							</th>
+							<th>
+								Số tiền trả
+							</th>
+							<th>
+								Dư nợ cuối kỳ
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox" name="name" value="" /></td>
+							<td>1</td>
+							<td>Văn phòng Thanh Xuân</td>
+							<td>Nhà nước</td>
+							<td>Số HD_01</td>
+							<td>12/12/2012</td>
+							<td>5 năm</td>
+							<td>5 năm</td>
+							<td>100.000.000</td>
+							<td>200.000.000</td>
+							<td>0</td>
+							<td>300.000.000</td>
+	
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

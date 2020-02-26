@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+
+	<script type="text/javascript" th:src="@{/public/libs/datatable/js/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" th:src="@{/public/libs/jquery-ui-1.12.1.custom/jquery-ui.min.js}"></script>
+	<script type="text/javascript" th:src="@{/public/js/qln/core/DataHelper.js}"></script>
+	<script type="text/javascript" th:src="@{/public/js/qln/core/ControlHelper.js}"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/BCQuanTri.js"></script>
+	<script th:src="@{/public/libs/numeral.min.js}"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/exportExcell.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/BaoCaoQuanTri/ReportTT93Mau03View.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/ReportTT93Mau03.js"></script>
+	<script src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+	<script type="text/javascript">
+		function formatMoney1(amount, decimalCount = 0, decimal = ".", thousands = ",") {
+			if (amount == null) {
+				return ""
+			}
+			try {
+				decimalCount = Math.abs(decimalCount);
+				decimalCount = isNaN(decimalCount) ? 0 : decimalCount;
+
+				const negativeSign = amount < 0 ? "-" : "";
+
+				let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+				let j = (i.length > 3) ? i.length % 3 : 0;
+
+				return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+			} catch (e) {
+				console.log(e)
+			}
+		};
+		$(document).ready(function () {
+			var reportTT93Mau03 = new ReportTT93Mau03();
+			// var data = { i_nam: 2019 }
+			// reportTT93Mau03.getBC(data);
+			var objTinhThanh = Util.Url.getParameterByName('tentinhthanh')
+			objTinhThanh = objTinhThanh.replace('Tỉnh', '').replace('Thành phố', '').replace('Bộ Tài Chính', '')
+			var objNam = Util.Url.getParameterByName('namquyetdinh')
+			$("#txtNam").text(objNam)
+			var data = { nam: Number(objNam) }
+			reportTT93Mau03.getBC(data);
+			objTinhThanh = objTinhThanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '').replace('Bộ Tài Chính', '')
+			$("#labelTinhThanh").text(objTinhThanh.toUpperCase())
+			var sumKhoiLuongPhatHanh = 0;
+			var sumKhoiLuongPhatHanhThanhCong = 0;
+			var objKyHan = [];
+			var objKhoiLuong = [];
+			var trongNam = 0;
+			for (var i = 0; i < reportTT93Mau03.LIST.length; i++) {
+				var _item = reportTT93Mau03.LIST[i];
+				if (_item.TYPE == 2) {
+					trongNam = Number(trongNam) + Number(_item.KHOILUONGPHATHANHTHANHCONG)
+					$("#spanKyHan").append("- Kỳ hạn " + _item.KYHANTRAIPHIEU + " năm, khối lượng " + formatMoney1(fnc_nvl(_item.KHOILUONGPHATHANHTHANHCONG, 0)) + " tỷ đồng<br>")
+				}
+				else {
+					$("#labelSoDuTraiPhieuCuoiKy").text(formatMoney1(_item.SODUCUOIKY))
+					$("#txtTraNoGoc").text(formatMoney1(_item.DATRANOGOC))
+					$("#txtTraNoLai").text(formatMoney1(_item.DATRANOLAI))
+				}
+				// if (_item.TENTOCHUCPHATHANH.includes(objTinhThanh)) {
+				// 	sumKhoiLuongPhatHanh = Number(sumKhoiLuongPhatHanh) + Number(_item.KHOILUONGPHATHANH)
+				// 	sumKhoiLuongPhatHanhThanhCong = Number(sumKhoiLuongPhatHanhThanhCong) + Number(_item.KHOILUONGPHATHANHTHANHCONG)
+				// 	if (_item.NGAYKYHANTRAIPHIEU) {
+				// 		objKyHan.push(_item.NGAYKYHANTRAIPHIEU)
+				// 		objKhoiLuong.push(String(_item.KHOILUONGPHATHANH))
+				// 	}
+				// }
+			}
+			var cuoiKy = Number(fnc_replace($("#labelSoDuTraiPhieuCuoiKy").text(), ',', ''))
+			$("#labelSoDuTraiPhieu").text(formatMoney1(Number(cuoiKy) - Number(trongNam)))
+			var listkhoiluong = []
+			for (var i = 0; i < deduplicate(objKyHan.sort()).length; i++) {
+				var tong = 0
+				var a = deduplicate(objKyHan.sort())
+				// $("#spanKyHan").append("- Kỳ hạn "+a[i]+" năm, khối lượng ..... tỷ đồng<br>")
+				for (j = 0; j < reportTT93Mau03.LIST.length; j++) {
+					if (reportTT93Mau03.LIST[j].NGAYKYHANTRAIPHIEU == a[i]) {
+						tong = tong + reportTT93Mau03.LIST[j].KHOILUONGPHATHANH
+					}
+				}
+				listkhoiluong.push({ kyhan: a[i], khoiluong: tong })
+			}
+			$("#labelSoDuTraiPhieu").text(((Number(sumKhoiLuongPhatHanh) - Number(sumKhoiLuongPhatHanhThanhCong)) / 1000000000))
+			for (var i = 0; i < listkhoiluong.length; i++) {
+				// $("#spanKyHan").append("- Kỳ hạn " + listkhoiluong[i].kyhan + " năm, khối lượng " + formatMoney1(listkhoiluong[i].khoiluong) + " tỷ đồng<br>")
+
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-sm-3 pull-left text-center">
+				<strong>
+					ỦY BAN NHÂN DÂN TỈNH/<br>
+					THÀNH PHỐ <strong id="labelTinhThanh"></strong><br>
+					-----------<br>
+				</strong>
+				Số: …..<br>
+				V/v Báo kết quả phát hành trái phiếu chính <br>
+				quyền địa phương
+
+			</div>
+			<div class="col-sm-9 text-center">
+				<strong>
+					CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br>
+					Độc lập - Tự do - Hạnh phúc <br>
+					------------<br><br>
+				</strong>
+				<i>
+					…….., ngày ….. tháng ….. năm…….
+				</i>
+			</div>
+			<div class="text-center col-sm-12">
+				<div class="text-center" style="font-weight: bold;">
+					Kính gửi: Bộ Tài Chính.<br />
+					Căn cứ quy định …………., Ủy ban nhân dân tỉnh/thành phố báo cáo về tình hình huy động và trả nợ gốc,
+					lãi trái phiếu chính quyền địa phương như sau:
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div>
+					<ol>
+						<li><strong>1. Số dư trái phiếu chính quyền địa phương đầu kỳ <strong
+									id="labelSoDuTraiPhieu"></strong> tỷ
+								đồng.</strong></li>
+						<li><strong>2. Số ph&aacute;t h&agrave;nh tr&aacute;i phiếu ch&iacute;nh quyền địa phương trong
+								năm <strong id="txtNam"></strong></strong></li>
+					</ol>
+					<div id="spanKyHan">
+					</div>
+					<!-- <p><span style="font-weight: 400;">- Kỳ hạn 2 năm, khối lượng ... tỷ đồng.</span></p>
+					<p><span style="font-weight: 400;">- Kỳ hạn 3 năm, khối lượng ... tỷ đồng.</span></p>
+					<p><span style="font-weight: 400;">- Kỳ hạn 5 năm, khối lượng ... tỷ đồng.</span></p>
+					<p><span style="font-weight: 400;">&hellip;</span></p> -->
+					<ol start="3">
+						<li><span style="font-weight: 400;"> T&igrave;nh h&igrave;nh thanh to&aacute;n gốc, l&atilde;i
+								trong kỳ:</span></li>
+					</ol>
+					<p><span style="font-weight: 400;">- Trả nợ gốc: <span id="txtTraNoGoc"></span> tỷ đồng
+							(thời&nbsp;điểm&nbsp;thanh to&aacute;n).</span></p>
+					<p><span style="font-weight: 400;">- Trả nợ lãi: <span id="txtTraNoLai"></span> tỷ đồng
+							(thời&nbsp;điểm&nbsp;thanh to&aacute;n).</span></p>
+					<ol start="4">
+						<li><span style="font-weight: 400;"> Số dư tr&aacute;i phiếu ch&iacute;nh quyền địa phương cuối
+								kỳ <span id="labelSoDuTraiPhieuCuoiKy"></span> tỷ đồng.</span></li>
+					</ol>
+				</div>
+
+			</div>
+			<div class="col-sm-12">
+				<div class="col-sm-3 pull-left text-center">
+					<strong>
+						Nơi nhận:<br />
+					</strong>
+					- Như trên<br />
+					- Lưu:…..<br />
+				</div>
+				<div class="col-sm-9 text-center">
+					<strong>
+						TM. ỦY BAN NHÂN DÂN TỈNH/<br />
+						THÀNH PHỐ<br />
+					</strong>
+					<i>(Ký, ghi rõ họ tên và đóng dấu)</i>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

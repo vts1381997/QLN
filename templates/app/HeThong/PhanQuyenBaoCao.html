@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<link rel="stylesheet" th:href="@{/public/libs/utils/select2.min.css}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
+
+	<script>$(document).ready(function () {
+			var $exampleMulti = $(".js-example-programmatic-multi").select2();
+			$exampleMulti.val(["AL", "WY"]).trigger("change");
+		});</script>
+</head>
+
+<body>
+	<select class="js-example-programmatic-multi" name="states[]" multiple="multiple" style="width: 100%">
+		<option value="AL">Alabama</option>
+		<option value="WY">Wyoming</option>
+	</select>
+</body>
+
+</html>

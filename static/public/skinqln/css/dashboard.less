@@ -1,0 +1,83 @@
+/*Dashboard*/
+
+.dashboard-canvas {
+    margin-bottom: 20px;
+    &.statistics {
+        .item {
+            background: #fff;
+            border-radius: 2px;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08);
+            position: relative;
+            height: 80px;
+            padding: 10px 20px;
+            .detail {
+                .txt {
+                    font-size: 14px;
+                    opacity: 0.7;
+                    margin-bottom: 5px;
+                    display: block;
+                }
+                .number {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+            }
+            .icon {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                width: 60px;
+                border-radius: 2px;
+                text-align: center;
+                line-height: 70px;
+                font-size: 32px;
+                color: #fff;
+            }
+            &.c-red {
+                .number {
+                    color: #FF5722;
+                }
+                .icon {
+                    background: #FF5722;
+                }
+            }
+            &.c-blue {
+                .number {
+                    color: #00BCD4;
+                }
+                .icon {
+                    background: #00BCD4;
+                }
+            }
+            &.c-yellow {
+                .number {
+                    color: #FFB300;
+                }
+                .icon {
+                    background: #FFB300;
+                }
+            }
+            &.c-green {
+                .number{
+                    color: #4CAF50;
+                }
+                .icon {
+                    background: #4CAF50;
+                }
+                
+            }
+            
+        }
+    }
+    .panel{
+        .panel-heading{
+            .title{
+                font-weight: bold;
+                font-size: 18px;
+                padding-top: 12px;
+
+            }
+        }
+    }
+}

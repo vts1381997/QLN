@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript" src="/qln/public/js/qln/app/KeHoach/KeHoachVayHangNamCTView.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/KeHoachVayHangNam.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/DonViTienTe.js"></script>
+    <script src="/qln/public/skinqln/js/validate.js"></script>
+    <script type="text/javascript">
+        var oKeHoachVayHangNamCTView = new KeHoachVayHangNamCTView();
+        var oDonvitiente = new DonViTienTe()
+        oDonvitiente.getAll()
+        var olistTiente = oDonvitiente.LIST
+        var optionTiente = ''
+        olistTiente.map((value, index) => {
+            optionTiente = optionTiente + '<option value="' + value.TIENTEID + '"' + (index === 0 ? ' selected' : '') + '>' + value.TEN + '</option>'
+        })
+        var id = 100
+        $(document).ready(function () {
+                // Jquery Dependency
+                $("input[data-type='currency']").on({
+                keyup: function() {
+                formatCurrency($(this));
+                },
+                blur: function() { 
+                formatCurrency($(this), "blur");
+                }
+                });
+                function formatNumber(n) {
+                // format number 1000000 to 1,234,567
+                return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                function formatCurrency(input, blur) {
+                // appends $ to value, validates decimal side
+                // and puts cursor back in right position.      
+                // get input value
+                var input_val = input.val();      
+                // don't validate empty input
+                if (input_val === "") { return; }  
+                // original length
+                var original_len = input_val.length;
+                // initial caret position 
+                var caret_pos = input.prop("selectionStart");              
+                // check for decimal
+                if (input_val.indexOf(".") >= 0) {
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+                // validate right side
+                right_side = formatNumber(right_side);           
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                right_side += "";
+                }            
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+                // join number by .
+                input_val = "" + left_side + "." + right_side;
+                } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "" + input_val;
+                // final formatting
+                if (blur === "blur") {
+                input_val += "";
+                }
+                }
+                // send updated string to input
+                input.val(input_val);
+                // put caret back in the right position
+                var updated_len = input_val.length;
+                caret_pos = updated_len - original_len + caret_pos;
+                input[0].setSelectionRange(caret_pos, caret_pos);
+                }
+            var date = moment(); //Get the current date
+            var year = date.format("YYYY")
+            var sum = parseInt(year) + 1
+            $("#NAMKEHOACH").val(sum)
+            $('#ActionThemMoi').click(function () {
+                $("input[data-type='currency']").on({
+                keyup: function() {
+                formatCurrency($(this));
+                },
+                blur: function() { 
+                formatCurrency($(this), "blur");
+                }
+                });
+                function formatNumber(n) {
+                // format number 1000000 to 1,234,567
+                return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                function formatCurrency(input, blur) {
+                // appends $ to value, validates decimal side
+                // and puts cursor back in right position.      
+                // get input value
+                var input_val = input.val();      
+                // don't validate empty input
+                if (input_val === "") { return; }  
+                // original length
+                var original_len = input_val.length;
+                // initial caret position 
+                var caret_pos = input.prop("selectionStart");              
+                // check for decimal
+                if (input_val.indexOf(".") >= 0) {
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+                // validate right side
+                right_side = formatNumber(right_side);           
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                right_side += "";
+                }            
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+                // join number by .
+                input_val = "" + left_side + "." + right_side;
+                } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "" + input_val;
+                // final formatting
+                if (blur === "blur") {
+                input_val += "";
+                }
+                }
+                // send updated string to input
+                input.val(input_val);
+                // put caret back in the right position
+                var updated_len = input_val.length;
+                caret_pos = updated_len - original_len + caret_pos;
+                input[0].setSelectionRange(caret_pos, caret_pos);
+                }
+                $('body').on('change', '.NGUONVAY', function (e) {
+                    var idKHOILUONGPHATHANH = '#KHOILUONGPHATHANH' + $(this).attr('data-index')
+                    var idCHIPHIHUYDONG = '#CHIPHIHUYDONG' + $(this).attr('data-index')
+                    if ($(this).val() === 'VAYTRAIPHIEU') {
+                        $(idKHOILUONGPHATHANH).prop("disabled", false)
+                        $(idKHOILUONGPHATHANH).val('')
+                        $(idKHOILUONGPHATHANH).css('background-color', 'white')
+
+                        $(idCHIPHIHUYDONG).prop("disabled", false)
+                        $(idCHIPHIHUYDONG).val('')
+                        $(idCHIPHIHUYDONG).css('background-color', 'white')
+                    }
+                    else {
+                        $(idKHOILUONGPHATHANH).prop("disabled", true)
+                        $(idKHOILUONGPHATHANH).val('')
+                        $(idKHOILUONGPHATHANH).css('background-color', '#ebebe0')
+
+                        $(idCHIPHIHUYDONG).prop("disabled", true)
+                        $(idCHIPHIHUYDONG).val('')
+                        $(idCHIPHIHUYDONG).css('background-color', '#ebebe0')
+                    }
+                })
+                var selectTiente = '<select class = "DONVITIENTE" id="noidung-' + id + ' ">' + optionTiente + '</select>'
+                var selectNguonvon = '<select class="NGUONVAY" id="NGUONVAY'+id+'" data-index="' + id + '">' +
+                    '<option value="VAYODA" selected >Vay ODA</option>' +
+                    '<option value="VAYUUDAI">Vay ưu đãi</option>' +
+                    '<option value="VAYTRAIPHIEU">Vay trái phiếu CQĐP</option>' +
+                    '<option value="VAYKHAC">Vay khác</option>' +
+                    '</select>'
+                var elemnt = '<tr class="input-table" id="element-' + id + '"><td>' + selectNguonvon + '</td><td><input type="text" class="PHUONGANVAY"></td><td><input type="text" class="SOTIENVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="SOTIENVAY" name="SOTIENVAY" autocomplete="off" /></td><td>' + selectTiente + '</td><td><input type="text" class="KHOILUONGPHATHANH" id="KHOILUONGPHATHANH' + id + '" ></td><td><input type="text" class="CHIPHIHUYDONG" id="CHIPHIHUYDONG' + id + '"  ></td><td><button class="btn btn-danger button-clear" id="element-' + id + '">Xóa</button></td></tr>';
+                $('#table-multi').append(elemnt)
+                id++
+                $('.NGUONVAY').map((index, value) => {
+                    if ($(value).val() !== 'VAYTRAIPHIEU') {
+                        $('#KHOILUONGPHATHANH' + $(value).attr('data-index')).prop("disabled", true)
+                        $('#KHOILUONGPHATHANH' + $(value).attr('data-index')).val('')
+                        $('#KHOILUONGPHATHANH' + $(value).attr('data-index')).css('background-color', '#ebebe0')
+                        $('#CHIPHIHUYDONG' + $(value).attr('data-index')).prop("disabled", true)
+                        $('#CHIPHIHUYDONG' + $(value).attr('data-index')).val('')
+                        $('#CHIPHIHUYDONG' + $(value).attr('data-index')).css('background-color', '#ebebe0  ')
+                    }
+                    else {
+                        $('#KHOILUONGPHATHANH' + $(value).attr('data-index')).prop("disabled", false)
+                        $('#KHOILUONGPHATHANH' + $(value).attr('data-index')).css('background-color', 'white')
+                        $('#CHIPHIHUYDONG' + $(value).attr('data-index')).prop("disabled", false)
+                        $('#CHIPHIHUYDONG' + $(value).attr('data-index')).css('background-color', 'white')
+                    }
+                })
+            })
+            $('#ActionThemMoi').trigger("click")
+           
+            $('body').on('click', '.button-clear', function () {
+                var id = $(this).attr('id')
+                $('tr#' + id).remove()
+            })
+
+            $("body").on('keyup', '.SOTIENVAY', function(){
+                $("input[data-type='currency']").on({
+                keyup: function() {
+                formatCurrency($(this));
+                },
+                blur: function() { 
+                formatCurrency($(this), "blur");
+                }
+                });
+                function formatNumber(n) {
+                // format number 1000000 to 1,234,567
+                return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                function formatCurrency(input, blur) {
+                // appends $ to value, validates decimal side
+                // and puts cursor back in right position.      
+                // get input value
+                var input_val = input.val();      
+                // don't validate empty input
+                if (input_val === "") { return; }  
+                // original length
+                var original_len = input_val.length;
+                // initial caret position 
+                var caret_pos = input.prop("selectionStart");              
+                // check for decimal
+                if (input_val.indexOf(".") >= 0) {
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+                // validate right side
+                right_side = formatNumber(right_side);           
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                right_side += "";
+                }            
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+                // join number by .
+                input_val = "" + left_side + "." + right_side;
+                } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "" + input_val;
+                // final formatting
+                if (blur === "blur") {
+                input_val += "";
+                }
+                }
+                // send updated string to input
+                input.val(input_val);
+                // put caret back in the right position
+                var updated_len = input_val.length;
+                caret_pos = updated_len - original_len + caret_pos;
+                input[0].setSelectionRange(caret_pos, caret_pos);
+                }
+            })
+        })
+    </script>
+    <script src="jquery.js"></script>
+    <script src="jquery.validate.js"></script>
+    <style> 
+        .input-table input,
+        .input-table select {
+            border: 1px solid #2a9bf5;
+            box-shadow: none;
+            width: 100%;
+            min-height: 25px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div layout:fragment="content">
+
+        <div class="row" id="FORM">
+            <div class="row">
+                <div class="col-sm-2"><label>Mã kế hoạch<span>(*)</span></label></div>
+                <div class="col-sm-4 ">
+                    <input required type="text" class="form-control validate-form" name="MA" id="MA" value="" />
+                </div>
+                <div class="col-sm-2"><label>Tên kế hoạch</label></div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="name" id="TEN" value="" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><label>Năm kế hoạch</label></div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="name" id="NAMKEHOACH" value="" />
+                </div>
+                <div class="col-sm-2"><label>Tỉnh/Thành phố</label></div>
+                <div class="col-sm-4">
+                    <select id="TINHTHANHID" class="form-control" value="">
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><label>Hạn mức vay</label></div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="HANMUCVAY" name="HANMUCVAY" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" autocomplete="off" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default">VNĐ</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-2"><label>Dư nợ vay</label></div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="DUNOVAY" name="DUNOVAY"
+                            autocomplete="off" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default">VNĐ</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><label>Số vay để bù đắp bội chi</label></div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="SOTIENVAY" name="SOTIENVAY"
+                            autocomplete="off" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default">VNĐ</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-2"><label>Vay để trả nợ gốc</label></div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="TRANOGOC" name="TRANOGOC"
+                            autocomplete="off" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default">VNĐ</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><label>Nghĩa vụ trả nợ</label></div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" value="" id="NGHIAVUTRANO" name="NGHIAVUTRANO"
+                        autocomplete="off" />
+                </div>
+                <div class="col-sm-2"><label>Dự kiến nguồn trả</label></div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" value="" id="DUKIENNGUONTRA" name="DUKIENNGUONTRA"
+                        autocomplete="off" />
+                </div>
+            </div>
+        </div>
+        <div class="row panel panel-primary" id="LIST" style="margin-top: 10px;">
+            <div class="panel-body">
+                <div class="">
+                    <table class="table table-striped table-bordered table-hover table-columned text-center"
+                        style="border: 1px; background: oldlace">
+                        <thead>
+                            <tr>
+                                <td>Nguồn vay</td>
+                                <td>Phương án vay</td>
+                                <td>Số tiền vay</td>
+                                <td>Đơn vị tiền tệ</td>
+                                <td>Khối lượng phát hành</td>
+                                <td>Chi phí huy động</td>
+                                <td> <button type="button" class="btn btn-info" id="ActionThemMoi">
+                                        Thêm</button></td>
+                                </th>
+                        </thead>
+                        <tbody id='table-multi'>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ACTIONS">
+            <div class="col-md-3 col-md-offset-9" style="padding:10px; margin-top:0px; margin-left: 890px">
+                <button style="margin-right: -25px; float: right;" type="button" class="btn btn-info" id="btnSave"><i
+                        class="glyphicon glyphicon-save"></i>
+                    Lưu</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

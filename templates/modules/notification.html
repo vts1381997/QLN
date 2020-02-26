@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div th:fragment="notification">
+        <div class="btn-notification">
+            <i class="fa fa-bell"></i>
+            <span></span>
+        </div>
+
+        <div class="slider-left row">
+            <div class="row" style="padding: 20px 0px;">
+                <h3 style="display: block; text-align: center; font-size: 20px; color: #337ab7; word-wrap: break-word;"> Danh sách thông báo đến hạn trả nợ, trả lãi</h3>
+            </div>
+            <div class="col-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="/qln/app/VayODA/DotTraNo" role="tab" aria-controls="home">Vay ODA 
+                        <button type="button" class="btn btn-primary pull-right">
+                            <span class="badge badge-light" id="nt_oda">0</span>
+                          </button>
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="/qln/app/VayKhac/VayQuyDuTruTinh" role="tab" aria-controls="profile">Vay quỹ dự trữ
+                        <button type="button" class="btn btn-warning pull-right">
+                            <span class="badge badge-light" id="nt_qdt" >0</span>
+                          </button>
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="/qln/app/danhmuc/ToChucMuaTraiPhieu" role="tab" aria-controls="messages">Vay trái phiếu
+                        <button type="button" class="btn btn-success pull-right">
+                            <span class="badge badge-light" id="nt_tctp">0</span>
+                          </button>
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="/qln/app/VayKhac/VayVDB" role="tab" aria-controls="settings">Vay VDB
+                        <button type="button" class="btn btn-info pull-right">
+                            <span class="badge badge-light" id="nt_vdb">0</span>
+                          </button>
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="/qln/app/VayKhac/VayKBNN" role="tab" aria-controls="settings">Vay Ngân quỹ
+                        <button type="button" class="btn btn-primary pull-right">
+                            <span class="badge badge-light" id="nt_kbnn">0</span>
+                          </button>
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="/qln/app/VayKhac/VayTCTCTDTN" role="tab" aria-controls="settings">Vay TCTCTD
+                        <button type="button" class="btn btn-warning pull-right">
+                            <span class="badge badge-light" id="nt_tctc">0</span>
+                          </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

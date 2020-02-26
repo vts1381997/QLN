@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+    <script type="text/javascript" src="/qln/public/js/qln/model/BCQuanTri.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
+    <script type="text/javascript" th:src="@{/public/js/qln/core/DataHelper.js}"></script>
+    <script type="text/javascript" th:src="@{/public/js/qln/core/ControlHelper.js}"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/exportExcell.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let ngaybatdau = Util.Url.getParameterByName('ngaybatdau')
+            let ngayketthuc = Util.Url.getParameterByName('ngayketthuc')
+            let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+            let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
+            let dvt = Util.Url.getParameterByName('dvt')
+            let tendvt = Util.Url.getParameterByName('donvitinh')
+            var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '').replace('Bộ Tài Chính', '')
+            $("#labelTinhThanh").text(tentinhthanh.toUpperCase())
+            $("#txtTinhThanh").text(labelTinhThanh)
+            $("#txtDvt").text(tendvt)
+            var bcquantri = new BCQuanTri();
+            var option = ''
+            var dt = {
+                tinhthanhid,
+                ngaybatdau,
+                ngayketthuc,
+                dvt: Number(dvt),
+                nam: 2019
+            }
+            var listdt = bcquantri.getBCTongHopTinhHinhNoDiaPhuong(dt)
+            var _itemTong =
+                [0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0
+                ]
+            for (var i = 0; i < listdt.length; i++) {
+                var _item = listdt[i];
+
+                _itemTong[0] = _itemTong[0] + _item.TPDAUKY;
+                _itemTong[1] = _itemTong[1] + _item.TPTRONGKY;
+                _itemTong[2] = _itemTong[2] + _item.TPTRAGOC;
+                _itemTong[3] = _itemTong[3] + _item.TPTRALAI;
+                _itemTong[4] = _itemTong[4] + _item.TPCUOIKY;
+
+                _itemTong[5] = _itemTong[5] + _item.ODADAUKY;
+                _itemTong[6] = _itemTong[6] + _item.ODATRONGKY;
+                _itemTong[7] = _itemTong[7] + _item.ODATRAGOC;
+                _itemTong[8] = _itemTong[8] + _item.ODATRALAI;
+                _itemTong[9] = _itemTong[9] + _item.ODACUOIKY;
+
+                _itemTong[10] = _itemTong[10] + _item.KBNNDAUKY;
+                _itemTong[11] = _itemTong[11] + _item.KBNNTRONGKY;
+                _itemTong[12] = _itemTong[12] + _item.KBNNTRAGOC;
+                _itemTong[13] = _itemTong[13] + _item.KBNNTRALAI;
+                _itemTong[14] = _itemTong[14] + _item.KBNNCUOIKY;
+
+                _itemTong[15] = _itemTong[15] + _item.VDBDAUKY;
+                _itemTong[16] = _itemTong[16] + _item.VDBTRONGKY;
+                _itemTong[17] = _itemTong[17] + _item.VDBTRAGOC;
+                _itemTong[18] = _itemTong[18] + _item.VDBTRALAI;
+                _itemTong[19] = _itemTong[19] + _item.VDBCUOIKY;
+
+                _itemTong[15] = _itemTong[15] + _item.DTTDAUKY;
+                _itemTong[16] = _itemTong[16] + _item.DTTTRONGKY;
+                _itemTong[17] = _itemTong[17] + _item.DTTTRAGOC;
+                _itemTong[18] = _itemTong[18] + _item.DTTTRALAI;
+                _itemTong[19] = _itemTong[19] + _item.DTTCUOIKY;
+
+                _itemTong[15] = _itemTong[15] + _item.TCTCDAUKY;
+                _itemTong[16] = _itemTong[16] + _item.TCTCTRONGKY;
+                _itemTong[17] = _itemTong[17] + _item.TCTCTRAGOC;
+                _itemTong[18] = _itemTong[18] + _item.TCTCTRALAI;
+                _itemTong[19] = _itemTong[19] + _item.TCTCCUOIKY;
+
+                option = option + '<tr>\
+							<td style="text-align:center" colspan="1" >'+ Number(i + 1) + '</td>\
+							<td style="text-align:left" colspan="1" >\
+									'+ _item.TENTINHTHANH + '\
+								</td>\
+							<td  style="text-align:right !important" colspan="1" >\
+								'+ formatMoney(fnc_hollowValue(_item.TPDAUKY)) + '\
+							</td>\
+							<td  style="text-align:right !important" colspan="1" >\
+									'+ formatMoney(fnc_hollowValue(_item.TPTRONGKY)) + '\
+							</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.TPTRAGOC)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.TPTRALAI)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.TPCUOIKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.ODADAUKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.ODATRONGKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.ODATRAGOC)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.ODATRALAI)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.ODACUOIKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.KBNNDAUKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.KBNNTRONGKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.KBNNTRAGOC)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.KBNNTRALAI)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(_item.KBNNCUOIKY)) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(Number(_item.DTTDAUKY) + Number(_item.VDBDAUKY) + Number(_item.TCTCDAUKY))) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(Number(_item.DTTTRONGKY) + Number(_item.VDBTRONGKY) + Number(_item.TCTCTRONGKY))) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(Number(_item.DTTTRAGOC) + Number(_item.VDBTRAGOC) + Number(_item.TCTCTRAGOC))) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(Number(_item.DTTTRALAI) + Number(_item.VDBTRALAI) + Number(_item.TCTCTRALAI))) + '</td>\
+							<td  style="text-align:right !important" colspan="1" >'+ formatMoney(fnc_hollowValue(Number(_item.DTTCUOIKY) + Number(_item.VDBCUOIKY) + Number(_item.TCTCCUOIKY))) + '</td>\
+						</tr>'
+            }
+
+            var optionTong = '<td colspan="2"\
+                    style="width:20px;text-align:center;vertical-align: middle; font-weight: bold;">Tổng số\
+                            </td>';
+            _itemTong.map(value => {
+                optionTong = optionTong +
+                        '<td style="text-align:right; vertical-align: middle; font-weight: bold;"> ' + formatMoney(value) +'</td>'
+            })
+            $("#trTong").append(optionTong)
+            $("#tblDanhSach tbody").append(option)
+            var ngay = fnc_ngayhientai().split("-")[2]
+            var thang = fnc_ngayhientai().split("-")[1]
+            var nam = fnc_ngayhientai().split("-")[0]
+            $("#txtNgay").text(ngay)
+            $("#txtThang").text(thang)
+            $("#txtNam").text(nam)
+        })
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-sm-3 pull-left text-center">
+                <strong>
+                    <strong id="labelTinhThanh"></strong><br>
+                    -----------<br>
+                </strong>
+                Số: …..<br>
+            </div>
+            <div class="col-sm-9 text-center">
+                <strong>
+                    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br>
+                    Độc lập - Tự do - Hạnh phúc <br>
+                    ------------<br>
+                </strong>
+                <i>
+                    <i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i> tháng <i id="txtThang"></i> năm <i
+                        id="txtNam"></i>
+                </i>
+            </div>
+            <div class="text-center col-sm-12">
+                <strong class="text-center" style="font-weight: bold; font-size: 17px;">
+                    Kính gửi: Bộ Tài Chính<br>
+                </strong>
+            </div>
+            <div class="text-center col-sm-12">
+                <label class="text-center">
+                    <strong style="font-size:17px">BÁO CÁO TỔNG HỢP TÌNH HÌNH NỢ ĐỊA PHƯƠNG</strong><br />
+                </label>
+                <br />
+                <div style="float: right;">Đơn vị tính: &nbsp;<label style="font-size: 14px !important;"
+                        id="txtDvt"></label></label>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover table-columned text-center"
+                    id="tblDanhSach">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="width:20px;text-align:center;vertical-align: middle;">STT</th>
+                            <th rowspan="2" style="width:100px;text-align:center;vertical-align: middle;">Địa phương
+                            </th>
+                            <th colspan="5">Phát hành trái phiếu CQĐP</th>
+                            <th colspan="5">Vay ODA</th>
+                            <th colspan="5">Vay kho bạc nhà nước</th>
+                            <th colspan="5">Vay khác</th>
+                        </tr>
+                        <tr>
+                            <th>Dư nợ đầu kỳ</th>
+                            <th>Rút vốn trong kỳ</th>
+                            <th>Trả gốc</th>
+                            <th>Trả lãi</th>
+                            <th>Dư nợ cuối kỳ</th>
+                            <th>Dư nợ đầu kỳ</th>
+                            <th>Rút vốn trong kỳ</th>
+                            <th>Trả gốc</th>
+                            <th>Trả lãi</th>
+                            <th>Dư nợ cuối kỳ</th>
+                            <th>Dư nợ đầu kỳ</th>
+                            <th>Rút vốn trong kỳ</th>
+                            <th>Trả gốc</th>
+                            <th>Trả lãi</th>
+                            <th>Dư nợ cuối kỳ</th>
+                            <th>Dư nợ đầu kỳ</th>
+                            <th>Rút vốn trong kỳ</th>
+                            <th>Trả gốc</th>
+                            <th>Trả lãi</th>
+                            <th>Dư nợ cuối kỳ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="trTong">
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

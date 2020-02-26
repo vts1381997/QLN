@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+    <script type="text/javascript" src="/qln/public/js/qln/model/BCQuanTri.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+    <script>
+        $(document).ready(function () {
+            let ngaybatdau = Util.Url.getParameterByName('ngaybatdau')
+            let ngayketthuc = Util.Url.getParameterByName('ngayketthuc')
+            let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+            // $("#titlebc").text("BÁO CÁO TÌNH HÌNH RÚT VỐN TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " THEO TỪNG KHOẢN VAY ")
+            var bcquantri = new BCQuanTri();
+            var option = ''
+            var dt = {
+                tinhthanhid,
+                ngaybatdau,
+                ngayketthuc
+            }
+            var listdt = bcquantri.getBCTinhHinhRutVon(dt)
+            var sumSoTien = 0;
+            var sumTienRut = 0;
+            for (var i = 0; i < listdt.length; i++) {
+                var _item = listdt[i];
+                sumSoTien = Number(sumSoTien) + Number(_item.SOTIENVAYLAITOIDA) + Number(_item.SOTIENCAPPHATTOIDA)
+                sumTienRut = Number(sumTienRut) + Number(_item.NGUYENTEVAYLAI) + Number(_item.NGUYENTECAPPHAT)
+                option = option + '<tr>\
+							<td style="text-align:center" colspan="1" >'+ Number(i + 1) + '</td>\
+							<td style="text-align:left" colspan="1" >\
+									'+ _item.TENDONVI + '\
+								</td>\
+							<td  style="text-align:left" colspan="1" >\
+								'+ _item.NGUONVAY + '\
+							</td>\
+							<td  style="text-align:left" colspan="1" >\
+									'+ _item.HOPDONG + '\
+							</td>\
+							<td  style="text-align:center;width:100px" colspan="1" >'+ _item.NGAYHOPDONG + '</td>\
+							<td style="text-align:left" colspan="1" >\
+								 '+ _item.KYHAN +' năm\
+							</td>\
+                            <td style="text-align:center" colspan="1" >\
+                                '+ _item.THOIHANVAY +'\
+                            </td>\
+                            <td  style="text-align:right" colspan="1" >\
+									'+ formatMoney(Number(_item.SOTIENVAYLAITOIDA) + Number(_item.SOTIENCAPPHATTOIDA)) + '\
+							</td>\
+                            <td  style="text-align:right" colspan="1" >\
+									'+ formatMoney(Number(_item.NGUYENTEVAYLAI) + Number(_item.NGUYENTECAPPHAT)) + '\
+							</td>\
+						</tr>'
+            }
+            $("#tblDanhSach tbody").append(option)
+            $("#tblDanhSach tbody").append('  <tr>\
+                            <td></td>\
+                            <td></td>\
+                            <td></td>\
+                            <td></td>\
+                            <td></td>\
+                            <td></td>\
+                            <td style="text-align: right">Tổng tiền</td>\
+                            <td style="text-align: right">'+formatMoney(sumSoTien)+'</td>\
+                            <td style="text-align: right">'+formatMoney(sumTienRut)+'</td>\
+                        </tr>')
+
+        })
+    </script>
+    <style>
+        table tr td:nth-child(2n-1) {
+            text-align: center
+        }
+
+        table tr td:nth-child(4n-2) {
+            text-align: left
+        }
+
+        table tr td:nth-child(6n-3) {
+            text-align: left
+        }
+
+        table tr td:nth-child(8n-4) {
+            text-align: left
+        }
+
+        table tr td:nth-child(10n-5) {
+            text-align: center
+        }
+
+        table tr td:nth-child(12n-6) {
+            text-align: center
+        }
+
+        table tr td:nth-child(14n-7) {
+            text-align: left
+        }
+
+        table tr td:nth-child(16n-8) {
+            text-align: left
+        }
+
+        table tr td:nth-child(18n-9) {
+            text-align: right
+        }
+
+        table tr td:nth-child(20n-10) {
+            text-align: right
+        }
+    </style>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-sm-3 pull-left text-center">
+                BỘ TÀI CHÍNH <br>
+                CỤC QUẢN LÝ NỢ VÀ ĐỐI NGOẠI
+            </div>
+            <div class="text-center col-sm-12">
+                <br><br>
+                <strong class="text-center" style="font-size:17px">BÁO CÁO TÌNH HÌNH RÚT VỐN TRONG THÁNG 1 NĂM 2018 THEO
+                    TỪNG KHOẢN VAY </strong>
+                <br />
+                <div style="font-style:italic;font-size:15px">
+                    Ngày 16/09/2018
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <br />
+                <table class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach">
+                    <thead>
+                        <tr>
+                            <th style="width:40px; text-align: center;"><input type="checkbox" name="name" value="" />
+                            </th>
+                            <!-- <th style="width:40px">STT</th> -->
+                            <th style="text-align: center;">
+                                Tên đơn vị
+                            </th>
+                            <th style="text-align: center;">
+                                Nguồn vay
+                            </th>
+                            <th style="text-align: center;">
+                                Hợp đồng
+                            </th>
+                            <th style="text-align: center;">
+                                Ngày hợp đồng
+                            </th>
+                            <th style="text-align: center;">
+                                Kỳ hạn
+                            </th>
+                            <th style="text-align: center;">
+                                Thời hạn vay
+                            </th>
+                            <th style="text-align: center;">
+                                Số tiền
+                            </th>
+                            <th style="text-align: center;">
+                                Tiền rút
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                      
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

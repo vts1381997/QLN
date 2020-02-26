@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-sm-3"><label>Chọn dự án</label></div>
+			<div class="col-sm-3">
+				<select class="form-control">
+					<option>--- Chọn ---</option>
+				</select>
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Mã <span class="require">(*)</span></label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>Tên phụ lục</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Ngày ký</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control wec-control-date" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>Ngày thực hiện</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control wec-control-date" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Chương trình dự án</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>Chủ chương trình</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Ban quản lý dự án</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>Ngân hàng phục vụ</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Tài khoản</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>Cơ quan kiểm soát chi</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Nguồn vốn</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>File hồ sơ kiểm soát chi</label></div>
+			<div class="col-sm-3">
+				<input type="file" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>File xác nhận </label></div>
+			<div class="col-sm-3">
+				<input type="file" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3"><label>File đơn rút vốn</label></div>
+			<div class="col-sm-3">
+				<input type="file" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Phương thức thanh toán</label></div>
+			<div class="col-sm-3">
+				<select class="form-control">
+					<option>--- Chọn ---</option>
+				</select>
+			</div>
+			<div class="col-sm-3"><label>Tài khoản đặc biệt / tạm ứng</label></div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="name" value="" />
+			</div>
+			<div class="col-sm-3" style="padding-left:60px;"><label>Tệp đính kèm</label></div>
+			<div class="col-sm-3">
+				<input type="file" class="form-control" name="name" value="" />
+			</div>
+
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID" />
+			<button type="button" class="btn btn-info" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

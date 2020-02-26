@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Hợp đồng vay ODA</title>
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/HopDongVayODAView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/HopDongVayODA.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			oHopDongVayODAView = new HopDongVayODAView();
+		})
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<span class="glyphicon glyphicon-align-justify"></span><label style="color:red;">&nbsp <span
+					id="AppTitle">DANH MỤC HỢP ĐỒNG VAY LẠI</span></label>
+			<hr />
+			<div class="col-sm-12" style="margin:0px">
+				<!-- <div class="row ACTIONS well well-sm">
+					<button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i
+							class="glyphicon glyphicon-plus"></i> Thêm</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnEdit"><i
+							class="glyphicon glyphicon-edit"></i> Sửa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnDelete"><i
+							class="glyphicon glyphicon-trash"></i> Xóa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnChiTietPhi"><i
+							class="glyphicon glyphicon-usd"></i> Chi tiết các loại phí</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnLichSuSuaDoi"><i
+							class="glyphicon glyphicon-trash"></i> Lịch sử sửa đổi hợp đồng</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnExport"><i
+							class="glyphicon glyphicon-export"></i> Kết xuất</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnImport"><i
+							class="glyphicon glyphicon-import"></i> Import</button>
+				</div> -->
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading">Danh sách hợp đồng vay lại </div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="Grid01">
+							<thead>
+								<tr>
+									<th style="width:40px">STT</th>
+									<th>Số hợp đồng</th>
+									<th>Ngày ký</th>
+									<th>Tên dự án</th>
+									<th>CQ vay lại</th>
+									<th>CQ ủy quyền vay lại</th>
+									<th>Số tiền ký vay</th>
+									<th>Lãi suất vay</th>
+									<th>Ngày hiệu lực</th>
+									<th>Ngày trả nợ gốc đầu tiên</th>
+									<th>Ngày trả nợ lãi đầu tiên</th>
+									<th>Ngày trả nợ gốc cuối cùng</th>
+									<th>Ngày trả nợ lãi cuối cùng</th>
+									<th>Phương thức trả nợ gốc</th>
+									<th>Phương thức trả nợ lãi</th>
+									<th>Lãi phạt</th>
+								</tr>
+							</thead>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

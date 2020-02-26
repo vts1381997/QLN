@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/TraiPhieu/DeAnPHTPViewCT.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/DeAnPHTP.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/jquery-uuid.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+	<script type="text/javascript">
+		var oDeAnPHTPViewCT = new DeAnPHTPViewCT();
+	</script>
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="row">
+				<div class="col-sm-2"><label>Mã <span class="require">(*)</span></label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="MA" id="MA" value="" />
+				</div>
+				<div class="col-sm-2"><label>Tên đề án</label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="TEN" id="TEN" value="" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Tỉnh/Thành phố</label></div>
+				<div class="col-sm-4">
+					<!-- <input type="text" class="form-control" name="name" id="TINHTHANHID" value="" /> -->
+					<select id="TINHTHANHID" class="form-control">
+					</select>
+				</div>
+				<div class="col-sm-2"><label>Sổ quyết định</label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="name" id="SOQUYETDINH" value="" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Ngày quyết định</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" name="NGAYQUYETDINH" id="NGAYQUYETDINH"
+							value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#NGAYQUYETDINH').focus()"><i
+									class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Tên tổ chức phát hành</label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="name" id="TENTOCHUCPHATHANH" value="" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Khối lượng phát hành </label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="name" id="KHOILUONGPHATHANH" value="" />
+				</div>
+				<div class="col-sm-2"><label>Kỳ hạn trái phiếu </label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" name="NGAYKYHANTRAIPHIEU"
+							id="NGAYKYHANTRAIPHIEU" value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#NGAYKYHANTRAIPHIEU').focus()"><i
+									class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Lãi suất phát hành </label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="name" id="LAISUATPHATHANH" value="" />
+				</div>
+				<div class="col-sm-2"><label>Mệnh giá </label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control" name="name" id="MENHGIA" value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Đồng tiền phát hành</label></div>
+				<div class="col-sm-4">
+					<select id="DONGTIENPHATHANH" class="form-control">
+						<option value="1">USD</option>
+						<option value="2">VND</option>
+					</select>
+				</div>
+				<div class="col-sm-2"><label>Phương thức phát hành</label></div>
+				<div class="col-sm-4">
+					<select id="PHUONGTHUCPHATHANH" class="form-control">
+						<option value="1">Đấu thầu phát hành</option>
+						<option value="2">Bảo lãnh phát hành</option>
+						<option value="3">Phát hành riêng lẻ</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Thời gian phát hành </label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" name="THOIGIANPHATHANH"
+							id="THOIGIANPHATHANH" value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#THOIGIANPHATHANH').focus()"><i
+									class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-2"><label>Kỳ hạn thanh toán</label></div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" name="KYHANTHANHTOAN"
+							id="KYHANTHANHTOAN" value="" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#KYHANTHANHTOAN').focus()"><i
+									class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Phương thức thanh toán</label></div>
+				<div class="col-sm-4">
+					<select id="PHUONGTHUCTHANHTOAN" class="form-control">
+						<option value="1">Tiền lãi</option>
+						<option value="2">Tiền gốc</option>
+
+					</select>
+				</div>
+				<div class="col-sm-2"><label>Loại thanh toán</label></div>
+				<div class="col-sm-4">
+					<select id="LOAITHANHTOAN" class="form-control">
+						<option value="1">Bán niên</option>
+						<option value="2">12 tháng</option>
+						<option value="3">1 lần vào ngày đáo hạn</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><label>Các vấn đề khác liên quan</label></div>
+				<div class="col-sm-10">
+					<textarea id="VANDEKHAC" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="col-sm-12" style="margin-top:20px">
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-4 form-inline-group">
+								<label class="col-sm-4 text-align-right">Đính kèm file:</label>
+								<div class="col-sm-8">
+									<input type="file" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-4 form-inline-group">
+								<button type="button" class="btn btn-info btn-sm"><i
+										class="glyphicon glyphicon-record"></i> Upload File</button>
+							</div>
+						</div>
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="tblDanhSach">
+							<thead>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:40px">STT</th>
+									<th style="width:60px">Loại file</th>
+									<th>Tiêu đề</th>
+									<th style="width:40px">Tải về</th>
+									<th style="width:40px">Hủy</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td>1</td>
+									<td><button type="button" class="btn btn-default btn-sm">Word</button></td>
+									<td>Công văn điều chỉnh giá xăng</td>
+									<td>
+										<button type="button" class="btn btn-info btn-sm"><i
+												class="glyphicon glyphicon-download"></i></button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-info btn-sm"><i
+												class="glyphicon glyphicon-trash"></i></button>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td>2</td>
+									<td><button type="button" class="btn btn-default btn-sm">Excel</button></td>
+									<td>Danh sách phụ lục hợp đồng</td>
+									<td>
+										<button type="button" class="btn btn-info btn-sm"><i
+												class="glyphicon glyphicon-download"></i></button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-info btn-sm"><i
+												class="glyphicon glyphicon-trash"></i></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID_DEAN_PHTP" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

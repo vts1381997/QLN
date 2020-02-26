@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/main01">
+<head>
+<meta charset="utf-8" />
+<title>Nhóm người dùng</title>
+<script type="text/javascript"
+	src="/qln/public/js/qln/app/HeThong/NhomNguoiDung.js"></script>
+<script type="text/javascript">
+	oNhomNguoiDung = new NhomNguoiDung();
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		
+		<div class="row" style="margin-top:10px">
+			<label>NHÓM NGƯỜI DÙNG</label>
+			<div class="col-sm-12" style="margin:0px">
+				<div class="row well ACTIONS">
+					<button class="btn btn-info" id="btnAddNew"><i class="glyphicon glyphicon-plus"></i>Thêm nhóm</button>
+					<button class="btn btn-info" id="btnEdit"><i class="glyphicon glyphicon-edit"></i>Sửa</button>
+					<button class="btn btn-info" id="btnDelete"><i class="glyphicon glyphicon-trash"></i>Xóa</button>
+				</div>
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading">Danh sách nhóm</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center" id="tblDanhSach">
+							<thead>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:40px">STT</th>
+									<th>Tên nhóm </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 1</td>
+									<td> Bộ tài chính </td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 2</td>
+									<td> Bộ công an </td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 3</td>
+									<td> Bộ giáo dục và đào tạo </td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 4</td>
+									<td> Bộ văn hóa </td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 5</td>
+									<td> Bộ thể dục thể thao </td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 6</td>
+									<td> Bộ tài nguyên và môi trường </td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" name="name" value="" /></td>
+									<td> 7</td>
+									<td> Bộ du lịch </td>
+								</tr>
+								</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

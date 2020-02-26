@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/main01">
+<head>
+<meta charset="utf-8" />
+<title>Vay quỹ dự trữ tỉnh</title>
+<script type="text/javascript"
+	src="/qln/public/js/qln/app/VayTuNguonTrongNuoc/VayQuyDuTruTinh.js"></script>
+<script type="text/javascript">
+	oVayQuyDuTruTinh = new VayQuyDuTruTinh();
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<label> Danh sách vay quỹ dự trữ cấp tỉnh</label><hr />
+			<div class="col-sm-12" style="margin:0px">
+				<div class="row ACTIONS well well-sm">
+					<button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i class="glyphicon glyphicon-plus"></i> Thêm</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnEdit"><i class="glyphicon glyphicon-edit"></i> Sửa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnDelete"><i class="glyphicon glyphicon-trash"></i> Xóa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnExport"><i class="glyphicon glyphicon-export"></i> Kết xuất</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnImport"><i class="glyphicon glyphicon-import"></i> Import</button>
+				</div>
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading">Danh sách vay quỹ dự trữ cấp tỉnh </div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center" id="tblDanhSach">
+							<thead>
+								<tr>
+									<th style="width:40px">STT</th>
+									<th>Mã CQ tài chính</th>
+									<th>Tiêu đề</th>
+									<th>Nguồn vay</th>
+									<th>Ngày vay</th>
+									<th>Kỳ hạn</th>
+									<th>Lãi suất</th>
+									<th style="width:60px;">File đính kèm </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>KBHNI</td>
+									<td></td>
+									<td></td>
+									<td>01/01/2016</td>
+									<td></td>
+									<td></td>
+									<td><i class="glyphicon glyphicon-save-file"></i></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>

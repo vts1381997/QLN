@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/ToChucMuaTPCTView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/ToChucMuaTP.js"></script>
+	<script type="text/javascript">
+		var oToChucMuaTPCTView = new ToChucMuaTPCTView();
+	</script>
+</head>
+
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Mã<span class="require">*</span></label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="MA" name="name" />
+				</div>
+				<div class="col-sm-2"><label>Số</label></div>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" id="" name="name" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Tổ chức <span class="require">*</span></label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="TOCHUC" name="name" />
+				</div>
+				<div class="col-sm-2"><label>Số điện thoại</label></div>
+				<div class="col-sm-4">
+					<input type="number" class="form-control" id="SODIENTHOAI" name="name" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Địa chỉ</label></div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="DIACHI" name="name" />
+				</div>
+				<div class="col-sm-2"><label>Email</label></div>
+				<div class="col-sm-4">
+					<input type="email" class="form-control" id="EMAIL" name="name" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Loại</label></div>
+				<div class="col-sm-4">
+					<select id="LOAI" class="form-control">
+						<option value="1">loại 1</option>
+						<option value="2">loại 2</option>
+					</select>
+				</div>
+				<div class="col-sm-2"><label>Trạng thái</label></div>
+				<div class="col-sm-4">
+					<select class="form-control">
+						<option value="value">Đang hoạt động</option>
+						<option value="value">Dừng hoạt động</option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

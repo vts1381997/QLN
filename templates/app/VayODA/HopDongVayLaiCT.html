@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/VayODA/HopDongVayLaiViewCT.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/HopDongVayLai.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/DuAn.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TienTe.js"></script>
+	<script type="text/javascript">
+		var oHopDongVayLaiViewCT = new HopDongVayLaiViewCT();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Số hợp đồng <span class="require">*</span></label></div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="MA" id="MA" value="" />
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Tên hợp đồng</label></div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="TEN" id="TEN" value="" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Tên dự án</label></div>
+					<div class="col-sm-3">
+						<select id="DUANID" class="form-control">
+						</select>
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Ngày ký hợp đồng</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control wec-control-date" value="" id="NGAYKY" name="NGAYKY"
+								autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" onclick="$('#NGAYKY').focus()"><i
+										class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3" style="padding-left:30px;"><label>Cơ quan ủy quyền cho vay lại</label></div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="COQUANUYQUYENVAYLAI" id="COQUANUYQUYENVAYLAI"
+							value="" />
+					</div>
+					<div class="col-sm-3"><label>Địa phương vay</label></div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="COQUANVAYLAI" id="COQUANVAYLAI" value="" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3" style="padding-left:30px;"><label>Số tiền vay</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control" value="" id="TIENKYVAY" name="TIENKYVAY"
+								autocomplete="off" />
+							<span style="width: 35%" class="input-group-btn">
+								<select id="TIENTEID" class="form-control">
+								</select>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Ngày hiệu lực</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control wec-control-date" value="" id="NGAYHIEULUC"
+								name="NGAYHIEULUC" autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" onclick="$('#NGAYHIEULUC').focus()"><i
+										class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Lãi suất vay</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control" value="" id="LAISUATVAY" name="LAISUATVAY"
+								autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default">%</button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-3"><label>Loại lãi suất</label></div>
+					<div class="col-sm-3">
+						<select id="LOAILAISUAT" class="form-control">
+							<option value="1">Cố định</option>
+							<option value="2">Thả nối</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Ngày trả nợ gốc đầu tiên</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control wec-control-date" value="" id="NGAYTRANOGOCDAUTIEN"
+								name="NGAYTRANOGOCDAUTIEN" autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									onclick="$('#NGAYTRANOGOCDAUTIEN').focus()"><i
+										class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Ngày trả nợ lãi đầu tiên</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control wec-control-date" value="" id="NGAYTRANOLAIDAUTIEN"
+								name="NGAYTRANOLAIDAUTIEN" autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									onclick="$('#NGAYTRANOLAIDAUTIEN').focus()"><i
+										class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Ngày trả nợ gốc cuối cùng</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control wec-control-date" value="" id="NGAYTRANOGOCCUOICUNG"
+								name="NGAYTRANOGOCCUOICUNG" autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									onclick="$('#NGAYTRANOGOCCUOICUNG').focus()"><i
+										class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Ngày trả nợ lãi cuối cùng</label></div>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control wec-control-date" value="" id="NGAYTRANOLAICUOICUNG"
+								name="NGAYTRANOLAICUOICUNG" autocomplete="off" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									onclick="$('#NGAYTRANOLAICUOICUNG').focus()"><i
+										class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Phương thức trả nợ gốc</label></div>
+					<div class="col-sm-3">
+						<select id="PHUONGTHUCTRANOGOC" class="form-control">
+							<option value="1">Trả đều</option>
+							<option value="2">Phương thức khác</option>
+						</select>
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Phương thức trả nợ lãi</label></div>
+					<div class="col-sm-3">
+						<select id="PHUONGTHUCTRANOLAI" class="form-control">
+							<option value="1">Bán niên</option>
+							<option value="2">Hằng năm</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Lãi phạt</label></div>
+					<div class="col-sm-3">
+
+						<input type="text" class="form-control" value="" id="TIENLAIPHAT" name="TIENLAIPHAT"
+							autocomplete="off" />
+
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Số hiệp định vay nước ngoài</label></div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="SOHIEPDINHVAYNN" id="SOHIEPDINHVAYNN" value="" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-sm-3"><label>Phí theo hiệp định vay nước ngoài</label></div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="TIENPHIHIEPDINHVAYNN" id="TIENPHIHIEPDINHVAYNN"
+							value="" />
+					</div>
+					<div class="col-sm-3" style="padding-left:30px;"><label>Phí quản lý cho vay lại</label></div>
+					<div class="col-sm-3">
+						<select id="TIENPHIQUANLYCHOVAYLAI" class="form-control">
+							<option value="1">0%</option>
+							<option value="2">0,25%</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="col-sm-3"><label>Tỉnh/Thành phố</label></div>
+					<div class="col-sm-3">
+						<select id="TINHTHANHID" class="form-control">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

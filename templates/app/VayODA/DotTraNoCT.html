@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/VayODA/DotTraNoCTView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/DotTraNo.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/HopDongVayLai.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/DuAn.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/DonViTienTe.js"></script>
+	<script type="text/javascript">
+		var oDotTraNoCTView = new DotTraNoCTView();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+	</div>
+</body>
+<div layout:fragment="content">
+	<div class="row">
+		<div class="row">
+			<div class="col-sm-2"><label>Mã<span class="require">(*)</span></label></div>
+			<div class="col-sm-4">
+				<input type="text" style="text-align: center" class="form-control" name="name" id="MA" value="" />
+			</div>
+			<div class="col-sm-2"><label>Hợp đồng vay</label></div>
+			<div class="col-sm-4">
+				<select style="text-align: center" id="HOPDONGVAYLAIID" class="form-control" value="">
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"><label>Dự án</label></div>
+			<div class="col-sm-4">
+				<input type="text" style="text-align: center" disabled class="form-control" value="" id="TENDUAN"
+					name="TENDUAN" autocomplete="off" />
+			</div>
+			<div class="col-sm-2"><label>Kỳ trả</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" class="form-control wec-control-date" value=""
+						id="KYTRA" name="KYTRA" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" onclick="$('#KYTRA').focus()"><i
+								class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"><label>Nguồn vay</label></div>
+			<div class="col-sm-4">
+				<select style="text-align: center" class="form-control" id="NGUONVAY">
+					<option value="1">Vay OĐA</option>
+					<option value="2">Trái phiếu CQĐP</option>
+					<option value="3">Vay ngân quỹ</option>
+					<option value="4">Vay TCTD</option>
+				</select>
+			</div>
+			<div class="col-sm-2"><label>Số tiền vay</label></div>
+			<div class="col-sm-4">
+				<input type="text" style="text-align: center" disabled class="form-control" value="" id="TIENKYVAY"
+					name="TIENKYVAY" autocomplete="off" />
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-sm-2"><label>Số tiền trả gốc</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" class="form-control" value="" id="SOTIENTRAGOC"
+						name="SOTIENTRAGOC" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default">VNĐ</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Lũy kế trả nợ</label></div>
+			<div class="col-sm-4">
+				<div style="display: flex">
+					<input id="LUYKETRANOGOC" autocomplete="off" disabled class="form-control" />
+					<!-- <label style="width: 35%" class="form-control" id="NGUYENTELK"></label> -->
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"><label>Số tiền trả lãi</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" class="form-control" value="" id="SOTIENTRALAI"
+						name="SOTIENTRALAI" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default">VNĐ</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Số tiền trả phí</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" class="form-control" value="" id="SOTIENTRAPHI"
+						name="SOTIENTRAPHI" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default">VNĐ</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"><label>Lãi phạt</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" class="form-control" value="" id="SOTIENPHAT"
+						name="SOTIENPHAT" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default">VNĐ</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Số lệch chi</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" class="form-control" value="" id="SOLECHCHI"
+						name="SOLECHCHI" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default">VNĐ</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="col-sm-2"><label>Dư nợ</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input type="text" style="text-align: center" disabled class="form-control" value="" id="DUNO"
+						name="DUNO" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default">VNĐ</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-2"><label>Ngày trả</label></div>
+			<div class="col-sm-4">
+				<div class="input-group">
+					<input style="text-align: center" type="text" class="form-control wec-control-date" value=""
+						id="NGAYTRA" name="NGAYTRA" autocomplete="off" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" onclick="$('#NGAYTRA').focus()"><i
+								class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2"><label>Đơn vị tiền tệ</label></div>
+		<div class="col-sm-4">
+			<select style="text-align: center" id="TIENTEID" class="form-control" value="">
+			</select>
+		</div>
+		<div class="ACTIONS" style="padding:10px">
+			<button style="margin-left: 835px;margin-top: 20px" type="button" class="btn btn-info" id="btnLuu"><i
+					class="glyphicon glyphicon-save"></i> Lưu</button>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Tỉnh/Thành phố</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/all.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/TinhThanhView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			CurrentLayout = "TINHTHANH"
+			oTinhThanhView = new TinhThanhView();
+		})
+	</script>
+	<style>
+		.select2-selection__rendered {
+			font-size: 15px !important;
+		}
+
+		.select2-results__option {
+			font-size: 15px !important;
+		}
+	</style>
+	<style>
+		table tr td:nth-child(2n-1) {
+			text-align: center
+		}
+
+		table tr td:nth-child(4n-2) {
+			text-align: left
+		}
+
+		table tr td:nth-child(6n-3) {
+			text-align: left
+		}
+
+		table tr td:nth-child(8n-4) {
+			text-align: left
+		}
+	</style>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<span class="glyphicon glyphicon-align-justify"></span><label style="color: red;">&nbspDANH MỤC TỈNH / THÀNH
+				PHỐ</label>
+			<hr />
+			<div class="col-sm-12">
+				<div class="row panel panel-primary" id="LIST" style="margin-top:10px">
+					<div class="panel-heading">Danh sách tỉnh/thành phố</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="Grid01" style="margin-top: 5px;">
+							<thead>
+								<tr>
+									<th style="width:40px">STT</th>
+									<th>Mã Địa Bàn</th>
+									<th>Tỉnh/Thành phố</th>
+									<th>Cấp</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div role="document" style="width: 100%; height: 100%;">
+				<div class="modal-content" style="height: 100%">
+					<div class="modal-header" style="display: flex">
+						<h5 style="width: 99%" class="modal-title" id="exampleModalLongTitle">Tỉnh/Thành phố
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" style="height: 80%">
+						<div class="brow" style="margin-top: 20px">
+							<div class="row">
+								<div class="col-md-12" style="margin-bottom: 5px;">
+									<div class="col-sm-2"><label>Mã Địa Bàn <span class="require">*</span></label></div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="name" id="MA" value="" />
+									</div>
+								</div>
+								<div class="col-md-12" style="margin-bottom: 5px;">
+									<div class="col-sm-2"><label>Tên tỉnh/thành phố</label></div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="name" value="" id="TEN" />
+									</div>
+								</div>
+								<div class="col-md-12" style="margin-bottom: 5px;">
+									<div class="col-sm-2"><label>Cấp</label></div>
+									<div class="col-sm-10">
+										<select id="NOTE" class="form-control">
+											<option value="Tỉnh">Tỉnh</option>
+											<option value="Huyện">Huyện</option>
+											<option value="Xã">Xã</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="text-align: right;padding-right: 100px;">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-primary btnSave">Lưu</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

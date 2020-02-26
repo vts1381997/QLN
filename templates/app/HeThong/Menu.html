@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Menu</title>
+    <script type="text/javascript" src="/qln/public/js/qln/app/HeThong/MeNuView.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/_all.css}">
+    <script type="text/javascript" src="/qln/public/js/qln/model/MeNu.js"></script>
+    <script src="/qln/public/skinqln/js/validate.js"></script>
+    <script type="text/javascript">
+        oMeNuView = new MeNuView();
+        $(document).ready(function(){
+            CurrentLayout === 'MENU'
+        })
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row" style="margin-top:10px;">
+            <span class="glyphicon glyphicon-align-justify"></span><label style="color: red;">&nbspDANH SÁCH MENU</label>
+            <hr />
+            <div class="col-sm-12">
+                <!-- <div class="row ACTIONS well well-sm">
+                    <button type="button" class="btn btn-info btn-sm" id="btnAddNew" data-toggle="modal"
+                        data-target="#exampleModalCenter"><i class="glyphicon glyphicon-plus"></i> Thêm</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnEdit" data-toggle="modal"
+                        data-target="#exampleModalCenter" disabled><i class="glyphicon glyphicon-edit"></i> Sửa</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnViewDetails" disabled><i
+                            class="glyphicon glyphicon-info"></i> Xem chi tiết</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnDelete" disabled><i
+                            class="glyphicon glyphicon-trash"></i> Xóa</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnExport" disabled><i
+                            class="glyphicon glyphicon-export"></i> Kết xuất</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnImport" disabled><i
+                            class="glyphicon glyphicon-import"></i> Import</button>
+                </div> -->
+                <div class="row panel panel-primary" id="LIST">
+                    <div class="panel-heading">Danh sách kế hoạch vay 03 năm</div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover table-columned text-center"
+                            id="Grid01">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px">STT</th>
+                                    <th>Vị trí menu</th>
+                                    <th>ID cha</th>
+                                    <th>Name</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div role="document" style="width: 85%;margin-left: 8%;">
+                <div class="modal-content" style="height: 550px">
+                    <div class="modal-header" style="display: flex">
+                        <h5 style="width: 99%" class="modal-title" id="exampleModalLongTitle">Menu
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="height: 450px; ">
+                        <div class="brow" style="margin-top: 20px">
+                            <div class="row">
+                                    <!-- <div class="row">
+                                            <div class="col-sm-2"><label>ID</label></div>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control validate-form" name="ID"
+                                                    id="ID" value="" />
+                                            </div>
+                                        </div> -->
+                                        <!-- <br/> -->
+                                <div class="row">
+                                    <div class="col-sm-2"><label>STT</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control validate-form" name="STT"
+                                            id="STT" value="" />
+                                    </div>
+                                    <div class="col-sm-2"><label>ID Cha</label></div>
+                                    <div class="col-sm-4">
+                                        <!-- <input type="text" class="form-control validate-form" name="IDCHA"
+                                            id="IDCHA" value="" /> -->
+                                            <select id="IDCHA" class="form-control">
+                                            </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+									<div class="col-sm-2"><label>Tên <span class="require">(*)</span></label></div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control validate-form" name="NAME" id="NAME"
+											value="" />
+									</div>
+									<div class="col-sm-2"><label>URL</label></div>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="URL" id="URL" value="" />
+									</div>
+								</div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;padding-right: 15px;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary btnSave" id="btnSaveData">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Tra cứu lịch sử</title>
+	<script type="text/javascript" src="/qln/public/js/qln/app/HopDong/TraCuuLichSu.js"></script>
+	<script type="text/javascript">
+		oTraCuuLichSu = new TraCuuLichSu();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<label>TRA CỨU LỊCH SỬ HỆ THỐNG</label>
+			<hr />
+			<div class="col-sm-12" style="margin:0px">
+				<div class="row ACTIONS well">
+					<div class="col-md-3">
+						<label>Nhóm lịch sử</label>
+						<select class="form-control">
+							<option value="0">- Chọn nhóm lịch sử -</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label>Từ ngày</label>
+						<input type="date" class="form-control" id="datTuNgay" />
+					</div>
+					<div class="col-md-3">
+						<label>Đến ngày</label>
+						<input type="date" class="form-control" id="datDnNgay" />
+					</div>
+					<div class="col-md-3">
+						<button type="button" style="margin-top:20px" class="btn btn-info btn-sm" id="btnTraCuu"><i
+								class="glyphicon glyphicon-search"></i> Tra cứu</button>
+					</div>
+
+				</div>
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading">Phân quyền dữ liệu</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="tblDanhSach">
+							<thead>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">STT</th>
+									<th style="width:120px;">Thời gian</th>
+									<th style="width:120px;">Tài khoản</th>
+									<th>Nội dung</th>
+									<th style="width:120px;">Url chức năng</th>
+									<th style="width:120px;">Url trước</th>
+									<th style="width:120px;">Địa chỉ IP</th>
+									<th style="width:120px">Tác vụ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">1</th>
+									<th style="width:120px;">8:30 AM</th>
+									<th style="width:120px;">admin</th>
+									<th>Phân quyền chức năng</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/HeThong/PhanQuyenChucNang</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/hopdongvayoda</th>
+									<th style="width:120px;">10.56.24.1</th>
+									<th style="width:120px">Xem danh sách</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">2</th>
+									<th style="width:120px;">8:36 AM</th>
+									<th style="width:120px;">minhphuong</th>
+									<th>Thêm danh sách</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/ToChucTaiChinh</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/DanhBa</th>
+									<th style="width:120px;">10.56.24.156</th>
+									<th style="width:120px">Thêm mới</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">3</th>
+									<th style="width:120px;">9:26 AM</th>
+									<th style="width:120px;">lethimay</th>
+									<th>Sửa danh bạ</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/DanhBa</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/HopDong/PhuLucHopDongVayLai</th>
+									<th style="width:120px;">10.56.24.19</th>
+									<th style="width:120px">Sửa đổi</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">4</th>
+									<th style="width:120px;">10:07 AM</th>
+									<th style="width:120px;">lethimay</th>
+									<th>Thêm biểu mẫu báo cáo</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/BieuMauBaoCao</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/KeHoach/KeHoachVayHangNam</th>
+									<th style="width:120px;">10.56.24.19</th>
+									<th style="width:120px">Thêm mới</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">5</th>
+									<th style="width:120px;">15:11 PM</th>
+									<th style="width:120px;">admin</th>
+									<th>Thêm người dùng</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/HeThong/NguoiDung</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/BieuMauBaoCao</th>
+									<th style="width:120px;">10.56.24.1</th>
+									<th style="width:120px">Thêm mới</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">6</th>
+									<th style="width:120px;">9:37 AM</th>
+									<th style="width:120px;">minhphuong</th>
+									<th>Thêm nhà tài trợ</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/NhaTaiTro</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/TinhThanh</th>
+									<th style="width:120px;">10.56.24.156</th>
+									<th style="width:120px">Thêm mới</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">7</th>
+									<th style="width:120px;">9:56 AM</th>
+									<th style="width:120px;">nguyenthuy</th>
+									<th>Sửa biến động tài sản</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/VayLai/BienDongTS</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/hopdongvayoda</th>
+									<th style="width:120px;">10.56.24.50</th>
+									<th style="width:120px">Sửa đổi</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">8</th>
+									<th style="width:120px;">9:37 AM</th>
+									<th style="width:120px;">admin</th>
+									<th>Tra cứu lịch sử</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/HeThong/TraCuuLichSu</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/hopdongvayoda</th>
+									<th style="width:120px;">10.56.24.1</th>
+									<th style="width:120px">Tra cứu</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">9</th>
+									<th style="width:120px;">16:05 PM</th>
+									<th style="width:120px;">quoctrung94</th>
+									<th>In giấy nhận nợ</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/HopDong/DotRutVon</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/hopdongvayoda</th>
+									<th style="width:120px;">10.56.24.64</th>
+									<th style="width:120px">In bản ghi</th>
+								</tr>
+								<tr>
+									<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+									<th style="width:60px">10</th>
+									<th style="width:120px;">16:05 PM</th>
+									<th style="width:120px;">nguyenthuy</th>
+									<th>Kết xuất trái phiếu</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/TraiPhieu/DeAnPHTP</th>
+									<th style="width:120px;">http://fscvn.ddnes.net:8099/qln/app/danhmuc/hopdongvayoda</th>
+									<th style="width:120px;">10.56.24.50</th>
+									<th style="width:120px">Kết xuất</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/TinhThanhCTView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+	<script type="text/javascript">
+		var oTinhThanhCTView = new TinhThanhCTView();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Mã Địa Bàn <span class="require">*</span></label></div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="name" id="MA" value="" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Tên tỉnh/thành phố</label></div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="name" value="" id="TEN" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-2"><label>Cấp</label></div>
+				<div class="col-sm-10">
+					<select id="NOTE" class="form-control">
+						<option value="Tỉnh">Tỉnh</option>
+						<option value="Huyện">Huyện</option>
+						<option value="Xã">Xã</option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

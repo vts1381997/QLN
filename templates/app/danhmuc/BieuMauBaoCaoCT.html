@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+		<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/BieuMauBaoCaoCTView.js"></script>
+		<script type="text/javascript" src="/qln/public/js/qln/model/bieumaubaocao.js"></script>
+		<script type="text/javascript">
+			var oBieuMauBaoCaoCTView = new BieuMauBaoCaoCTView();
+		</script>
+</head>
+
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Mã <span class="require">*</span></label>
+				</div>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="MA" value="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Tên báo cáo</label>
+				</div>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="TIEUDE" value="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Cơ quan ban hành</label>
+				</div>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="COQUANBANHANH" value="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Ngày ban hành</label>
+				</div>
+				<div class="col-sm-9">
+					<input type="text" class="form-control wec-control-date" id="NGAYBANHANH" value="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Ngày cấp</label>
+				</div>
+				<div class="col-sm-9">
+					<input type="text" class="form-control wec-control-date" id="NGAYHIEULUC" value="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Trạng thái</label>
+				</div>
+				<div class="col-sm-9">
+					<select id="selTrangThai" class="form-control">
+						<option value="1">Sử dụng</option>
+						<option value="0">Không sử dụng</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3">
+					<label>Nhóm báo cáo</label>
+				</div>
+				<div class="col-sm-9">
+					<select id="NHOMBAOCAO" class="form-control">
+						<option value="Báo cáo quản trị">Báo cáo quản trị</option>
+						<option value="Báo cáo theo nghị định 97">Báo cáo theo nghị định 97</option>
+						<option value="Báo cáo theo thông tư 80">Báo cáo theo thông tư 80</option>
+						<option value="Báo cáo khác">Báo cáo khác</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="BIEUMAUBAOCAOID" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+			<button type="button" class="btn btn-info" id="btnclose"><i class="glyphicon glyphicon-save"></i>
+				cancel</button>
+		</div>
+	</div>
+</body>
+
+</html>

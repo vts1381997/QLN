@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+<head>
+  <script type="text/javascript" th:src="@{/public/libs/validate_form/jquery.validation.min.js}"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#form-signup_v1 [data-toggle="popover"]').popover({ trigger: 'focus', placement: 'left' });
+
+      $('#form-signup_v1').validate({
+        submit: {
+          settings: {
+            inputContainer: '.field',
+            errorListClass: 'ui red pointing below label'
+          },
+          callback: {
+            onBeforeSubmit: function (node) {
+
+              myBeforeSubmitFunction(':D', ':)', node);
+
+            },
+            onSubmit: function (node, formData) { 
+              //node[0].submit();
+            }
+          }
+        }
+      });
+
+      function myBeforeSubmitFunction(a, b, node) { 
+        node.find('input:not([type="submit"]), select, textarea').attr('readonly', 'true');
+        node.append('<div class="ui active loader"></div>');
+
+      }
+    })
+  </script>
+  <!-- <title>Socket.IO chat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font: 13px Helvetica, Arial;
+    }
+
+    form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
+
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages li {
+      padding: 5px 10px;
+    }
+
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+
+    #messages {
+      margin-bottom: 40px
+    }
+  </style> -->
+</head>
+
+<body>
+
+   
+    <select name="siteID" id="siteID" class="abcd" style="width:100%">
+      <option value='0' selected='true'> Not associated to any Circuit ID </option>
+      <option value='2101' > 1007345136 </option> 
+      <option value='2102' > 1007921321 </option> 
+      <option value='2103' > 1007987235 </option> 
+      <option value='2407' > 132 </option> 
+      <option value='2408' > 141 </option> 
+      <option value='2409' > 142 </option> 
+      <option value='2410' > 145 </option> 
+      <option value='2701' > 225 </option> 
+      <option value='2702' > 248 </option> 
+      <option value='2703' > 251 </option> 
+      <option value='2704' > 254 </option> 
+      <option value='2705' > 264 </option> 
+      <option value='1804' > 27 </option> 
+      <option value='2706' > 274 </option> 
+      <option value='2707' > 310 </option> 
+      <option value='2708' > 311 </option> 
+      <option value='3001' > 333 </option> 
+      <option value='2401' > 38 </option> 
+      <option value='2402' > 64 </option> 
+      <option value='2403' > 68 </option> 
+      <option value='2404' > 69 </option> 
+      <option value='2405' > 76 </option> 
+      <option value='2406' > 81 </option> 
+      <option value='2411' > abc123post </option> 
+      <option value='3301' > circuit id 50 </option> 
+      <option value='2105' > fadhil </option> 
+      <option value='2104' > faisal </option> 
+      <option value='3002' > IPEN - SITE TEST </option> 
+      <option value='3601' > Manual Circuit ID </option> 
+      <option value='3302' > new circuit id fadhil </option> 
+      <option value='1809' > try iframe </option> 
+    </select>
+  <!-- <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io('http://localhost:3000');
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    });
+
+
+  </script> -->
+
+
+
+</body>
+
+</html>

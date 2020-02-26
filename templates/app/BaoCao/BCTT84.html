@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Báo cáo khác</title>
+    <script type="text/javascript" src="/qln/public/js/qln/app/BaoCao/BCTT84.js"></script>
+    <script type="text/javascript">
+        oBCTT84 = new BCTT84();
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row ACTIONS well well-sm" style="margin-top:10px">
+            <div class="row">
+                <span style="margin-left: 20px;" class="glyphicon glyphicon-align-justify"></span><label style="color:red;">&nbspBÁO CÁO
+					KHÁC</label>
+                <hr />
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="col-sm-2">
+                    <label>Chọn báo cáo </label>
+                </div>
+                <div class="col-sm-10">
+                    <select class="form-control" id="ReportType">
+						<option value="1">1. 1.03</option>
+						<option value="2">2. 1.04</option>
+						<option value="3">3. 2.03</option>
+						<option value="4">4. 2.04</option>
+						<!-- <option value="4">4. Báo cáo tình hình vay lại ODA, vay ưu đãi nước ngoài của chính phủ</option> -->
+					</select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Tỉnh/Thành phố </label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control">
+						<option>TP. Hà Nội</option>
+						<option>TP. Hồ Chí Minh</option>
+						<option>Tỉnh Phú Thọ</option>
+						<option>Tỉnh Nam Định</option>
+					</select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Ngày bắt đầu </label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control wec-control-date" name="name" value="" />
+                </div>
+                <div class="col-sm-2">
+                    <label>Ngày kết thúc </label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control wec-control-date" name="name" value="" />
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-info btn-sm" id="btnReport"><i
+							class="glyphicon glyphicon-file"></i> Xuất báo cáo</button>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</body>
+
+</html>

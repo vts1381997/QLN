@@ -1,0 +1,315 @@
+.action_approve, .action_unapprove {
+    font-size: 12px !important;
+}
+
+td .action_unapprove, td .action_approve {
+    margin: 0px 0px !important;
+    margin-left: 7px !important;
+}
+
+.table .btn {
+    padding: 2px !important;
+    margin: auto !important;
+    text-align: center;
+    margin-left: 5px !important;
+}
+
+.table .btn i {
+    line-height: 10px;
+    display: block;
+}
+
+/* .table td:last-child {
+    min-width: 100px !important;
+} */
+
+.row-detail-head div {
+    text-align: center !important;
+    font-weight: bold !important;
+    background-color: #a2b6d2 !important;
+    padding: 10px 0px !important;
+    color: white !important;
+}
+
+.row-detail-tbody {
+    padding: 7px 0px !important;
+}
+
+.row-detail-tbody div {
+    height: 22px;
+    line-height: 22px;
+}
+
+.row-detail-tbody div .btn {
+    height: 20px !important;
+    font-size: 10px;
+}
+
+.dataTables_filter {
+    margin-bottom: 20px !important;
+}
+
+label {
+    font-size: 15px !important;
+}
+
+input {
+    font-size: 15px !important;
+}
+
+#btnDelete {
+    display: none;
+}
+
+#btnAddNew {
+    display: none;
+}
+
+#btnEdit {
+    display: none;
+}
+
+#btnPhanQuyen {
+    display: none;
+}
+
+#btnTraLai {
+    display: none;
+}
+
+#btnPheDuyetDuToan {
+    display: none;
+}
+
+#btnLichsu {
+    display: none;
+}
+
+#btnTroNo {
+    display: none;
+}
+
+.modal-content {
+    overflow: auto !important;
+}
+
+.select2 {
+    width: 100% !important;
+}
+
+.btn-notification {
+    position: fixed;
+    z-index: 999;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 45px !important;
+}
+
+.btn-notification span {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    color: white;
+}
+
+.btn-notification::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -5px;
+    border: 1px solid green;
+    animation: notification1 1s infinite;
+    -webkit-animation: notification1 1s infinite;
+}
+
+.btn-notification::before {
+    content: '';
+    width: 50px;
+    z-index: -2;
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    border-radius: 100px;
+    position: absolute;
+    border: 1px solid green;
+    animation: notification2 2s infinite;
+    -webkit-animation: notification2 2s infinite;
+}
+
+.btn-notification i {
+    font-size: 36px;
+    color: red;
+    z-index: 1;
+    animation: notification 2s infinite;
+    -webkit-animation: notification 2s infinite;
+}
+
+.notification .slider-left {
+    display: none;
+    height: 100%;
+    position: fixed;
+    top: 85px;
+    left: 0px;
+    z-index: 9999;
+    background-color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 10px;
+    animation: slidenotification 1s;
+    border: 1px solid #337ab7;
+}
+
+@-webkit-keyframes slidenotification {
+    0% {
+        transform: translate(-200px);
+    }
+    50% {
+        transform: rotateZ(-100px);
+    }
+    100% {
+        transform: rotateZ(0px);
+    }
+}
+
+@keyframes slidenotification {
+    0% {
+        transform: translate(-200px);
+    }
+    50% {
+        transform: rotateZ(-100px);
+    }
+    100% {
+        transform: rotateZ(0px);
+    }
+}
+
+@-webkit-keyframes notification {
+    0% {
+        transform: rotateZ(-30deg);
+    }
+    50% {
+        transform: rotateZ(30deg);
+    }
+    100% {
+        transform: rotateZ(-30deg);
+    }
+}
+
+@keyframes notification {
+    0% {
+        transform: rotateZ(-30deg);
+    }
+    50% {
+        transform: rotateZ(30deg);
+    }
+    100% {
+        transform: rotateZ(-30deg);
+    }
+}
+
+@-webkit-keyframes notification1 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: rotateZ(1);
+    }
+}
+
+@keyframes notification1 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: rotateZ(1);
+    }
+}
+
+@-webkit-keyframes notification2 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: rotateZ(1);
+    }
+}
+
+@keyframes notification2 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: rotateZ(1);
+    }
+}
+
+input[type="file"] {
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    box-sizing: border-box;
+    width: 213px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+input[type="file"]::before {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    content: 'Chọn tệp';
+    display: block;
+    position: absolute;
+    z-index: 99998;
+    top: 0px;
+    left: 0px;
+    padding: 10px;
+    height: 40px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+input[type="file"]::after {
+    content: 'Thả tệp ở đây';
+    display: block;
+    position: absolute;
+    z-index: 99997;
+    top: 0px;
+    left: 0px;
+    height: 40px;
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    transform: translateX(80px);
+    background-color: white;
+    border-right: 2px solid #007bff;
+    box-sizing: border-box;
+}
+
+input[type="file"]:hover::before {
+    background-color: #075db9;
+}
+
+.file-selected {
+    display: inline-block;
+}

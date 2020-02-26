@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Số hợp đồng <span class="require">*</span></label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Ngày ký</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Tên dự án</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Cơ quan vay lại</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Cơ quan ủy quyền cho vay lại</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Số tiền kí vay</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default">VNĐ</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Lãi suất vay</label></div>
+				<div class="col-sm-3">
+					<input type="number" class="form-control" name="name" value="" />
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Ngày hiệu lực</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Ngày trả nợ gốc đầu tiên</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Ngày trả nợ lãi đầu tiên</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Ngày trả nợ gốc cuối cùng</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Ngày trả nợ lãi cuối cùng</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control wec-control-date" value="" id="DECISION_DATE" name="DECISION_DATE" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('#DECISION_DATE').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Phương thức trả nợ gốc</label></div>
+				<div class="col-sm-3">
+					<select class="form-control">
+						<option value="value">Trả đều</option>
+						<option value="value">Phương thức khác</option>
+					</select>
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Phương thức trả nợ lãi</label></div>
+				<div class="col-sm-3">
+					<select class="form-control">
+						<option value="value">Bán niên</option>
+						<option value="value">Hằng năm</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Lãi phạt</label></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default">VNĐ</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Số hiệp định vay nước ngoài</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Phí theo hiệp định vay nước ngoài</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Phí quản lý cho vay lại</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Loại lãi suất</label></div>
+				<div class="col-sm-3">
+					<select class="form-control">
+						<option value="value">Cố định</option>
+						<option value="value">Thả nối</option>
+					</select>
+				</div>
+				<div class="col-sm-3" style="padding-left:30px;"><label>Số tiền ký vay</label></div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name" value="" />
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-sm-3"><label>Loại tiền</label></div>
+				<div class="col-sm-3">
+					<select class="form-control">
+						<option value="value">Đơn vị nguyên tệ</option>
+						<option value="value">VNĐ</option>
+					</select>
+				</div>
+			  
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="hdfID" />
+			<button type="button" class="btn btn-info" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

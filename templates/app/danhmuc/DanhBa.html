@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Danh bạ</title>
+	<script type="text/javascript" th:src="@{/public/js/qln/model/DanhBa.js}"></script>
+	<script type="text/javascript" th:src="@{/public/js/qln/app/danhmuc/DanhBaView.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var oDanhBaView = new DanhBaView();
+		})
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<span class="glyphicon glyphicon-align-justify"></span> <label style="color: red;" id="AppTitle"></label>
+			<hr />
+			<div class="col-sm-12">
+
+				<!-- <div class="row ACTIONS well well-sm">
+					<button type="button" class="btn btn-info btn-sm" id="btnRefresh"><i
+							class="glyphicon glyphicon-refresh"></i>
+						Làm mới</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i
+							class="glyphicon glyphicon-plus"></i>
+						Thêm</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnEdit"><i
+							class="glyphicon glyphicon-edit"></i> Sửa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnDelete"><i
+							class="glyphicon glyphicon-trash"></i>
+						Xóa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnExport" style="display: none"><i
+							class="glyphicon glyphicon-export"></i> Kết xuất</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnImport" style="display: none"><i
+							class="glyphicon glyphicon-import"></i> Import</button>
+				</div> -->
+
+				<div class="row ACTIONS well well-sm">
+					<div class="col-md-3">
+						<input type="text" class="form-control" id="KEY" value="" />
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-info" id="btnSearch"><i class="glyphicon glyphicon-search"></i>Tìm
+							kiếm</button>
+					</div>
+				</div>
+
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading">Danh sách danh bạ</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="Grid01">
+							<thead>
+								<tr>
+									<th style="width:40px">STT</th>
+									<th>Họ và tên</th>
+									<th>Số điện thoại</th>
+									<th>Email</th>
+									<th>Địa chỉ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th style="width:40px">1</th>
+									<th>Nguyễn Minh Quân</th>
+									<th>0987564231</th>
+									<th>quan@gmail.com</th>
+									<th>Lào Cai</th>
+								</tr>
+								<tr>
+									<th style="width:40px">2</th>
+									<th>Vũ Tiến Vinh</th>
+									<th>0961321546</th>
+									<th>vinhvt@gmail.com</th>
+									<th>Hà Nội</th>
+								</tr>
+								<tr>
+									<th style="width:40px">3</th>
+									<th>Trịnh Văn Chiến</th>
+									<th>01248421697</th>
+									<th>chientv@gmail.com</th>
+									<th>Nam Định</th>
+								</tr>
+								<tr>
+									<th style="width:40px">4</th>
+									<th>Nguyễn Thị Hà</th>
+									<th>01298466321</th>
+									<th>nguyenha@gmail.com</th>
+									<th>Nghệ An</th>
+								</tr>
+								<tr>
+									<th style="width:40px">5</th>
+									<th>Tạ Văn Toàn</th>
+									<th>01262141358</th>
+									<th>toanta@gmail.com</th>
+									<th>Hà Nội</th>
+								</tr>
+								<tr>
+									<th style="width:40px">6</th>
+									<th>Nguyễn Văn Sơn</th>
+									<th>0962687156</th>
+									<th>vanson@gmail.com</th>
+									<th>Hà Nội</th>
+								</tr>
+								<tr>
+									<th style="width:40px">7</th>
+									<th>Trần Văn Nam</th>
+									<th>0962314785</th>
+									<th>namtv@gmail.com</th>
+									<th>Hà Nội</th>
+								</tr>
+								<tr>
+									<th style="width:40px">8</th>
+									<th>Tạ Tuấn Hoàn</th>
+									<th>0943659125</th>
+									<th>tatuanhoan@gmail.com</th>
+									<th>Nam Định</th>
+								</tr>
+								<tr>
+									<th style="width:40px">9</th>
+									<th>Lê Thị May</th>
+									<th>0932945278</th>
+									<th>mayle@gmail.com</th>
+									<th>Hà Nội</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

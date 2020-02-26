@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Biến động tài sản</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/all.css}">
+    <script type="text/javascript" src="/qln/public/js/qln/app/VayLai/BienDongTS.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            oMuaLaiTP = new MuaLaiTP();
+        })
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row" style="margin-top:10px">
+            <span class="glyphicon glyphicon-align-justify"></span><label style="color:red;">&nbspCẬP NHẬT BIẾN ĐỘNG TÀI
+				SẢN ĐẢM BẢO TIỀN VAY</label>
+            <hr />
+            <div class="col-sm-12" style="margin:0px">
+                <div class="row ACTIONS well well-sm">
+                    <button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i
+							class="glyphicon glyphicon-plus"></i> Thêm</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnEdit"><i
+							class="glyphicon glyphicon-edit"></i> Sửa</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnDelete"><i
+							class="glyphicon glyphicon-trash"></i> Xóa</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnExport"><i
+							class="glyphicon glyphicon-export"></i> Kết xuất</button>
+                    <button type="button" class="btn btn-info btn-sm" id="btnImport"><i
+							class="glyphicon glyphicon-import"></i> Import</button>
+                </div>
+                <div class="row panel panel-primary" id="LIST">
+                    <div class="panel-heading">Danh sách biến động tài sản</div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover table-columned text-center" id="Grid01">
+                            <thead>
+                                <tr>
+
+                                    <th style="width:40px">STT</th>
+                                    <th>Hợp đồng cho vay lại</th>
+                                    <th>Tài sản biến động</th>
+                                    <th>Ngày biến động</th>
+                                    <th>Giá trị tài sản</th>
+                                    <th>File đính kèm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td>1</td>
+                                    <td style="text-align: left">Hợp đồng vay lại vốn xây dựng nông thôn mới</td>
+                                    <td>Đất đấu thầu giãn dân</td>
+                                    <td>15/10/2018</td>
+                                    <td>123.330.442 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>2</td>
+                                    <td style="text-align: left">HD vay lại vốn cho tập đoàn điện lực</td>
+                                    <td>Quyền sở hứu tài sản</td>
+                                    <td>1/1/2018</td>
+                                    <td>143.223.343 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>3</td>
+                                    <td style="text-align: left">HD vay lại vốn nâng cấp chất lượng y tế</td>
+                                    <td>Lương</td>
+                                    <td>12/3/2018</td>
+                                    <td>98.434.112 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>4</td>
+                                    <td style="text-align: left">HD vay lại vốn cải thiện chất lượng giáo dục</td>
+                                    <td>Đất đền bù</td>
+                                    <td>1/4/2018</td>
+                                    <td>168.433.223 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>5</td>
+                                    <td style="text-align: left"> Hợp đồng ủy quyền cho vay lại vốn ODA</td>
+                                    <td>cố định</td>
+                                    <td>1/2/2018</td>
+                                    <td>235.333.000 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>6</td>
+                                    <td style="text-align: left">Hợp đồng vay lại vốn ưu đãi nước ngoài</td>
+                                    <td>Nhà đất</td>
+                                    <td>22/10/2018</td>
+                                    <td>343.000.000 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>7</td>
+                                    <td style="text-align: left">Hợp đồng vay lại vốn xây dựng cơ sở hạ tầng</td>
+                                    <td>Tỷ giá tiền tệ</td>
+                                    <td>12/10/2018</td>
+                                    <td>523.212.231 </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"><i
+												class="glyphicon glyphicon-save"></i> </button>
+                                    </td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

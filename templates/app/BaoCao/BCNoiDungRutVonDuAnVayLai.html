@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/model/BCQuanTri.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			let ngaybatdau = Util.Url.getParameterByName('ngaybatdau')
+			let ngayketthuc = Util.Url.getParameterByName('ngayketthuc')
+			let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+			let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
+			let dvt = Util.Url.getParameterByName('dvt')
+			let tendvt = Util.Url.getParameterByName('donvitinh')
+			var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '').replace('Bộ Tài Chính', '')
+			$("#labelTinhThanh").text(tentinhthanh.toUpperCase())
+			$("#txtTinhThanh").text(labelTinhThanh)
+			$("#txtDvt").text(tendvt)
+			var bcquantri = new BCQuanTri();
+			var option = ''
+			var dt = {
+				tinhthanhid,
+				ngaybatdau,
+				ngayketthuc,
+				dvt
+			}
+			var listdt = bcquantri.getBCNoiDungRutVonDuAnVayLai(dt)
+			var tong = [0, 0]
+
+			for (var i = 0; i < listdt.length; i++) {
+				var _item = listdt[i];
+				tong[0] = tong[0] + _item.NGUYENTEVAYLAI
+				tong[1] = tong[1] + _item.SOTIENGIAINGANVAYLAI
+				option = option + '<tr>\
+							<td style="text-align:center" colspan="1" >'+ Number(i + 1) + '</td>\
+							<td style="text-align:left" colspan="1" >\
+									'+ _item.TENDUAN + '\
+								</td>\
+							<td  style="text-align:left" colspan="1" >\
+								'+ _item.NHATAITRO + '\
+							</td>\
+							<td  style="text-align:left" colspan="1" >\
+									'+ _item.HINHTHUCRUTVON + '\
+							</td>\
+							<td  style="text-align:center" colspan="1" >'+ _item.NGAYRUTVON + '</td>\
+							<td  style="text-align:center" colspan="1" >'+ _item.DONVITIEN + '</td>\
+							<td  style="text-align:right" colspan="1" >'+ formatMoney(_item.NGUYENTEVAYLAI) + '</td>\
+							<td  style="text-align:right" colspan="1" >'+ formatMoney(_item.SOTIENGIAINGANVAYLAI) + '</td>\
+						</tr>'
+			}
+			var optionTong = '<td colspan="6"\
+                    style="padding-left: 50px !important; text-align:left !important; vertical-align: middle; font-weight: bold;">Tổng số\
+                            </td>';
+			tong.map(value => {
+				optionTong = optionTong + 
+					'<td style="text-align:right !important; vertical-align: middle; font-weight: bold;"> ' + formatMoney(value) + '</td>'
+					'<td style="text-align:right !important; vertical-align: middle; font-weight: bold;"> ' + formatMoney(value) + '</td>'
+			})
+			$("#trTong").append(optionTong)
+			$("#tblDanhSach tbody").append(option)
+			var ngay = fnc_ngayhientai().split("-")[2]
+			var thang = fnc_ngayhientai().split("-")[1]
+			var nam = fnc_ngayhientai().split("-")[0]
+			$("#txtNgay").text(ngay)
+			$("#txtThang").text(thang)
+			$("#txtNam").text(nam)
+		})
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="padding-left: 15%;">
+			<div class="col-sm-3 pull-left text-center">
+				<strong>
+					<strong id="labelTinhThanh"></strong><br>
+					-----------<br>
+				</strong>
+				Số: …..<br>
+			</div>
+			<div class="col-sm-9 text-center">
+				<strong>
+					CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br>
+					Độc lập - Tự do - Hạnh phúc <br>
+					------------<br><br>
+				</strong>
+				<i>
+					<i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i> tháng <i id="txtThang"></i> năm <i
+						id="txtNam"></i>
+				</i>
+			</div>
+		</div>
+		<div class="text-center col-sm-12">
+			<strong class="text-center" style="font-weight: bold; font-size: 17px;">
+				Kính gửi: Bộ Tài Chính<br>
+			</strong>
+			<br />
+		</div>
+		<div class="text-center col-sm-12">
+			<label class="text-center">
+				<strong style="font-size:17px">BÁO CÁO NỘI DUNG RÚT VỐN DỰ ÁN VAY LẠI</strong><br />
+			</label>
+			<br />
+			<div style="float: right;">Đơn vị tính: &nbsp;<label style="font-size: 14px !important;"
+					id="txtDvt"></label></label>
+			</div>
+			<div class="col-sm-12" style="margin-top:10px">
+				<table class="table table-striped table-bordered table-hover table-columned text-center"
+					id="tblDanhSach">
+					<thead>
+						<tr>
+							<th style="width:40px; text-align: center;">STT</th>
+							<th style="text-align: center;">Tên dự án</th>
+							<th style="text-align: center;">Nhà tài trợ</th>
+							<th style="text-align: center;">Hình thức rút vốn</th>
+							<th style="text-align: center;">Ngày rút vốn</th>
+							<th style="text-align: center;">Đơn vị tiền</th>
+							<th style="text-align: center;">Số tiền nguyên tệ</th>
+							<th style="text-align: center;">Quy ra VNĐ</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="trTong">
+						</tr>
+					</tbody>
+				</table>
+				<br />
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

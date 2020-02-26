@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/qln/public/css/simTree.css">
+	<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<title>sim-tree: Checkable Hierarchical Tree Demo</title>
+	<style>
+		body {
+			min-height: 100vh;
+			background-color: #fafafa;
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			
+			
+			var iddd = Util.Url.getParameterByName('id');
+			let id = JSON.parse(window.localStorage.getItem('ID'))
+			oNguoiDung = new NguoiDung();
+			let listuser = oNguoiDung.getMenu()
+			let userchecked = oNguoiDung.getClaim(iddd);
+			var obj = []
+			if (userchecked.length > 0) {
+				for (i = 0; i < listuser.length; i++) {
+					var obj2 = {}
+					let con = listuser[i]
+					for (j = 0; j < userchecked.length; j++) {
+						let cha = userchecked[j]
+						if (con.ID === cha.ID) {
+							obj2.id = con.ID;
+							obj2.pid = con.IDCHA;
+							obj2.name = con.NAME;
+							obj2.checked = 'checked'
+						}
+						else {
+							obj2.id = con.ID;
+							obj2.pid = con.IDCHA;
+							obj2.name = con.NAME;
+						}
+					}
+					obj.push(obj2)
+				}
+			}
+			else {
+				obj = listuser.map(function (value) {
+					return { id: value.ID, pid: value.IDCHA, name: value.NAME }
+				})
+			}
+			// let listu = listuser.map(function (value) {
+			// 	for(i=0;i<userchecked.length;i++){
+			// 		if(userchecked[i].ID===value.ID){
+			// 			return { id: value.ID, pid: value.IDCHA, name: value.NAME,checked:'checked' }
+			// 		}
+			// 		else{
+			// 			return { id: value.ID, pid: value.IDCHA, name: value.NAME }
+			// 		}
+			// 	}
+
+			// })
+			var list = []
+			var tree = simTree({
+				el: '#treeMenu',
+				data: obj,
+				check: true,
+				linkParent: true,
+				//check: true,
+				onClick: function (item) {
+					// console.log(item)
+				},
+				onChange: function (item) {
+					list = item
+				}
+			});
+			// var tree1 = simTree({
+			// 	el: '#treeDonVi',
+			// 	data: obj,
+			// 	check: true,
+			// 	linkParent: true,
+			// 	//check: true,
+			// 	onClick: function (item) {
+			// 		console.log(item)
+			// 	},
+			// 	onChange: function (item) {
+			// 		console.log(item)
+			// 	}
+			// });
+			$("#btnSave").on('click', function () {
+				oNguoiDung.setClaims(list,iddd);      
+				
+
+			})
+		})
+
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+		<div style="display: flex">
+			<div class="container">
+				<h1>Phân quyền MENU</h1>
+				<div id="treeMenu"></div>
+			</div>
+			<div class="container">
+				<h1>Phân Quyền đơn vị</h1>
+				<div id="treeDonVi"></div>
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+		<script src="/qln/public/skinqln/js/simTree.js"></script>
+		<script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+	</div>
+</body>
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-36251023-1']);
+	_gaq.push(['_setDomainName', 'jqueryscript.net']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+
+</html>

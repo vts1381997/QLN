@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Đổi mật khẩu</title>
+    <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        function fnc_thayDoiMatKhau() {
+            let txtMKC = $('#txtMKC').val()
+            let txtMKM = $('#txtMKM').val()
+            let txtMKM1 = $('#txtMKM1').val()
+            if (txtMKC.trim().length == 0 || txtMKM.trim().length == 0 || txtMKM1.trim().length == 0) {
+                $('#txtThongBao').text('Vui lòng không để trống các ô mật khẩu!')
+                return;
+            }
+
+            if (txtMKM.trim() != txtMKM1.trim()) {
+                $('#txtThongBao').text('Mật khẩu mới không giống nhau, vui lòng nhập lại!')
+                return;
+            }
+
+            if (txtMKC.trim() == txtMKM.trim()) {
+                $('#txtThongBao').text('Mật khẩu mới không được giống mật khẩu cũ, vui lòng nhập lại!')
+                return;
+            }
+
+            $('#txtThongBao').text('')
+            if ($('#txtThongBao').text() == '') {
+                var data = {
+                    matKhauCu: txtMKC,
+                    matKhauMoi: txtMKM
+                }
+                var nguoiDung = new NguoiDung();
+                var rs = nguoiDung.CHANGEPASS(data)
+                var oAlert = new AlertDialog('Thông báo');
+                oAlert.show(rs[0].MESSAGE, '40%', '50px');
+                if (rs[0].CODE == "SUCCESS") {
+                    jwt = {}
+                    localStorage.clear();
+                    window.location.href = CONFIG_API.URL.LOG_OUT;
+                }
+            }
+            //Gọi hàm cập nhật
+        }
+       // });
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row ACTIONS well well-sm" style="margin-top:10px">
+            <div class="row">
+                <span class="glyphicon glyphicon-list" style="padding-left: 20px;"></span> <label
+                    style="color: red;">ĐỔI MẬT KHẨU</label>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-6" style="margin-top:10px; border:2px whitesmoke solid">
+                <div class="col-sm-3">
+                    <label>Mật khẩu cũ (<span style="color: red;">*</span>)</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" value="" id="txtMKC" name="txtMKC" autocomplete="off" />
+                </div>
+                <div class="col-sm-3">
+                    <label>Mật khẩu mới (<span style="color: red;">*</span>)</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" value="" id="txtMKM" name="txtMKM" autocomplete="off" />
+
+                </div>
+                <div class="col-sm-3">
+                    <label>Nhập lại mật khẩu (<span style="color: red;">*</span>)</label>
+                </div>
+
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" value="" id="txtMKM1" name="txtMKM1"
+                        autocomplete="off" />
+                </div>
+                <div class="col-sm-3">
+                </div>
+
+                <div class="col-sm-9"><label id="txtThongBao" style="font-size: 14px; color: red;"></label>
+                </div>
+                <div class="col-sm-12 pull-right">
+                    <button type="button" style="float:right" class="btn btn-info btn-sm" id="btnReport"
+                        onclick="fnc_thayDoiMatKhau()">Đồng ý</button>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+    </div>
+    <!-- <div layout:fragment="content">
+        <div class="row ACTIONS well well-sm" style="margin-top:10px">
+            <div class="row">
+                <span class="glyphicon glyphicon-list" style="padding-left: 20px;"></span> <label
+                    style="color: red;">ĐỔI MẬT KHẨU</label>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="margin-top:10px; border:2px whitesmoke solid">
+                <div class="col-sm-3" style="margin-bottom: 10px;">
+                    <label>Mật khẩu cũ</label>
+                </div>
+                <div class="col-sm-9" style="margin-bottom: 10px;">
+                    <input type="password" class="form-control validate-form" name="MA" id="MA" value="" />
+                </div>
+                <div class="col-sm-3">
+                    <label>Mật khẩu mới</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control validate-form" name="MA" id="MA" value="" />
+                </div>
+                <div class="col-sm-3">
+                    <label>Nhập lại mật khẩu</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control validate-form" name="MA" id="MA" value="" />
+                </div>
+
+         
+                <div class="col-sm-12 pull-right">
+                    <button type="button" style="float:right" class="btn btn-info btn-sm" id="btnReport"><i
+                            class="glyphicon glyphicon-file"></in>Đồng ý</button>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+    </div> -->
+</body>
+
+</html>

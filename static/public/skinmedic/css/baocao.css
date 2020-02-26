@@ -1,0 +1,205 @@
+﻿.Popup {
+    margin: 10px;
+}
+
+body {
+    font-weight: normal;
+    color: #000;
+    font-family: "Times New Roman";
+    font-size: 13pt;
+}
+
+.table {
+    overflow: visible;
+    margin-bottom: 0px !important;
+}
+
+.page-print .table>tbody>tr>td,
+.page-print .table>tbody>tr>th,
+.page-print .table>tfoot>tr>td,
+.page-print .table>tfoot>tr>th,
+.page-print .table>thead>tr>td,
+.page-print .table>thead>tr>th {
+    vertical-align: middle;
+    border: 1px solid #000;
+}
+
+.table th,
+.table td {
+    background: #fff;
+}
+
+.page-print .table th,
+.page-print .table td {
+    border: 1px solid #000 !important;
+}
+
+.table th,
+.table td {
+    padding: 5px 10px;
+}
+
+h2 {
+    font-size: 14pt;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0px;
+}
+
+body {
+    background: #f6f6f6;
+}
+
+.k-widget {
+    font-family: "Times New Roman";
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    list-style: none;
+    font-size: 13px;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.page-print,
+.page-template {
+    max-width: 210mm;
+    margin: 44px auto;
+    padding: 10pt;
+    background: #fff;
+    font-family: "Times New Roman";
+}
+
+p {
+    line-height: 1.3;
+    margin-bottom: 0px;
+}
+
+body {
+    font-size: 13pt;
+}
+
+.f14 {
+    font-size: 14pt;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.center {
+    text-align: center;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table td {
+    border: 1px solid #000 !important;
+    padding: 5px 10px;
+}
+
+h2 {
+    font-size: 14pt;
+}
+
+.sp-key {
+    width: 60px;
+}
+
+.logo img {
+    width: 60px;
+}
+
+.table .no-bor td {
+    border: 0px !important;
+    padding: 0px !important;
+}
+
+.table>tbody>tr>td {
+    padding: 5px 10px !important;
+    border-top-color: #000;
+}
+
+.table .vcenter td {
+    vertical-align: middle;
+}
+
+.head-action {
+    position: fixed;
+    top: 0px;
+    z-index: 10;
+    width: 100%;
+    padding: 5px 10px;
+    background: #fff;
+    text-align: right;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.head-action .title {
+    padding: 4px 0px;
+}
+
+.head-action .btn {
+    background: #fff;
+    padding: 4px 4px;
+    height: auto;
+    text-align: center;
+    margin: 0px 2px;
+    color: #666;
+    cursor: pointer;
+    display: inline-block;
+}
+
+
+.head-action .btn:hover {
+    color: #166788;
+}
+
+.left {
+    float: left;
+}
+
+@media print {
+    .head-action {
+        display: none;
+    }
+    .sidebar-menu {
+        display: none;
+    }
+    .wrapper-canvas,.main-content {
+        display: none;
+    }
+    .popup-report{
+        padding-top: 0px;
+    }
+}
+
+.k-grid {
+    font-family: "Arial", sans-serif;
+}

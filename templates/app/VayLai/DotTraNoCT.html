@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		
+	</div>
+</body>
+<div layout:fragment="content">
+<div class="row">
+	<div class="col-sm-2"><label>Hợp đồng vay</label></div>
+	<div class="col-sm-4">
+		<select class="form-control">
+			<option>--- Chọn ---</option>
+		</select>
+	</div>
+	<div class="col-sm-2" style="padding-left:40px"><label>Ngày trả</label></div>
+	<div class="col-sm-4">
+		<input type="text" class="form-control wec-control-date" name="name" value="" />
+	</div>
+	<div class="col-sm-2"><label>Số tiền thực trả gốc</label></div>
+	<div class="col-sm-4">
+		<div class="input-group">
+			<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default">VNĐ</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2" style="padding-left:40px"><label>Dư nợ</label></div>
+	<div class="col-sm-4">
+		<div class="input-group">
+			<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default">VNĐ</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2"><label>Số tiền thực trả lãi</label></div>
+	<div class="col-sm-4">
+		<div class="input-group">
+			<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default">VNĐ</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2" style="padding-left:40px"><label>Lãi phạt</label></div>
+	<div class="col-sm-4">
+		<div class="input-group">
+			<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default">VNĐ</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2"><label>Số tiền thực trả lãi</label></div>
+	<div class="col-sm-4">
+		<div class="input-group">
+			<input type="text" class="form-control" value="" id="DEBT_QUOTA" name="DEBT_QUOTA" autocomplete="off" />
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default">VNĐ</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2" style="padding-left:40px"><label>Chọn đơn vị tiền tệ</label></div>
+	<div class="col-sm-4">
+		<div class="input-group">
+			<select class="form-control">
+				<option value="value">text</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-12" style="margin-top:20px">
+		<div class="row panel panel-primary" id="LIST">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-5 form-inline-group">
+						<label class="col-sm-5 text-align-right">Đính kèm file:</label>
+						<div class="col-sm-8">
+							<input type="file" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-5 form-inline-group">
+						<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-record"></i> Upload File</button>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered table-hover table-columned text-center" id="tblDanhSach">
+					<thead>
+						<tr>
+							<th style="width:10px"><input type="checkbox" name="name" value="" /></th>
+							<th style="width:40px">STT</th>
+							<th style="width:60px">Loại file</th>
+							<th>Tiêu đề</th>
+							<th style="width:40px">Tải về</th>
+							<th style="width:40px">Hủy</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox" name="name" value="" /></td>
+							<td>1</td>
+							<td><button type="button" class="btn btn-default btn-sm">Word</button></td>
+							<td>Công văn điều chỉnh giá xăng</td>
+							<td>
+								<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-download"></i></button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+							</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="name" value="" /></td>
+							<td>2</td>
+							<td><button type="button" class="btn btn-default btn-sm">Excel</button></td>
+							<td>Danh sách phụ lục hợp đồng</td>
+							<td>
+								<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-download"></i></button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+	<button type="button" class="btn btn-info" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+</div>
+</div>
+</html>

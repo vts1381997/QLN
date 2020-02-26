@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<form id="FORM" action="/" method="POST" style="width: 50%;height: 50%;" >
+			<div class="row">
+				<div class="col-md-2">
+					<label>Tên nhóm</label>
+				</div>
+				<div class="col-md-10">
+					<input type="text" class="form-control" name="name" value="Bộ tài chính" id="txtName" />
+				</div>
+			</div>
+		</form>
+		<br />
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" id="hdfID" value="0" />
+			<button type="button" class="btn btn-info" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+			<button type="button" class="btn btn-info"><i class="glyphicon glyphicon-backward"></i> Quay lại</button>
+		</div>
+	</div>
+</body>
+
+</html>

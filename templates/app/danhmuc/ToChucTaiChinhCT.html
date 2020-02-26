@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/ToChucTaiChinhCTView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/ToChucTaiChinh.js"></script>
+	<script type="text/javascript">
+		var oToChucTaiChinhCTView = new ToChucTaiChinhCTView();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Mã <span class="require">*</span></label></div>
+				<div class="col-sm-10"><input type="text" class="form-control" name="MA" id="MA" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"> <label>Tên</label></div>
+				<div class="col-sm-10"> <input type="text" class="form-control" name="TEN" id="TEN" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Địa chỉ</label></div>
+				<div class="col-sm-10"><input type="text" class="form-control" name="DIACHI" id="DIACHI" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Số giấy phép</label></div>
+				<div class="col-sm-10"><input type="text" class="form-control" name="name" id="SOGIAYPHEP" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Ngày cấp</label></div>
+				<div class="col-sm-10"><input type="text" class="form-control wec-control-date" name="name" value=""  id="NGAYCAP"/></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Vốn điều lệ</label></div>
+				<div class="col-sm-10"><input type="text" class="form-control" name="name" id="VONDIEULE" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Trạng thái</label></div>
+				<div class="col-sm-10">
+					<select  class="form-control" id="STATUS">
+						<option  value="1">Đang hoạt động</option>
+						<option value="0">Dừng/Tạm dừng hoạt động</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="TOCHUCTAICHINHID" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

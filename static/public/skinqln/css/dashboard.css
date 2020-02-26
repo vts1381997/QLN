@@ -1,0 +1,93 @@
+/*Dashboard*/
+
+.dashboard-canvas {
+    margin-bottom: 20px;
+}
+
+.dashboard-canvas.statistics .item {
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+    height: 80px;
+    padding: 10px 20px;
+}
+
+.dashboard-canvas.statistics .item .detail .txt {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.dashboard-canvas.statistics .item .detail .number {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dashboard-canvas.statistics .item .icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    width: 60px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 32px;
+    color: #fff;
+}
+
+.dashboard-canvas.statistics .item.c-red .number {
+    color: #FF5722;
+}
+
+.dashboard-canvas.statistics .item.c-red .icon {
+    background: #FF5722;
+}
+
+.dashboard-canvas.statistics .item.c-red span {
+    color: #FF5722;
+}
+
+.dashboard-canvas.statistics .item.c-blue .number {
+    color: #00BCD4;
+}
+
+.dashboard-canvas.statistics .item.c-blue .icon {
+    background: #00BCD4;
+}
+
+.dashboard-canvas.statistics .item.c-blue span {
+    color: #00BCD4;
+}
+
+.dashboard-canvas.statistics .item.c-yellow .number {
+    color: #FFB300;
+}
+
+.dashboard-canvas.statistics .item.c-yellow .icon {
+    background: #FFB300;
+}
+
+.dashboard-canvas.statistics .item.c-yellow span {
+    color: #FFB300;
+}
+
+.dashboard-canvas.statistics .item.c-green .number {
+    color: #4CAF50;
+}
+
+.dashboard-canvas.statistics .item.c-green .icon {
+    background: #4CAF50;
+}
+
+.dashboard-canvas.statistics .item.c-green span {
+    color: #4CAF50;
+}
+
+.dashboard-canvas .panel .panel-heading .title {
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 12px;
+}

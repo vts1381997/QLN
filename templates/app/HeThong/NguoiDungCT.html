@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript" src="/qln/public/js/qln/app/HeThong/NguoiDungCTView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
+	<script type="text/javascript">
+		var oNguoiDungCTView = new NguoiDungCTView();
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<form id="FORM" action="/" method="POST">
+			<div class="row">
+				<div class="col-md-2">
+					<label>Tài khoản</label>
+				</div>
+				<div class="col-md-10">
+					<input type="text" class="form-control" name="name" id="USERNAME" />
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Email</label>
+				</div>
+				<div class="col-md-10">
+					<input type="text" class="form-control" id="EMAIL" name="name" />
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Mật khẩu</label>
+				</div>
+				<div class="col-md-10">
+					<input type="password" class="form-control" id="PASSWORD" name="name" />
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Xác nhận mật khẩu</label>
+				</div>
+				<div class="col-md-10">
+					<input type="password" class="form-control" id="REPASSWORD" name="name" />
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>SHKB</label>
+				</div>
+				<input type="text" class="form-control" id="SHKB" name="name" />
+				<!-- <div class="col-md-10">
+					<select class="form-control" id="SHKB" name="name">
+					</select>
+				</div> -->
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Địa bàn</label>
+				</div>
+				<div class="col-md-10">
+					<select class="form-control" id="DIABAN">
+
+					</select>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Phân loại</label>
+				</div>
+				<div class="col-md-10">
+					<select class="form-control" id="selPhanLoai" value="Loại 1">
+						<option value="0">Chưa phân loại</option>
+						<option value="1">ĐVSDNS</option>
+						<option value="2">Xã/Phường/Thị trấn</option>
+					</select>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Nhóm người dùng</label>
+				</div>
+				<div class="col-md-10">
+					<select class="form-control">
+						<option value="value"></option>
+					</select>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2">
+					<label>Trạng thái</label>
+				</div>
+				<div class="col-md-10">
+					<select class="form-control" id="selTrangThai">
+						<option value="0">Khóa</option>
+						<option value="1">Kích hoạt</option>
+					</select>
+				</div>
+			</div>
+		</form>
+		<br />
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i>
+				Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-2">
+				<label>Nhóm người dùng</label>
+			</div>
+			<div class="col-md-10">
+				<select class="form-control" id="selRoles"></select>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-2">
+				<label>Dữ liệu khai thác</label>
+			</div>
+			<div class="col-md-10">
+				<select class="form-control" id="selBaoCao">
+					<option value="0">- Chọn báo cáo cần khai thác -</option>
+				</select>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-2">
+				<label>Quyền khai thác</label>
+			</div>
+			<div class="col-md-10">
+				<div class="form-inline">
+					<label><input type="checkbox" checked="checked" id="chkQuyenXem" /> Quyền xem </label>
+					<label><input type="checkbox" checked="checked" id="chkQuyenSua" /> Quyền sửa </label>
+					<label><input type="checkbox" checked="checked" id="chkQuyenXoa" /> Quyền xóa </label>
+				</div>
+			</div>
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<button type="button" class="btn btn-info" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+			<button type="button" class="btn btn-info"><i class="glyphicon glyphicon-backward"></i> Quay lại</button>
+		</div>
+	</div>
+</body>
+
+</html>

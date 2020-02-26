@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Báo cáo khác</title>
+    <script type="text/javascript" src="/qln/public/js/qln/app/BaoCao/BCKhac.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/TinhThanh.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/model/bieumaubaocao.js"></script>
+    <script type="text/javascript">
+        CurrentLayout = 'BCKHAC'
+        $(document).ready(function() {
+            oBCKhac = new BCKhac(); 
+        })
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row ACTIONS well well-sm" style="margin-top:10px">
+            <div class="row">
+                <span class="glyphicon glyphicon-list" style="padding-left: 20px;"></span> <label style="color: red;">TỔNG HỢP BÁO CÁO KHÁC</label>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="margin-top:10px; border:2px whitesmoke solid">
+                <div class="col-sm-2">
+                    <label>Chọn báo cáo </label>
+                </div>
+                <div class="col-sm-10">
+                    <select class="form-control" id="ReportType">
+    
+                        </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Tỉnh/Thành phố </label>
+                </div>
+                <div class="col-sm-10">
+                    <select id="tinhthanh" class="form-control">
+                        </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày </label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control wec-control-date" value="" id="ngaybatdau" name="ngaybatdau" autocomplete="off" />
+                        <span class="input-group-btn">
+                                <button style="margin-top: 0px;" type="button" class="btn btn-default"
+                                    onclick="$('#ngaybatdau').focus()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control wec-control-date" value="" id="ngayketthuc" name="ngayketthuc" autocomplete="off" />
+                        <span class="input-group-btn">
+                                <button style="margin-top: 0px;" type="button" class="btn btn-default"
+                                    onclick="$('#ngayketthuc').focus()"><i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đơn vị tính </label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control" id="donvitinh">
+                            <option value='1'>Đồng</option>
+                            <option value='1000'>Nghìn đồng</option>
+                            <option value='1000000'>Triệu đồng</option>
+                            <option value='1000000000'>Tỷ đồng</option>
+                        </select>
+                </div>
+                <div class="col-sm-12 pull-right">
+                    <button type="button" style="float:right" class="btn btn-info btn-sm" id="btnReport"><i
+                                class="glyphicon glyphicon-file"></i> Xem báo cáo</button>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+    </div>
+</body>
+
+
+</html>

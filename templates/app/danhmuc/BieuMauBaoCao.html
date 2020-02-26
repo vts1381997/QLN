@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main01">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Danh sách biểu mẫu báo cáo</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/public/template/zend/css/all.css}">
+	<script type="text/javascript" src="/qln/public/js/qln/app/danhmuc/BieuMauBaoCaoView.js"></script>
+	<script type="text/javascript" src="/qln/public/js/qln/model/bieumaubaocao.js"></script>
+	<script type="text/javascript" th:src="@{/public/js/qln/app/ulti/Search.js}"></script>
+	<script src="/qln/public/skinqln/js/validate.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			oBieuMauBaoCaoView = new BieuMauBaoCaoView()
+			CurrentLayout = "BIEUMAUBAOCAO"
+		})
+	</script>
+	<style>
+		table tr td:nth-child(2n-1) {
+			text-align: center
+		}
+
+		table tr td:nth-child(4n-2) {
+			text-align: left
+		}
+
+		table tr td:nth-child(6n-3) {
+			text-align: left
+		}
+
+		table tr td:nth-child(8n-4) {
+			text-align: left
+		}
+
+		table tr td:nth-child(10n-5) {
+			text-align: center
+		}
+
+		table tr td:nth-child(12n-6) {
+			text-align: center
+		}
+
+		table tr td:nth-child(14n-7) {
+			text-align: left
+		}
+
+		table tr td:nth-child(16n-8) {
+			text-align: center
+		}
+	</style>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row" style="margin-top:10px">
+			<!-- <span style="margin-left: 10px;" class="glyphicon glyphicon-align-justify"></span><label style="color: red;">&nbspDANH MỤC BIỂU MẪU BÁO
+				CÁO</label>
+			<hr /> -->
+			<div class="col-sm-12" style="margin:0px">
+				<!-- <div class="row ACTIONS well well-sm">
+					<button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i
+							class="glyphicon glyphicon-plus"></i> Thêm</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnEdit"><i
+							class="glyphicon glyphicon-edit"></i> Sửa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnDelete"><i
+							class="glyphicon glyphicon-trash"></i> Xóa</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnExport"><i
+							class="glyphicon glyphicon-export"></i> Kết xuất</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnImport"><i
+							class="glyphicon glyphicon-import"></i> Import</button>
+				</div> -->
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-heading" style="width: 98%; margin-left: 1%;">Danh sách biểu mẫu báo cáo</div>
+					<div class="panel-body" style="width: 98%; margin-left: 1%;">
+						<table class="table table-striped table-bordered table-hover table-columned text-center"
+							id="tblDanhSach">
+							<thead>
+								<tr>
+									<!-- <th style="width:10px"><input type="checkbox" name="name" value="" /></th> -->
+									<th style="width:40px">STT</th>
+									<th>Mã</th>
+									<th>Tiêu đề</th>
+									<th>Cơ quan ban hành</th>
+									<th>Ngày ban hành</th>
+									<th>Ngày cấp</th>
+									<th>Nhóm báo cáo</th>
+									<th style="width:60px;">Trạng thái</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div role="document" style="width: 100%; height: 100%;">
+				<div class="modal-content" style="height: 100%">
+					<div class="modal-header" style="display: flex">
+						<h5 style="width: 99%" class="modal-title" id="exampleModalLongTitle">
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" style="height: 80%">
+						<div class="brow" style="margin-top: 20px">
+							<div class="row">
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3"><label>Mã <span class="require">*</span></label></div>
+									<div class="col-sm-9"><input type="text" class="form-control validate-form"
+											name="MA" id="MA" value="" autocomplete="off" /></div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Tên báo cáo</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="TIEUDE" value=""
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Cơ quan ban hành</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="COQUANBANHANH" value=""
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3"><label>Ngày ban hành</label></div>
+									<div class="col-sm-9">
+										<div class="input-group">
+											<input type="text" class="form-control wec-control-date" value=""
+												id="NGAYBANHANH" name="NGAYBANHANH" autocomplete="off" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default"
+													onclick="$('#NGAYBANHANH').focus()"><i
+														class="glyphicon glyphicon-calendar"></i></button>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Ngày cấp</label>
+									</div>
+									<div class="col-sm-9">
+										<div class="input-group">
+											<input type="text" class="form-control wec-control-date" value=""
+												id="NGAYHIEULUC" name="NGAYHIEULUC" autocomplete="off" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default"
+													onclick="$('#NGAYHIEULUC').focus()"><i
+														class="glyphicon glyphicon-calendar"></i></button>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Trạng thái</label>
+									</div>
+									<div class="col-sm-9">
+										<select id="TRANGTHAI" class="form-control">
+											<option value="1">Sử dụng</option>
+											<option value="0">Không sử dụng</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Nhóm báo cáo</label>
+									</div>
+									<div class="col-sm-9">
+										<select id="NHOMBAOCAO" class="form-control">
+											<option value="QT">Báo cáo quản trị</option>
+											<option value="ND97">Báo cáo theo nghị định 97</option>
+											<option value="TT80">Báo cáo theo thông tư 80</option>
+											<option value="KHAC">Báo cáo khác</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Tên file báo cáo</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" value="" id="LINKFILE" name="LINKFILE"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Chiều rộng hiển thị</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" value="" id="RONG" name="RONG"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Chiều cao hiển thị</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" value="" id="CAO" name="CAO"
+											autocomplete="off" />
+									</div>
+								</div>
+								<div class="col-md-6" style="margin-bottom: 5px;">
+									<div class="col-sm-3">
+										<label>Loại báo cáo</label>
+									</div>
+									<div class="col-sm-9">
+										<select id="LOAIBAOCAO" class="form-control">
+											<option value="thang">Tháng</option>
+											<option value="nam">Năm</option>
+											<option value="6thdaunam">6 tháng đầu năm</option>
+											<option value="6thcuoinam">6 tháng cuối năm</option>
+											<option value="ngay">Ngày</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="text-align: right;padding-right: 15px;">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-primary btnSave">Lưu</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

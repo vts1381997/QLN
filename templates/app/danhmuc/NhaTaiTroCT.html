@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
+
+<head>
+	<script type="text/javascript"
+	src="/qln/public/js/qln/app/danhmuc/NhaTaiTroCTView.js"></script>
+<script type="text/javascript"
+	src="/qln/public/js/qln/model/NhaTaiTro.js"></script>
+<script type="text/javascript">
+	oNhaTaiTroCTView = new NhaTaiTroCTView();
+</script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Mã <span class="require">*</span></label></div>
+				<div class="col-sm-10"><input type="text" class="form-control" name="name" id="MA" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3"><label>Tên nhà tài trợ</label></div>
+				<div class="col-sm-9"> <input type="text" class="form-control" name="name" id="TEN" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Số điện thoại</label></div>
+				<div class="col-sm-10"><input type="text" class="form-control" name="name" id="SODIENTHOAI" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3"><label>Mã số thuế</label></div>
+				<div class="col-sm-9"><input type="text" class="form-control" name="name" id="MASOTHUE" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Số tài khoản</label></div>
+				<div class="col-sm-10"> <input type="text" class="form-control" name="name" id="SOTAIKHOAN" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-3"> <label>Địa chỉ</label></div>
+				<div class="col-sm-9"><input type="text" class="form-control" name="name" id="DIACHI" value="" /></div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-sm-2"><label>Trạng thái</label></div>
+				<div class="col-sm-10">
+					<select id="STATUS" class="form-control">
+						<option value="1" selected>Kích hoạt</option>
+						<option value="0">Khóa</option>
+					</select>
+				</div>
+			</div>
+	
+		</div>
+		<div class="row pull-right ACTIONS" style="padding:10px; margin-top:0px;">
+			<input type="hidden" name="name" value="" id="NHATAITROID" />
+			<button type="button" class="btn btn-info" id="btnSave"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+		</div>
+	</div>
+</body>
+
+</html>

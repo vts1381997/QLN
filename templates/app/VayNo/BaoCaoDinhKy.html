@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/main01">
+<head>
+<meta charset="utf-8" />
+<title>Báo cáo định kỳ</title>
+<script type="text/javascript"
+	src="/qln/public/js/qln/app/HopDong/BaoCaoDinhKy.js"></script>
+<script type="text/javascript">
+	oBaoCaoDinhKy = new BaoCaoDinhKy();
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<h2 class="screen-label" style="color:red;">Nhập báo cáo định kỳ</h2>
+			<div class="col-sm-12" style="margin:0px">
+				<div class="row ACTIONS well well-sm">
+					<button type="button" class="btn btn-info btn-sm" id="btnSave"><i class="glyphicon glyphicon-floppy-save"></i> Lưu</button>
+					<button type="button" class="btn btn-info btn-sm" id="btnAddNew"><i class="glyphicon glyphicon-import"></i> Import</button>
+				</div>
+				<div class="row ACTIONS well well-sm">
+					<div class="col-sm-1"><label>Chọn tỉnh</label></div>
+					<div class="col-sm-1">
+						<select class="form-control">
+							<option>--- Chọn ---</option>
+							<option>Hà Nội</option>
+							<option>TP. Hồ Chí Minh</option>
+							<option>Đà Nẵng</option>
+						</select>
+					</div>
+					<div class="col-sm-1"><label>Từ ngày:</label></div>
+					<div class="col-sm-2">
+						<div class="input-group ">
+							<input class="form-control wec-control-date" id="TuNgay" />
+							<div class="input-group-addon">
+								<i class="glyphicon glyphicon-calendar" onclick="$('#TuNgay').focus()"></i>
+							</div>
+		
+						</div>
+					</div>
+					<div class="col-sm-1"><label>Đến ngày:</label></div>
+					<div class="col-sm-2">
+						<div class="input-group ">
+							<input class="form-control wec-control-date" id="DenNgay" />
+							<div class="input-group-addon">
+								<i class="glyphicon glyphicon-calendar" onclick="$('#DenNgay').focus()"></i>
+							</div>
+		
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="col-sm-12" style="margin:0px">
+				<div class="row panel panel-primary" id="LIST">
+					<div class="panel-body">
+						<table style="table-layout: fixed" class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach">
+							<thead>
+								<tr>
+									<th style="width:40px" rowspan="2">STT</th>
+									<th rowspan="2">Nội dung</th>
+									<th rowspan="2">Dư nợ đầu kỳ</th>
+									<th rowspan="2">Vay trong kỳ</th>
+									<th colspan="3">Trả nợ trong năm</th>
+									<th rowspan="2">Dư nợ cuối kỳ</th>
+								</tr>
+								<tr>
+									<th style="width:70px">Gốc</th>
+									<th style="width:70px">Lãi/Phí</th>
+									<th style="width:70px">Tổng</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td>b</td>
+									<td>1</td>
+									<td>2</td>
+									<td>3</td>
+									<td>4</td>
+									<td>5</td>
+									<td>6 = 1 + 2 + 3</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Tổng số</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Vay phát hành trái phiếu chính quyền địa phương</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Tạm ứng ngân quỹ nhà nước</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Vay Ngân hàng Phát triển Việt Nam (1)</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Vay các tổ chức tài chính, tín dụng (2)</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Vay lại vốn vay nước ngoài (3)</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<select style="width:120px !important" class="form-control">
+											<option value="1"> Dự án Nông thôn mới huyện Đan Phượng </option>
+											<option value="1"> Dự án xây dựng đường liên Huyện </option>
+										</select>
+									</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<select style="width:120px !important" class="form-control">
+											<option value="0">- Thêm dự án -</option>
+											<option value="1"> Dự án Nông thôn mới huyện Đan Phượng </option>
+											<option value="1"> Dự án xây dựng đường liên Huyện </option>
+										</select>
+									</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>Vay các tổ chức khác</td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+									<td><input type="text" class="form-control" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
