@@ -176,6 +176,9 @@ var KeHoachVayHangNamView = function () {
 				var soTienCapPhat = String(tongMucDauTu * phanTramCapPhat / 100)
 				var luyKeKeHoachCapPhat = $("#HOPDONGVAYLAIID option:selected").attr('data-luykekehoachcapphat');
 				var soTienCapPhatTuChoi = $("#HOPDONGVAYLAIID option:selected").attr('data-sotiencapphattuchoi');
+				console.log(soTienCapPhat,'soTienCapPhat');
+				console.log(luyKeKeHoachCapPhat,'luyKeKeHoachCapPhat');
+				console.log(soTienCapPhatTuChoi,'soTienCapPhatTuChoi');
 				$("#HANMUCVAY").val(formatMoney(Number(soTienVayLai) - Number(luyKeKeHoachVayLai) + Number(soTienVayLaiTuChoi)))
 				$("#HANMUCCAPPHAT").val(formatMoney(Number(soTienCapPhat) - Number(luyKeKeHoachCapPhat) + Number(soTienCapPhatTuChoi)))
 			}

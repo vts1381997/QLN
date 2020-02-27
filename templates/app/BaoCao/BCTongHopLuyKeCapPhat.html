@@ -20,9 +20,12 @@
             let i_bien_i = i_bien.split('&')
             $('#tendvt').html(decodeURIComponent(i_bien_i[1].split('=')[1]))
             $('#top_Tinh').html(decodeURIComponent(i_bien_i[0].split('=')[1]))
+            let dvt = Util.Url.getParameterByName('dvt')
             var dataPost = {
                 i_tinhthanh: Number(i_bien_i[5].split('=')[1]),
-                i_nam: Number(i_bien_i[4].split('=')[1].split('/')[2]),
+                i_nambd: Number(i_bien_i[3].split('=')[1].split('/')[2]),
+                i_namkt: Number(i_bien_i[4].split('=')[1].split('/')[2]),
+                i_dvt: Number(dvt)
             }
             var res = BCQuanTri.getDataReportTongHopLuyKeCapPhat(dataPost)
             var arows = []
@@ -69,6 +72,47 @@
             $("#txtNam").text(nam)
         })
     </script>
+    <style>
+        #tblDanhSachs tr td:nth-child(2n-1) {
+            text-align: center !important
+        }
+
+        #tblDanhSachs tr td:nth-child(4n-2) {
+            text-align: left !important
+        }
+
+        #tblDanhSachs tr td:nth-child(6n-3) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(8n-4) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(10n-5) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(12n-6) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(14n-7) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(16n-8) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(18n-9) {
+            text-align: right !important
+        }
+
+        #tblDanhSachs tr td:nth-child(20n-10) {
+            text-align: right !important
+        }
+    </style>
     <!-- <style>
         .text-center th {
             height: 25px;
@@ -160,13 +204,9 @@
                                         id="titlebc"></label></td>
                             </tr>
                             <tr>
-                                <td class="size14" colspan="10" style="text-align: right !important"> Đơn vị: <label 
-                                        id="donvitinh"></label></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                            </tr>
+                                <td class="size14" colspan="10"> Đơn vị: <label
+                                        id="donvitinh"></label></td> 
+                            </tr> 
                         </table>
                     </td>
                 </tr>
@@ -210,7 +250,7 @@
                                 </tr>
 
                             </thead>
-                            <tbody>
+                            <tbody id="tblDanhSachs">
                             </tbody>
                         </table>
                     </td>

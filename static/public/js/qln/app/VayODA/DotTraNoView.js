@@ -218,14 +218,13 @@ var DotTraNoView = function () {
 				}
 			}
 		})
-		$("#DUANID").html(option2).val(oDuAn.LIST[0].DUANID).trigger('change');
+		$("#DUANID").html(option2).val($("#DUANID option:selected").val()).trigger('change');
 		$("#KEHOACHVAYHANGNAMID").trigger('change');
 		$("#DONVIID").html(fnc_danhsachdonvi())
 		$("#SOTIENTRAGOC").trigger('keyup')
 		if (idDotTraNo > 0) {
 			oDotTraNo.getById(idDotTraNo);
 			$('#KEHOACHVAYHANGNAMID').val(oDotTraNo.KEHOACHVAYHANGNAMID);
-			$('#MA').val(oDotTraNo.MA);
 			$('#DUANID').val(oDotTraNo.DUANID).trigger('change').select2({
 				dropdownParent: $("#exampleModalCenter")
 			});
@@ -246,6 +245,7 @@ var DotTraNoView = function () {
 			$('#DOTRUTVONID').val(oDotTraNo.DOTRUTVONID);
 			$('#PHIQUANLICHOVAYLAI').val(formatMoney(oDotTraNo.PHIQUALICHOVAYLAI));
 			$('#PHITHEOHOPDONGVAY').val(formatMoney(oDotTraNo.PHITHEOHOPDONGVAY));
+			$('#MA').val(oDotTraNo.MA);
 		}
 		let txtLoaiTienTe = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-loaitiente')
 		$("#TIENKYVAYTIENTE").text(txtLoaiTienTe)

@@ -203,8 +203,8 @@ var DotRutVonView = function () {
 				$(".btnSave").prop('disabled', false)
 				$("#SOTIENVAYLAITOIDA").val(formatMoney(txtSoTienVayLaiToiDa))
 				$("#SOTIENCAPPHATTOIDA").val(formatMoney(txtSoTienCapPhatToiDa))
-			}
-			var tongSoTienRut = Number(txtSoTienVayLaiToiDa) + Number(txtSoTienCapPhatToiDa)
+			}  
+			var tongSoTienRut = Number(txtSoTienVayLaiToiDa) + Number(txtSoTienCapPhatToiDa)  
 			$("#SOTIENGIAINGANVAYLAI").val(formatMoney(tongSoTienRut))
 			$("#SOTIENGIAINGANCAPPHAT").val(formatMoney(txtSoTienCapPhatToiDa))
 			$("#LUYKEGIAINGANVAYLAITIENTE").text(txtLoaiTienTe)
@@ -270,11 +270,11 @@ var DotRutVonView = function () {
 			}
 		});
 		$('.ACTIONS').on('click', '#btnAddNew', function (e) {
-			e.preventDefault()
+			e.preventDefault();
 			$("#Grid01").find('.selected').removeClass('selected');
 			that.bindModal();
-			$("#exampleModalLongTitle").text('Thêm mới đợt rút vốn(lần thứ ' + txtSoLanRut + ')')
-			$("#KEHOACHVAYHANGNAMID").prop('disabled', false)
+			$("#exampleModalLongTitle").text('Thêm mới đợt rút vốn(lần thứ ' + txtSoLanRut + ')');
+			$("#KEHOACHVAYHANGNAMID").prop('disabled', false);
 			$('#list_uploadfile').html('');
 			$("#NGAYNHANNO").val($.datepicker.formatDate('dd/mm/yy', new Date()));
 			$('#GIATRIGIAINGANVAYLAI').val('');
@@ -282,19 +282,20 @@ var DotRutVonView = function () {
 			$('#GHICHU').val('');
 			$("#DONVIID").val($("#DONVIID option:selected").attr('value')).select2();
 			idrutvon = 0;
-			oDotRutVon.DOTRUTVONID = 0
+			oDotRutVon.DOTRUTVONID = 0;
 			fnc_removeSpace();
 			fnc_validateSpace("GHICHU");
+			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', false)
 		});
 		$('.ACTIONS').on('click', '#btnEdit', function () {
 			that.bindModal();
-			$("#exampleModalLongTitle").text('Sửa đợt rút vốn')
-			$("#KEHOACHVAYHANGNAMID").prop('disabled', true)
-			$(".btnSave").prop('disabled', false)
-			var data = JSON.parse(idrutvon)
+			$("#exampleModalLongTitle").text('Sửa đợt rút vốn');
+			$("#KEHOACHVAYHANGNAMID").prop('disabled', true);
+			$(".btnSave").prop('disabled', false);
+			var data = JSON.parse(idrutvon);
 			$("#KEHOACHVAYHANGNAMID").val(data.KEHOACHVAYHANGNAMID).trigger('change');
 			$("#MA").val(data.MASOTHAMCHIEU);
-			$("#MA").prop('disabled', false)
+			$("#MA").prop('disabled', false);
 			$("#PHUONGTHUCGIAINGAN").val(data.PHUONGTHUCGIAINGAN).select2();
 			$("#DONVIID").val(data.DONVIID).select2();
 			$("#NGAYNHANNO").val(data.NGAYNHANNO);
@@ -310,6 +311,7 @@ var DotRutVonView = function () {
 			$("#NGUYENTECAPPHAT").val(formatMoney(data.NGUYENTECAPPHAT));
 			$("#GHICHU").val(data.GHICHU);
 			$("#PHANTRAMVAYLAI").val(data.PHANTRAMVAYLAI);
+			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', true);
 		});
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
 			e.preventDefault()

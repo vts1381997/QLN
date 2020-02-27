@@ -18,12 +18,15 @@
             var oDataTB = ControlHelper.Datatable.Init('tblDanhSach', 25, true)
             var i_bien = window.location.search
             let i_bien_i = i_bien.split('&')
+            let dvt = Util.Url.getParameterByName('dvt')
             $('#tendvt').html('Đơn vị tính: ' + decodeURIComponent(i_bien_i[1].split('=')[1]))
             $('#top_Tinh').html(decodeURIComponent(i_bien_i[0].split('=')[1]))
             $("#txtTinhThanh").text(decodeURIComponent(i_bien_i[0].split('=')[1]).replace('UBND', '').replace('Tỉnh', '').replace('Thành phố', ''))
             var dataPost = {
                 i_tinhthanh: Number(i_bien_i[5].split('=')[1]),
-                i_nam: Number(i_bien_i[4].split('=')[1].split('/')[2]),
+                i_nambd: Number(i_bien_i[3].split('=')[1].split('/')[2]),
+                i_namkt: Number(i_bien_i[4].split('=')[1].split('/')[2]),
+                i_dvt: Number(dvt)
             }
             var res = BCQuanTri.getDataReportTongHopLuyKeCapPhatMau2(dataPost)
             var arows = []
@@ -196,7 +199,7 @@
                                                 <th rowspan="1">3</th>
                                                 <th rowspan="1">4</th>
                                                 <th rowspan="1">5 = 3 - 4</th>
-                                                <th rowspan="1">6 = 4 : 3 x 100%</th>
+                                                <th rowspan="1">6 = 4 : 3 x 100</th>
                                     </thead>
                                     <tbody>
                                     </tbody>

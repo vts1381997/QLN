@@ -33,7 +33,7 @@ var ToChucMuaTP = function () {
 
   // Get all  data
   this.getAll = function () {
-    var rs = DATA.get(URL.GETALL);
+    var rs = DATA.get(URL.GETALL); 
     that.LIST = rs;
   };
   this.getLichSu = function (sId) {

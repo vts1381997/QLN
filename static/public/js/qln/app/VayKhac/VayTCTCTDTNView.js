@@ -140,17 +140,18 @@ var VayTCTCTDTNView = function () {
 		let txtDuAn = $("#MAHOPDONG option:selected").attr('data-duan')
 		$("#txtThongTinDuAnHopDong").text(txtDuAn);
 		$('body').on('change', '#MAHOPDONG', function () {
+			$("#LUYKETRANO").val('')
 			let txtDuAn = $("#MAHOPDONG option:selected").attr('data-duan')
 			$("#txtThongTinDuAnHopDong").text(txtDuAn);
-			// var data = {
-			// 	i_ngayvay: $("#NGAYVAY").val(),
-			// 	i_mahopdong: $("#MAHOPDONG").val(),
-			// 	i_type: 'TCTC',
-			// 	i_donvi: $("#DONVIID").val(),
-			// }
-			// var data = oVayTCTCTDTN.getDauKyLuyKe(data)
-			// $("#DUNO").val(formatMoney(data[0].DUNODAUKY))
-			// $("#LUYKETRANO").val(formatMoney(data[0].LUYKEVAYTRONGNAM))
+			var data = {
+				i_ngayvay: $("#NGAYVAY").val(),
+				i_mahopdong: $("#MAHOPDONG").val(),
+				i_type: 'TCTC',
+				i_donvi: $("#DONVIID").val(),
+			}
+			var data = oVayTCTCTDTN.getDauKyLuyKe(data)
+			$("#DUNO").val(formatMoney(data[0].DUNODAUKY))
+			$("#LUYKETRANO").val(formatMoney(data[0].LUYKEVAYTRONGNAM))
 		})
 		$('body').on('change', '#DONVIID', function () {
 			$("#MAHOPDONG").trigger('change')
