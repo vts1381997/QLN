@@ -575,23 +575,28 @@ var DotPHTPView = function () {
                     var pDelete = '';
                     pDelete = "Delete QLN_DOTPHATHANHTRAIPHIEU_CHITIET where DOTPHATHANHTRAIPHIEUID ='" + $('#MA').val() + "'"
                     var rs = oDotPHTP.save();
-                    if (rs.CODE == 0) {
-                        oDotPHTP.savedtl(pDelete, querry);
+                    if (rs.CODE == 3 && rs.MESSAGE == "-1") {
+                        var oAlert = new AlertDialog1('Thông báo');
+                        oAlert.show('Mã này đã được sử dụng, vui lòng nhập mã khác', '40%', '50px');
                     }
-                    // $("#idrowtable").val(rs.RESULT)
-                    // $("#tablename").val(CurrentLayout)
-                    // var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-                    // if (!rs1.success) {
-                    //     oDotPHTP.deluid(rs.RESULT)
-                    //     var oAlert = new AlertDialog('Thông báo');
-                    //     oAlert.show(rs1.message, '40%', '50px');
-                    //     that.bindGrid01();
-                    // }
-                    // else {
-                    that.bindGrid01();
-                    var oAlert = new AlertDialog('Thông báo');
-                    oAlert.show(rs.MESSAGE, '40%', '50px');
-                    // }
+                    else
+                        if (rs.CODE == 0) {
+                            oDotPHTP.savedtl(pDelete, querry);
+                            // }
+                            // $("#idrowtable").val(rs.RESULT)
+                            // $("#tablename").val(CurrentLayout)
+                            // var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+                            // if (!rs1.success) {
+                            //     oDotPHTP.deluid(rs.RESULT)
+                            //     var oAlert = new AlertDialog('Thông báo');
+                            //     oAlert.show(rs1.message, '40%', '50px');
+                            //     that.bindGrid01();
+                            // }
+                            // else {
+                            that.bindGrid01();
+                            var oAlert = new AlertDialog('Thông báo');
+                            oAlert.show(rs.MESSAGE, '40%', '50px');
+                        }
                 }
             })
             $('#Grid01 tbody').on('click', 'tr', function () {
