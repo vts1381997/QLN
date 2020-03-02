@@ -83,11 +83,12 @@ var DonViView = function () {
 			oDonVi.DONVIID = uuidv4();
 			$('#MA').val('');
 			$('#TENDONVI').val('');
-			$('#TINHTHANHID').val('');
+			// $('#TINHTHANHID').val('');
 			// $('#IDCHA').val('');
-			$('#NGUONTHU').val('');
+			$('#NGUONTHU').val('TW').select2();
 			$('#TYLE').val('');
 			that.bindModal();
+			$("#IDCHA").prop('disabled', false)
 		});
 
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
@@ -109,19 +110,21 @@ var DonViView = function () {
 			var oConfirmDialog = new ConfirmDialog('Xác nhận xóa', ok, cancel);
 			oConfirmDialog.show('Bạn có chắc chắn muốn xóa bản ghi này không?', '40%', '50px');
 		});
+
 		$('.ACTIONS').on('click', '#btnEdit', function () {
 			$("#exampleModalLongTitle").text('Sửa đơn vị')
-			var donvigetbyid = JSON.parse(idmodal)
-
+			var donvigetbyid = JSON.parse(idmodal) 
 			oDonVi.DONVIID = JSON.parse(idmodal).DONVIID
-
 			$('#TENDONVI').val(donvigetbyid.TENDONVI);
 			$('#MA').val(donvigetbyid.MA);
 			$('#TINHTHANHID').val(donvigetbyid.TINHTHANHID);
-			$('#TINHTHANHID').trigger('change');
-			$('#IDCHA').val(donvigetbyid.IDCHA).select2();
-			$('#NGUONTHU').val(donvigetbyid.NGUONTHU);
+			$('#TINHTHANHID').trigger('change'); 
+			$('#NGUONTHU').val(donvigetbyid.NGUONTHU).select2();
 			$('#TYLE').val(donvigetbyid.TYLE);
+			var rs = oDonVi.getByIdCha(donvigetbyid.IDCHA) 
+			$("#IDCHA").html('<option value="'+donvigetbyid.IDCHA+'">'+rs[0].TENDONVI+'</option>')
+			$("#IDCHA").val(donvigetbyid.IDCHA).select2()
+			$("#IDCHA").prop('disabled', true)
 		});
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;

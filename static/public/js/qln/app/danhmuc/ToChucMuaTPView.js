@@ -192,7 +192,7 @@ var ToChucMuaTPView = function () {
 		for (var i = 0; i < oToChucMuaTP.LIST.length; i++) {
 			var _item = oToChucMuaTP.LIST[i];
 			that.bindTblDanhSach(_item.TOCHUCMUATPID);
-			var tt = ''
+			var tt = '' 
 			if (xxx > 0) {
 				tt = '<span  class="label label-success">Đến ngày trả gốc,lãi</span>'
 			} else {
@@ -202,8 +202,11 @@ var ToChucMuaTPView = function () {
 				else {
 					tt = '<span class="label label-danger">Chưa đến hạn trả lãi</span>'
 				}
+			}  
+			if(_item.TONGTIENTRAGOC == _item.TONGTIENPHAITRA)
+			{
+				tt = '<span  class="label label-success">Đã trả nợ đủ</span>'
 			}
-
 			var _hidden = '<input type="hidden" class="rowID" value="' + _item.TOCHUCMUATPID + '" />';
 			var _hidden1 = '<p style="display:none" class="rowID1" value="" >' + JSON.stringify(_item) + '</p>';
 			aRows.push([

@@ -4,6 +4,7 @@ var DonVi = function () {
 	const URL = {
 		GETALL: CONFIG_API.URL.BASE_API + 'dm_donvi/getall',
 		GETBYID: CONFIG_API.URL.BASE_API + 'dm_donvi/getbyid',
+		GETBYIDCHA: CONFIG_API.URL.BASE_API + 'dm_donvi/getbyidcha',
 		SEARCH: CONFIG_API.URL.BASE_API + 'dm_donvi/search',
 		SAVE: CONFIG_API.URL.BASE_API + 'dm_donvi/save',
 		DEL: CONFIG_API.URL.BASE_API + 'dm_donvi/del',
@@ -41,6 +42,11 @@ var DonVi = function () {
 	this.search = function (sKey) {
 		var rs = DATA.get(URL.SEARCH, { key: sKey });
 		that.LIST = rs;
+	}
+
+	this.getByIdCha = function (sKey) { 
+		var rs = DATA.get(URL.GETBYIDCHA, { key: sKey }); 
+		return rs
 	}
 
 	this.searchdonvi = function (sKey) {

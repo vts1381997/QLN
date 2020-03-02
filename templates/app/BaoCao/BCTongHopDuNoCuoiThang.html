@@ -25,10 +25,10 @@
                 i_tinhthanhid: Number(i_bien_i[5].split('=')[1]),
                 i_ngaybatdau: i_bien_i[3].split('=')[1],
                 i_ngayketthuc: i_bien_i[4].split('=')[1],
-                i_nambd: Number(i_bien_i[4].split('=')[1].split('/')[2]),
-                i_namkt: Number(i_bien_i[3].split('=')[1].split('/')[2]),
+                i_nambd: Number(i_bien_i[3].split('=')[1].split('/')[2]),
+                i_namkt: Number(i_bien_i[4].split('=')[1].split('/')[2]),
                 i_dvt: Number(dvt)
-            }
+            } 
             var res = BCQuanTri.getDataReportTongHopDuNoCuoiThang(dataPost)
             var arows = []
             var name = ''

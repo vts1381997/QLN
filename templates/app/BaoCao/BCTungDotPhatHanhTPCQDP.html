@@ -12,8 +12,8 @@
 	<script>
 		$(document).ready(function () {
 			$("#titlebc").text("BÁO CÁO TỪNG ĐỢT PHÁT HÀNH TRÁI PHIẾU CHÍNH QUYỀN ĐỊA PHƯƠNG")
-			let namph = Util.Url.getParameterByName('namquyetdinh')
-			let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+			let namqd = Util.Url.getParameterByName('namquyetdinh')
+			let thanhpho = Number(Util.Url.getParameterByName('tinhthanh'))
 			var tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
 			$("#tinhthanhid").text(tentinhthanh)
 			$("#tentinhthanh").text(tentinhthanh)
@@ -30,10 +30,10 @@
 			setTimeout(() => {
 				var option = ''
 				var dt = {
-					tinhthanhid,
-					namph,
-				}
-				var listdt = bcnd97.getBCDPHTP(dt)
+					thanhpho,
+					namqd,
+				} 
+				var listdt = bcnd97.getBCDPHTP(dt) 
 				var listtc = bcnd97.getTCMUATP(dt)
 				var listkyhan = []
 				var listtentc = []
@@ -44,36 +44,28 @@
 					if (listtentc.filter(a => a.id == listtc[ i ].TOCHUCMUATPID).length == 0) {
 						listtentc.push({ id: listtc[ i ].TOCHUCMUATPID, name: listtc[ i ].TOCHUC })
 					}
-				}
-
-
+				} 
 				var optionkh = '<td>Tổ chức mua trái phiếu</td>'
 				function sortNumber(a, b) {
 					return a - b;
-				}
-
+				} 
 				// var numArray = [140000, 104, 99];
-				listkyhan.sort(sortNumber);
-
+				listkyhan.sort(sortNumber); 
 				// console.log('lít kỳ hạn', listkyhan)
 				for (i = 0; i < listkyhan.length; i++) {
 					optionkh = optionkh + '<td>Kỳ hạn ' + listkyhan[ i ] + ' Năm</td>'
 				}
 				optionkh = '<tr>' + optionkh + '<td>Tổng</td></tr>'
-				$("#tblDanhSach1 thead").append(optionkh)
-
-				var optiontc = ''
-
+				$("#tblDanhSach1 thead").append(optionkh) 
+				var optiontc = '' 
 				var listtable = []
 				for (j = 0; j < listtentc.length; j++) {
-					var tong = 0
-
+					var tong = 0 
 					var xx = []
 					var obj = {}
 					var opt = ''
 					for (k = 0; k < listkyhan.length; k++) {
 						var key = listkyhan[ k ]
-
 						xx = listtc.filter(a => a.TOCHUCMUATPID == listtentc[ j ].id && a.NGAYKYHANTRAIPHIEU == listkyhan[ k ])
 						if (xx.length > 0) {
 							tien = xx[ 0 ].TIEN
@@ -90,8 +82,6 @@
 					optiontc = optiontc + '<tr><td style="text-align:left !important">' + listtentc[ j ].name + '</td>' + opt + '<td>' + chuyentien(tong) + '</td></tr>'
 				}
 				$("#tblDanhSach1 tbody").append(optiontc)
-
-
 				for (var i = 0; i < listdt.length; i++) {
 					var _item = listdt[ i ];
 					option = option + '<tr>\
@@ -114,13 +104,10 @@
 							</tr>'
 				}
 				$("#tblDanhSach tbody").append(option)
-
 			}, 200);
-
 			$('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'BCTungDotPhatHanhTPCQDP')
             })
-
 		})
 	</script>
 	<style>

@@ -109,12 +109,11 @@ var DotRutVonView = function () {
 		that.bindGrid01();
 	}
 	this.bindModal = function () {
-		KeHoach.getAll();
 		oHopDong.getAll();
 		oDotRutVon.getAll();
 		DuAns.getAll();
 		$("#DONVIID").html(fnc_danhsachdonvi())
-		TienTes.getAll();
+		TienTes.getAll(); 
 		var resultTienTe = TienTes.LIST
 		var option = ''
 		resultTienTe.map(value => {
@@ -122,6 +121,7 @@ var DotRutVonView = function () {
 		})
 		$('#SOTIENGIAINGANVAYLAITIENTE').html(option)
 		$('#SOTIENGIAINGANCAPPHATTIENTE').html(option)
+		KeHoach.getAll();
 		var resultKeHoach = KeHoach.LIST
 		var option2 = ''
 		if (resultKeHoach) {
@@ -271,8 +271,8 @@ var DotRutVonView = function () {
 		});
 		$('.ACTIONS').on('click', '#btnAddNew', function (e) {
 			e.preventDefault();
-			$("#Grid01").find('.selected').removeClass('selected');
-			that.bindModal();
+			$("#Grid01").find('.selected').removeClass('selected'); 
+			that.bindModal();  
 			$("#exampleModalLongTitle").text('Thêm mới đợt rút vốn(lần thứ ' + txtSoLanRut + ')');
 			$("#KEHOACHVAYHANGNAMID").prop('disabled', false);
 			$('#list_uploadfile').html('');

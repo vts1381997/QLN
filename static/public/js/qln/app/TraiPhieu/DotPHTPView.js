@@ -410,6 +410,36 @@ var DotPHTPView = function () {
                 $("#DEANPHATHANHTRAIPHIEUID").trigger('change')
             });
             $('.ACTIONS').on('click', '#btnEdit', function () {
+                DeAnPHTPs.getAll();
+                var resultDeAn = DeAnPHTPs.LIST
+                var option = ''
+                resultDeAn.map(value => {
+                    if (value.SOQUYETDINH != null) {
+                        option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" + value.SOQUYETDINH + "/" +
+                            (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
+                            "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
+                            "QĐ số: " + value.SOQUYETDINH +
+                            "; Ngày phát hành: " + value.THOIGIANPHATHANH +
+                            "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
+                            "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
+                            "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
+                            " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
+                            "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
+                            "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
+                    } else {
+                        option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" +
+                            (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
+                            "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
+                            "Ngày phát hành: " + value.THOIGIANPHATHANH +
+                            "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
+                            "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
+                            "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
+                            " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
+                            "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
+                            "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
+                    }
+                })
+                $('#DEANPHATHANHTRAIPHIEUID').html(option)
                 oDotPHTP.getById(idDotPHTP);
                 let data = JSON.parse(maDotphtp)
                 $('#DEANPHATHANHTRAIPHIEUID').val(data.DEANPHATHANHTRAIPHIEUID).select2();
