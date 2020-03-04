@@ -31,7 +31,7 @@ var ToChucMuaTPView = function () {
 				break;
 		}
 	}
-
+console.log(jwt,'jwt');
 	this.bindTblLichSu = () => {
 		oToChucMuaTP.getLichSu(oToChucMuaTP.TOCHUCMUATPID);
 		that.oTable2.clear().draw();
@@ -115,7 +115,7 @@ var ToChucMuaTPView = function () {
 				tienlai = tongtien * _item.LAISUATPHTHANHCONG / 100
 				pttra = '1 Năm'
 				ngaydonglai = String(Number(Nammua) + 1) + Thangmua + Ngaymua
-				datedonglai = Ngaymua + '/' + String(intThangmua - 6) + '/' + String(Number(Nammua) + 1)
+				datedonglai = Ngaymua + '/' + Thangmua  + '/' + String(Number(Nammua) + 1)
 			}
 			if (_item.PHUONGTHUCTRALAI == 'DH') {
 				tienlai = _item.NGAYKYHANTRAIPHIEU * tongtien * _item.LAISUATPHTHANHCONG / 100
@@ -192,7 +192,7 @@ var ToChucMuaTPView = function () {
 		for (var i = 0; i < oToChucMuaTP.LIST.length; i++) {
 			var _item = oToChucMuaTP.LIST[i];
 			that.bindTblDanhSach(_item.TOCHUCMUATPID);
-			var tt = '' 
+			var tt = ''
 			if (xxx > 0) {
 				tt = '<span  class="label label-success">Đến ngày trả gốc,lãi</span>'
 			} else {
@@ -202,9 +202,8 @@ var ToChucMuaTPView = function () {
 				else {
 					tt = '<span class="label label-danger">Chưa đến hạn trả lãi</span>'
 				}
-			}  
-			if(_item.TONGTIENTRAGOC == _item.TONGTIENPHAITRA)
-			{
+			}
+			if (_item.TONGTIENTRAGOC == _item.TONGTIENPHAITRA) {
 				tt = '<span  class="label label-success">Đã trả nợ đủ</span>'
 			}
 			var _hidden = '<input type="hidden" class="rowID" value="' + _item.TOCHUCMUATPID + '" />';
@@ -330,7 +329,7 @@ var ToChucMuaTPView = function () {
 					oAlert.show('Chưa đến ngày trả lãi', '40%', '50px');
 					return false;
 				} else {
-					function ok() {
+					function ok() { 
 						var response = oToChucMuaTP.TraLaiGoc(data);
 						var oAlert = new AlertDialog('Thông báo');
 						oAlert.show(response.MESSAGE, '40%', '50px');
@@ -341,21 +340,56 @@ var ToChucMuaTPView = function () {
 					var oConfirmDialog = new ConfirmDialog('Xác Nhận', ok, cancel);
 					oConfirmDialog.show('Bạn có chắc chắn trả lãi không', '40%', '50px');
 				}
-
 			}
-
 		});
 		$('#btnTraGoc').on('click', function (e) {
 			let dta = JSON.parse(idtralai)
 			dta.laigoc = 1
-			if (Number(dta.ngaydh) > Number(ngayhientai)) {
-				var oAlert = new AlertDialog('Cảnh báo');
-				oAlert.show('Chưa đến ngày trả gốc', '40%', '50px');
-				return false;
+			var rs = oToChucMuaTP.getChiTiet(JSON.parse(idtralai).DOTPHATHANHTRAIPHIEUID)
+			if (rs[0].PHUONGTHUCTRAGOC == "DH") {
+				if (Number(dta.ngaydh) > Number(ngayhientai)) {
+					var oAlert = new AlertDialog('Cảnh báo');
+					oAlert.show('Chưa đến ngày trả gốc', '40%', '50px');
+					return false;
+				}
 			}
-
+			if (rs[0].PHUONGTHUCTRAGOC == "6T") {
+				var d = new Date(JSON.parse(idtralai).NGAYMUA.split('/')[2], JSON.parse(idtralai).NGAYMUA.split('/')[1], JSON.parse(idtralai).NGAYMUA.split('/')[0]);
+				d.setMonth(d.getMonth() + 6);
+				var now = $.datepicker.formatDate('yy-mm-dd', new Date());
+				if (Number(now.split('-').join('')) > Number(convert(d).split('/')[2] + convert(d).split('/')[1] + convert(d).split('/')[0])) {
+					var rs = oToChucMuaTP.getDaTraGoc(JSON.parse(idtralai).DOTPHATHANHTRAIPHIEUID, JSON.parse(idtralai).UUID)
+					if (Number(rs[0].TIENTRAGOC) > 0) {
+						var oAlert = new AlertDialog('Cảnh báo');
+						oAlert.show('Đã trả nợ gốc', '40%', '50px');
+						return false;
+					}
+				}
+				else {
+					var oAlert = new AlertDialog('Cảnh báo');
+					oAlert.show('Chưa đến ngày trả gốc', '40%', '50px');
+					return false;
+				}
+			}
+			if (rs[0].PHUONGTHUCTRAGOC == "12T") {
+				var d = new Date(JSON.parse(idtralai).NGAYMUA.split('/')[2], JSON.parse(idtralai).NGAYMUA.split('/')[1], JSON.parse(idtralai).NGAYMUA.split('/')[0]);
+				d.setMonth(d.getMonth() + 12);
+				var now = $.datepicker.formatDate('yy-mm-dd', new Date());
+				if (Number(now.split('-').join('')) > Number(convert(d).split('/')[2] + convert(d).split('/')[1] + convert(d).split('/')[0])) {
+					var rs = oToChucMuaTP.getDaTraGoc(JSON.parse(idtralai).DOTPHATHANHTRAIPHIEUID, JSON.parse(idtralai).UUID)
+					if (Number(rs[0].TIENTRAGOC) > 0) {
+						var oAlert = new AlertDialog('Cảnh báo');
+						oAlert.show('Đã trả nợ gốc', '40%', '50px');
+						return false;
+					}
+				}
+				else {
+					var oAlert = new AlertDialog('Cảnh báo');
+					oAlert.show('Chưa đến ngày trả gốc', '40%', '50px');
+					return false;
+				}
+			}
 			function ok() {
-
 				var response = oToChucMuaTP.TraLaiGoc(dta);
 				var oAlert = new AlertDialog('Thông báo');
 				oAlert.show(response.MESSAGE, '40%', '50px');
@@ -451,13 +485,33 @@ var ToChucMuaTPView = function () {
 				that.oTable1.$('tr.selected').removeClass('selected');
 				$(this).addClass('selected');
 				idtralai = $(this).find('.rowTL').text();
-				if (JSON.parse(idtralai).TIENGOC > 0) {
-					$("#btnTraGoc").prop('disabled', true)
+				var rs = oToChucMuaTP.getChiTiet(JSON.parse(idtralai).DOTPHATHANHTRAIPHIEUID)
+				if (rs[0].PHUONGTHUCTRALAI == "DH" && rs[0].PHUONGTHUCTRAGOC == "DH") {
+					$("#btnTraGoc").prop('disabled', false)
 					$("#btnTL").prop('disabled', true)
 				}
-				else {
-					$("#btnTraGoc").prop('disabled', false)
-					$("#btnTL").prop('disabled', false)
+				if (rs[0].PHUONGTHUCTRALAI == "6T") {
+					var d = new Date(JSON.parse(idtralai).NGAYMUA.split('/')[2], JSON.parse(idtralai).NGAYMUA.split('/')[1], JSON.parse(idtralai).NGAYMUA.split('/')[0]);
+					d.setMonth(d.getMonth() + 6);
+					var now = $.datepicker.formatDate('yy-mm-dd', new Date());
+					if (Number(now.split('-').join('')) > Number(convert(d).split('/')[2] + convert(d).split('/')[1] + convert(d).split('/')[0])) {
+						$("#btnTL").prop('disabled', false)
+					}
+					else {
+						$("#btnTL").prop('disabled', true)
+					}
+				}
+				if (rs[0].PHUONGTHUCTRALAI == "12T") {
+					var d = new Date(JSON.parse(idtralai).NGAYMUA.split('/')[2], JSON.parse(idtralai).NGAYMUA.split('/')[1], JSON.parse(idtralai).NGAYMUA.split('/')[0]);
+					d.setMonth(d.getMonth() + 12);
+					var now = $.datepicker.formatDate('yy-mm-dd', new Date());
+					var namSau = Number(JSON.parse(idtralai).NGAYMUA.split('/')[2]) + 1
+					if (Number(now.split('-').join('')) > Number(namSau + JSON.parse(idtralai).NGAYMUA.split('/')[1] + JSON.parse(idtralai).NGAYMUA.split('/')[0])) {
+						$("#btnTL").prop('disabled', false)
+					}
+					else {
+						$("#btnTL").prop('disabled', true)
+					}
 				}
 				that.filterAction('SELECT');
 			}

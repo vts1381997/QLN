@@ -17,11 +17,10 @@
             var i_bien = window.location.search
             let i_bien_i = i_bien.split('&')
             var dataPost = {
-                i_tinhthanh: Number(i_bien_i[ 1 ].split('=')[ 1 ]),
-                i_ngaybatdau: '01' + '/' + '01' + '/' + (Number(i_bien_i[ 3 ].split('=')[ 1 ]) - 1),
-                i_ngayketthuc: '01' + '/' + '01' + '/' + Number(i_bien_i[ 3 ].split('=')[ 1 ])
+                i_tinhthanh: Number(i_bien_i[1].split('=')[1]),
+                i_ngaybatdau: '01' + '/' + '01' + '/' + (Number(i_bien_i[3].split('=')[1]) - 1),
+                i_ngayketthuc: '01' + '/' + '01' + '/' + Number(i_bien_i[3].split('=')[1])
             }
-
             let namph = Util.Url.getParameterByName('namquyetdinh')
             let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
             var tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
@@ -30,24 +29,21 @@
             $("#bottomTinh").text(tentinhthanh)
             var labelTinhThanh = tentinhthanh.replace('UBND', '').replace('Tỉnh', '').replace('Thành phố', '')
             $("#txtTinhThanh").text(labelTinhThanh)
-            var ngay = fnc_ngayhientai().split("-")[ 2 ]
-            var thang = fnc_ngayhientai().split("-")[ 1 ]
-            var nam = fnc_ngayhientai().split("-")[ 0 ]
+            var ngay = fnc_ngayhientai().split("-")[2]
+            var thang = fnc_ngayhientai().split("-")[1]
+            var nam = fnc_ngayhientai().split("-")[0]
             $("#txtNgay").text(ngay)
             $("#txtThang").text(thang)
             $("#txtNam").text(nam)
             $("#titlebc").text("BÁO CÁO TÌNH HÌNH VAY VÀ TRẢ NỢ CỦA CHÍNH QUYỀN ĐỊA PHƯƠNG HÀNG NĂM ĐẦU NĂM " + nam)
-            $('#Nam').html(i_bien_i[ 3 ].split('=')[ 1 ])
+            $('#Nam').html(i_bien_i[3].split('=')[1])
             var res = BC97.getDataReportTinhHinhVayTraNoDinhKyHangNam(dataPost)
             var arows = []
-
             var VAYTRONGKY = 0
             var TRAGOC = 0
             var LAIPHI = 0
             var DUNO = 0
             var TONGTRA = 0
-
-
             var arr_vaytp = []
             var arr_vaykbnn = []
             var arr_vayvdb = []
@@ -55,11 +51,10 @@
             var arr_vayoda = []
             var arr_vaykhac = []
             var arr_duan = []
-
             var name = ''
             var index_duan = 0
             if (res.length > 0) {
-                var key = Object.keys(res[ 0 ])
+                var key = Object.keys(res[0])
                 res.map(function (item, index) {
                     if (item.LOAI !== 'duan') {
                         VAYTRONGKY = Number(VAYTRONGKY) + Number(item.VAYTRONGKY + '' !== 'null' ? item.VAYTRONGKY : 0)
@@ -69,57 +64,50 @@
                         TONGTRA = Number(TONGTRA) + Number(item.TONGTRA + '' !== 'null' ? item.TONGTRA : 0)
                     }
                     key.map(function (value) {
-                        item[ value ] = typeof (item[ value ]) + '' === 'number' ? numeral(Number(item[ value ]).toFixed(2)).format('0,0') : item[ value ]
+                        item[value] = typeof (item[value]) + '' === 'number' ? numeral(Number(item[value]).toFixed(2)).format('0,0') : item[value]
                     })
-                    $('#top_Tinh').html(decodeURIComponent(i_bien_i[ 2 ].split('=')[ 1 ]).toUpperCase())
+                    $('#top_Tinh').html(decodeURIComponent(i_bien_i[2].split('=')[1]).toUpperCase())
                     if (item.LOAI === 'tpcqdp') {
-                        arr_vaytp.push([ 'I', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_vaytp.push(['I', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
                     if (item.LOAI === 'kbnn') {
-                        arr_vaykbnn.push([ 'II', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_vaykbnn.push(['II', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
                     if (item.LOAI === 'vdb') {
-                        arr_vayvdb.push([ 'III', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_vayvdb.push(['III', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
                     if (item.LOAI === 'vtctctd') {
-                        arr_vaytctctd.push([ 'IV', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_vaytctctd.push(['IV', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
                     if (item.LOAI === 'voda') {
-                        arr_vayoda.push([ 'V', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_vayoda.push(['V', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
                     if (item.LOAI === 'vkhac') {
-                        arr_vaykhac.push([ 'VI', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_vaykhac.push(['VI', item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
                     if (item.LOAI === 'duan') {
                         index_duan = Number(index_duan) + 1
-                        arr_duan.push([ index_duan, item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO ])
+                        arr_duan.push([index_duan, item.NOIDUNG, item.DUNO, item.VAYTRONGKY, item.TRAGOC, item.LAIPHI, item.TONGTRA, item.DUNO])
                     }
-
                 })
                 var arr_tong = [
-                    [ '', 'Tổng số', numeral(Number(DUNO).toFixed(2)).format('0,0'), numeral(Number(VAYTRONGKY).toFixed(2)).format('0,0'), numeral(Number(TRAGOC).toFixed(2)).format('0,0'), numeral(Number(LAIPHI).toFixed(2)).format('0,0'), numeral(Number(TONGTRA).toFixed(2)).format('0,0'), numeral(Number(DUNO).toFixed(2)).format('0,0') ]
+                    ['', 'Tổng số', numeral(Number(DUNO).toFixed(2)).format('0,0'), numeral(Number(VAYTRONGKY).toFixed(2)).format('0,0'), numeral(Number(TRAGOC).toFixed(2)).format('0,0'), numeral(Number(LAIPHI).toFixed(2)).format('0,0'), numeral(Number(TONGTRA).toFixed(2)).format('0,0'), numeral(Number(DUNO).toFixed(2)).format('0,0')]
                 ]
                 arows = arr_tong.concat(arr_vaytp).concat(arr_vaykbnn).concat(arr_vayvdb).concat(arr_vaytctctd).concat(arr_vayoda).concat(arr_duan).concat(arr_vaykhac)
                 oDataTB.rows.add(arows).draw()
             }
-
             $('#tblDanhSach_info').parent().parent().remove()
             $('#tblDanhSach_length').parent().parent().remove()
             //$('#tblDanhSach tbody td').css('border', '1px solid gray')
             $('#tblDanhSach th').css('border', '1px solid gray')
-
-
             $('#tblDanhSach thead td').css('border', 'none')
             $('#tblDanhSach tfoot td').css('border', 'none')
             $('#tblDanhSach thead td').css('background', 'none')
             $('#tblDanhSach tfoot td').css('background', 'none')
-
             var rg_number = /^\d+$/
-
             $('td').each((index, el) => {
                 typeof (Number($(el).html().replace(/,/g, ''))) + '' === "number" ? rg_number.test($(el).html().replace(/,/g, '')) ? $(el).css('text-align', 'right') : $(el).css('text-align', 'center') : $(el).css('text-align', 'center')
             })
-
             $('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'BCVayTraNoCQDPHangNam')
             })
@@ -138,7 +126,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <button class="btn btn-primary" id="exportExcell">Kết xuất excel</button>
-                <table class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach" border="1" style="border: none;">
+                <table class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach" border="1"
+                    style="border: none;">
                     <thead>
                         <tr>
                             <td colspan="8">
@@ -169,8 +158,9 @@
                                         <td class="size14" colspan="8" style="text-align: center !important"></td>
                                     </tr>
                                     <tr>
-                                        <td class="size14" colspan="4">V/v Báo cáo tình hình vay, trả nợ của CQĐP định kỳ hàng năm
-                                            </td>
+                                        <td class="size14" colspan="4">V/v Báo cáo tình hình vay, trả nợ của CQĐP định
+                                            kỳ hàng năm
+                                        </td>
                                         <td class="size14" colspan="4" style="text-align: center !important"><i>
                                                 <i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i
                                                     id="txtThang"></i>, năm <i id="txtNam"></i>

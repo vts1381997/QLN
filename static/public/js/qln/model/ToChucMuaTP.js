@@ -3,6 +3,8 @@ var ToChucMuaTP = function () {
 
   const URL = {
     GETALL: CONFIG_API.URL.BASE_API + "dm_tochucmuatp/getall",
+    GETDETAILS: CONFIG_API.URL.BASE_API + "dm_tochucmuatp/getdetail",
+    GETDATRAGOC: CONFIG_API.URL.BASE_API + "dm_tochucmuatp/getdatragoc",
     GETBYID: CONFIG_API.URL.BASE_API + "dm_tochucmuatp/getbyid",
     GETTHONGKETOCHUCMUATPTHEODEAN: CONFIG_API.URL.BASE_API + "dm_tochucmuatp/getallbydean",
     GETALLMENHGIABYDEAN: CONFIG_API.URL.BASE_API + "dm_tochucmuatp/getallmenhgiabydean",
@@ -42,6 +44,12 @@ var ToChucMuaTP = function () {
   };
   this.getDetail = function (id) {
     return DATA.get(URL.getDetail, { tochucid: id });
+  };
+  this.getChiTiet = function (id) {
+    return DATA.get(URL.GETDETAILS, { DOTPHATHANHTRAIPHIEUID: id });
+  };
+  this.getDaTraGoc = function (id, uuid) {
+    return DATA.get(URL.GETDATRAGOC, { DOTPHATHANHTRAIPHIEUID: id, UUID: uuid });
   };
 
   // get data by id
