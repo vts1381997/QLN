@@ -455,8 +455,8 @@ var DotPHTPView = function () {
                 $('#LAISUATPHTHANHCONG').val(data.LAISUATPHTHANHCONG);
                 $('#GHICHU').val(data.GHICHU);
                 $('#MATRAIPHIEU').val(data.MATRAIPHIEU);
-                $("#exampleModalLongTitle").text('Sửa đợt phát hành trái phiếu')
                 $("#DEANPHATHANHTRAIPHIEUID").trigger('change')
+                $("#exampleModalLongTitle").text('Sửa đợt phát hành trái phiếu')
                 id = 1
                 $('#table-multi').empty();
                 var listphtp = oDotPHTP.getDetail(madphtp);

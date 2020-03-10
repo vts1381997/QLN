@@ -238,79 +238,81 @@ var MuaLaiTPView = function () {
 				menhgia: menhgia
 			}
 			var soLuongToiDa = oMuaLaiTP.getMaxQuantity(data)
-			if (Number(fnc_replace($(this).val(), ',', '')) > soLuongToiDa[0].SOLUONGMUA) {
-				$(this).val(formatMoney(soLuongToiDa[0].SOLUONGMUA))
-				fnc_onKeyUpKhoiLuong($(this))
-			}
-			else {
-				var arrObj = [];
-				var list_tr_DOTPHATHANH = $('.input-table .DOTPHATHANH')
-				var list_tr_TOCHUC = $('.input-table .TOCHUC')
-				var list_tr_GIA = $('.input-table .GIA')
-				var list_tr_NGAYMUA = $('.input-table .NGAYMUA')
-				var list_tr_SOLUONG = $('.input-table .SOLUONG')
-				var r_list_tr_DOTPHATHANH = []
-				var r_list_tr_TOCHUC = []
-				var r_list_tr_GIA = []
-				var r_list_tr_NGAYMUA = []
-				var r_list_tr_SOLUONG = []
-				var r_list_tr_SOLUONG1 = []
-				list_tr_DOTPHATHANH.map((index, value) => {
-					r_list_tr_DOTPHATHANH.push($(value).val())
-				})
-				list_tr_TOCHUC.map((index, value) => {
-					r_list_tr_TOCHUC.push($(value).val())
-				})
-				list_tr_GIA.map((index, value) => {
-					r_list_tr_GIA.push($(value).val())
-				})
-				list_tr_NGAYMUA.map((index, value) => {
-					r_list_tr_NGAYMUA.push($(value).val())
-				})
-				list_tr_SOLUONG.map((index, value) => {
-					r_list_tr_SOLUONG.push($(value).attr('id'))
-					r_list_tr_SOLUONG1.push($(value).val())
-				})
-				for (var i = 0; i < r_list_tr_TOCHUC.length; i++) {
-					arrObj.push({
-						dotPhatHanh: r_list_tr_DOTPHATHANH[i],
-						toChuc: r_list_tr_TOCHUC[i],
-						menhGia: r_list_tr_GIA[i],
-						ngayMua: r_list_tr_NGAYMUA[i],
-						soLuong: r_list_tr_SOLUONG,
-						soLuongValue: r_list_tr_SOLUONG1
-					})
+			if (soLuongToiDa.length > 0) {
+				if (Number(fnc_replace($(this).val(), ',', '')) > soLuongToiDa[0].SOLUONGMUA) {
+					$(this).val(formatMoney(soLuongToiDa[0].SOLUONGMUA))
+					fnc_onKeyUpKhoiLuong($(this))
 				}
-				if (arrObj.length > 1) {
-					for (var i = 0; i < arrObj.length; i++) {
-						for (var j = i + 1; j < arrObj.length; j++) {
-							if (arrObj[i].dotPhatHanh == arrObj[j].dotPhatHanh && arrObj[i].toChuc == arrObj[j].toChuc && arrObj[i].menhGia == arrObj[j].menhGia && arrObj[i].ngayMua == arrObj[j].ngayMua) {
-								if (arrObj[j].ngayMua == $("#" + $(this).attr('id').replace('SOLUONG', 'NGAYMUA')).val()) {
-									var tongSoLuong = 0;
-									$(".SOLUONG").map((index, value) => {
-										if (arrObj[j].ngayMua == $("#" + $(value).attr('id').replace('SOLUONG', 'NGAYMUA')).val()) {
-											tongSoLuong = Number(tongSoLuong) + Number($(value).val().replaceAll(',', ''))
-										}
-									})
-									$(".SOLUONG").map((index, value) => {
-										if ($(value).attr('id') == $(this).attr('id')) {
-											$(this).val(formatMoney(tongSoLuong))
-											fnc_onKeyUpKhoiLuong($(this))
-										}
-										else
+				else {
+					var arrObj = [];
+					var list_tr_DOTPHATHANH = $('.input-table .DOTPHATHANH')
+					var list_tr_TOCHUC = $('.input-table .TOCHUC')
+					var list_tr_GIA = $('.input-table .GIA')
+					var list_tr_NGAYMUA = $('.input-table .NGAYMUA')
+					var list_tr_SOLUONG = $('.input-table .SOLUONG')
+					var r_list_tr_DOTPHATHANH = []
+					var r_list_tr_TOCHUC = []
+					var r_list_tr_GIA = []
+					var r_list_tr_NGAYMUA = []
+					var r_list_tr_SOLUONG = []
+					var r_list_tr_SOLUONG1 = []
+					list_tr_DOTPHATHANH.map((index, value) => {
+						r_list_tr_DOTPHATHANH.push($(value).val())
+					})
+					list_tr_TOCHUC.map((index, value) => {
+						r_list_tr_TOCHUC.push($(value).val())
+					})
+					list_tr_GIA.map((index, value) => {
+						r_list_tr_GIA.push($(value).val())
+					})
+					list_tr_NGAYMUA.map((index, value) => {
+						r_list_tr_NGAYMUA.push($(value).val())
+					})
+					list_tr_SOLUONG.map((index, value) => {
+						r_list_tr_SOLUONG.push($(value).attr('id'))
+						r_list_tr_SOLUONG1.push($(value).val())
+					})
+					for (var i = 0; i < r_list_tr_TOCHUC.length; i++) {
+						arrObj.push({
+							dotPhatHanh: r_list_tr_DOTPHATHANH[i],
+							toChuc: r_list_tr_TOCHUC[i],
+							menhGia: r_list_tr_GIA[i],
+							ngayMua: r_list_tr_NGAYMUA[i],
+							soLuong: r_list_tr_SOLUONG,
+							soLuongValue: r_list_tr_SOLUONG1
+						})
+					}
+					if (arrObj.length > 1) {
+						for (var i = 0; i < arrObj.length; i++) {
+							for (var j = i + 1; j < arrObj.length; j++) {
+								if (arrObj[i].dotPhatHanh == arrObj[j].dotPhatHanh && arrObj[i].toChuc == arrObj[j].toChuc && arrObj[i].menhGia == arrObj[j].menhGia && arrObj[i].ngayMua == arrObj[j].ngayMua) {
+									if (arrObj[j].ngayMua == $("#" + $(this).attr('id').replace('SOLUONG', 'NGAYMUA')).val()) {
+										var tongSoLuong = 0;
+										$(".SOLUONG").map((index, value) => {
 											if (arrObj[j].ngayMua == $("#" + $(value).attr('id').replace('SOLUONG', 'NGAYMUA')).val()) {
-												$(value).val('')
-												$("#" + $(value).attr('id').replace('SOLUONG', 'TIEN')).val('')
-												$("#" + $(value).attr('id').replace('SOLUONG', 'TIENMUALAI')).val('')
+												tongSoLuong = Number(tongSoLuong) + Number($(value).val().replaceAll(',', ''))
 											}
-									})
+										})
+										$(".SOLUONG").map((index, value) => {
+											if ($(value).attr('id') == $(this).attr('id')) {
+												$(this).val(formatMoney(tongSoLuong))
+												fnc_onKeyUpKhoiLuong($(this))
+											}
+											else
+												if (arrObj[j].ngayMua == $("#" + $(value).attr('id').replace('SOLUONG', 'NGAYMUA')).val()) {
+													$(value).val('')
+													$("#" + $(value).attr('id').replace('SOLUONG', 'TIEN')).val('')
+													$("#" + $(value).attr('id').replace('SOLUONG', 'TIENMUALAI')).val('')
+												}
+										})
+									}
+									else {
+										// return;
+									}
 								}
 								else {
 									// return;
 								}
-							}
-							else {
-								// return;
 							}
 						}
 					}
@@ -341,6 +343,7 @@ var MuaLaiTPView = function () {
 		$('.ACTIONS').on('click', '#btnEdit', function () {
 			that.bindModalEdit();
 			fnc_loadChiTietTheoDeAn();
+			// $("#exampleModalLongTitle").text('Sửa đợt mua lại trái phiếu');
 		})
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
 			e.preventDefault()
@@ -468,7 +471,7 @@ var MuaLaiTPView = function () {
 			else {
 				that.oTable.$('tr.selected').removeClass('selected');
 				$(this).addClass('selected');
-				idMuaLaiTP = $(this).find('.rowIDMUALAI').val();
+				idMuaLaiTP = $(this).find('.rowID').val();
 				oMuaLaiTP.MUALAITRAIPHIEUID = idMuaLaiTP;
 				that.filterAction('SELECT');
 			}
