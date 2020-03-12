@@ -3,7 +3,7 @@ var claimController = require('./claimController')
 var claims = require('../data/claims')
 var LoginController = {
 
-    Login: function (username, callback) {
+    Login: function (username, callback) { 
         userData.Login(username, (data) => {
             if (data.RESULT.length > 0) {
                 claims.getClaims(data.RESULT[0].ID, (cls) => {
@@ -17,17 +17,12 @@ var LoginController = {
                             })
                             data.role =list
                             callback(data)
-                        })
-
+                        }) 
                     })
-                })
-
-
-
+                }) 
             }
             else {
                 callback(data)
-
             }
         })
     },

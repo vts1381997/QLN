@@ -334,7 +334,7 @@ var userData = {
                 left join role_action ra on ra.id=rug.ROLE_ACTION_CODE\
                 left join dm_role r on r.id = ra.role_code\
                 left join actions a on a.id = ra.action_code\
-                 where rug.user_code = '"+id+"' and rug.type='ROLE'"
+                 where rug.user_code = '"+ id + "' and rug.type='ROLE'"
                 connection.execute(
                     query, [], function (error, rows) {
                         if (rows) {
@@ -406,6 +406,7 @@ var userData = {
         )
     },
     Login: (username, callback) => {
+
         oracledb.getConnection(
             connectString,
             function (err, connection) {
@@ -456,7 +457,7 @@ var userData = {
                         return;
                     }
                     query = "insert into users values(:ID,:USERNAME,:PASSWORD,:EMAIL,:PHONENUMBER,:FULLNAME,:SHKB,:DIABAN,:CREATEDDATE,:CREATEDBY,:UPDATEDDATE,:UPDATEDBY,:LVL,:TINHTHANHID,:NHANTHONGBAO)"
-                    connection.execute( 
+                    connection.execute(
                         query, users, { autoCommit: true }, function (error, rows) {
                             if (error) {
                                 if (error.errorNum == 1) {
@@ -495,7 +496,7 @@ var userData = {
                             if (rows) {
                                 var RESULT = [
                                     { MESSAGE: "Sửa thành công" }
-                                ] 
+                                ]
                                 callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                             }
                             else {
@@ -598,14 +599,14 @@ var userData = {
         )
 
     },
-    resetpassword: (id,hash, callback) => {
+    resetpassword: (id, hash, callback) => {
         oracledb.getConnection(
             connectString,
             function (err, connection) {
                 if (err) {
                     return;
                 }
-                query = "update users set password='"+hash+"' where id='" + id + "'"
+                query = "update users set password='" + hash + "' where id='" + id + "'"
                 connection.execute(
                     query, [], { autoCommit: true }, function (error, rows) {
 
@@ -630,6 +631,69 @@ var userData = {
             }
         )
 
+    },
+    getStatusUser: (data, callback) => {
+        oracledb.getConnection(
+            connectString,
+            function (err, connection) {
+                if (err) {
+                    return;
+                }
+                query = "select status from users where username='" + data + "'"
+                connection.execute(
+                    query, [], { autoCommit: true }, function (error, rows) {
+                        if (error) {
+                            callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
+                        }
+                        else {
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: rows.rows[0][0] })
+                        }
+                    }
+                )
+            }
+        )
+    },
+    updateStatusUser: (data) => {
+        oracledb.getConnection(
+            connectString,
+            function (err, connection) {
+                if (err) {
+                    return;
+                }
+                query = "update users set status = 1 where username='" + data + "'"
+                connection.execute(
+                    query, [], { autoCommit: true }, function (error, rows) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                )
+            }
+        )
+    },
+    updateStatusUserOut: (data) => {
+        oracledb.getConnection(
+            connectString,
+            function (err, connection) {
+                if (err) {
+                    return;
+                }
+                query = "update users set status = 0 where username='" + data + "'"
+                connection.execute(
+                    query, [], { autoCommit: true }, function (error, rows) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                )
+            }
+        )
     },
 
 }

@@ -107,9 +107,11 @@
                 return v.toString(16);
             });
         }
-
+        $(document).click(function (e) {
+            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
+        }); 
         $(window).ready(function () {
-
+            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
             $(window).ready(function () {
                 $('body').on('click', '#huongDanSuDung', function () {
                     oNguoiDung = new NguoiDung();

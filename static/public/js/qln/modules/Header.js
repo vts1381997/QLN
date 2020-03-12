@@ -52,6 +52,7 @@ var Header = function() {
 
 		$('#btnSignOut').on('click',function(){
 			oAuthenHelper.logout();
+			//update status về 0
 		});
 		
 		$(".menus .item").click(function () {

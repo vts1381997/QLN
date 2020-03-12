@@ -57,7 +57,6 @@ var LoginView = function () {
 	this.login = function () {
 		var sUsername = $('#Username').val();
 		var sPassword = $('#Password').val();
-
 		if (sUsername.length < 3 || sPassword.length < 3) {
 			$('#Message').html('Tài khoản hoặc mật khẩu không hợp lệ.');
 			$('#Username').focus();
@@ -65,8 +64,8 @@ var LoginView = function () {
 			return false;
 		}
 		var resp = oAuthenHelper.authen(sUsername, sPassword, '0');
-		if (resp.token) {
-			var aaa = that.decode(resp.token);
+		if (resp.token) {  
+			// var aaa = that.decode(resp.token);
 			localStorage.AUTH = JSON.stringify(resp.token);
 			localStorage.ID = JSON.stringify(resp.id);
 			window.location.href = CONFIG_API.URL.COM_DASHBOARD;
