@@ -1,7 +1,7 @@
 
 var LoginView = function () {
 	var code = {};
-
+	var countError = 0;
 	this.canvasCaptcha = function () {
 
 		var createdImage = that.drawImage();
@@ -58,18 +58,21 @@ var LoginView = function () {
 		var sUsername = $('#Username').val();
 		var sPassword = $('#Password').val();
 		if (sUsername.length < 3 || sPassword.length < 3) {
+			countError = Number(countError) + 1;
 			$('#Message').html('Tài khoản hoặc mật khẩu không hợp lệ.');
 			$('#Username').focus();
 			that.canvasCaptcha()
 			return false;
 		}
 		var resp = oAuthenHelper.authen(sUsername, sPassword, '0');
-		if (resp.token) {  
+		if (resp.token) {
 			// var aaa = that.decode(resp.token);
 			localStorage.AUTH = JSON.stringify(resp.token);
 			localStorage.ID = JSON.stringify(resp.id);
 			window.location.href = CONFIG_API.URL.COM_DASHBOARD;
 		} else {
+			console.log(resp.message, 'resp.message');
+			countError = countError + 1;
 			$('#Username').val('');
 			$('#Password').val('');
 			$('#Username').focus();
@@ -94,16 +97,30 @@ var LoginView = function () {
 				that.login();
 			} else {
 				$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
+				countError = Number(countError) + 1
+			}
+			console.log('số lần nhập lỗi: ', countError);
+			if (countError > 9) {
+				alert('Bạn đã nhập sai quá 10 lần')
+				$("#btnLogin").unbind();
 			}
 		});
 
 		$(document).on('keypress', function (e) {
 			if (e.which == 13) {
-				if (Number($('#captcha').val()) === Number(that.captcha)) {
-					$('#error-captcha').hide()
-					that.login();
-				} else {
-					$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
+				$("#btnLogin").trigger('click')
+				console.log(countError,'count error`');
+				if (countError < 10) {
+					if (Number($('#captcha').val()) === Number(that.captcha)) {
+						$('#error-captcha').hide()
+						that.login();
+					} else {
+						$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
+					}
+				}
+				else
+				{
+					alert('Bạn đã nhập sai quá 10 lần')
 				}
 			}
 		});

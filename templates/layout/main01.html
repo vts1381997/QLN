@@ -56,7 +56,7 @@
     <script th:src="@{/public/libs/xlsx.js}"></script>
 
     <script type="text/javascript" th:src="@{/public/js/qln/app/ulti/ExcellAction.js}"></script>
-    <script type="text/javascript">
+    <script type="text/javascript"> 
 
         const quickSort = (arr) => {
 
@@ -109,9 +109,8 @@
         }
         $(document).click(function (e) {
             setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
-        }); 
+        });
         $(window).ready(function () {
-            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
             $(window).ready(function () {
                 $('body').on('click', '#huongDanSuDung', function () {
                     oNguoiDung = new NguoiDung();
