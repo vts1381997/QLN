@@ -8,6 +8,8 @@
     <script type="text/javascript">
         //$(document).ready(function () {
         function fnc_thayDoiMatKhau() {
+            var regex = '^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).*$'
+            var tendangnhap = jwt.userName
             let txtMKC = $('#txtMKC').val()
             let txtMKM = $('#txtMKM').val()
             let txtMKM1 = $('#txtMKM1').val()
@@ -23,6 +25,20 @@
 
             if (txtMKC.trim() == txtMKM.trim()) {
                 $('#txtThongBao').text('Mật khẩu mới không được giống mật khẩu cũ, vui lòng nhập lại!')
+                return;
+            }
+
+            // const str1 = "Vang_Khi_98000";
+            const hasCat = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=_]).*$/;
+            // console.log(hasCat.test(str1), 'test regex');
+            if (hasCat.test(txtMKM.trim()) == false) {
+                $('#txtThongBao').text('Mật khẩu không đủ phức tạp!')
+                return;
+            }
+            
+            if(txtMKM.trim().includes(tendangnhap) == true)
+            {
+                $('#txtThongBao').text('Mật khẩu mới không được chứa tên đăng nhập!')
                 return;
             }
 
@@ -88,7 +104,13 @@
                         onclick="fnc_thayDoiMatKhau()">Đồng ý</button>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <strong style="color: #ce2626;">
+                    <li>Mật khẩu phải có chiều dài tối thiểu là 8, phải bao gồm chữ thường, chữ hoa, chữ số và ký tự đặc biệt.</li>
+                    
+                    Mật khẩu không được chứa tên đăng nhập.
+                </strong>
+            </div>
         </div>
 
     </div>
