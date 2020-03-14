@@ -37,6 +37,7 @@ var NguoiDung = function () {
 		GETDONVI: CONFIG_API.URL.BASE_API + 'dm_donvi/getcayphahe_new',
 		SENDMAIL: CONFIG_API.URL.USER_API + 'sendmail',
 		GETQUERY: CONFIG_API.URL.BASE_API + 'dm_donvi/getquery',
+		GETPASSWORDBYID: CONFIG_API.URL.BASE_API + 'nguoidung/getpasswordbyid',
 	}
 
 
@@ -84,6 +85,10 @@ var NguoiDung = function () {
 	}
 	this.getQuery = function () {
 		var rs = DATA.get(URL.GETQUERY);
+		return rs;
+	}
+	this.getPasswordById = function () {
+		var rs = DATA.get(URL.GETPASSWORDBYID);
 		return rs;
 	}
 	//delete data

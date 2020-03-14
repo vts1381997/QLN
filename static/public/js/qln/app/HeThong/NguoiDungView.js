@@ -353,7 +353,7 @@ var NguoiDungView = function () {
 				if (optlv == '') {
 					optlv = "<option value='error'>Không có quyền tạo đơn vị này</option>"
 				}
-				$("#LEVEL").html(optlv)
+				$("#LEVEL").html(optlv+"<option value='3'>Khóa tài khoản</option>")
 				$("#LEVEL").val($("#LEVEL option:selected").attr('value')).select2()
 			}
 			else {
@@ -361,7 +361,7 @@ var NguoiDungView = function () {
 				listlevel.map(val => {
 					optlv = optlv + "<option value='" + val.LVL + "'>" + val.TENLV + "</option>"
 				})
-				$("#LEVEL").html(optlv)
+				$("#LEVEL").html(optlv+"<option value='3'>Khóa tài khoản</option>")
 				$("#LEVEL").val($("#LEVEL option:selected").attr('value')).select2()
 			}
 			if ($("#DONVI").val() == jwt.dvtong) {
