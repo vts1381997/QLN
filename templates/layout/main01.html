@@ -154,16 +154,11 @@
         $(document).click(function (e) {
             // setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
             var timeload = localStorage.getItem('timeload');
-            console.log(timeload, 'time load');
             var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
-            console.log(secondsTimeLoad, 'secondsTimeLoad');
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            console.log(time, 'time');
             var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
-            console.log(secondsTimeClick, 'secondsTimeClick');
             var subtractionTime = secondsTimeClick - secondsTimeLoad;
-            console.log(subtractionTime, 'sub');
             if (subtractionTime > 899) {
                 var oAuthenHelper = new AuthenHelper();
                 oAuthenHelper.logout();
