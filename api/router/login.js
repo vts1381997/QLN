@@ -43,6 +43,7 @@ router.post('/', function (req, res) {
                         message: 'authentication done ',
                         token: token,
                         code: 200,
+                        id: req.body.username
                     });
                     //update status về 1 
                     // userData.updateStatusUser(req.body.username)

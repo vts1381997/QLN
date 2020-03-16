@@ -38,6 +38,10 @@ var NguoiDung = function () {
 		SENDMAIL: CONFIG_API.URL.USER_API + 'sendmail',
 		GETQUERY: CONFIG_API.URL.BASE_API + 'dm_donvi/getquery',
 		GETPASSWORDBYID: CONFIG_API.URL.BASE_API + 'nguoidung/getpasswordbyid',
+		GETINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/getinformationlogin',
+		INSERTINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/insertinformationlogin',
+		DELETEINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/deleteinformationlogin',
+		UPDATEINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/updateinformationlogin',
 	}
 
 
@@ -66,6 +70,20 @@ var NguoiDung = function () {
 		}
 		return DATA.set(URL.SAVE, data);
 	}
+	this.insertInformationLogin = function (ip, time) {
+		var data = {
+			iplogin: ip,
+			time: time
+		}
+		return DATA.set(URL.INSERTINFORMATIONLOGIN, data);
+	}
+	this.updateInformationLogin = function (ip, time) {
+		var data = {
+			iplogin: ip,
+			time: time
+		}
+		return DATA.set(URL.DELETEINFORMATIONLOGIN, data);
+	}
 	this.getClaim = function (id) {
 		return DATA.get(URL.getclaim, { id: id })
 	}
@@ -91,9 +109,16 @@ var NguoiDung = function () {
 		var rs = DATA.get(URL.GETPASSWORDBYID);
 		return rs;
 	}
+	this.getInformationLogin = function () {
+		var rs = DATA.get(URL.GETINFORMATIONLOGIN);
+		return rs;
+	}
 	//delete data
 	this.del = function (sID) {
 		return DATA.set(URL.DEL, { ID: sID });
+	}
+	this.deleteInformationLogin = function () {
+		return DATA.set(URL.DELETEINFORMATIONLOGIN);
 	}
 	this.resetPassword = function (sID) {
 		return DATA.set(URL.resetPassword, { ID: sID });

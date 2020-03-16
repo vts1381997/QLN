@@ -70,8 +70,16 @@ var LoginView = function () {
 			localStorage.AUTH = JSON.stringify(resp.token);
 			localStorage.ID = JSON.stringify(resp.id);
 			window.location.href = CONFIG_API.URL.COM_DASHBOARD;
+			var today = new Date();
+			var day = today.getDate() + "";
+			var month = (today.getMonth() + 1) + "";
+			var year = today.getFullYear() + "";
+			var hour = today.getHours() + "";
+			var minutes = today.getMinutes() + "";
+			var seconds = today.getSeconds() + "";
+			var timeLogin = day + "/" + month + "/" + year + " " + hour + ":" + minutes + ":" + seconds
+			localStorage.setItem('timelogin', timeLogin)
 		} else {
-			console.log(resp.message, 'resp.message');
 			countError = countError + 1;
 			$('#Username').val('');
 			$('#Password').val('');
@@ -99,7 +107,6 @@ var LoginView = function () {
 				$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
 				countError = Number(countError) + 1
 			}
-			console.log('số lần nhập lỗi: ', countError);
 			if (countError > 9) {
 				alert('Bạn đã nhập sai quá 10 lần')
 				$("#btnLogin").unbind();
@@ -109,7 +116,6 @@ var LoginView = function () {
 		$(document).on('keypress', function (e) {
 			if (e.which == 13) {
 				$("#btnLogin").trigger('click')
-				console.log(countError,'count error`');
 				if (countError < 10) {
 					if (Number($('#captcha').val()) === Number(that.captcha)) {
 						$('#error-captcha').hide()
@@ -118,8 +124,7 @@ var LoginView = function () {
 						$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
 					}
 				}
-				else
-				{
+				else {
 					alert('Bạn đã nhập sai quá 10 lần')
 				}
 			}

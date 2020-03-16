@@ -56,6 +56,14 @@
     <script th:src="@{/public/libs/xlsx.js}"></script>
 
     <script type="text/javascript" th:src="@{/public/js/qln/app/ulti/ExcellAction.js}"></script>
+    <script type="application/javascript">
+        function getIP(json) {
+            // document.write("My public IP address is: ", json.ip);
+            // console.log(json.ip, 'ip dayyyyyyy'); 
+            localStorage.setItem("ip", json.ip);
+        }
+    </script>
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     <script type="text/javascript">
         function kiemTraDoiMatKhau() {
             oNguoiDung = new NguoiDung();
@@ -154,21 +162,54 @@
         $(document).click(function (e) {
             // setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
             var timeload = localStorage.getItem('timeload');
-            var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
-            var today = new Date();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
-            var subtractionTime = secondsTimeClick - secondsTimeLoad;
-            if (subtractionTime > 899) {
-                var oAuthenHelper = new AuthenHelper();
-                oAuthenHelper.logout();
-            }
-            else {
-                localStorage.setItem("timeload", time)
+            if (timeload) {
+                var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
+                var today = new Date();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
+                var subtractionTime = secondsTimeClick - secondsTimeLoad;
+                if (subtractionTime > 899) {
+                    var oAuthenHelper = new AuthenHelper();
+                    oAuthenHelper.logout();
+                }
+                else {
+                    localStorage.setItem("timeload", time)
+                }
             }
         });
         $(window).ready(function () {
+            //kiểm tra đổi mật khẩu
             kiemTraDoiMatKhau();
+            //kiểm tra đăng nhập duy nhất
+            oNguoiDung = new NguoiDung();
+            var check = oNguoiDung.getInformationLogin();
+            if (check.length == 0) {
+                var rs = oNguoiDung.insertInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"))
+            }
+            else
+                if (check.length == 1) {
+                    if (check[0].IP == localStorage.getItem('ip')) {
+                        //cùng địa chỉ ip
+                    }
+                    else {
+                        //khác địa chỉ ip
+                        var timeLoginCheck = check[0].TIME
+                        var timeLogin = localStorage.getItem('timelogin')
+                        var dateStrA = timeLoginCheck.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+                        var dateStrB = timeLogin.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+                        if (new Date(dateStrA) > new Date(dateStrB)) {
+                            var oAlert = new AlertDialog2('Thông báo');
+                            oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+                        }
+                        else {
+                            //update lại địa chỉ ip và thời gian đăng nhập
+                            var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"))
+                        }
+                    }
+                }
+                else {
+                    var rs = oNguoiDung.deleteInformationLogin()
+                }
             if (typeof (Storage) !== "undefined") {
                 // Store
                 var today = new Date();
@@ -183,6 +224,10 @@
                     oNguoiDung = new NguoiDung();
                     var url = oNguoiDung.getQuery();
                     window.open(url[0].VALUE_CONFIG_VARCHAR)
+                })
+                $('body').on('click', '#btnAlertDialog', function () {
+                    var oAuthenHelper = new AuthenHelper();
+                    oAuthenHelper.logout();
                 })
                 $('.modal').on('show.bs.modal', function (e) {
                     $('.modal .modal-content').css('width', window.innerWidth).css('height', window.innerHeight)
@@ -507,6 +552,7 @@
 </head>
 
 <body id="QLN">
+    <div id="ip"></div>
     <div class="wrapper-canvas">
 
         <div class="header">
