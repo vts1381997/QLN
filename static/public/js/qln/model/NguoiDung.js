@@ -82,7 +82,7 @@ var NguoiDung = function () {
 			iplogin: ip,
 			time: time
 		}
-		return DATA.set(URL.DELETEINFORMATIONLOGIN, data);
+		return DATA.set(URL.UPDATEINFORMATIONLOGIN, data);
 	}
 	this.getClaim = function (id) {
 		return DATA.get(URL.getclaim, { id: id })
