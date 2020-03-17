@@ -70,17 +70,19 @@ var NguoiDung = function () {
 		}
 		return DATA.set(URL.SAVE, data);
 	}
-	this.insertInformationLogin = function (ip, time) {
+	this.insertInformationLogin = function (ip, time, browser) {
 		var data = {
 			iplogin: ip,
-			time: time
+			time: time,
+			browser
 		}
 		return DATA.set(URL.INSERTINFORMATIONLOGIN, data);
 	}
-	this.updateInformationLogin = function (ip, time) {
+	this.updateInformationLogin = function (ip, time, browser) {
 		var data = {
 			iplogin: ip,
-			time: time
+			time: time,
+			browser
 		}
 		return DATA.set(URL.UPDATEINFORMATIONLOGIN, data);
 	}

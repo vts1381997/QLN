@@ -62,6 +62,22 @@
             // console.log(json.ip, 'ip dayyyyyyy'); 
             localStorage.setItem("ip", json.ip);
         }
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+            (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                    (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+
+        var IdBrowser = "";
+        if (Sys.ie) IdBrowser = Sys.ie;
+        if (Sys.firefox) IdBrowser = Sys.firefox;
+        if (Sys.chrome) IdBrowser = Sys.chrome;
+        if (Sys.opera) IdBrowser = Sys.opera;
+        if (Sys.safari) IdBrowser = Sys.safari; 
+        localStorage.setItem("browser", IdBrowser)
     </script>
     <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     <script type="text/javascript">
@@ -184,12 +200,39 @@
             oNguoiDung = new NguoiDung();
             var check = oNguoiDung.getInformationLogin();
             if (check.length == 0) {
-                var rs = oNguoiDung.insertInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"))
+                var rs = oNguoiDung.insertInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
             }
             else
                 if (check.length == 1) {
                     if (check[0].IP == localStorage.getItem('ip')) {
-                        //cùng địa chỉ ip
+                        //cùng địa chỉ ip thì kiểm tra địa chỉ brower 
+                        if (localStorage.getItem("browser") == check[0].BROWSER) { 
+                            //cùng địa chỉ browser thì kiểm tra thời gian login
+                            if (localStorage.getItem("timelogin") == check[0].TIME) { 
+                            }
+                            else {
+                                //update lại thời gian đăng nhập 
+                                var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+                            }
+                        }
+                        else { 
+                            //khác browser thì kiểm tra thởi gian login
+                            if (localStorage.getItem("timelogin") == check[0].TIME) { 
+                            }
+                            else {  
+                                a = moment(check[0].TIME, 'DD/MM/YYYY HH:mm:ss')
+                                b = moment(localStorage.getItem("timelogin"), 'DD/MM/YYYY HH:mm:ss')
+                                if (a < b) {
+                                    // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
+                                    var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+                                }
+                                else {
+                                    var oAlert = new AlertDialog2('Thông báo');
+                                    oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+                                    setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
+                                }
+                            }
+                        }
                     }
                     else {
                         //khác địa chỉ ip
@@ -200,12 +243,13 @@
                         a = moment(timeLoginCheck, 'DD/MM/YYYY HH:mm:ss')
                         b = moment(timeLogin, 'DD/MM/YYYY HH:mm:ss')
                         if (a < b) {
-                            // update lại địa chỉ ip và thời gian đăng nhập
-                            var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), timeLogin)
+                            // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
+                            var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
                         }
                         else {
                             var oAlert = new AlertDialog2('Thông báo');
                             oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+                            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
                         }
                     }
                 }
