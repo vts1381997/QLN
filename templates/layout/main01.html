@@ -4,19 +4,13 @@
 
 <head>
     <meta charset="utf-8" />
-
-
-
     <link type="text/css" rel='stylesheet' th:href="@{/public/skinqln/vendor/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/public/skinqln/vendor/slick/slick.css}">
     <link rel="stylesheet" th:href="@{/public/skinqln/vendor/ap8/css/style.css}">
     <link type="text/css" rel='stylesheet' th:href="@{/public/skinqln/vendor/font-awesome/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/public/skinqln/css/style.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/public/skinqln/css/custom.css}">
-
-
     <link th:href="@{/public/libs/jquery-ui-1.12.1.custom/jquery-ui.min.css}" rel="stylesheet" />
-
     <script type="text/javascript" th:src="@{/public/libs/jquery/jquery-3.3.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/bootstrap/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/datatable/js/jquery.dataTables.min.js}"></script>
@@ -39,27 +33,21 @@
     <script type="text/javascript" th:src="@{/public/libs/validate_form/jquery.validation.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/jqueryloading/jquery-loading.js}"></script>
     <link type="text/css" th:src="@{/public/libs/jqueryloading/jquery-loading.css}">
-    </link>
     <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
     <script type="text/javascript" src="/qln/public/js/qln/model/DonViTienTe.js"></script>
     <link type="text/css" th:src="@{/public/libs/bootbox.min.js}">
-    </link>
     <link href="/qln/public/libs/utils/uploadfile.css" rel="stylesheet">
     <script src="/qln/public/libs/utils/jquery.uploadfile.js"></script>
     <script th:src="@{/public/libs/numeral.min.js}"></script>
     <link type="text/css" th:src="@{/public/libs/jquery.form.min.js}">
-    </link>
     <script type="text/javascript" th:src="@{/public/libs/select2.full.min.js}"></script>
     <link rel="stylesheet" th:href="@{/public/libs/utils/select2.min.css}">
     <script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
     <script th:src="@{/public/libs/jszip.js}"></script>
     <script th:src="@{/public/libs/xlsx.js}"></script>
-
     <script type="text/javascript" th:src="@{/public/js/qln/app/ulti/ExcellAction.js}"></script>
     <script type="application/javascript">
         function getIP(json) {
-            // document.write("My public IP address is: ", json.ip);
-            // console.log(json.ip, 'ip dayyyyyyy'); 
             localStorage.setItem("ip", json.ip);
         }
         var Sys = {};
@@ -70,49 +58,33 @@
                 (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
                     (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
                         (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
-
         var IdBrowser = "";
         if (Sys.ie) IdBrowser = Sys.ie;
         if (Sys.firefox) IdBrowser = Sys.firefox;
         if (Sys.chrome) IdBrowser = Sys.chrome;
         if (Sys.opera) IdBrowser = Sys.opera;
-        if (Sys.safari) IdBrowser = Sys.safari; 
+        if (Sys.safari) IdBrowser = Sys.safari;
         localStorage.setItem("browser", IdBrowser)
     </script>
     <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     <script type="text/javascript">
-        function kiemTraDoiMatKhau() {
-            oNguoiDung = new NguoiDung();
-            var pass = oNguoiDung.getPasswordById()
-            if (pass[0].PASSWORD == "$2a$10$CCnvVmXaqtM8Nl6cv6KH6uZFzguz6LN4zR3r0Mfb66JbvaoaQzYn2") {
-                // var oAlert = new AlertDialog2('Thông báo');
-                // oAlert.show('Mật khẩu của bạn đang là mật khẩu mặc định, vui lòng đổi lại mật khẩu', '40%', '50px');
-            }
-        }
-
         const quickSort = (arr) => {
-
             if (arr.length < 2) return arr;
-
             // *** lấy phần tử cuối của 'arr' làm 'pivot'
             const pivotIndex = arr.length - 1;
             const pivot = arr[pivotIndex];
-
             const left = [];
             const right = [];
-
             let currentItem;
             // *** 'i < pivotIndex' => chúng ta sẽ không loop qua 'pivot' nữa
             for (let i = 0; i < pivotIndex; i++) {
                 currentItem = arr[i];
-
                 if (currentItem < pivot) {
                     left.push(currentItem);
                 } else {
                     right.push(currentItem);
                 }
             }
-
             return [...quickSort(right), pivot, ...quickSort(left)];
         }
         let xxxx = quickSort([2, 5, 3, 2, 1, 3, 0])
@@ -131,7 +103,6 @@
             var expires = "expires=" + d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
-
         function uuidv4() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0,
@@ -142,41 +113,33 @@
         function addTimes(startTime, endTime) {
             var times = [0, 0, 0]
             var max = times.length
-
             var a = (startTime || '').split(':')
             var b = (endTime || '').split(':')
-
             // normalize time values
             for (var i = 0; i < max; i++) {
                 a[i] = isNaN(parseInt(a[i])) ? 0 : parseInt(a[i])
                 b[i] = isNaN(parseInt(b[i])) ? 0 : parseInt(b[i])
             }
-
             // store time values
             for (var i = 0; i < max; i++) {
                 times[i] = a[i] + b[i]
             }
-
             var hours = times[0]
             var minutes = times[1]
             var seconds = times[2]
-
             if (seconds >= 60) {
                 var m = (seconds / 60) << 0
                 minutes += m
                 seconds -= 60 * m
             }
-
             if (minutes >= 60) {
                 var h = (minutes / 60) << 0
                 hours += h
                 minutes -= 60 * h
             }
-
             return ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2)
         }
         $(document).click(function (e) {
-            // setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 900000);
             var timeload = localStorage.getItem('timeload');
             if (timeload) {
                 var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
@@ -194,10 +157,20 @@
             }
         });
         $(window).ready(function () {
-            //kiểm tra đổi mật khẩu
-            kiemTraDoiMatKhau();
-            //kiểm tra đăng nhập duy nhất
+            //kiểm tra đến ngày đổi mật khẩu
             oNguoiDung = new NguoiDung();
+            var ngayDoiMatKhau = oNguoiDung.getNgayDoiMatKhau()
+            var ngayHienTai = $.datepicker.formatDate('dd/mm/yy', new Date())
+            if (ngayDoiMatKhau[0].NGAYDOIMATKHAU != null) {
+                console.log(ngayDoiMatKhau[0].NGAYDOIMATKHAU, 'ngày đổi mật khẩu');
+                console.log(ngayHienTai, 'ngày hiện tại');
+                if (ngayDoiMatKhau[0].NGAYDOIMATKHAU == ngayHienTai) {
+                    console.log('trùng');
+                    var oAlert = new AlertDialog2('Thông báo');
+                    oAlert.show('Đã đến ngày thay đổi mật khẩu, vui lòng đổi mật khẩu', '40%', '50px');
+                }
+            }
+            //kiểm tra đăng nhập duy nhất
             var check = oNguoiDung.getInformationLogin();
             if (check.length == 0) {
                 var rs = oNguoiDung.insertInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
@@ -206,20 +179,20 @@
                 if (check.length == 1) {
                     if (check[0].IP == localStorage.getItem('ip')) {
                         //cùng địa chỉ ip thì kiểm tra địa chỉ brower 
-                        if (localStorage.getItem("browser") == check[0].BROWSER) { 
+                        if (localStorage.getItem("browser") == check[0].BROWSER) {
                             //cùng địa chỉ browser thì kiểm tra thời gian login
-                            if (localStorage.getItem("timelogin") == check[0].TIME) { 
+                            if (localStorage.getItem("timelogin") == check[0].TIME) {
                             }
                             else {
                                 //update lại thời gian đăng nhập 
                                 var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
                             }
                         }
-                        else { 
+                        else {
                             //khác browser thì kiểm tra thởi gian login
-                            if (localStorage.getItem("timelogin") == check[0].TIME) { 
+                            if (localStorage.getItem("timelogin") == check[0].TIME) {
                             }
-                            else {  
+                            else {
                                 a = moment(check[0].TIME, 'DD/MM/YYYY HH:mm:ss')
                                 b = moment(localStorage.getItem("timelogin"), 'DD/MM/YYYY HH:mm:ss')
                                 if (a < b) {
@@ -272,30 +245,25 @@
                     window.open(url[0].VALUE_CONFIG_VARCHAR)
                 })
                 $('body').on('click', '#btnAlertDialog', function () {
-                    var oAuthenHelper = new AuthenHelper();
-                    oAuthenHelper.logout();
+                    window.open($("#btnDoiMatKhau").attr("href"));
                 })
                 $('.modal').on('show.bs.modal', function (e) {
                     $('.modal .modal-content').css('width', window.innerWidth).css('height', window.innerHeight)
                     $('.modal div[role="document"]').css('width', '100%').css('margin-left', 0).css('margin', 0)
                     //$('.modal .modal-body').css('width', window.innerWidth).css('height', Number(window.innerHeight) - Number($('.modal-header').height()))
                 })
-
                 $('.modal#modalExport').on('show.bs.modal', function (e) {
                     $('.modal#modalExport .modal-content').attr('style', '').css('padding', 20)
                 })
-
                 $('.modal#modalImport').on('show.bs.modal', function (e) {
                     $('.modal#modalImport .modal-content').attr('style', '').css('padding', 20)
                 })
-
                 var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
                 link.type = 'image/x-icon';
                 link.rel = 'shortcut icon';
                 // link.href = 'http://www.stackoverflow.com/favicon.ico';
                 link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
                 document.getElementsByTagName('head')[0].appendChild(link);
-
                 $('.wec-control-date').datetimepicker({
                     locale: 'vi',
                     format: 'DD/MM/YYYY',
@@ -306,9 +274,7 @@
                     format: 'DD/MM/YYYY HH:mm:ss',
                     useCurrent: false
                 });
-
                 // lấy token từ localStorage và decode token a
-
                 let id = jwt.id
                 var userchecked = jwt.menu
                 var trungpro = ''
@@ -329,10 +295,8 @@
 							</li>\
 							</ul>\
 					</li>'
-
                     }
                 })
-
                 $("#topnav-bar").append(element)
                 for (i = 0; i < listcha.length; i++) {
                     listli = ''
@@ -349,9 +313,7 @@
                     $("#" + listcha[i].ID + "").append(listli)
                 }
             })
-
         })
-
         function CheckRoleAct(pTokenJWT) {
             pTokenJWT.role.map(function (el) {
                 $('.' + el.split('.')[0] + ' .' + el.split('.')[0]).css('display', 'block');
@@ -600,7 +562,6 @@
 <body id="QLN">
     <div id="ip"></div>
     <div class="wrapper-canvas">
-
         <div class="header">
             <div th:replace="modules/header::header"></div>
         </div>
@@ -628,7 +589,6 @@
             itiente.getAll()
             var listtiente = itiente.LIST
             localStorage.TIENTE = JSON.stringify(listtiente);
-
             if ('BCQUANTRI@BCTheothongtu@BCTT80@BCKHAC'.includes(CurrentLayout)) {
                 $("select").select2({});
             } else {
@@ -636,8 +596,6 @@
                     dropdownParent: $("#exampleModalCenter")
                 });
             }
-
-
             var trung = '            '
             $("#dangnhapboi").text('Xin chào ' + jwt.userName)
             // if (CurrentLayout === 'DASHBOARD') {
@@ -645,7 +603,6 @@
             // }
             if (CurrentLayout == 'TOCHUCMUATP') {
                 $("#btnTraLai").show();
-
             } else {
                 $("#btnTraLai").hide();
             }
@@ -661,7 +618,6 @@
                 $("#btnExportTemplate").hide()
                 $("#btnImport").hide()
                 $("#btnExport").hide()
-
             } else {
                 $("#btnPhanQuyen").hide();
                 $("#btnResetpassword").hide();
@@ -669,8 +625,6 @@
                 $("#btnImport").show()
                 $("#btnExport").show()
             }
-
-
             if (CurrentLayout == 'BCTHEOTHONGTU' || CurrentLayout == 'BCQUANTRI' || CurrentLayout == 'BCTT80' || CurrentLayout == 'BCKHAC' || CurrentLayout == 'DASHBOARD') {
                 $(".topaction").hide();
             } else {
@@ -681,7 +635,6 @@
             } else {
                 $("#btnTroNo").hide()
             }
-
             var deletee = CurrentLayout + '.DELETE'
             var read = CurrentLayout + '.READ'
             var create = CurrentLayout + '.CREATE'
@@ -693,12 +646,8 @@
             // 			$(".topaction ." + el.split('.')[1]).css('display', 'inline-block')
             // 		})
             // 	}
-
-
             // })
-
             var el = jwt.role
-
             var a = 0
             var a1 = 0
             var a2 = 0

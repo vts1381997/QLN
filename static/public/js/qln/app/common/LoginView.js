@@ -102,31 +102,70 @@ var LoginView = function () {
 			e.preventDefault()
 			if (Number($('#captcha').val()) === Number(that.captcha)) {
 				$('#error-captcha').hide()
-				that.login();
+				if (localStorage.getItem("timeLoginFail")) {
+					return;
+				}
+				else {
+					that.login();
+				}
 			} else {
 				$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
-				countError = Number(countError) + 1
+				if (localStorage.getItem("countError")) {
+					countError = Number(localStorage.getItem("countError")) + 1
+					localStorage.setItem("countError", countError)
+				}
+				else {
+					countError = Number(countError) + 1
+					localStorage.setItem("countError", countError)
+				}
 			}
-			if (countError > 9) {
-				alert('Bạn đã nhập sai quá 10 lần')
-				$("#btnLogin").unbind();
+			if (Number(localStorage.getItem("countError")) > 9) {
+				alert('Bạn đã nhập sai 10 lần, tài khoản của bạn sẽ bị khóa 15 phút')
+				// $("#btnLogin").unbind();
+				var today = new Date();
+				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+				if (localStorage.getItem("timeLoginFail")) {
+					return;
+				}
+				else {
+					localStorage.setItem("timeLoginFail", time);
+				}
 			}
 		});
-
+		$(document).click(function (e) {
+			var timeload = localStorage.getItem('timeLoginFail');
+			if (timeload) {
+				var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
+				var today = new Date();
+				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+				var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
+				var subtractionTime = secondsTimeClick - secondsTimeLoad;
+				// console.log(subtractionTime, 'subtractionTime');
+				if (subtractionTime > 899) {
+					countError = 0;
+					localStorage.setItem("countError", 0)
+					localStorage.removeItem("timeLoginFail")
+				}
+			}
+		});
 		$(document).on('keypress', function (e) {
 			if (e.which == 13) {
 				$("#btnLogin").trigger('click')
-				if (countError < 10) {
-					if (Number($('#captcha').val()) === Number(that.captcha)) {
-						$('#error-captcha').hide()
-						that.login();
-					} else {
-						$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
-					}
-				}
-				else {
-					alert('Bạn đã nhập sai quá 10 lần')
-				}
+				// if (countError < 10) {
+				// 	if (Number($('#captcha').val()) === Number(that.captcha)) {
+				// 		$('#error-captcha').hide()
+				// 		that.login();
+				// 	} else {
+				// 		$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
+				// 	}
+				// }
+				// else {
+				// 	alert('Bạn đã nhập sai quá 10 lần')
+				// 	$("#btnLogin").unbind();
+				// 	setTimeout(() => {
+				// 		$("#btnLogin").bind();
+				// 	}, 900000)
+				// }
 			}
 		});
 		var myWindow = window.open(CONFIG_API.URL.USER_API + 'verify', "myWindow", "width=1000, height=1000")		//myWindow.close()

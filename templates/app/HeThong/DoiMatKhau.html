@@ -6,9 +6,15 @@
     <title>Đổi mật khẩu</title>
     <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
     <script type="text/javascript">
-        //$(document).ready(function () {
         function fnc_thayDoiMatKhau() {
-            var regex = '^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).*$'
+            Date.prototype.addDays = function (days) {
+                var date = new Date(this.valueOf());
+                date.setDate(date.getDate() + days);
+                return date;
+            }
+            var date = new Date();
+            const regex = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ ]).*$/;
+            const hasCat = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+=_)(\*&\^%\$#`@!~”’:;|\}\]\\{[/?.>,<]).*$/;
             var tendangnhap = jwt.userName
             let txtMKC = $('#txtMKC').val()
             let txtMKM = $('#txtMKM').val()
@@ -17,7 +23,6 @@
                 $('#txtThongBao').text('Vui lòng không để trống các ô mật khẩu!')
                 return;
             }
-
             if (txtMKM.trim() != txtMKM1.trim()) {
                 $('#txtThongBao').text('Mật khẩu mới không giống nhau, vui lòng nhập lại!')
                 return;
@@ -27,21 +32,19 @@
                 $('#txtThongBao').text('Mật khẩu mới không được giống mật khẩu cũ, vui lòng nhập lại!')
                 return;
             }
-
-            // const str1 = "Vang_Khi_98000";
-            const hasCat = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=_]).*$/;
-            // console.log(hasCat.test(str1), 'test regex');
-            if (hasCat.test(txtMKM.trim()) == false) {
-                $('#txtThongBao').text('Mật khẩu không đủ phức tạp!')
-                return;
+            if (hasCat.test(txtMKM) == false) {
+                if (regex.test(txtMKM) == false) {
+                    $('#txtThongBao').text('Mật khẩu không đủ phức tạp!')
+                    return;
+                }
+                else {
+                    $('#txtThongBao').text('')
+                }
             }
-            
-            if(txtMKM.trim().includes(tendangnhap) == true)
-            {
+            if (txtMKM.trim().includes(tendangnhap) == true) {
                 $('#txtThongBao').text('Mật khẩu mới không được chứa tên đăng nhập!')
                 return;
             }
-
             $('#txtThongBao').text('')
             if ($('#txtThongBao').text() == '') {
                 var data = {
@@ -53,14 +56,15 @@
                 var oAlert = new AlertDialog('Thông báo');
                 oAlert.show(rs[0].MESSAGE, '40%', '50px');
                 if (rs[0].CODE == "SUCCESS") {
+                    var rs = nguoiDung.updateNgayDoiMatKhau($.datepicker.formatDate('dd/mm/yy', date.addDays(90)))
                     jwt = {}
                     localStorage.clear();
-                    window.location.href = CONFIG_API.URL.LOG_OUT;
+                    setTimeout(() => {
+                        window.location.href = CONFIG_API.URL.LOG_OUT;
+                    }, 3000)
                 }
             }
-            //Gọi hàm cập nhật
         }
-       // });
     </script>
 </head>
 
@@ -84,19 +88,16 @@
                 </div>
                 <div class="col-sm-9">
                     <input type="password" class="form-control" value="" id="txtMKM" name="txtMKM" autocomplete="off" />
-
                 </div>
                 <div class="col-sm-3">
                     <label>Nhập lại mật khẩu (<span style="color: red;">*</span>)</label>
                 </div>
-
                 <div class="col-sm-9">
                     <input type="password" class="form-control" value="" id="txtMKM1" name="txtMKM1"
                         autocomplete="off" />
                 </div>
                 <div class="col-sm-3">
                 </div>
-
                 <div class="col-sm-9"><label id="txtThongBao" style="font-size: 14px; color: red;"></label>
                 </div>
                 <div class="col-sm-12 pull-right">
@@ -106,51 +107,13 @@
             </div>
             <div class="col-md-2">
                 <strong style="color: #ce2626;">
-                    <li>Mật khẩu phải có chiều dài tối thiểu là 8, phải bao gồm chữ thường, chữ hoa, chữ số và ký tự đặc biệt.</li>
-                    
+                    <li>Mật khẩu phải có chiều dài tối thiểu là 8, phải bao gồm chữ thường, chữ hoa, chữ số và ký tự đặc
+                        biệt.</li>
                     Mật khẩu không được chứa tên đăng nhập.
                 </strong>
             </div>
         </div>
-
     </div>
-    <!-- <div layout:fragment="content">
-        <div class="row ACTIONS well well-sm" style="margin-top:10px">
-            <div class="row">
-                <span class="glyphicon glyphicon-list" style="padding-left: 20px;"></span> <label
-                    style="color: red;">ĐỔI MẬT KHẨU</label>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-10" style="margin-top:10px; border:2px whitesmoke solid">
-                <div class="col-sm-3" style="margin-bottom: 10px;">
-                    <label>Mật khẩu cũ</label>
-                </div>
-                <div class="col-sm-9" style="margin-bottom: 10px;">
-                    <input type="password" class="form-control validate-form" name="MA" id="MA" value="" />
-                </div>
-                <div class="col-sm-3">
-                    <label>Mật khẩu mới</label>
-                </div>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control validate-form" name="MA" id="MA" value="" />
-                </div>
-                <div class="col-sm-3">
-                    <label>Nhập lại mật khẩu</label>
-                </div>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control validate-form" name="MA" id="MA" value="" />
-                </div>
-
-         
-                <div class="col-sm-12 pull-right">
-                    <button type="button" style="float:right" class="btn btn-info btn-sm" id="btnReport"><i
-                            class="glyphicon glyphicon-file"></in>Đồng ý</button>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-
-    </div> -->
 </body>
 
 </html>

@@ -42,6 +42,9 @@ var NguoiDung = function () {
 		INSERTINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/insertinformationlogin',
 		DELETEINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/deleteinformationlogin',
 		UPDATEINFORMATIONLOGIN: CONFIG_API.URL.BASE_API + 'nguoidung/updateinformationlogin',
+		UPDATENGAYDOIMATKHAU: CONFIG_API.URL.BASE_API + 'nguoidung/updatengaydoimatkhau',
+		GETNGAYDOIMATKHAU: CONFIG_API.URL.BASE_API + 'nguoidung/getngaydoimatkhau',
+		GETLEVELUSER: CONFIG_API.URL.BASE_API + 'nguoidung/getleveluser',
 	}
 
 
@@ -86,6 +89,9 @@ var NguoiDung = function () {
 		}
 		return DATA.set(URL.UPDATEINFORMATIONLOGIN, data);
 	}
+	this.updateNgayDoiMatKhau = function (ngaydoimatkhau) { 
+		return DATA.set(URL.UPDATENGAYDOIMATKHAU, { ngaydoimatkhau: ngaydoimatkhau });
+	}
 	this.getClaim = function (id) {
 		return DATA.get(URL.getclaim, { id: id })
 	}
@@ -113,6 +119,10 @@ var NguoiDung = function () {
 	}
 	this.getInformationLogin = function () {
 		var rs = DATA.get(URL.GETINFORMATIONLOGIN);
+		return rs;
+	}
+	this.getNgayDoiMatKhau = function () {
+		var rs = DATA.get(URL.GETNGAYDOIMATKHAU);
 		return rs;
 	}
 	//delete data

@@ -17,6 +17,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             CurrentLayout = "DASHBOARD"
+            oNguoiDung = new NguoiDung();
+            var pass = oNguoiDung.getPasswordById()
+            if (pass[0].PASSWORD == "$2a$10$CCnvVmXaqtM8Nl6cv6KH6uZFzguz6LN4zR3r0Mfb66JbvaoaQzYn2") {
+                var oAlert = new AlertDialog2('Thông báo');
+                oAlert.show('Mật khẩu của bạn đang là mật khẩu mặc định, vui lòng đổi lại mật khẩu', '40%', '50px');
+            }
         })
     </script>
 </head>
