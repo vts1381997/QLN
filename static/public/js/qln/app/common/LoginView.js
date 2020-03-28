@@ -119,8 +119,8 @@ var LoginView = function () {
 					localStorage.setItem("countError", countError)
 				}
 			}
-			if (Number(localStorage.getItem("countError")) > 9) {
-				alert('Bạn đã nhập sai 10 lần, tài khoản của bạn sẽ bị khóa 15 phút')
+			if (Number(localStorage.getItem("countError")) > 4) {
+				alert('Bạn đã nhập sai 5 lần, tài khoản của bạn sẽ bị khóa 15 phút')
 				// $("#btnLogin").unbind();
 				var today = new Date();
 				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
