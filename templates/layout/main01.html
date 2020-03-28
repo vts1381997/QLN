@@ -157,6 +157,8 @@
             }
         });
         $(window).ready(function () {
+            var ngayHienTai = $.datepicker.formatDate('dd/mm/yy', new Date())
+            console.log(ngayHienTai,'ngày hiện tại');
             //kiểm tra đến ngày đổi mật khẩu
             oNguoiDung = new NguoiDung();
             var ngayDoiMatKhau = oNguoiDung.getNgayDoiMatKhau()
@@ -262,7 +264,8 @@
                 link.type = 'image/x-icon';
                 link.rel = 'shortcut icon';
                 // link.href = 'http://www.stackoverflow.com/favicon.ico';
-                link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
+                // link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
+                link.href = 'https://images.app.goo.gl/3b6PvHukreiz1hsi8';
                 document.getElementsByTagName('head')[0].appendChild(link);
                 $('.wec-control-date').datetimepicker({
                     locale: 'vi',

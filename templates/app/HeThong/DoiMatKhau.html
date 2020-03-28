@@ -13,8 +13,8 @@
                 return date;
             }
             var date = new Date();
-            const regex = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ ]).*$/;
-            const hasCat = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+=_)(\*&\^%\$#`@!~”’:;|\}\]\\{[/?.>,<]).*$/;
+            // const regex = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ ]).*$/;
+            const hasCat = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+=_)(\*&\^%\$#`@!~”’:;|\}\]\\{\ [/?.>,<]).*$/;
             var tendangnhap = jwt.userName
             let txtMKC = $('#txtMKC').val()
             let txtMKM = $('#txtMKM').val()
@@ -33,13 +33,13 @@
                 return;
             }
             if (hasCat.test(txtMKM) == false) {
-                if (regex.test(txtMKM) == false) {
-                    $('#txtThongBao').text('Mật khẩu không đủ phức tạp!')
-                    return;
-                }
-                else {
-                    $('#txtThongBao').text('')
-                }
+                // if (regex.test(txtMKM) == false) {
+                $('#txtThongBao').text('Mật khẩu không đủ phức tạp!')
+                return;
+                // }
+                // else {
+                //     $('#txtThongBao').text('')
+                // }
             }
             if (txtMKM.trim().includes(tendangnhap) == true) {
                 $('#txtThongBao').text('Mật khẩu mới không được chứa tên đăng nhập!')
