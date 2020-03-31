@@ -125,6 +125,10 @@ var NguoiDung = function () {
 		var rs = DATA.get(URL.GETNGAYDOIMATKHAU);
 		return rs;
 	}
+	this.getLevelUser = function () {
+		var rs = DATA.get(URL.GETLEVELUSER);
+		return rs;
+	}
 	//delete data
 	this.del = function (sID) {
 		return DATA.set(URL.DEL, { ID: sID });

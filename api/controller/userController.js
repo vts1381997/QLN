@@ -10,7 +10,6 @@ var userController = {
         userData.getUser(body, bd, (data) => {
             userData.getUser1(body, bd, (data1) => {
                 userData.getUser2(body, bd, (data2) => {
-
                     var datacallback = [...data1.RESULT, ...data.RESULT, ...data2.RESULT]
                     callback({ CODE: data1.CODE, MESSAGE: data1.MESSAGE, RESULT: datacallback })
                 })
@@ -18,8 +17,7 @@ var userController = {
         })
     },
     resetpassword: function (body, callback) {
-        bcrypt.hash('123456' + config.keysBcrypt, 10, function (err, hash) {
-            // id.pass = hash;
+        bcrypt.hash('123456789' + config.keysBcrypt, 10, function (err, hash) {
             userData.resetpassword(body,hash,data=>{
                 callback(data)
             })
@@ -33,9 +31,7 @@ var userController = {
                 callback(data)
             })
         });
-
-    }
-    ,
+    },
     deleteUser: function (id, callback) {
         userData.deleteUser(id, (data) => {
             callback(data)
@@ -78,10 +74,6 @@ var userController = {
             callback(data)
         })
     }
-
-
 }
-
-
 
 module.exports = userController;

@@ -157,19 +157,33 @@
             }
         });
         $(window).ready(function () {
-            var ngayHienTai = $.datepicker.formatDate('dd/mm/yy', new Date())
-            console.log(ngayHienTai,'ngày hiện tại');
-            //kiểm tra đến ngày đổi mật khẩu
             oNguoiDung = new NguoiDung();
+            //kiểm tra tài khoản bị khóa
+            var kiemTraTaiKhoan = oNguoiDung.getLevelUser()
+            if (kiemTraTaiKhoan[0].LVL == 3) {
+                var oAlert = new AlertDialog3('Thông báo');
+                oAlert.show('Tài khoản của bạn đã bị khóa', '40%', '50px');
+                setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
+            }
+            //kiểm tra đến ngày đổi mật khẩu
             var ngayDoiMatKhau = oNguoiDung.getNgayDoiMatKhau()
             var ngayHienTai = $.datepicker.formatDate('dd/mm/yy', new Date())
             if (ngayDoiMatKhau[0].NGAYDOIMATKHAU != null) {
-                console.log(ngayDoiMatKhau[0].NGAYDOIMATKHAU, 'ngày đổi mật khẩu');
-                console.log(ngayHienTai, 'ngày hiện tại');
                 if (ngayDoiMatKhau[0].NGAYDOIMATKHAU == ngayHienTai) {
-                    console.log('trùng');
-                    var oAlert = new AlertDialog2('Thông báo');
-                    oAlert.show('Đã đến ngày thay đổi mật khẩu, vui lòng đổi mật khẩu', '40%', '50px');
+                    if (CurrentLayout == "Home") {
+                        var oAlert = new AlertDialog2('Thông báo');
+                        oAlert.show('Đã đến ngày thay đổi mật khẩu, vui lòng đổi mật khẩu', '40%', '50px');
+                    }
+                }
+                else {
+                    var strNgayDoiMatKhau = ngayDoiMatKhau[0].NGAYDOIMATKHAU.split('/')[2] + ngayDoiMatKhau[0].NGAYDOIMATKHAU.split('/')[1] + ngayDoiMatKhau[0].NGAYDOIMATKHAU.split('/')[0]
+                    var strNgayHienTai = ngayHienTai.split('/')[2] + ngayHienTai.split('/')[1] + ngayHienTai.split('/')[0]
+                    if (Number(strNgayHienTai) > Number(strNgayDoiMatKhau)) {
+                        if (CurrentLayout == "Home") {
+                            var oAlert = new AlertDialog2('Thông báo');
+                            oAlert.show('Đã đến ngày thay đổi mật khẩu, vui lòng đổi mật khẩu', '40%', '50px');
+                        }
+                    }
                 }
             }
             //kiểm tra đăng nhập duy nhất
@@ -202,7 +216,7 @@
                                     var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
                                 }
                                 else {
-                                    var oAlert = new AlertDialog2('Thông báo');
+                                    var oAlert = new AlertDialog3('Thông báo');
                                     oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
                                     setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
                                 }
@@ -222,7 +236,7 @@
                             var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
                         }
                         else {
-                            var oAlert = new AlertDialog2('Thông báo');
+                            var oAlert = new AlertDialog3('Thông báo');
                             oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
                             setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
                         }
@@ -246,6 +260,10 @@
                     var url = oNguoiDung.getQuery();
                     window.open(url[0].VALUE_CONFIG_VARCHAR)
                 })
+                $('body').on('click', '#btnAnotherLogin', function () {
+                    var oAuthenHelper = new AuthenHelper();
+                    oAuthenHelper.logout();
+                })
                 $('body').on('click', '#btnAlertDialog', function () {
                     window.open($("#btnDoiMatKhau").attr("href"));
                 })
@@ -264,8 +282,7 @@
                 link.type = 'image/x-icon';
                 link.rel = 'shortcut icon';
                 // link.href = 'http://www.stackoverflow.com/favicon.ico';
-                // link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
-                link.href = 'https://images.app.goo.gl/3b6PvHukreiz1hsi8';
+                link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
                 document.getElementsByTagName('head')[0].appendChild(link);
                 $('.wec-control-date').datetimepicker({
                     locale: 'vi',

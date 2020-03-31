@@ -7,9 +7,7 @@ const bcrypt = require('bcryptjs');
 var userData = require('../data/userData')
 app.set('Secret', config.secret);
 // middleware that is specific to this router
-router.post('/', function (req, res) {
-    // userData.getStatusUser(req.body.username, function (data) {
-    // if (data.RESULT == 0) {
+router.post('/', function (req, res) { 
     LoginController.Login(req.body.username, function (data) {
         if (data.RESULT.length > 0) {
             let user = data.RESULT[0].USERNAME
@@ -34,19 +32,14 @@ router.post('/', function (req, res) {
                     };
                     var token = jwt.sign(payload, app.get('Secret'), {
                         expiresIn: "24h", // expires in 24 hours
-                    });
-                    // userData.updateToken(id,token,data=>{
-                    //     console.log(data)
-                    // })
+                    }); 
                     res.json({
                         success: true,
                         message: 'authentication done ',
                         token: token,
                         code: 200,
                         id: req.body.username
-                    });
-                    //update status về 1 
-                    // userData.updateStatusUser(req.body.username)
+                    }); 
                 } else {
                     res.json({ CODE: '401', message: "Sai tài khoản hoặc tên đăng nhập" })
                 }
@@ -55,22 +48,7 @@ router.post('/', function (req, res) {
         else {
             res.json({ CODE: '401', message: "Sai tài khoản hoặc tên đăng nhập" })
         }
-    })
-    // }
-    // else
-    //     if (data.RESULT == 1) {
-    //         res.json({ CODE: '402', message: "Tài khoản đang được sử dụng" })
-    //     }
-    // });
-})
-router.post('/update', function (req, res) {
-    //update status về 1  
-    userData.updateStatusUserOut(req.body.username)
-    res.json({
-        success: true,
-        message: 'done',
-        code: 200,
-    })
-})
+    }) 
+}) 
 
 module.exports = router 

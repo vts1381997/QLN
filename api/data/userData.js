@@ -2,7 +2,6 @@ var oracledb = require('oracledb');
 var connectString = require('../controller/connect')
 var dateFormat = require('dateformat');
 var uuid = require('uuid')
-
 var userData = {
     getUser: (body, bd, callback) => {
         if (bd.length == 0) {
@@ -35,16 +34,13 @@ var userData = {
                 if (err) {
                     return;
                 }
-
                 connection.execute(
                     query, [], function (error, rows) {
                         if (rows) {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -55,18 +51,13 @@ var userData = {
                                 }
                                 obj.push(obj2)
                             });
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
-
-
-
-
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                         }
                     }
                 )
-
             }
         )
     },
@@ -89,9 +80,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -102,18 +91,13 @@ var userData = {
                                 }
                                 obj.push(obj2)
                             });
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
-
-
-
-
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                         }
                     }
                 )
-
             }
         )
     },
@@ -136,9 +120,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -148,20 +130,14 @@ var userData = {
                                     obj2.CREATEDDATE = dateFormat(obj2.CREATEDDATE, " dd/mm/yyyy h:MM:ss TT")
                                 }
                                 obj.push(obj2)
-                            });
-
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
-
-
-
-
+                            }); 
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                         }
                     }
                 )
-
             }
         )
     },
@@ -186,16 +162,13 @@ var userData = {
                 if (err) {
                     return;
                 }
-
                 connection.execute(
                     query, [], function (error, rows) {
                         if (rows) {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -210,7 +183,6 @@ var userData = {
                         }
                     }
                 )
-
             }
         )
     },
@@ -228,9 +200,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -245,7 +215,6 @@ var userData = {
                         }
                     }
                 )
-
             }
         )
     },
@@ -301,9 +270,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -318,7 +285,6 @@ var userData = {
                         }
                     }
                 )
-
             }
         )
     },
@@ -341,9 +307,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -358,7 +322,6 @@ var userData = {
                         }
                     }
                 )
-
             }
         )
     },
@@ -384,9 +347,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -401,12 +362,10 @@ var userData = {
                         }
                     }
                 )
-
             }
         )
     },
     Login: (username, callback) => {
-
         oracledb.getConnection(
             connectString,
             function (err, connection) {
@@ -421,9 +380,7 @@ var userData = {
                             var values = rows.rows
                             var keys = rows.metaData
                             var obj = []
-
                             var vICountOfKeys = keys.length;
-
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -431,25 +388,19 @@ var userData = {
                                 }
                                 obj.push(obj2)
                             });
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
-
-
-
-
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                         }
                     }
-                )
-
+                ) 
             }
         )
     },
     saveUser: (users, callback) => {
         if (users.ID === 0) {
             users.ID = uuid();
-            // users.NHANTHONGBAO = 0\
             oracledb.getConnection(
                 connectString,
                 function (err, connection) {
@@ -471,15 +422,11 @@ var userData = {
                             else {
                                 var RESULT = [
                                     { MESSAGE: "Thêm mới thành công" }
-                                ]
-
-
-
+                                ] 
                                 callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                             }
                         }
-                    )
-
+                    ) 
                 }
             )
         }
@@ -524,19 +471,13 @@ var userData = {
                         else {
                             var RESULT = [
                                 { MESSAGE: "Thêm mới thành công" }
-                            ]
-
-
-
+                            ] 
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }
                     }
-                )
-
+                ) 
             }
-        )
-
-
+        ) 
     },
     deleteUser: (id, callback) => {
         oracledb.getConnection(
@@ -554,15 +495,11 @@ var userData = {
                         else {
                             var RESULT = [
                                 { MESSAGE: "Xóa thành công" }
-                            ]
-
-
-
+                            ] 
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }
                     }
                 )
-
             }
         )
     },
@@ -576,28 +513,19 @@ var userData = {
                 query = "update users set password='" + id.pass + "' where id='" + id.idlogin + "'"
                 connection.execute(
                     query, [], { autoCommit: true }, function (error, rows) {
-
                         if (error) {
-
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
-
-
                         }
                         else {
                             var RESULT = [
                                 { CODE: "SUCCESS", MESSAGE: "Đổi mật khẩu thành công" }
                             ]
-
-
-
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }
                     }
                 )
-
             }
         )
-
     },
     resetpassword: (id, hash, callback) => {
         oracledb.getConnection(
@@ -606,23 +534,17 @@ var userData = {
                 if (err) {
                     return;
                 }
-                query = "update users set password='" + hash + "' where id='" + id + "'"
+                // query = "update users set password='" + hash + "' where id='" + id + "'"
+                query = "update users set password='$2a$10$CCnvVmXaqtM8Nl6cv6KH6uZFzguz6LN4zR3r0Mfb66JbvaoaQzYn2' where id='" + id + "'"
                 connection.execute(
                     query, [], { autoCommit: true }, function (error, rows) {
-
                         if (error) {
-
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
-
-
                         }
                         else {
                             var RESULT = [
                                 { CODE: "SUCCESS", MESSAGE: "Mật khẩu reset về 123456" }
                             ]
-
-
-
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }
                     }
@@ -630,74 +552,7 @@ var userData = {
 
             }
         )
-
     },
-    getStatusUser: (data, callback) => {
-        oracledb.getConnection(
-            connectString,
-            function (err, connection) {
-                if (err) {
-                    return;
-                }
-                query = "select status from users where username='" + data + "'"
-                connection.execute(
-                    query, [], { autoCommit: true }, function (error, rows) {
-                        if (error) {
-                            callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
-                        }
-                        else {
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: rows.rows[0][0] })
-                        }
-                    }
-                )
-            }
-        )
-    },
-    updateStatusUser: (data) => {
-        oracledb.getConnection(
-            connectString,
-            function (err, connection) {
-                if (err) {
-                    return;
-                }
-                query = "update users set status = 1 where username='" + data + "'"
-                connection.execute(
-                    query, [], { autoCommit: true }, function (error, rows) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            return;
-                        }
-                    }
-                )
-            }
-        )
-    },
-    updateStatusUserOut: (data) => {
-        oracledb.getConnection(
-            connectString,
-            function (err, connection) {
-                if (err) {
-                    return;
-                }
-                query = "update users set status = 0 where username='" + data + "'"
-                connection.execute(
-                    query, [], { autoCommit: true }, function (error, rows) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            return;
-                        }
-                    }
-                )
-            }
-        )
-    },
-
 }
-
-
 
 module.exports = userData;

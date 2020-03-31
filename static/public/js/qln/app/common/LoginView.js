@@ -42,7 +42,6 @@ var LoginView = function () {
 	var oAuthenHelper = new AuthenHelper();
 
 	this.initPage = function () {
-
 	}
 	this.decode = function (token) {
 		return;
@@ -66,7 +65,6 @@ var LoginView = function () {
 		}
 		var resp = oAuthenHelper.authen(sUsername, sPassword, '0');
 		if (resp.token) {
-			// var aaa = that.decode(resp.token);
 			localStorage.AUTH = JSON.stringify(resp.token);
 			localStorage.ID = JSON.stringify(resp.id);
 			window.location.href = CONFIG_API.URL.COM_DASHBOARD;
@@ -121,7 +119,6 @@ var LoginView = function () {
 			}
 			if (Number(localStorage.getItem("countError")) > 4) {
 				alert('Bạn đã nhập sai 5 lần, tài khoản của bạn sẽ bị khóa 15 phút')
-				// $("#btnLogin").unbind();
 				var today = new Date();
 				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 				if (localStorage.getItem("timeLoginFail")) {
@@ -140,7 +137,6 @@ var LoginView = function () {
 				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 				var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
 				var subtractionTime = secondsTimeClick - secondsTimeLoad;
-				// console.log(subtractionTime, 'subtractionTime');
 				if (subtractionTime > 899) {
 					countError = 0;
 					localStorage.setItem("countError", 0)
@@ -151,21 +147,6 @@ var LoginView = function () {
 		$(document).on('keypress', function (e) {
 			if (e.which == 13) {
 				$("#btnLogin").trigger('click')
-				// if (countError < 10) {
-				// 	if (Number($('#captcha').val()) === Number(that.captcha)) {
-				// 		$('#error-captcha').hide()
-				// 		that.login();
-				// 	} else {
-				// 		$('#Message').html('Sai mã bảo mật vui lòng thử lại!').show()
-				// 	}
-				// }
-				// else {
-				// 	alert('Bạn đã nhập sai quá 10 lần')
-				// 	$("#btnLogin").unbind();
-				// 	setTimeout(() => {
-				// 		$("#btnLogin").bind();
-				// 	}, 900000)
-				// }
 			}
 		});
 		var myWindow = window.open(CONFIG_API.URL.USER_API + 'verify', "myWindow", "width=1000, height=1000")		//myWindow.close()

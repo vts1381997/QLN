@@ -51,12 +51,25 @@ var DotTraNoView = function () {
 		that.oTable.clear().draw();
 		var aRows = [];
 		for (var i = 0; i < oDotTraNo.LIST.length; i++) {
-			var _item = oDotTraNo.LIST[i];
+			var _item = oDotTraNo.LIST[i]; 
+			console.log(_item,'item');
 			_item.sotientragoc = formatMoney(_item.SOTIENTRAGOC);
 			_item.sotientralai = formatMoney(_item.SOTIENTRALAI);
 			_item.sotientraphi = formatMoney(_item.SOTIENTRAPHI);
 			_item.sotienphat = formatMoney(_item.SOTIENPHAT);
-			_item.duno = formatMoney(_item.DUNO);
+			if (_item.TIENTEID == 19) {
+				_item.tongsotienphaitravnd = formatMoney(_item.TONGSOTIENPHAITRA);
+			}
+			else {
+				var arrMoney = JSON.parse(localStorage.getItem("TIENTE"))
+				arrMoney.map(value => {
+					if (value.TIENTEID == _item.TIENTEID) {
+						var banRa = value.BANRA.split('.')[0].replace(',', '')
+						console.log(banRa,'ban ra');
+						_item.tongsotienphaitravnd = formatMoney(Number(banRa) * Number(_item.TONGSOTIENPHAITRA)) 
+					}
+				})
+			}
 			var _hidden = '<input type="hidden" class="rowID" value="' + _item.DOTTRANOID + '" />';
 			var download = ''
 			if (_item.URL) {
@@ -74,7 +87,7 @@ var DotTraNoView = function () {
 				_item.sotientragoc,
 				_item.sotientralai,
 				_item.sotientraphi,
-				_item.sotienphat,
+				_item.tongsotienphaitravnd,
 				download
 			]);
 		}
@@ -222,8 +235,8 @@ var DotTraNoView = function () {
 		$("#KEHOACHVAYHANGNAMID").trigger('change');
 		$("#DONVIID").html(fnc_danhsachdonvi())
 		$("#SOTIENTRAGOC").trigger('keyup')
-		if (idDotTraNo > 0) {
-			oDotTraNo.getById(idDotTraNo);
+		if (idDotTraNo > 0) { 
+			oDotTraNo.getById(idDotTraNo); 
 			$('#KEHOACHVAYHANGNAMID').val(oDotTraNo.KEHOACHVAYHANGNAMID);
 			$('#DUANID').val(oDotTraNo.DUANID).trigger('change').select2({
 				dropdownParent: $("#exampleModalCenter")
@@ -290,6 +303,8 @@ var DotTraNoView = function () {
 			$("#KEHOACHVAYHANGNAMID").prop('disabled', true)
 			$(".btnSave").prop('disabled', false)
 			$("#SOTIENTRAGOC").trigger('keyup')
+			$("#DUNO").val('0')
+
 		});
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
 			e.preventDefault()
@@ -604,7 +619,7 @@ var DotTraNoView = function () {
 					oDotTraNo.LUYKETRANOGOC = Number($('#LUYKETRANOGOC').val().replaceAll(',', ''));
 					oDotTraNo.SOLENHCHI = $('#SOLENHCHI').val();
 					oDotTraNo.DONVIID = $('#DONVIID').val();
-					oDotTraNo.PHITHEOHOPDONGVAY = $('#PHITHEOHOPDONGVAY').val().replaceAll(',', '');
+					oDotTraNo.PHITHEOHOPDONGVAY = $('#SOTIENTRAPHI').val().replaceAll(',', '');
 					oDotTraNo.PHIQUANLICHOVAYLAI = $('#PHIQUANLICHOVAYLAI').val().replaceAll(',', '');
 					oDotTraNo.TONGSOTIENPHAITRA = $('#TONGSOTIENPHAITRA').val().replaceAll(',', '');
 					oDotTraNo.UUID = uuidv4();
@@ -648,7 +663,7 @@ var DotTraNoView = function () {
 					oDotTraNo.LUYKETRANOGOC = Number($('#LUYKETRANOGOC').val().replaceAll(',', ''));
 					oDotTraNo.SOLENHCHI = $('#SOLENHCHI').val();
 					oDotTraNo.DONVIID = $('#DONVIID').val();
-					oDotTraNo.PHITHEOHOPDONGVAY = $('#PHITHEOHOPDONGVAY').val().replaceAll(',', '');
+					oDotTraNo.PHITHEOHOPDONGVAY = $('#SOTIENTRAPHI').val().replaceAll(',', '');
 					oDotTraNo.PHIQUANLICHOVAYLAI = $('#PHIQUANLICHOVAYLAI').val().replaceAll(',', '');
 					oDotTraNo.TONGSOTIENPHAITRA = $('#TONGSOTIENPHAITRA').val().replaceAll(',', '');
 					oDotTraNo.HOPDONGVAYLAIID = Number($('#HOPDONGVAYLAIID').val())
@@ -660,20 +675,20 @@ var DotTraNoView = function () {
 						that.bindGrid01();
 					}
 					else {
-						$("#idrowtable").val(rs.RESULT)
-						$("#tablename").val(CurrentLayout)
-						var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-						if (!rs1.success) {
-							oDotTraNo.deluid(rs.RESULT)
-							var oAlert = new AlertDialog('Thông báo');
-							oAlert.show(rs1.message, '40%', '50px');
-							that.bindGrid01();
-						}
-						else {
+						// $("#idrowtable").val(rs.RESULT)
+						// $("#tablename").val(CurrentLayout)
+						// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+						// if (!rs1.success) {
+						// 	oDotTraNo.deluid(rs.RESULT)
+						// 	var oAlert = new AlertDialog('Thông báo');
+						// 	oAlert.show(rs1.message, '40%', '50px');
+						// 	that.bindGrid01();
+						// }
+						// else {
 							that.bindGrid01();
 							var oAlert = new AlertDialog('Thông báo');
 							oAlert.show(rs.MESSAGE, '40%', '50px');
-						}
+						// }
 					}
 				} else {
 					if (Number($("#DUNO").val()) == 0 && Number(idDotTraNo) == 0) {
