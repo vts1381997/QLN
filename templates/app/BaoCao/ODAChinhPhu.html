@@ -7,6 +7,7 @@
     <script type="text/javascript" th:src="@{/public/js/qln/core/DataHelper.js}"></script>
     <script type="text/javascript" th:src="@{/public/js/qln/core/ControlHelper.js}"></script>
     <script type="text/javascript" src="/qln/public/js/qln/model/BC80.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
     <script th:src="@{/public/libs/numeral.min.js}"></script>
     <script type="text/javascript" src="/qln/public/js/qln/app/ulti/exportExcell.js"></script>
     <script>
@@ -20,45 +21,39 @@
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-
             $('.day').html(dd)
             $('.month').html(mm)
             $('.year').html(yyyy)
             var nam = arr_params[ 0 ].split('=')[ 1 ]
             var post_data = {}
             post_data.i_ngaybatdau = '01/01/' + nam
-            post_data.i_ngayketthuc = '31/12/' + nam
+            post_data.i_ngayketthuc = '31/12/' + nam 
             post_data.i_tinhthanhid = arr_params[ 1 ].split('=')[ 1 ]
-            post_data.i_donvitinh = Number(arr_params[ 3 ].split('=')[ 1 ])
-            var res = bc80.getDataReportOdaChinhPhu(post_data)
+            post_data.i_donvitinh = Number(arr_params[ 3 ].split('=')[ 1 ]) 
+            var result = bc80.getBaoCaoTongHopTinhHinhVayLai(post_data)
+            console.log(result,'result');
+            // var res = bc80.getDataReportOdaChinhPhu(post_data)
+            var res = bc80.getBaoCaoTongHopTinhHinhVayLai(post_data)
             $('#dvt').html(decodeURIComponent(arr_params[ 4 ].split('=')[ 1 ]))
-
             if (res.length > 0) {
                 var key = Object.keys(res[ 0 ])
                 var arows = []
-
                 res.map(function (item, index) {
-                    key.map((value) => {
-                        item[ value ] = typeof (item[ value ]) + '' === 'number' ? numeral(parseFloat(item[ value ]) / (Number(post_data.i_donvitinh)).toFixed(2)).format('0,0.00') : item[ value ]
-                    })
-                    arows.push([ (parseInt(index) + 1), item.TEN, item.NGUONVAY, item.TONGSOTIENVAYLAINGOAITE, item.DUNODAUKYNGOAITE, item.DUNODAUKYVND, item.VAYTRONGKY,
-                    item.TONGTRAGOCVND, item.TONGSOTIENTRALAIVND, item.TIENPHIHIEPDINHVAYNN, item.TIENPHIQUANLYCHOVAYLAI, item.TONGTRAVND, item.TONGDUNOCUOIKYNGOAITE, item.TONGDUNOCUOIKYVN, item.TONGSOTIENPHAT, 0, 0, 0, item.TONGSOTIENPHAT ])
+                    // key.map((value) => {
+                    //     item[ value ] = typeof (item[ value ]) + '' === 'number' ? numeral(parseFloat(item[ value ]) / (Number(post_data.i_donvitinh)).toFixed(2)).format('0,0.00') : item[ value ]
+                    // })
+                    arows.push([ (parseInt(index) + 1), item.TEN, item.NGUONVAY, formatMoney(item.TONGSOTIENVAYLAINGOAITE), formatMoney(item.DUNODAUKYNGOAITE), formatMoney(item.DUNODAUKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), formatMoney(item.VAYTRONGKY), formatMoney(item.TONGTRAGOCVND), formatMoney(item.TONGSOTIENTRALAIVND), formatMoney(item.TIENPHIHIEPDINHVAYNN), formatMoney(item.TIENPHIQUANLYCHOVAYLAI), formatMoney(item.TONGTRAVND), formatMoney(item.TONGDUNOCUOIKYNGOAITE), formatMoney(item.TONGDUNOCUOIKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), 0.00, 0.00, 0.00, 0.00, 0.00 ])
                 })
                 oDataTB.rows.add(arows).draw()
             }
-
-
-
             $('#tblDanhSach_info').parent().parent().remove()
             $('#tblDanhSach_length').parent().parent().remove()
             $('#tblDanhSach tbody td').css('border', '1px solid gray')
             $('#tblDanhSach th').css('border', '1px solid gray')
             var rg_number = /^\d+$/
-
             $('td').each((index, el) => {
                 typeof (Number($(el).html().replace(/,/g, ''))) + '' === "number" ? rg_number.test($(el).html().replace(/,/g, '')) ? $(el).css('text-align', 'right') : $(el).css('text-align', 'center') : $(el).css('text-align', 'center')
             })
-
             $('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'Báo cáo tình hình vay trả nợ oda theo chính phủ')
             })
@@ -153,24 +148,22 @@
                             <th colspan="1" rowspan="2">Nguồn vốn cho vay lại</th>
                             <th colspan="1" rowspan="2">Nguyên tệ</th>
                             <th colspan="1" rowspan="2">Dư nợ đầu kỳ</th>
-                            <th colspan="1" rowspan="2">Dư nợ đầu kỳ quy VNĐ</th>
+                            <th colspan="1" rowspan="2">Quy đổi ra VNĐ</th>
                             <th colspan="1" rowspan="2">Rút vốn trong kỳ</th>
                             <th colspan="5" rowspan="1">Trả nợ trong kỳ</th>
-                            <th colspan="1" rowspan="1">Dư nợ cuối kỳ</th>
-                            <th colspan="1" rowspan="1">Dư nợ cuối kỳ quy VND</th>
+                            <th colspan="1" rowspan="2">Dư nợ cuối kỳ</th>
+                            <th colspan="1" rowspan="2">Quy đổi ra VNĐ</th>
                             <th colspan="5" rowspan="1">Nợ quá hạn</th>
                         </tr>
                         <tr>
                             <th>Gốc</th>
                             <th>Lãi</th>
-                            <th>Phí theo HĐ vay</th>
+                            <th>Phí vay nước ngoài</th>
                             <th>Phí QLCVL</th>
-                            <th>Cộng</th>
-                            <th></th>
-                            <th></th>
+                            <th>Cộng</th> 
                             <th>Gốc</th>
                             <th>Lãi</th>
-                            <th>Phí theo HĐ vay</th>
+                            <th>Phí vay nước ngoài</th>
                             <th>Phí QLCVL</th>
                             <th>Cộng</th>
                         </tr>

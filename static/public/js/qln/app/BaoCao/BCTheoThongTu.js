@@ -75,6 +75,7 @@ var BCTheoThongTu = function () {
 			option_value = option_value + '<option value="' + (Number(year_cr) + Number(j)) + '">' + (Number(year_cr) + Number(j)) + '</option>'
 		}
 		$('#nam').html(option_value)
+		$('#nam').val('2020')
 		$('#ReportType').change(function () {
 			var _type = $('#ReportType').val();
 			switch (_type) {

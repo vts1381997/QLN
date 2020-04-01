@@ -59,8 +59,8 @@ var BCKhac = function () {
 				dayOfMonth = 29;
 
 		// $("#ngaybatdau").val('01/' + month + '/' + year)
-		$("#ngaybatdau").val("01/01/2019")
-		$("#ngayketthuc").val("31/12/2019")
+		$("#ngaybatdau").val("01/01/2020")
+		$("#ngayketthuc").val("31/12/2020")
 		// $("#ngayketthuc").val('30/' + month + '/' + year)
 		ngaybatdau = $("#ngaybatdau").val()
 		ngayketthuc = $("#ngayketthuc").val()
