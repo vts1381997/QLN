@@ -58,15 +58,24 @@ var KeHoachVayHangNamView = function () {
 			console.log(e)
 		}
 	}
-	this.bindGrid01 = function () { 
+	this.bindGrid01 = function () {
 		oKeHoachVayHangNam.getAll();
 		that.oTable.clear().draw();
 		var aRows = [];
 		for (var i = 0; i < oKeHoachVayHangNam.LIST.length; i++) {
 			var _item = oKeHoachVayHangNam.LIST[i];
-			_item.SOTIENVAY = formatMoney(_item.SOTIENVAY)
-			_item.LUYKERUTVONVAYLAI = formatMoney(_item.LUYKERUTVONVAYLAI)
+			_item.SOTIENVAY = formatMoney(Number(_item.SOTIENVAY) + Number(_item.SOTIENCAPPHAT))
+			_item.LUYKERUTVONVAYLAI = formatMoney(Number(_item.LUYKERUTVONVAYLAI) + Number(_item.LUYKERUTVONCAPPHAT))
 			_item.DUNOVAY = formatMoney(_item.DUNOVAY)
+			if(_item.COCHETAICHINH == "CP")
+			{
+				_item.dunovaylai = 0
+			}
+			else
+			{
+				var rs = oKeHoachVayHangNam.getDuNoVayLai(_item.KEHOACHVAYHANGNAMID)
+				_item.dunovaylai = formatMoney(Number(rs.TONGVAY) - Number(rs.TONGTRA))
+			}
 			var download = ''
 			if (_item.URL) {
 				download = '<button  val="' + _item.URL + '" class= "btn btn-primary btnTaixuong" >Tải xuống</button>'
@@ -93,7 +102,7 @@ var KeHoachVayHangNamView = function () {
 				_item.NAMKEHOACH,
 				_item.SOTIENVAY,
 				_item.LUYKERUTVONVAYLAI,
-				_item.DUNOVAY,
+				_item.dunovaylai,
 				trangthaipheduyet,
 				button,
 				download
@@ -176,9 +185,6 @@ var KeHoachVayHangNamView = function () {
 				var soTienCapPhat = String(tongMucDauTu * phanTramCapPhat / 100)
 				var luyKeKeHoachCapPhat = $("#HOPDONGVAYLAIID option:selected").attr('data-luykekehoachcapphat');
 				var soTienCapPhatTuChoi = $("#HOPDONGVAYLAIID option:selected").attr('data-sotiencapphattuchoi');
-				console.log(soTienCapPhat,'soTienCapPhat');
-				console.log(luyKeKeHoachCapPhat,'luyKeKeHoachCapPhat');
-				console.log(soTienCapPhatTuChoi,'soTienCapPhatTuChoi');
 				$("#HANMUCVAY").val(formatMoney(Number(soTienVayLai) - Number(luyKeKeHoachVayLai) + Number(soTienVayLaiTuChoi)))
 				$("#HANMUCCAPPHAT").val(formatMoney(Number(soTienCapPhat) - Number(luyKeKeHoachCapPhat) + Number(soTienCapPhatTuChoi)))
 			}

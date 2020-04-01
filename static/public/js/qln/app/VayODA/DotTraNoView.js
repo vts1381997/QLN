@@ -51,8 +51,7 @@ var DotTraNoView = function () {
 		that.oTable.clear().draw();
 		var aRows = [];
 		for (var i = 0; i < oDotTraNo.LIST.length; i++) {
-			var _item = oDotTraNo.LIST[i]; 
-			console.log(_item,'item');
+			var _item = oDotTraNo.LIST[i];
 			_item.sotientragoc = formatMoney(_item.SOTIENTRAGOC);
 			_item.sotientralai = formatMoney(_item.SOTIENTRALAI);
 			_item.sotientraphi = formatMoney(_item.SOTIENTRAPHI);
@@ -65,8 +64,7 @@ var DotTraNoView = function () {
 				arrMoney.map(value => {
 					if (value.TIENTEID == _item.TIENTEID) {
 						var banRa = value.BANRA.split('.')[0].replace(',', '')
-						console.log(banRa,'ban ra');
-						_item.tongsotienphaitravnd = formatMoney(Number(banRa) * Number(_item.TONGSOTIENPHAITRA)) 
+						_item.tongsotienphaitravnd = formatMoney(Number(banRa) * Number(_item.TONGSOTIENPHAITRA))
 					}
 				})
 			}
@@ -132,6 +130,8 @@ var DotTraNoView = function () {
 	})
 	$('#HOPDONGVAYLAIID').change(function (e) {
 		e.preventDefault()
+		$("#txtThongTinDuAnHopDong").text('')
+		$("#textSotienvay").text('') 
 		if ($('#HOPDONGVAYLAIID').text()) {
 			oHopDongVayLai.getAll();
 			var HopDongDetail = oHopDongVayLai.LIST;
@@ -161,7 +161,6 @@ var DotTraNoView = function () {
 					if (Number(goclais.TIENKYVAY) === Number(goclais.TONGSOTIENGIAINGANVAYLAI)) {
 						$('#textSotienvay').html('Tổng số  tiền vay lại: ' + formatMoney(goclais.TIENKYVAY) + '( Đã rút hết số tiền trong hợp đồng )')
 						$('#SOTIENTRAGOC').val(formatMoney(goclais.TIENKYVAY))
-
 					} else {
 						$('#textSotienvay').html('Tổng số  tiền vay lại: ' + formatMoney(goclais.TONGSOTIENGIAINGANVAYLAI) + '/' + formatMoney(goclais.TIENKYVAY) + '( Chưa rút hết hợp đồng )')
 					}
@@ -174,7 +173,7 @@ var DotTraNoView = function () {
 					$('#LUYKETRANOGOC').val(formatMoney(Number(goclais.LUYKETRAGOC)))
 					$('#TIENKYVAY').val(formatMoney(Number(goclais.TONGSOTIENGIAINGANVAYLAI)))
 					$('#SOTIENTRAGOC').val(formatMoney(Number(goclais.TONGSOTIENGIAINGANVAYLAI)))
-					$("#SOTIENTRAGOC").trigger('keyup')
+					$("#PHIQUANLICHOVAYLAI").val(formatMoney(Number(goclais.TIENPHIHIEPDINHVAYNN)))
 					if (goclais.PHUONGTHUCTRANOLAI == 1) {
 						var laiSuatVay = Number($("#HOPDONGVAYLAIID option:selected").attr('data-laisuatvay') / 100);
 						if (DuNo > 0) {
@@ -190,15 +189,16 @@ var DotTraNoView = function () {
 						}
 						$('#KYTRA').val('1 năm')
 					}
+					$("#SOTIENTRAGOC").trigger('keyup')
 				} else {
-					// $('#textSotienvay').val(0)
-					// $('#SOTIENTRALAI').val(0)
-					// $('#LUYKETRANOGOC').val(0)
-					// $('#TONGSOTIENPHAITRA').val('')
-					// $('#PHIQUANLICHOVAYLAI').val(0)
-					// $('#DUNO').val(0)
-					// $('#LUYKETRANOGOC').val(0)
-					// $('#TIENKYVAY').val(0)
+					$('#SOTIENTRAGOC').val('')
+					$('#SOTIENTRALAI').val('')
+					$('#LUYKETRANOGOC').val('')
+					$('#DUNO').val('')
+					$('#KYTRA').val('')
+					$('#TIENKYVAY').val('')
+					$('#TONGSOTIENPHAITRA').val('')
+					$('#SOTIENTRAPHI').val('')
 				}
 			}
 		} else {
@@ -225,7 +225,7 @@ var DotTraNoView = function () {
 		oDuAn.LIST.map((value, index) => {
 			if (value.COCHETAICHINH == "CP") {
 				return;
-			} else { 
+			} else {
 				if (Number(value.TONGDOTRUTVON) > 0) {
 					option2 = option2 + "<option value=" + value.DUANID + ">" + value.TEN + "</option>"
 				}
@@ -235,8 +235,8 @@ var DotTraNoView = function () {
 		$("#KEHOACHVAYHANGNAMID").trigger('change');
 		$("#DONVIID").html(fnc_danhsachdonvi())
 		$("#SOTIENTRAGOC").trigger('keyup')
-		if (idDotTraNo > 0) { 
-			oDotTraNo.getById(idDotTraNo); 
+		if (idDotTraNo > 0) {
+			oDotTraNo.getById(idDotTraNo);
 			$('#KEHOACHVAYHANGNAMID').val(oDotTraNo.KEHOACHVAYHANGNAMID);
 			$('#DUANID').val(oDotTraNo.DUANID).trigger('change').select2({
 				dropdownParent: $("#exampleModalCenter")
@@ -331,11 +331,12 @@ var DotTraNoView = function () {
 			var soTienTraLai = $("#SOTIENTRALAI").val().replaceAll(',', '')
 			var soTienTraPhi = $("#SOTIENTRAPHI").val().replaceAll(',', '')
 			var soTienPhat = $("#SOTIENPHAT").val().replaceAll(',', '')
-			if (soTienTraGoc == "" && soTienTraLai == "" && soTienTraPhi == "" && soTienPhat == "") {
+			var phiVayNuocNgoai = $("#PHIQUANLICHOVAYLAI").val().replaceAll(',', '')
+			if (soTienTraGoc == "" && soTienTraLai == "" && soTienTraPhi == "" && soTienPhat == "" && phiVayNuocNgoai == "") {
 				$("#TONGSOTIENPHAITRA").val('')
 			}
 			else {
-				sum = Number(soTienTraGoc) + Number(soTienTraLai) + Number(soTienTraPhi) + Number(soTienPhat)
+				sum = Number(soTienTraGoc) + Number(soTienTraLai) + Number(soTienTraPhi) + Number(soTienPhat) + Number(phiVayNuocNgoai)
 				$("#TONGSOTIENPHAITRA").val(formatMoney(sum))
 			}
 			if (DuNo > 0) {
@@ -521,6 +522,8 @@ var DotTraNoView = function () {
 			// }
 		})
 		$('body').on('keyup', '#SOTIENTRAPHI', function () {
+			$("#SOTIENTRAGOC").trigger('keyup')
+			return;
 			let txtSoTienVay = that.DotRutVon_selected[0] ? that.DotRutVon_selected[0].NGUYENTEVAYLAI : 0
 			let txtLaiSuatVay = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-laisuatvay')
 			let txtSoTienTraPhi = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-sotientraphi')
@@ -550,7 +553,13 @@ var DotTraNoView = function () {
 				$("#LUYKETRANOGOC").val(formatMoney(keyupSoTienTraPhi))
 			}
 		})
+		$("body").on("keyup", "#PHIQUANLICHOVAYLAI", function () {
+			$("#SOTIENTRAGOC").trigger('keyup')
+			return;
+		})
 		$('body').on('keyup', '#SOTIENPHAT', function () {
+			$("#SOTIENTRAGOC").trigger('keyup')
+			return;
 			let txtSoTienVay = that.DotRutVon_selected[0] ? that.DotRutVon_selected[0].NGUYENTEVAYLAI : 0
 			let txtLaiSuatVay = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-laisuatvay')
 			let txtSoTienTraPhi = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-sotientraphi')
@@ -685,9 +694,9 @@ var DotTraNoView = function () {
 						// 	that.bindGrid01();
 						// }
 						// else {
-							that.bindGrid01();
-							var oAlert = new AlertDialog('Thông báo');
-							oAlert.show(rs.MESSAGE, '40%', '50px');
+						that.bindGrid01();
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs.MESSAGE, '40%', '50px');
 						// }
 					}
 				} else {

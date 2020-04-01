@@ -31,6 +31,7 @@ var KeHoachVayHangNam = function () {
 		UPDATE_STATUS_APPROVE: CONFIG_API.URL.BASE_API + 'qln_kehoachvayhangnam/status_approve',
 		UPDATE_STATUS_APPROVED: CONFIG_API.URL.BASE_API + 'qln_kehoachvayhangnam/status_approved',
 		UPDATE_SOTIEN: CONFIG_API.URL.BASE_API + 'qln_kehoachvayhangnam/update_sotien',
+		getDuNoVayLai: CONFIG_API.URL.BASE_API + 'qln_kehoachvayhangnam/getdunovaylai',
 	}
 
 	this.KEHOACHVAYHANGNAMID = 0;
@@ -417,6 +418,10 @@ var KeHoachVayHangNam = function () {
 	}
 	this.getCoCheTaiChinh = function (sID) {
 		var rs = DATA.set(URL.GETCOCHETAICHINH, { KEHOACHVAYHANGNAMID: sID });
+		return rs
+	}
+	this.getDuNoVayLai = function (sID) {
+		var rs = DATA.set(URL.getDuNoVayLai, { KEHOACHVAYHANGNAMID: sID });
 		return rs
 	}
 }
