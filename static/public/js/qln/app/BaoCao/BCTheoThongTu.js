@@ -93,6 +93,8 @@ var BCTheoThongTu = function () {
 		$("#ReportType").trigger('change')
 
 		$('.ACTIONS').on('click', '#btnReport', function () {
+			var dvt = $("#donvitinh").val();
+			var tendvt = $("#donvitinh option:selected").select2();
 			var tinhthanh = $("#tinhthanh").val()
 			var tentinhthanh=''
 			var nam = $('#nam').val()
@@ -103,7 +105,7 @@ var BCTheoThongTu = function () {
 			var vTieuDe = $('#ReportType option:selected').attr('data-tieude')
 			var vCao = $('#ReportType option:selected').attr('data-cao')
 			var vRong = $('#ReportType option:selected').attr('data-rong')
-			that.oDialog.show('' + vTieuDe, '' + vLinkFile + '?namquyetdinh=' + $('#nam').val() + '&tinhthanh=' + tinhthanh + '&tentinhthanh=' + tentinhthanh + '&nam=' + nam, '' + vRong + '', '' + vCao + '', 'test1');
+			that.oDialog.show('' + vTieuDe, '' + vLinkFile + '?namquyetdinh=' + $('#nam').val() + '&tinhthanh=' + tinhthanh + '&tentinhthanh=' + tentinhthanh + '&nam=' + nam + '&tendvt=' + tendvt.html() + '&dvt=' + dvt, '' + vRong + '', '' + vCao + '', 'test1');
 		});
 	});
 }

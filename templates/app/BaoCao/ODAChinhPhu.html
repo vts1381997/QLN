@@ -42,7 +42,7 @@
                     // key.map((value) => {
                     //     item[ value ] = typeof (item[ value ]) + '' === 'number' ? numeral(parseFloat(item[ value ]) / (Number(post_data.i_donvitinh)).toFixed(2)).format('0,0.00') : item[ value ]
                     // })
-                    arows.push([ (parseInt(index) + 1), item.TEN, item.NGUONVAY, formatMoney(item.TONGSOTIENVAYLAINGOAITE), formatMoney(item.DUNODAUKYNGOAITE), formatMoney(item.DUNODAUKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), formatMoney(item.VAYTRONGKY), formatMoney(item.TONGTRAGOCVND), formatMoney(item.TONGSOTIENTRALAIVND), formatMoney(item.TIENPHIHIEPDINHVAYNN), formatMoney(item.TIENPHIQUANLYCHOVAYLAI), formatMoney(item.TONGTRAVND), formatMoney(item.TONGDUNOCUOIKYNGOAITE), formatMoney(item.TONGDUNOCUOIKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), 0.00, 0.00, 0.00, 0.00, 0.00 ])
+                    arows.push([ (parseInt(index) + 1), item.TEN, item.NGUONVAY, formatMoney(item.TONGSOTIENVAYLAINGOAITE), formatMoney(item.DUNODAUKYNGOAITE), formatMoney(item.DUNODAUKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), formatMoney(item.VAYTRONGKY), formatMoney(item.TONGTRAGOCVND), formatMoney(item.TONGSOTIENTRALAIVND), formatMoney(item.TIENPHIHIEPDINHVAYNN), formatMoney(item.TIENPHIQUANLYCHOVAYLAI), formatMoney(item.TONGTRAVND), formatMoney(item.TONGDUNOCUOIKYNGOAITE), formatMoney(item.TONGDUNOCUOIKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), '', '', '', '', '' ])
                 })
                 oDataTB.rows.add(arows).draw()
             }

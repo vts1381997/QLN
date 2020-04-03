@@ -10,11 +10,9 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			// $("#titlebc").text("BÁO CÁO TỪNG ĐỢT PHÁT HÀNH TRÁI PHIẾU CHÍNH QUYỀN ĐỊA PHƯƠNG")
-
 			var oMuaLai = new MuaLaiTP();
 			var oHoanDoi = new HoanDoiTP();
 			var oBCND97 = new BCND97();
-
 			oMuaLai.getAll();
 			if (oMuaLai.LIST.length == 0) {
 				$("#tblDanhSach").hide()
@@ -29,15 +27,13 @@
 			else {
 				$("#tblDanhSach1").show()
 			}
-
-
-
 			let ngaybatdau = Util.Url.getParameterByName('namquyetdinh')
-
-
 			let namph = Util.Url.getParameterByName('namquyetdinh')
 			let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
 			var tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
+			var dvt = Number(Util.Url.getParameterByName('dvt'))
+			var tendvt = Util.Url.getParameterByName('tendvt')
+			$("#dvt").text(tendvt)
 			$("#tinhthanhid").text(tentinhthanh)
 			$("#tentinhthanh").text(tentinhthanh)
 			var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
@@ -48,15 +44,15 @@
 			$("#txtNgay").text(ngay)
 			$("#txtThang").text(thang)
 			$("#txtNam").text(nam)
-
-
 			var dt = {
 				tinhthanhid,
 				ngaybatdau,
+				dvt
 			}
-
 			var listml = oBCND97.getMualai(dt);
-			var listhd = oBCND97.getHoanDoi(dt)
+			var listhd = oBCND97.getHoanDoi(dt);
+			console.log(listml, 'listml');
+			console.log(listhd, 'listhd');
 			var opti = ''
 			for (i = 0; i < listml.length; i++) {
 				opti = opti + '<tr>\
@@ -66,14 +62,12 @@
 					<tr>'
 			}
 			$("#tblDanhSach tbody").append(opti)
-
-
 			var optionhd = ''
-			for (i = 0; i < listml.length; i++) {
+			for (i = 0; i < listhd.length; i++) {
 				optionhd = optionhd + '<tr>\
 					<td colspan="4">'+ (i + 1) + '</td>\
-					<td colspan="4">'+ listml[i].TEN + '</td>\
-					<td colspan="4">'+ chuyentien(listml[i].KHOILUONG) + '</td>\
+					<td colspan="4">'+ listhd[i].TEN + '</td>\
+					<td colspan="4">'+ chuyentien(listhd[i].KHOILUONG) + '</td>\
 					<tr>'
 			}
 			$("#tblDanhSach1 tbody").append(optionhd)
@@ -144,6 +138,12 @@
 						BÁO CÁO KẾT QUẢ MUA LẠI, HOÁN ĐỔI TRÁI PHIẾU CHÍNH QUYỀN ĐỊA PHƯƠNG
 					</td>
 				</tr>
+				<br>
+				<tr style="border: none;">
+					<td class="size14" colspan="10" style="border: none;">
+						<div style="float: right;">Đơn vị: <span id="dvt"></span></div>
+					</td>
+				</tr>
 				<tr style="border: none;">
 					<td class="size14" colspan="12" style="border: none;text-align: left">
 						Kế hoạch mua lại, hoán đổi trái phiếu
@@ -185,7 +185,7 @@
 								<tr>
 									<td colspan="4">STT</td>
 									<td colspan="4">Đề án phát hành trái phiếu</td>
-									<td colspan="4">Khối lượng hoán đổii</td>
+									<td colspan="4">Khối lượng hoán đổi</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -206,7 +206,7 @@
 				</tr>
 				<tr>
 					<td class="size14" colspan="5" style="border: none;text-align: left">
-						Kết quả mua lại, hoánđổi trái phiếu
+						Kết quả mua lại, hoán đổi trái phiếu
 					</td>
 				</tr>
 				<tr>
