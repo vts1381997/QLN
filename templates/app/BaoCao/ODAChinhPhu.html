@@ -15,8 +15,8 @@
             var oDataTB = ControlHelper.Datatable.Init('tblDanhSach', 25, true)
             bc80 = new BC80();
             var arr_params = location.search.slice(1).split('&')
-            $('#top_Tinh').html(decodeURIComponent(arr_params[ 2 ].split('=')[ 1 ]))
-            $('.dv').html(decodeURIComponent(arr_params[ 2 ].split('=')[ 1 ]))
+            $('#top_Tinh').html(decodeURIComponent(arr_params[2].split('=')[1]))
+            $('.dv').html(decodeURIComponent(arr_params[2].split('=')[1]))
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -24,25 +24,24 @@
             $('.day').html(dd)
             $('.month').html(mm)
             $('.year').html(yyyy)
-            var nam = arr_params[ 0 ].split('=')[ 1 ]
+            var nam = arr_params[0].split('=')[1]
             var post_data = {}
             post_data.i_ngaybatdau = '01/01/' + nam
-            post_data.i_ngayketthuc = '31/12/' + nam 
-            post_data.i_tinhthanhid = arr_params[ 1 ].split('=')[ 1 ]
-            post_data.i_donvitinh = Number(arr_params[ 3 ].split('=')[ 1 ]) 
+            post_data.i_ngayketthuc = '31/12/' + nam
+            post_data.i_tinhthanhid = arr_params[1].split('=')[1]
+            post_data.i_donvitinh = Number(arr_params[3].split('=')[1])
             var result = bc80.getBaoCaoTongHopTinhHinhVayLai(post_data)
-            console.log(result,'result');
             // var res = bc80.getDataReportOdaChinhPhu(post_data)
             var res = bc80.getBaoCaoTongHopTinhHinhVayLai(post_data)
-            $('#dvt').html(decodeURIComponent(arr_params[ 4 ].split('=')[ 1 ]))
+            $('#dvt').html(decodeURIComponent(arr_params[4].split('=')[1]))
             if (res.length > 0) {
-                var key = Object.keys(res[ 0 ])
+                var key = Object.keys(res[0])
                 var arows = []
                 res.map(function (item, index) {
                     // key.map((value) => {
                     //     item[ value ] = typeof (item[ value ]) + '' === 'number' ? numeral(parseFloat(item[ value ]) / (Number(post_data.i_donvitinh)).toFixed(2)).format('0,0.00') : item[ value ]
                     // })
-                    arows.push([ (parseInt(index) + 1), item.TEN, item.NGUONVAY, formatMoney(item.TONGSOTIENVAYLAINGOAITE), formatMoney(item.DUNODAUKYNGOAITE), formatMoney(item.DUNODAUKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), formatMoney(item.VAYTRONGKY), formatMoney(item.TONGTRAGOCVND), formatMoney(item.TONGSOTIENTRALAIVND), formatMoney(item.TIENPHIHIEPDINHVAYNN), formatMoney(item.TIENPHIQUANLYCHOVAYLAI), formatMoney(item.TONGTRAVND), formatMoney(item.TONGDUNOCUOIKYNGOAITE), formatMoney(item.TONGDUNOCUOIKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), '', '', '', '', '' ])
+                    arows.push([(parseInt(index) + 1), item.TEN, item.NGUONVAY, formatMoney(item.TONGSOTIENVAYLAINGOAITE), formatMoney(item.DUNODAUKYNGOAITE), formatMoney(item.DUNODAUKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), formatMoney(item.VAYTRONGKY), formatMoney(item.TONGTRAGOCVND), formatMoney(item.TONGSOTIENTRALAIVND), formatMoney(item.TIENPHIHIEPDINHVAYNN), formatMoney(item.TIENPHIQUANLYCHOVAYLAI), formatMoney(item.TONGTRAVND), formatMoney(item.TONGDUNOCUOIKYNGOAITE), formatMoney(item.TONGDUNOCUOIKYNGOAITE * Number(item.QUYDOIVND.split(".")[0].replace(',', ''))), '', '', '', '', ''])
                 })
                 oDataTB.rows.add(arows).draw()
             }
@@ -160,7 +159,7 @@
                             <th>Lãi</th>
                             <th>Phí vay nước ngoài</th>
                             <th>Phí QLCVL</th>
-                            <th>Cộng</th> 
+                            <th>Cộng</th>
                             <th>Gốc</th>
                             <th>Lãi</th>
                             <th>Phí vay nước ngoài</th>
