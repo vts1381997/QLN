@@ -57,7 +57,7 @@
                 var oAlert = new AlertDialog('Thông báo');
                 oAlert.show(rs[0].MESSAGE, '40%', '50px');
                 if (rs[0].CODE == "SUCCESS") {
-                    var rs = nguoiDung.updateNgayDoiMatKhau($.datepicker.formatDate('dd/mm/yy', date.addDays(90)))  
+                    var rs = nguoiDung.updateNgayDoiMatKhau($.datepicker.formatDate('dd/mm/yy', date.addDays(2)))  
                     jwt = {}
                     localStorage.clear();
                     setTimeout(() => {
