@@ -13,6 +13,20 @@
     <script type="text/javascript">
         var oLoginView = new LoginView();
     </script>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
+    </style>
 </head>
 
 <body>
@@ -59,9 +73,10 @@
                             </div>
                             <div class="col-sm-6">
                                 <label style="font-size: 16px !important;">Mã bảo mật</label>
-                                <input type="text" class="form-control" id="captcha" style="padding-left: 10px;" />
-                                <button class="btn btn-primary" title="Thử mã khác" style="line-height: 12px;" id="btnrefreshCaptcha"><i
-                                        class="fa fa-refresh"></i><span style="display: inline-block;"></span></button>
+                                <input type="number" class="form-control" id="captcha" style="padding-left: 10px;" />
+                                <button class="btn btn-primary" title="Thử mã khác" style="line-height: 12px;"
+                                    id="btnrefreshCaptcha"><i class="fa fa-refresh"></i><span
+                                        style="display: inline-block;"></span></button>
                             </div>
                         </div>
                         <div>

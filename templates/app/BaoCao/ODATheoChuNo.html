@@ -19,38 +19,48 @@
         }
     </style>
     <script>
+        function titleCase(str) {
+            var splitStr = str.toLowerCase().split(' ');
+            for (var i = 0; i < splitStr.length; i++) {
+                // You do not need to check if i is larger than splitStr length, as your for does that for you
+                // Assign it back to the array
+                splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+            }
+            // Directly return the joined string
+            return splitStr.join(' ');
+        }
         $(document).ready(function () {
             var oDataTB = ControlHelper.Datatable.Init('tblDanhSach', 25, true)
             bc80 = new BC80();
             var arr_params = location.search.slice(1).split('&')
-            $('#top_Tinh').html(decodeURIComponent(arr_params[ 2 ].split('=')[ 1 ]))
+            $('#top_Tinh').html(decodeURIComponent(arr_params[2].split('=')[1]))
+            var donVi = decodeURIComponent(arr_params[2].split('=')[1]).toLowerCase().replace('ubnd', '').replace('thành phố', '').replace('tỉnh ', '')
+            $(".dv").html(titleCase(donVi))
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-
             $('.day').html(dd)
             $('.month').html(mm)
             $('.year').html(yyyy)
-
-            var nam = arr_params[ 0 ].split('=')[ 1 ]
+            var nam = arr_params[0].split('=')[1]
             var post_data = {}
             post_data.i_ngaybatdau = '01/01/' + nam
             post_data.i_ngayketthuc = '31/12/' + nam
-            post_data.i_tinhthanhid = Number(arr_params[ 1 ].split('=')[ 1 ])
-            post_data.i_donvitinh = Number(arr_params[ 3 ].split('=')[ 1 ])
+            post_data.i_tinhthanhid = Number(arr_params[1].split('=')[1])
+            post_data.i_donvitinh = Number(arr_params[3].split('=')[1])
             var res = bc80.getDataReportOdaChinhPhuChuNo(post_data)
-            $('#dvt').html(decodeURIComponent(arr_params[ 4 ].split('=')[ 1 ]))
+            $('#dvt').html(decodeURIComponent(arr_params[4].split('=')[1]))
             if (res.length > 0) {
-                var key = Object.keys(res[ 0 ])
+                var key = Object.keys(res[0])
                 var arows = []
 
                 res.map(function (item, index) {
                     key.map((value) => {
-                        item[ value ] = typeof (item[ value ]) + '' === 'number' ? numeral(parseFloat(item[ value ]) / (Number(post_data.i_donvitinh)).toFixed(2)).format('0,0.00') : item[ value ]
+                        item[value] = typeof (item[value]) + '' === 'number' ? numeral(parseFloat(item[value]) / (Number(post_data.i_donvitinh)).toFixed(2)).format('0,0.00') : item[value]
                     })
-                    arows.push([ (parseInt(index) + 1), item.COQUANUYQUYENVAYLAI, item.DUNODAUKYNGOAITE, item.DUNODAUKYVND, item.TONGDUNOCUOIKYNGOAITE, item.TONGDUNOCUOIKYVN, item.NOQUAHANNGOAITE,
-                    item.NOQUAHANVND ])
+                    arows.push([(parseInt(index) + 1), item.COQUANUYQUYENVAYLAI, item.DUNODAUKYNGOAITE, item.DUNODAUKYVND, item.TONGDUNOCUOIKYNGOAITE, item.TONGDUNOCUOIKYVN, item.NOQUAHANNGOAITE,
+                    item.NOQUAHANVND])
                 })
                 oDataTB.rows.add(arows).draw()
             }

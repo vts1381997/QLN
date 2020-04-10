@@ -103,18 +103,14 @@
 		}
 	</style>
 	<script>
-		$(document).ready(function () {
+		$(document).ready(function () {  
 			oNguoiDung = new NguoiDungView()
 			CurrentLayout = "USER"
 			$('.modal').on('show.bs.modal', function (e) {
 				$('.modal .dangnhap').css('width', window.innerWidth).css('height', '500px')
 				$('.modal div[role="document"]').css('width', '100%').css('margin-left', 0).css('margin', 0)
 				//$('.modal .modal-body').css('width', window.innerWidth).css('height', Number(window.innerHeight) - Number($('.modal-header').height()))
-			})
-			$(function () {
-				$('#CHKNHANTHONGBAO').change(function () {
-				})
-			})
+			}) 
 		})
 	</script>
 	<script type="text/javascript">

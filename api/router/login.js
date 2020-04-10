@@ -7,9 +7,8 @@ const bcrypt = require('bcryptjs');
 var userData = require('../data/userData')
 app.set('Secret', config.secret);
 // middleware that is specific to this router
-router.post('/', function (req, res) {
+router.post('/', function (req, res) { 
     LoginController.Login(req.body.username, function (data) {
-
         if (data.RESULT.length > 0) {
             let user = data.RESULT[0].USERNAME
             let pass = data.RESULT[0].PASSWORD
@@ -23,38 +22,33 @@ router.post('/', function (req, res) {
                 if (match) {
                     const payload = {
                         userName: req.body.username,
-                        level:data.RESULT[0].LVL,
+                        level: data.RESULT[0].LVL,
                         menu: cls,
                         donvi: donvi,
                         role: role,
                         id: id,
-                        dvtong:dvtong,
+                        dvtong: dvtong,
                         unitid: data.RESULT[0].DIABAN
                     };
                     var token = jwt.sign(payload, app.get('Secret'), {
                         expiresIn: "24h", // expires in 24 hours
-                    });
-                    // userData.updateToken(id,token,data=>{
-                    //     console.log(data)
-                    // })
+                    }); 
                     res.json({
                         success: true,
                         message: 'authentication done ',
                         token: token,
-                        code:200,
-                    });
-                   
+                        code: 200,
+                        id: req.body.username
+                    }); 
                 } else {
-                    res.json({CODE:'401', message: "Sai tài khoản hoặc tên đăng nhập" })
+                    res.json({ CODE: '401', message: "Sai tài khoản hoặc tên đăng nhập" })
                 }
             });
-
         }
         else {
-            res.json({CODE:'401', message: "Sai tài khoản hoặc tên đăng nhập" })
+            res.json({ CODE: '401', message: "Sai tài khoản hoặc tên đăng nhập" })
         }
-
-    })
-})
+    }) 
+}) 
 
 module.exports = router 

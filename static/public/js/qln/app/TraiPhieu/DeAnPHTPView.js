@@ -382,7 +382,6 @@ var DeAnPHTPView = function () {
 		});
 		$('.ACTIONS').on('click', '#btnEdit', function () {
 			// that.bindModal();
-			$("#exampleModalLongTitle").text('Sửa đề án phát hành trái phiếu')
 			oDeAnPHTP.getById(idDeAnPHTP);
 			$('#MA').val(oDeAnPHTP.MA);
 			$('#TEN').val(oDeAnPHTP.TEN);
@@ -401,6 +400,8 @@ var DeAnPHTPView = function () {
 			$('#PHUONGTHUCTRAGOC').val(oDeAnPHTP.PHUONGTHUCTRAGOC);
 			$('#VANDEKHAC').val(oDeAnPHTP.VANDEKHAC);
 			$("#NGAYKYHANTRAIPHIEU").trigger('change')
+			$("#exampleModalLongTitle").text('Sửa đề án phát hành trái phiếu')
+
 		});
 
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {

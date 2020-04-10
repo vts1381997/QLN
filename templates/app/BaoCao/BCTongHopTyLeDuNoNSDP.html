@@ -16,11 +16,13 @@
         $(document).ready(function () {
             var oDataTB = ControlHelper.Datatable.Init('tblDanhSach', 25, true)
             var i_bien = window.location.search
-            let i_bien_i = i_bien.split('&') 
+            let i_bien_i = i_bien.split('&')
+            let dvt = Util.Url.getParameterByName('dvt')
             var dataPost = {
                 i_tinhthanh: Number(i_bien_i[5].split('=')[1]),
                 i_ngaybatdau: i_bien_i[3].split('=')[1],
                 i_ngayketthuc: i_bien_i[4].split('=')[1],
+                i_dvt: Number(dvt)
             }
             let donvitinh = Util.Url.getParameterByName('donvitinh')
             var res = BCQuanTri.GETDatareportTonghopdunosovoithungansachdiaphuong(dataPost)
@@ -42,34 +44,30 @@
                 })
                 oDataTB.rows.add(arows).draw()
             }
-
             $('#tblDanhSach_info').parent().parent().remove()
             $('#tblDanhSach_length').parent().parent().remove()
             $('#tblDanhSach tbody td').css('border', '1px solid gray')
             $('#tblDanhSach th').css('border', '1px solid gray')
-
             var rg_number = /^\d+$/
-
             $('td').each((index, el) => {
                 typeof (Number($(el).html().replace(/,/g, ''))) + '' === "number" ? rg_number.test($(el).html().replace(/,/g, '')) ? $(el).css('text-align', 'right') : $(el).css('text-align', 'center') : $(el).css('text-align', 'center')
             })
-
             $('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'BCTongHopTyLeDuNoNSDP')
             })
-            $("#titlebc").text("BÁO CÁO TỔNG HỢP TỶ LỆ DƯ NỢ SO VỚI THU NGÂN ĐƯỢC HƯỞNG THEO PHÂN CẤP (%) TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " THEO TỪNG KHOẢN VAY, ĐỢT PHÁT HÀNH ")
-			$("#thaymat").text(tentinhthanh)
-			$("#donvitinh").text(donvitinh)
-
-			$("#tinhthanhid").text(tentinhthanh)
-			$("#tentinhthanh").text(tentinhthanh)
-			var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
-			$("#txtTinhThanh").text(labelTinhThanh)
-			var ngay = fnc_ngayhientai().split("-")[2]
-			var thang = fnc_ngayhientai().split("-")[1]
-			var nam = fnc_ngayhientai().split("-")[0]
-			$("#txtNgay").text(ngay)
-			$("#txtThang").text(thang)
+            $("#titlebc").text("BÁO CÁO TỔNG HỢP TỶ LỆ DƯ NỢ SO VỚI THU NGÂN ĐƯỢC HƯỞNG THEO PHÂN CẤP (%)")
+            $("#titlebcd").text("TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " THEO TỪNG KHOẢN VAY, ĐỢT PHÁT HÀNH")
+            $("#thaymat").text(tentinhthanh)
+            $("#donvitinh").text(donvitinh)
+            $("#tinhthanhid").text(tentinhthanh)
+            $("#tentinhthanh").text(tentinhthanh)
+            var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
+            $("#txtTinhThanh").text(labelTinhThanh)
+            var ngay = fnc_ngayhientai().split("-")[2]
+            var thang = fnc_ngayhientai().split("-")[1]
+            var nam = fnc_ngayhientai().split("-")[0]
+            $("#txtNgay").text(ngay)
+            $("#txtThang").text(thang)
             $("#txtNam").text(nam)
             // $("#dvt").css('text-align','right')
         })
@@ -162,8 +160,9 @@
                                 <td class="size14" colspan="6" style="text-align: center !important"></td>
                             </tr>
                             <tr>
-                                <td class="size14" colspan="3">V/v Báo cáo tổng hợp tỷ lệ dư nợ so với thu ngân sách địa phương được hưởng theo phân cấp (%)
-</td>
+                                <td class="size14" colspan="3">V/v Báo cáo tổng hợp tỷ lệ dư nợ so với thu ngân sách địa
+                                    phương được hưởng theo phân cấp (%)
+                                </td>
                                 <td class="size14" colspan="3" style="text-align: center !important"><i>
                                         <i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i
                                             id="txtThang"></i>, năm <i id="txtNam"></i>
@@ -172,14 +171,22 @@
                             </tr>
                             <br>
                             <tr>
-                                <td class="size14" colspan="6"><label
+                                <td class="size14" colspan="6">
+                                    <label
                                         style="font-weight: bold;font-size: 17px !important;font-family: Times New Roman, Times, serif;"
-                                        id="titlebc"></label></td>
+                                        id="titlebc"></label>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="size14" id="dvt" colspan="6" style="text-align: right !important"> Đơn vị: <label
-                                        id="donvitinh"></label>
-                                    </td>
+                                <td class="size14" colspan="6">
+                                    <label
+                                        style="font-weight: bold;font-size: 17px !important;font-family: Times New Roman, Times, serif;"
+                                        id="titlebcd"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="6"> Đơn vị: <label id="donvitinh"></label>
+                                </td>
                             </tr>
                         </table>
                     </td>

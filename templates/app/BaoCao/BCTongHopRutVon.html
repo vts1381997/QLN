@@ -18,6 +18,7 @@
 			let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
 			let donvitinh = Util.Url.getParameterByName('donvitinh')
 			let tinhthanhid = Number(Util.Url.getParameterByName('tinhthanh'))
+			let dvt = Util.Url.getParameterByName('dvt')
 			$("#titlebc").text("BÁO CÁO TÌNH HÌNH RÚT VỐN TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " THEO TỪNG KHOẢN VAY ")
 			$("#thaymat").text(tentinhthanh)
 			$("#donvitinh").text(donvitinh)
@@ -33,10 +34,12 @@
 			$("#txtNam").text(nam)
 			var bcquantri = new BCQuanTri();
 			var option = ''
+			console.log(dvt,'dvt');
 			var dt = {
 				tinhthanhid,
 				ngaybatdau,
-				ngayketthuc
+				ngayketthuc,
+				dvt
 			}
 			var listdt = bcquantri.getBCRUTVON(dt)
 			for (var i = 0; i < listdt.length; i++) {

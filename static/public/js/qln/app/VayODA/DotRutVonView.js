@@ -51,16 +51,7 @@ var DotRutVonView = function () {
 		var aRows = [];
 		if (oDotRutVon.LIST) {
 			for (var i = 0; i < oDotRutVon.LIST.length; i++) {
-				var _item = oDotRutVon.LIST[i];
-				if (_item.PHUONGTHUCGIAINGAN === 1) {
-					_item.phuongthucgiaingan = "Giải ngân trực tiếp"
-				}
-				if (_item.PHUONGTHUCGIAINGAN === 2) {
-					_item.phuongthucgiaingan = "Giải ngân về tài khoản đặc biệt"
-				}
-				if (_item.PHUONGTHUCGIAINGAN === 3) {
-					_item.phuongthucgiaingan = "Hoàn chứng từ"
-				}
+				var _item = oDotRutVon.LIST[i]; 
 				_item.nguyentecapphat = formatMoney(_item.NGUYENTECAPPHAT);
 				_item.luykevaylai = formatMoney(_item.LUYKERUTVONVAYLAI);
 				_item.luykecapphat = formatMoney(_item.LUYKERUTVONCAPPHAT);
@@ -75,6 +66,20 @@ var DotRutVonView = function () {
 					_item.tenhodong = '100% cấp phát'
 					_item.luykekhcapphat = _item.LUYKECAPPHAT
 					_item.nguyentevaylai = '';
+				}
+				if (_item.TIENTEID == 19) {
+					_item.vaylaivnd = _item.nguyentevaylai;
+					_item.capphatvnd = _item.nguyentecapphat
+				}
+				else {
+					var arrMoney = JSON.parse(localStorage.getItem("TIENTE"))
+					arrMoney.map(value => {
+						if (value.TIENTEID == _item.TIENTEID) {
+							var banRa = value.BANRA.split('.')[0].replace(',', '')
+							_item.vaylaivnd = formatMoney(Number(banRa) * Number(_item.NGUYENTEVAYLAI))
+							_item.capphatvnd = formatMoney(Number(banRa) * Number(_item.NGUYENTECAPPHAT))
+						}
+					})
 				}
 				var _hidden = '<p style="display:none" class="rowID" >' + JSON.stringify(_item) + '</p>';
 				var download = ''
@@ -92,11 +97,12 @@ var DotRutVonView = function () {
 					_item.tenduan,
 					_item.TENDONVI,
 					_item.NGAYNHANNO,
+					_item.vaylaivnd,
 					_item.nguyentevaylai,
 					_item.luykevaylai,
+					_item.capphatvnd,
 					_item.nguyentecapphat,
 					formatMoney(_item.luykekhcapphat),
-					_item.phuongthucgiaingan,
 					download
 				]);
 			}
@@ -109,7 +115,6 @@ var DotRutVonView = function () {
 		that.bindGrid01();
 	}
 	this.bindModal = function () {
-		KeHoach.getAll();
 		oHopDong.getAll();
 		oDotRutVon.getAll();
 		DuAns.getAll();
@@ -122,6 +127,7 @@ var DotRutVonView = function () {
 		})
 		$('#SOTIENGIAINGANVAYLAITIENTE').html(option)
 		$('#SOTIENGIAINGANCAPPHATTIENTE').html(option)
+		KeHoach.getAll();
 		var resultKeHoach = KeHoach.LIST
 		var option2 = ''
 		if (resultKeHoach) {
@@ -270,11 +276,11 @@ var DotRutVonView = function () {
 			}
 		});
 		$('.ACTIONS').on('click', '#btnAddNew', function (e) {
-			e.preventDefault()
+			e.preventDefault();
 			$("#Grid01").find('.selected').removeClass('selected');
 			that.bindModal();
-			$("#exampleModalLongTitle").text('Thêm mới đợt rút vốn(lần thứ ' + txtSoLanRut + ')')
-			$("#KEHOACHVAYHANGNAMID").prop('disabled', false)
+			$("#exampleModalLongTitle").text('Thêm mới đợt rút vốn(lần thứ ' + txtSoLanRut + ')');
+			$("#KEHOACHVAYHANGNAMID").prop('disabled', false);
 			$('#list_uploadfile').html('');
 			$("#NGAYNHANNO").val($.datepicker.formatDate('dd/mm/yy', new Date()));
 			$('#GIATRIGIAINGANVAYLAI').val('');
@@ -282,19 +288,20 @@ var DotRutVonView = function () {
 			$('#GHICHU').val('');
 			$("#DONVIID").val($("#DONVIID option:selected").attr('value')).select2();
 			idrutvon = 0;
-			oDotRutVon.DOTRUTVONID = 0
+			oDotRutVon.DOTRUTVONID = 0;
 			fnc_removeSpace();
 			fnc_validateSpace("GHICHU");
+			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', false)
 		});
 		$('.ACTIONS').on('click', '#btnEdit', function () {
 			that.bindModal();
-			$("#exampleModalLongTitle").text('Sửa đợt rút vốn')
-			$("#KEHOACHVAYHANGNAMID").prop('disabled', true)
-			$(".btnSave").prop('disabled', false)
-			var data = JSON.parse(idrutvon)
+			$("#exampleModalLongTitle").text('Sửa đợt rút vốn');
+			$("#KEHOACHVAYHANGNAMID").prop('disabled', true);
+			$(".btnSave").prop('disabled', false);
+			var data = JSON.parse(idrutvon);
 			$("#KEHOACHVAYHANGNAMID").val(data.KEHOACHVAYHANGNAMID).trigger('change');
 			$("#MA").val(data.MASOTHAMCHIEU);
-			$("#MA").prop('disabled', false)
+			$("#MA").prop('disabled', false);
 			$("#PHUONGTHUCGIAINGAN").val(data.PHUONGTHUCGIAINGAN).select2();
 			$("#DONVIID").val(data.DONVIID).select2();
 			$("#NGAYNHANNO").val(data.NGAYNHANNO);
@@ -310,6 +317,7 @@ var DotRutVonView = function () {
 			$("#NGUYENTECAPPHAT").val(formatMoney(data.NGUYENTECAPPHAT));
 			$("#GHICHU").val(data.GHICHU);
 			$("#PHANTRAMVAYLAI").val(data.PHANTRAMVAYLAI);
+			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', true);
 		});
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
 			e.preventDefault()

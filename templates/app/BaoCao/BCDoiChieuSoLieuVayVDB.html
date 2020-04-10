@@ -17,12 +17,10 @@
 			tentinhthanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
 			$("#labelTinhThanh").text(tentinhthanh.toUpperCase())
 			$("#txtTuNgayDenNgay").text('Từ ngày ' + ngaybatdau + ' đến ngày ' + ngayketthuc)
-			$("#txtDvt").text(tendvt)
-
+			$("#txtDvt").text(tendvt) 
 			$('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'BCDoiChieuSoLieuVayVDB')
-            })
-			
+            }) 
             let donvitinh = Util.Url.getParameterByName('donvitinh')
             $("#donvitinh").text(donvitinh)
             $("#titlebc").text("BÁO CÁO ĐỐI CHIẾU SỐ LIỆU VAY TỪ NHÀ TÀI TRỢ VÀ SỐ LIỆU VAY TỪ VDB TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " ")
@@ -36,8 +34,7 @@
             var nam = fnc_ngayhientai().split("-")[0]
             $("#txtNgay").text(ngay)
             $("#txtThang").text(thang)
-            $("#txtNam").text(nam)
-
+            $("#txtNam").text(nam) 
 			var bcquantri = new BCQuanTri();
 			var option = ''
 			var dt = {

@@ -11,22 +11,24 @@
     <script th:src="@{/public/libs/numeral.min.js}"></script>
     <script type="text/javascript" src="/qln/public/js/qln/app/ulti/exportExcell.js"></script>
     <script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
-	<script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
+    <script type="text/javascript" src="/qln/public/js/qln/app/ulti/Ulti.js"></script>
     <script type="text/javascript">
         var BCQuanTri = new BCQuanTri()
         $(document).ready(function () {
             var oDataTB = ControlHelper.Datatable.Init('tblDanhSach', 25, true)
             var i_bien = window.location.search
             let i_bien_i = i_bien.split('&')
+            let dvt = Util.Url.getParameterByName('dvt')
             $('#tendvt').html(decodeURIComponent(i_bien_i[1].split('=')[1]))
             $('#top_Tinh').html(decodeURIComponent(i_bien_i[0].split('=')[1]))
             var dataPost = {
                 i_tinhthanhid: Number(i_bien_i[5].split('=')[1]),
-
+                i_ngaybatdau: i_bien_i[3].split('=')[1],
                 i_ngayketthuc: i_bien_i[4].split('=')[1],
-                i_nam: Number(i_bien_i[4].split('=')[1].split('/')[2]),
-            }
-
+                i_nambd: Number(i_bien_i[3].split('=')[1].split('/')[2]),
+                i_namkt: Number(i_bien_i[4].split('=')[1].split('/')[2]),
+                i_dvt: Number(dvt)
+            } 
             var res = BCQuanTri.getDataReportTongHopDuNoCuoiThang(dataPost)
             var arows = []
             var name = ''
@@ -40,39 +42,32 @@
                 })
                 oDataTB.rows.add(arows).draw()
             }
-
             $('#tblDanhSach_info').parent().parent().remove()
             $('#tblDanhSach_length').parent().parent().remove()
             $('#tblDanhSach tbody td').css('border', '1px solid gray')
             $('#tblDanhSach th').css('border', '1px solid gray')
-
             var rg_number = /^\d+$/
-
             $('td').each((index, el) => {
                 typeof (Number($(el).html().replace(/,/g, ''))) + '' === "number" ? rg_number.test($(el).html().replace(/,/g, '')) ? $(el).css('text-align', 'right') : $(el).css('text-align', 'center') : $(el).css('text-align', 'center')
             })
-
             $('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'BCTongHopDuNoCuoiThang')
             })
             let donvitinh = Util.Url.getParameterByName('donvitinh')
             let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
             $("#titlebc").text("BÁO CÁO TÌNH HÌNH DƯ NỢ CUỐI THÁNG")
-			$("#thaymat").text(tentinhthanh)
-			$("#donvitinh").text(donvitinh)
-
-			$("#tinhthanhid").text(tentinhthanh)
-			$("#tentinhthanh").text(tentinhthanh)
-			var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
-			$("#txtTinhThanh").text(labelTinhThanh)
-			var ngay = fnc_ngayhientai().split("-")[2]
-			var thang = fnc_ngayhientai().split("-")[1]
-			var nam = fnc_ngayhientai().split("-")[0]
-			$("#txtNgay").text(ngay)
-			$("#txtThang").text(thang)
+            $("#thaymat").text(tentinhthanh)
+            $("#donvitinh").text(donvitinh)
+            $("#tinhthanhid").text(tentinhthanh)
+            $("#tentinhthanh").text(tentinhthanh)
+            var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
+            $("#txtTinhThanh").text(labelTinhThanh)
+            var ngay = fnc_ngayhientai().split("-")[2]
+            var thang = fnc_ngayhientai().split("-")[1]
+            var nam = fnc_ngayhientai().split("-")[0]
+            $("#txtNgay").text(ngay)
+            $("#txtThang").text(thang)
             $("#txtNam").text(nam)
-            
-            
         })
     </script>
 </head>
@@ -187,7 +182,7 @@
         </div>
 
     </div>
-    
+
 </body>
 
 </html>

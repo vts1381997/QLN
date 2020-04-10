@@ -1,4 +1,3 @@
-
 var MenhGiaTraiPhieu;
 var optionMenhGia = '';
 var NgayDaoHanTraiPhieu;
@@ -16,36 +15,6 @@ var DotPHTPView = function () {
     var maDotphtp
     var id = 0
     var DeAnPHTPs = new DeAnPHTP()
-    DeAnPHTPs.getAll();
-    var resultDeAn = DeAnPHTPs.LIST
-    var option = ''
-    resultDeAn.map(value => {
-        if (value.SOQUYETDINH != null) {
-            option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" + value.SOQUYETDINH + "/" +
-                (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
-                "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
-                "QĐ số: " + value.SOQUYETDINH +
-                "; Ngày phát hành: " + value.THOIGIANPHATHANH +
-                "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
-                "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
-                "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
-                " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
-                "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
-                "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
-        } else {
-            option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" +
-                (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
-                "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
-                "Ngày phát hành: " + value.THOIGIANPHATHANH +
-                "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
-                "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
-                "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
-                " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
-                "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
-                "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
-        }
-    })
-    $('#DEANPHATHANHTRAIPHIEUID').html(option)
     this.init = function () {
         that.bindGrid01();
         $('#AppTitle').html(that.AppTitle);
@@ -76,8 +45,7 @@ var DotPHTPView = function () {
             return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
         } catch (e) {
         }
-    };
-
+    }
     function addCommas(nStr) {
         nStr += '';
         x = nStr.split('.');
@@ -161,37 +129,10 @@ var DotPHTPView = function () {
                 var target = this;
                 return target.replace(new RegExp(search, 'g'), replacement);
             };
-
             let dataChiTiet = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-chitiet')
             let dataDotPhatHanh = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh')
             $("#exampleModalLongTitle").text('Thêm mới đợt phát hành trái phiếu (Lần thứ ' + dataDotPhatHanh + ')')
             $("#txtThongTinDuAnHopDong").text(dataChiTiet)
-            // $('body').on('change', '#DEANPHATHANHTRAIPHIEUID', function () {
-            //     let dataDotPhatHanh = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh')
-            //     let dataChiTiet = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-chitiet')
-            //     $("#txtThongTinDuAnHopDong").text(dataChiTiet)
-            //     $("#exampleModalLongTitle").text('Thêm mới đợt phát hành trái phiếu (Lần thứ ' + dataDotPhatHanh + ')')
-            //     if (oDotPHTP.DOTPHATHANHTRAIPHIEUID == 0) {
-            //         $("#MA").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-maDotPhatHanh'))
-            //     }
-            //     $("#TEN").val('Đợt phát hành trái phiếu (Mã đề án: ' + $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-ma') + ');(Lần thứ: ' + $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh') + ')')
-            //     $("#KLPHDUKIEN").val(formatMoney($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-toida')))
-            //     $("#LAISUATPHDUKIEN").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-laisuat'))
-            //     $("#LAISUATPHTHANHCONG").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-laisuat'))
-            //     $("#PHUONGTHUCPHATHANH").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-phuongthuc'))
-            //     var MenhGiaNgayDaoHan = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-menhgia-ngaydaohan');
-            //     MenhGiaTraiPhieu = MenhGiaNgayDaoHan.split('@')[0];
-            //     optionMenhGia = '';
-            //     MenhGiaTraiPhieu.split(';').map(value => {
-            //         var vConvertGiaTri = fnc_replace(value, ',', '').trim();
-            //         if (String(vConvertGiaTri).length > 1) {
-            //             optionMenhGia = optionMenhGia + "<option value='" + vConvertGiaTri + "'>" + formatMoney(vConvertGiaTri) + " VNĐ</option>"
-            //         }
-            //     })
-
-            //     $(".GIA").html(optionMenhGia).trigger('change')
-            //     NgayDaoHanTraiPhieu = MenhGiaNgayDaoHan.split('@')[1].split('/')[2] + '-' + MenhGiaNgayDaoHan.split('@')[1].split('/')[1] + "-" + MenhGiaNgayDaoHan.split('@')[1].split('/')[0];
-            // })
             $('body').on('change', '.GIA', function () {
                 var Gia = $(this).val();
                 var SoLuongChiTiet = $(this).parent().parent().find(".SOLUONG").val();
@@ -217,7 +158,6 @@ var DotPHTPView = function () {
             })
         })
     }
-
     $('body').on('keyup', '#MA', function () {
         if ($('#MA').val().length > 200) {
             var oAlert = new AlertDialog1('Thông báo');
@@ -287,13 +227,11 @@ var DotPHTPView = function () {
                         optionMenhGia = optionMenhGia + "<option value='" + vConvertGiaTri + "'>" + formatMoney(vConvertGiaTri) + " VNĐ</option>"
                     }
                 })
-
                 $(".GIA").html(optionMenhGia).trigger('change')
                 NgayDaoHanTraiPhieu = MenhGiaNgayDaoHan.split('@')[1].split('/')[2] + '-' + MenhGiaNgayDaoHan.split('@')[1].split('/')[1] + "-" + MenhGiaNgayDaoHan.split('@')[1].split('/')[0];
             })
             $('body').on('click', '#ActionThemMoi', function () {
                 id++;
-
                 var selectToChuc = '<select class = "TOCHUC" id="TOCHUC' + id + '" data-index="' + id + '">' + optionTiente + '</select>'
                 var option = '<tr class="input-table" id="element-' + id + '">\
                     <td><label class="stt">' + id + '</label></td>\
@@ -318,7 +256,6 @@ var DotPHTPView = function () {
                 $('#table-multi tr').map((index, el) => {
                     $('#' + $(el).attr('id') + ' td .stt').html(Number(index) + 1)
                 })
-
             })
             $('body').on('click', '.button-clear', function () {
                 var id_1 = $(this).attr('id')
@@ -368,130 +305,27 @@ var DotPHTPView = function () {
                                 $("#NGAYMUA" + Number(j + 1)).val(formatDate(tomorrow))
                             }
                             else {
-                                return;
-                                var ngayMuaTren = $("#NGAYMUA" + j).val()
-                                var today = new Date(ngayMuaTren);
-                                var tomorrow = new Date(today);
-                                tomorrow.setDate(today.getDate() + 1);
-                                $("#NGAYMUA" + Number(j + 1)).val(formatDate(tomorrow))
+                                if (arrObj[i].toChuc == arrObj[j].toChuc && arrObj[i].menhGia == arrObj[j].menhGia && arrObj[i].ngayMua == arrObj[j].ngayMua) {
+                                    var ngayMuaTren = $("#NGAYMUA" + j).val()
+                                    var today = new Date(ngayMuaTren);
+                                    var tomorrow = new Date(today);
+                                    tomorrow.setDate(today.getDate() + 1);
+                                    $("#NGAYMUA" + Number(j + 1)).val(formatDate(tomorrow))
+                                }
                             }
                         }
                     }
                 }
             })
             $('body').on('change', '.NGAYMUA', function () {
-                var arrObj = [];
-                var list_tr_TOCHUC = $('.input-table .TOCHUC')
-                var list_tr_GIA = $('.input-table .GIA')
-                var list_tr_NGAYMUA = $('.input-table .NGAYMUA')
-                var r_list_tr_TOCHUC = []
-                var r_list_tr_GIA = []
-                var r_list_tr_NGAYMUA = []
-                list_tr_TOCHUC.map((index, value) => {
-                    r_list_tr_TOCHUC.push($(value).val())
-                })
-                list_tr_GIA.map((index, value) => {
-                    r_list_tr_GIA.push($(value).val())
-                })
-                list_tr_NGAYMUA.map((index, value) => {
-                    r_list_tr_NGAYMUA.push($(value).val())
-                })
-                for (var i = 0; i < r_list_tr_TOCHUC.length; i++) {
-                    arrObj.push({
-                        toChuc: r_list_tr_TOCHUC[i],
-                        menhGia: r_list_tr_GIA[i],
-                        ngayMua: r_list_tr_NGAYMUA[i]
-                    })
-                }
-                if (arrObj.length > 1) {
-                    for (var i = 0; i < arrObj.length; i++) {
-                        for (var j = i + 1; j < arrObj.length; j++) {
-                            if (arrObj[i].toChuc == arrObj[j].toChuc && arrObj[i].menhGia == arrObj[j].menhGia && arrObj[i].ngayMua == arrObj[j].ngayMua) {
-                                var ngayMuaTren = $("#NGAYMUA" + j).val()
-                                var today = new Date(ngayMuaTren);
-                                var tomorrow = new Date(today);
-                                tomorrow.setDate(today.getDate() + 1);
-                                $("#NGAYMUA" + Number(j + 1)).val(formatDate(tomorrow))
-                            }
-                            // else {
-                            // 	var ngayMuaTren = $("#NGAYMUA" + j).val()
-                            // 	var today = new Date(ngayMuaTren);
-                            // 	var tomorrow = new Date(today);
-                            // 	tomorrow.setDate(today.getDate() + 1);
-                            // 	$("#NGAYMUA" + Number(j + 1)).val(formatDate(tomorrow))
-                            // }
-                        }
-                    }
+                var ngayPhatHanh = $("#NGAYPHATHANH").val().split('/')[2] + $("#NGAYPHATHANH").val().split('/')[1] + $("#NGAYPHATHANH").val().split('/')[0]
+                var ngayMua = fnc_replace($(this).val(), '-', '')
+                if (Number(ngayMua) < Number(ngayPhatHanh)) {
+                    $(this).val($("#NGAYPHATHANH").val().split('/')[2] + '-' + $("#NGAYPHATHANH").val().split('/')[1] + '-' + $("#NGAYPHATHANH").val().split('/')[0])
                 }
             })
             $('body').on('keyup', '.SOLUONG', function () {
-
-                $("input[data-type='currency']").on({
-                    keyup: function () {
-                        formatCurrency($(this));
-                    },
-                    blur: function () {
-                        formatCurrency($(this), "blur");
-                    }
-                });
-
-                function formatNumber(n) {
-                    // format number 1000000 to 1,234,567
-                    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-
-                function formatCurrency(input, blur) {
-                    // appends $ to value, validates decimal side
-                    // and puts cursor back in right position.      
-                    // get input value
-                    var input_val = input.val();
-                    // don't validate empty input
-                    if (input_val === "") {
-                        return;
-                    }
-                    // original length
-                    var original_len = input_val.length;
-                    // initial caret position 
-                    var caret_pos = input.prop("selectionStart");
-                    // check for decimal
-                    if (input_val.indexOf(".") >= 0) {
-                        // get position of first decimal
-                        // this prevents multiple decimals from
-                        // being entered
-                        var decimal_pos = input_val.indexOf(".");
-                        // split number by decimal point
-                        var left_side = input_val.substring(0, decimal_pos);
-                        var right_side = input_val.substring(decimal_pos);
-                        // add commas to left side of number
-                        left_side = formatNumber(left_side);
-                        // validate right side
-                        right_side = formatNumber(right_side);
-                        // On blur make sure 2 numbers after decimal
-                        if (blur === "blur") {
-                            right_side += "";
-                        }
-                        // Limit decimal to only 2 digits
-                        right_side = right_side.substring(0, 2);
-                        // join number by .
-                        input_val = "" + left_side + "." + right_side;
-                    } else {
-                        // no decimal entered
-                        // add commas to number
-                        // remove all non-digits
-                        input_val = formatNumber(input_val);
-                        input_val = "" + input_val;
-                        // final formatting
-                        if (blur === "blur") {
-                            input_val += "";
-                        }
-                    }
-                    // send updated string to input
-                    input.val(input_val);
-                    // put caret back in the right position
-                    var updated_len = input_val.length;
-                    caret_pos = updated_len - original_len + caret_pos;
-                    input[0].setSelectionRange(caret_pos, caret_pos);
-                }
+                fnc_formatKeyUp();
                 var soLuong = $(this).val()
                 var soLuongRemove = fnc_remove0firt(soLuong)
                 $(this).val(soLuongRemove)
@@ -501,7 +335,6 @@ var DotPHTPView = function () {
                 }
             })
 
-            // console.log('functiom',$.datepicker.formatDate('yyyy-mm-dd', new Date()))
             that.oTable = ControlHelper.Datatable.Init('Grid01', 25, true);
             that.oDialog = new PopupDialog(reload);
             that.init();
@@ -521,6 +354,35 @@ var DotPHTPView = function () {
             })
             $('.ACTIONS').on('click', '#btnAddNew', function (e) {
                 e.preventDefault()
+                DeAnPHTPs.getAll();
+                var resultDeAn = DeAnPHTPs.LIST
+                var option = ''
+                resultDeAn.map(value => {
+                    if (value.SOQUYETDINH != null) {
+                        option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" + value.SOQUYETDINH + "/" +
+                            (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
+                            "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
+                            "QĐ số: " + value.SOQUYETDINH +
+                            "; Ngày phát hành: " + value.THOIGIANPHATHANH +
+                            "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
+                            "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
+                            "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
+                            " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
+                            "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
+                            "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
+                    } else {
+                        option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" +
+                            (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
+                            "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
+                            "Ngày phát hành: " + value.THOIGIANPHATHANH +
+                            "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
+                            "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
+                            "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
+                            " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
+                            "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
+                            "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
+                    }
+                })
                 $('#DEANPHATHANHTRAIPHIEUID').html(option)
                 $("#Grid01").find('.selected').removeClass('selected');
                 id = 0;
@@ -548,6 +410,36 @@ var DotPHTPView = function () {
                 $("#DEANPHATHANHTRAIPHIEUID").trigger('change')
             });
             $('.ACTIONS').on('click', '#btnEdit', function () {
+                DeAnPHTPs.getAll();
+                var resultDeAn = DeAnPHTPs.LIST
+                var option = ''
+                resultDeAn.map(value => {
+                    if (value.SOQUYETDINH != null) {
+                        option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" + value.SOQUYETDINH + "/" +
+                            (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
+                            "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
+                            "QĐ số: " + value.SOQUYETDINH +
+                            "; Ngày phát hành: " + value.THOIGIANPHATHANH +
+                            "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
+                            "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
+                            "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
+                            " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
+                            "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
+                            "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
+                    } else {
+                        option = option + "<option data-menhgia-ngaydaohan ='" + value.MENHGIA + '@' + value.KYHANTHANHTOAN + "' data-phuongthuc='" + value.PHUONGTHUCPHATHANH + "' data-laisuat='" + value.LAISUATPHATHANH + "' data-toida='" + value.TOIDADUOCPHATHANH + "' data-ma='" + value.MA + "' data-maDotPhatHanh='" + "PHTP/" + value.MA + "/" +
+                            (value.DOTPHATHANH < 10 ? ("00" + value.DOTPHATHANH) : value.DOTPHATHANH < 100 ? ("0" + value.DOTPHATHANH) : value.DOTPHATHANH) +
+                            "' data-dotphathanh='" + value.DOTPHATHANH + "' data-chitiet= '" +
+                            "Ngày phát hành: " + value.THOIGIANPHATHANH +
+                            "; Ngày đáo hạn: " + value.KYHANTHANHTOAN +
+                            "; Loại " + (value.NGAYKYHANTRAIPHIEU < 5 ? "ngắn hạn" : value.NGAYKYHANTRAIPHIEU < 12 ? "trung hạn" : "dài hạn") +
+                            "; Khối lượng: " + formatMoney(value.KHOILUONGPHATHANH) +
+                            " VNĐ; Mệnh giá: " + value.MENHGIA + " VNĐ" +
+                            "; Lãi suất: " + value.LAISUATPHATHANH + "%" +
+                            "' data-kyhantraiphieu='" + value.NGAYKYHANTRAIPHIEU + "' value='" + value.DEANPHATHANHTRAIPHIEUID + "'>" + value.TEN + "</option>"
+                    }
+                })
+                $('#DEANPHATHANHTRAIPHIEUID').html(option)
                 oDotPHTP.getById(idDotPHTP);
                 let data = JSON.parse(maDotphtp)
                 $('#DEANPHATHANHTRAIPHIEUID').val(data.DEANPHATHANHTRAIPHIEUID).select2();
@@ -563,8 +455,8 @@ var DotPHTPView = function () {
                 $('#LAISUATPHTHANHCONG').val(data.LAISUATPHTHANHCONG);
                 $('#GHICHU').val(data.GHICHU);
                 $('#MATRAIPHIEU').val(data.MATRAIPHIEU);
-                $("#exampleModalLongTitle").text('Sửa đợt phát hành trái phiếu')
                 $("#DEANPHATHANHTRAIPHIEUID").trigger('change')
+                $("#exampleModalLongTitle").text('Sửa đợt phát hành trái phiếu')
                 id = 1
                 $('#table-multi').empty();
                 var listphtp = oDotPHTP.getDetail(madphtp);
@@ -574,7 +466,9 @@ var DotPHTPView = function () {
                     var olistTiente = oDonvitiente.LIST
                     var optionTiente = ''
                     olistTiente.map((value, index) => {
-                        optionTiente = optionTiente + '<option value="' + value.TOCHUCMUATPID + '"' + (index === 0 ? ' selected' : '') + '>' + value.TOCHUC + '</option>'
+                        if (value.TRANGTHAI == "Đang hoạt động") {
+                            optionTiente = optionTiente + '<option value="' + value.TOCHUCMUATPID + '"' + (index === 0 ? ' selected' : '') + '>' + value.TOCHUC + '</option>'
+                        }
                     })
                     var selectToChuc = '<select class = "TOCHUC" id="TOCHUC' + id + '" data-index="' + id + '">' + optionTiente + '</select>'
                     var MenhGiaNgayDaoHan = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-menhgia-ngaydaohan');
@@ -617,27 +511,6 @@ var DotPHTPView = function () {
                     })
                     $("#KLPHTHANHCONG").val(addCommas(tongtien))
                 })
-                // $('body').on('change', '#DEANPHATHANHTRAIPHIEUID', function () {
-                //     let dataChiTiet = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-chitiet')
-                //     $("#txtThongTinDuAnHopDong").text(dataChiTiet)
-                //     if (oDotPHTP.DOTPHATHANHTRAIPHIEUID == 0) {
-                //         $("#MA").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-maDotPhatHanh'))
-                //     }
-                //     $("#TEN").val('Đợt phát hành trái phiếu (Mã đề án: ' + $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-ma') + ');(Lần thứ: ' + $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh') + ')')
-                //     $("#KLPHDUKIEN").val(formatMoney($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-toida')))
-                //     $("#PHUONGTHUCPHATHANH").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-phuongthuc'))
-                //     var MenhGiaNgayDaoHan = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-menhgia-ngaydaohan');
-                //     MenhGiaTraiPhieu = MenhGiaNgayDaoHan.split('@')[0];
-                //     optionMenhGia = '';
-                //     MenhGiaTraiPhieu.split(';').map(value => {
-                //         var vConvertGiaTri = fnc_replace(value, '.', '').trim();
-                //         if (String(vConvertGiaTri).length > 1) {
-                //             optionMenhGia = optionMenhGia + "<option value='" + vConvertGiaTri + "'>" + formatMoney(vConvertGiaTri) + " VNĐ</option>"
-                //         }
-                //     })
-                //     $(".GIA").html(optionMenhGia).trigger('change')
-                //     NgayDaoHanTraiPhieu = MenhGiaNgayDaoHan.split('@')[1].split('/')[2] + '-' + MenhGiaNgayDaoHan.split('@')[1].split('/')[1] + "-" + MenhGiaNgayDaoHan.split('@')[1].split('/')[0];
-                // })
                 $("#DEANPHATHANHTRAIPHIEUID").prop('disabled', true)
             });
             $('.ACTIONS').on('click', '#btnDelete', function (e) {
@@ -732,23 +605,28 @@ var DotPHTPView = function () {
                     var pDelete = '';
                     pDelete = "Delete QLN_DOTPHATHANHTRAIPHIEU_CHITIET where DOTPHATHANHTRAIPHIEUID ='" + $('#MA').val() + "'"
                     var rs = oDotPHTP.save();
-                    if (rs.CODE == 0) {
-                        oDotPHTP.savedtl(pDelete, querry);
+                    if (rs.CODE == 3 && rs.MESSAGE == "-1") {
+                        var oAlert = new AlertDialog1('Thông báo');
+                        oAlert.show('Mã này đã được sử dụng, vui lòng nhập mã khác', '40%', '50px');
                     }
-                    // $("#idrowtable").val(rs.RESULT)
-                    // $("#tablename").val(CurrentLayout)
-                    // var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-                    // if (!rs1.success) {
-                    //     oDotPHTP.deluid(rs.RESULT)
-                    //     var oAlert = new AlertDialog('Thông báo');
-                    //     oAlert.show(rs1.message, '40%', '50px');
-                    //     that.bindGrid01();
-                    // }
-                    // else {
-                    that.bindGrid01();
-                    var oAlert = new AlertDialog('Thông báo');
-                    oAlert.show(rs.MESSAGE, '40%', '50px');
-                    // }
+                    else
+                        if (rs.CODE == 0) {
+                            oDotPHTP.savedtl(pDelete, querry);
+                            // }
+                            // $("#idrowtable").val(rs.RESULT)
+                            // $("#tablename").val(CurrentLayout)
+                            // var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+                            // if (!rs1.success) {
+                            //     oDotPHTP.deluid(rs.RESULT)
+                            //     var oAlert = new AlertDialog('Thông báo');
+                            //     oAlert.show(rs1.message, '40%', '50px');
+                            //     that.bindGrid01();
+                            // }
+                            // else {
+                            that.bindGrid01();
+                            var oAlert = new AlertDialog('Thông báo');
+                            oAlert.show(rs.MESSAGE, '40%', '50px');
+                        }
                 }
             })
             $('#Grid01 tbody').on('click', 'tr', function () {
@@ -767,5 +645,4 @@ var DotPHTPView = function () {
             });
         });
     })
-
 }

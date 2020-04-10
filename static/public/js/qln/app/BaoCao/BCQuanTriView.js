@@ -30,7 +30,7 @@ var BCQuanTriView = function () {
 	this.bindModal = function () {
 		//Lấy ra danh sách các báo cáo được phân quyền ứng với nhóm Quản trị
 		var vNhomBaoCao = 'QT';
-		fnc_baocao(vNhomBaoCao); 
+		fnc_baocao(vNhomBaoCao);
 	}
 
 	function fnc_baocao(vNhomBaoCao) {
@@ -75,9 +75,9 @@ var BCQuanTriView = function () {
 		else
 			if (month = 2 && year % 4 == 0)
 				dayOfMonth = 29;
-
-		$("#ngaybatdau").val('01/01/2019')
-		$("#ngayketthuc").val('31/12/2019')
+		var d = new Date(); 
+		$("#ngaybatdau").val('01/01/' + d.getFullYear())
+		$("#ngayketthuc").val('31/12/' + d.getFullYear())
 		// $("#ngaybatdau").val('01/' + month + '/' + year)
 		// $("#ngayketthuc").val('30/' + month + '/' + year)
 		ngaybatdau = $("#ngaybatdau").val()

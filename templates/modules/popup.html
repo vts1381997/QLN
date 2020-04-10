@@ -51,7 +51,6 @@
 			.bootstrap-dialog .modal-dialog-full .bootstrap-dialog-body {
 				height: 100%;
 			}
-			
 		</style>
 		<script>
 			function PopupDialog(_callBackFn) {
@@ -221,6 +220,87 @@
 						title: that.DialogTitle,
 						message: '<h3 style="margin:10px">' + sMessage + '</h3>',
 						buttons: [{
+							label: that.CloseTitle,
+							cssClass: 'btn-info',
+							icon: 'glyphicon glyphicon-ok',
+							action: function (dialogItself) {
+								dialogItself.close();
+								// $(function () {
+								// 	$('#exampleModalCenter').modal('toggle');
+								// });
+							}
+						}]
+					});
+					that.dialogPoup.open();
+					var s = that.dialogPoup.getModalDialog();
+					var body = that.dialogPoup.getModalBody();
+					s.css("width", width);
+					body.children().children().css("height", height);
+					return that.dialogPoup;
+				}
+				this.close = function () {
+					that.PopupDialog.dialogPoup.close();
+				}
+				var that = this;
+			}
+			function AlertDialog2(sTitle) {
+				this.dialogPoup = null;
+				this.DialogTitle = sTitle;
+				this.CloseTitle = 'Đổi mật khẩu';
+				this.CloseTitle1 = 'Thoát';
+				this.show = function (sMessage, width, height) {
+					that.dialogPoup = new BootstrapDialog({
+						title: that.DialogTitle,
+						message: '<h3 style="margin:10px">' + sMessage + '</h3>',
+						buttons: [
+							{
+								id: 'btnAlertDialog',
+								label: that.CloseTitle,
+								cssClass: 'btn-info',
+								icon: 'glyphicon glyphicon-ok',
+								action: function (dialogItself) {
+									dialogItself.close();
+									// $(function () {
+									// 	$('#exampleModalCenter').modal('toggle');
+									// });
+								}
+							},
+							// {
+							// 	id: 'btnAlertDialog1',
+							// 	label: that.CloseTitle1,
+							// 	cssClass: 'btn-info',
+							// 	icon: 'glyphicon glyphicon-remove',
+							// 	action: function (dialogItself) {
+							// 		dialogItself.close();
+							// 		// $(function () {
+							// 		// 	$('#exampleModalCenter').modal('toggle');
+							// 		// });
+							// 	}
+							// },
+						]
+					});
+					that.dialogPoup.open();
+					var s = that.dialogPoup.getModalDialog();
+					var body = that.dialogPoup.getModalBody();
+					s.css("width", width);
+					body.children().children().css("height", height);
+					return that.dialogPoup;
+				}
+				this.close = function () {
+					that.PopupDialog.dialogPoup.close();
+				}
+				var that = this;
+			}
+			function AlertDialog3(sTitle) {
+				this.dialogPoup = null;
+				this.DialogTitle = sTitle;
+				this.CloseTitle = 'Đăng xuất';
+				this.show = function (sMessage, width, height) {
+					that.dialogPoup = new BootstrapDialog({
+						title: that.DialogTitle,
+						message: '<h3 style="margin:10px">' + sMessage + '</h3>',
+						buttons: [{
+							id: 'btnAnotherLogin',
 							label: that.CloseTitle,
 							cssClass: 'btn-info',
 							icon: 'glyphicon glyphicon-ok',

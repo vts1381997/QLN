@@ -2,7 +2,6 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/popup">
 
 <head>
-
     <script type="text/javascript" th:src="@{/public/libs/datatable/js/jquery.dataTables.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/jquery-ui-1.12.1.custom/jquery-ui.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/js/qln/core/DataHelper.js}"></script>
@@ -18,19 +17,21 @@
             var oDataTB = ControlHelper.Datatable.Init('tblDanhSach', 25, true)
             var i_bien = window.location.search
             let i_bien_i = i_bien.split('&')
+            let dvt = Util.Url.getParameterByName('dvt')
             $('#tendvt').html('Đơn vị tính: ' + decodeURIComponent(i_bien_i[1].split('=')[1]))
             $('#top_Tinh').html(decodeURIComponent(i_bien_i[0].split('=')[1]))
             $("#txtTinhThanh").text(decodeURIComponent(i_bien_i[0].split('=')[1]).replace('UBND', '').replace('Tỉnh', '').replace('Thành phố', ''))
             var dataPost = {
                 i_tinhthanh: Number(i_bien_i[5].split('=')[1]),
-                i_nam: Number(i_bien_i[4].split('=')[1].split('/')[2]),
-            }
+                i_nambd: Number(i_bien_i[3].split('=')[1].split('/')[2]),
+                i_namkt: Number(i_bien_i[4].split('=')[1].split('/')[2]),
+                i_dvt: Number(dvt)
+            } 
             var res = BCQuanTri.getDataReportTongHopLuyKeCapPhatMau2(dataPost)
             var arows = []
             var name = ''
             if (res.length > 0) {
                 var key = Object.keys(res[0])
-
                 res.map(function (item, index) {
                     key.map((value) => {
                         item[value] = typeof (item[value]) + '' === 'number' ? numeral(Number(item[value]).toFixed(2)).format('0,0') : item[value]
@@ -42,38 +43,31 @@
                 })
                 oDataTB.rows.add(arows).draw()
             }
-
-
-
             $('#tblDanhSach_info').parent().parent().remove()
             $('#tblDanhSach_length').parent().parent().remove()
             $('#tblDanhSach tbody td').css('border', '1px solid gray')
             $('#tblDanhSach th').css('border', '1px solid gray')
             var rg_number = /^\d+$/
-
             $('td').each((index, el) => {
                 typeof (Number($(el).html().replace(/,/g, ''))) + '' === "number" ? rg_number.test($(el).html().replace(/,/g, '')) ? $(el).css('text-align', 'right') : $(el).css('text-align', 'center') : $(el).css('text-align', 'center')
             })
-
             $('#exportExcell').click(function () {
                 exportTableToExcel('tblDanhSach', 'BCTongHopLuyKeCapPhatMau2')
             })
-
             let donvitinh = Util.Url.getParameterByName('donvitinh')
             let tentinhthanh = Util.Url.getParameterByName('tentinhthanh')
             $("#titlebc").text("BÁO CÁO TỔNG HỢP LŨY KẾ CẤP PHÁT TỪ NGÀY: " + Util.Url.getParameterByName('ngaybatdau') + " ĐẾN NGÀY: " + Util.Url.getParameterByName('ngayketthuc') + " THEO TỪNG KHOẢN VAY, ĐỢT PHÁT HÀNH ")
-			$("#thaymat").text(tentinhthanh)
-			$("#donvitinh").text(donvitinh)
-
-			$("#tinhthanhid").text(tentinhthanh)
-			$("#tentinhthanh").text(tentinhthanh)
-			var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
-			$("#txtTinhThanh").text(labelTinhThanh)
-			var ngay = fnc_ngayhientai().split("-")[2]
-			var thang = fnc_ngayhientai().split("-")[1]
-			var nam = fnc_ngayhientai().split("-")[0]
-			$("#txtNgay").text(ngay)
-			$("#txtThang").text(thang)
+            $("#thaymat").text(tentinhthanh)
+            $("#donvitinh").text(donvitinh)
+            $("#tinhthanhid").text(tentinhthanh)
+            $("#tentinhthanh").text(tentinhthanh)
+            var labelTinhThanh = tentinhthanh.replace('Thành phố', '').replace('Tỉnh', '').replace('UBND', '')
+            $("#txtTinhThanh").text(labelTinhThanh)
+            var ngay = fnc_ngayhientai().split("-")[2]
+            var thang = fnc_ngayhientai().split("-")[1]
+            var nam = fnc_ngayhientai().split("-")[0]
+            $("#txtNgay").text(ngay)
+            $("#txtThang").text(thang)
             $("#txtNam").text(nam)
         })
     </script>
@@ -117,119 +111,119 @@
 </head>
 
 <body>
-        <div layout:fragment="content">
-                <div class="row">
-                    <button class="btn btn-primary" id="exportExcell">Kết xuất excel</button>
-                    <button class="btn btn-primary" onclick="window.print()">In báo cáo</button>
-        
-                    <table id='tableDanhsachParent' class="table table-striped text-center"
-                        style="width: 100%; border: none; border: 1">
-                        <tr>
-                            <td colspan="6" style="border: none;">
-                                <table style="width: 100%; border: none;">
-                                    <tr>
-                                        <td class="size14 inhoa" colspan="3" s style="border: none;width: 50%"><label
-                                                style="font-weight: bold;font-size: 17px !important;" id="tentinhthanh"></label>
-                                        </td>
-                                        <td class="size14 inhoa" colspan="3" style="text-align: center !important;width: 50%">
-                                            CỘNG HÒA XÃ
-                                            HỘI CHỦ
-                                            NGHĨA
-                                            VIỆT NAM</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="size14" colspan="3">***********</td>
-        
-                                        <td class="size14" colspan="3" style="text-align: center !important">Độc lập - Tự do -
-                                            Hạnh phúc
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="size14" colspan="3">Số: </td>
-        
-                                        <td class="size14" colspan="3" style="text-align: center !important">***********</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="size14" colspan="6" style="text-align: center !important"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="size14" colspan="3">V/v Báo cáo lũy kế cấp phát
-                                            </td>
-                                        <td class="size14" colspan="3" style="text-align: center !important"><i>
-                                                <i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i
-                                                    id="txtThang"></i>, năm <i id="txtNam"></i>
-                                            </i></i>
-                                        </td>
-                                    </tr>
-                                    <br>
-                                    <tr>
-                                        <td class="size14" colspan="6"><label
-                                                style="font-weight: bold;font-size: 17px !important;font-family: Times New Roman, Times, serif;"
-                                                id="titlebc"></label></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="size14" colspan="6" style="text-align: right !important"> Đơn vị: <label
-                                                id="donvitinh"></label></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr style="border: none;">
-                            <td colspan="12" style="border: none;">
-                                <table class="table table-striped table-bordered table-hover table-columned text-center"
-                                    id="tblDanhSach" style="border: 1px  solid gray" border="1">
-                                    <thead>
-        
-                                            <tr>
-                                                    <th rowspan="2"> STT</th>
-                                                    <th rowspan="2">Đề án</th>
-                                                    <th rowspan="2" colspan="1"> Kế hoạch vay</th>
-                                                    <th rowspan="2" colspan="1"> Lúy kế giải ngân thục tế</th>
-                                                    <th colspan="2">So sánh</th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="1">Tuyệt đối</th>
-                                                    <th colspan="1">Tương đối(%)</th>
-                                                </tr>
-                                                <th rowspan="1">1</th>
-                                                <th rowspan="1">2</th>
-                                                <th rowspan="1">3</th>
-                                                <th rowspan="1">4</th>
-                                                <th rowspan="1">5 = 3 - 4</th>
-                                                <th rowspan="1">6 = 4 : 3 x 100%</th>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr style="border: none;">
-                            <td colspan="10" style="border: none;width: 100%;">
-                                <table style="width: 100%; border: none;">
-                                    <tr style="border: none;">
-                                        <td colspan="10" style="border: none; text-align: center;width: 50%">
-                                            <strong>
-                                                Nơi nhận:<br />
-                                            </strong>
-                                            - Như trên<br />
-                                            - Lưu:…..<br />
-                                        </td>
-                                        <td colspan="10" style="border: none; text-align: center;width: 50%">
-                                            <strong>
-                                                TM. <label class="inhoa" id="thaymat"></label>
-                                                <br>
-                                            </strong>
-                                            <i>(Ký, ghi rõ họ tên và đóng dấu)</i>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-        
-            </div>
-    
+    <div layout:fragment="content">
+        <div class="row">
+            <button class="btn btn-primary" id="exportExcell">Kết xuất excel</button>
+            <button class="btn btn-primary" onclick="window.print()">In báo cáo</button>
+
+            <table id='tableDanhsachParent' class="table table-striped text-center"
+                style="width: 100%; border: none; border: 1">
+                <tr>
+                    <td colspan="6" style="border: none;">
+                        <table style="width: 100%; border: none;">
+                            <tr>
+                                <td class="size14 inhoa" colspan="3" s style="border: none;width: 50%"><label
+                                        style="font-weight: bold;font-size: 17px !important;" id="tentinhthanh"></label>
+                                </td>
+                                <td class="size14 inhoa" colspan="3" style="text-align: center !important;width: 50%">
+                                    CỘNG HÒA XÃ
+                                    HỘI CHỦ
+                                    NGHĨA
+                                    VIỆT NAM</td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="3">***********</td>
+
+                                <td class="size14" colspan="3" style="text-align: center !important">Độc lập - Tự do -
+                                    Hạnh phúc
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="3">Số: </td>
+
+                                <td class="size14" colspan="3" style="text-align: center !important">***********</td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="6" style="text-align: center !important"></td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="3">V/v Báo cáo lũy kế cấp phát
+                                </td>
+                                <td class="size14" colspan="3" style="text-align: center !important"><i>
+                                        <i id="txtTinhThanh"></i>, ngày <i id="txtNgay"></i>, tháng <i
+                                            id="txtThang"></i>, năm <i id="txtNam"></i>
+                                    </i></i>
+                                </td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <td class="size14" colspan="6"><label
+                                        style="font-weight: bold;font-size: 17px !important;font-family: Times New Roman, Times, serif;"
+                                        id="titlebc"></label></td>
+                            </tr>
+                            <tr>
+                                <td class="size14" colspan="6" style="text-align: right !important"> Đơn vị: <label
+                                        id="donvitinh"></label></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="border: none;">
+                    <td colspan="12" style="border: none;">
+                        <table class="table table-striped table-bordered table-hover table-columned text-center"
+                            id="tblDanhSach" style="border: 1px  solid gray" border="1">
+                            <thead>
+
+                                <tr>
+                                    <th rowspan="2"> STT</th>
+                                    <th rowspan="2">Đề án</th>
+                                    <th rowspan="2" colspan="1"> Kế hoạch vay</th>
+                                    <th rowspan="2" colspan="1"> Lũy kế giải ngân thực tế</th>
+                                    <th colspan="2">So sánh</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">Tuyệt đối</th>
+                                    <th colspan="1">Tương đối(%)</th>
+                                </tr>
+                                <th rowspan="1">1</th>
+                                <th rowspan="1">2</th>
+                                <th rowspan="1">3</th>
+                                <th rowspan="1">4</th>
+                                <th rowspan="1">5 = 3 - 4</th>
+                                <th rowspan="1">6 = 4 : 3 x 100</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="border: none;">
+                    <td colspan="10" style="border: none;width: 100%;">
+                        <table style="width: 100%; border: none;">
+                            <tr style="border: none;">
+                                <td colspan="10" style="border: none; text-align: center;width: 50%">
+                                    <strong>
+                                        Nơi nhận:<br />
+                                    </strong>
+                                    - Như trên<br />
+                                    - Lưu:…..<br />
+                                </td>
+                                <td colspan="10" style="border: none; text-align: center;width: 50%">
+                                    <strong>
+                                        TM. <label class="inhoa" id="thaymat"></label>
+                                        <br>
+                                    </strong>
+                                    <i>(Ký, ghi rõ họ tên và đóng dấu)</i>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
 </body>
 
 </html>

@@ -8,12 +8,12 @@ router.post('/get', function (req, res) {
         res.send(data)
     })
 })
+
 router.post('/resetpassword', function (req, res) {
     userController.resetpassword(req.body.ID, function (data) {
         res.send(data)
     })
 })
-
 
 router.post('/save', function (req, res) {
     var user = {
@@ -37,32 +37,36 @@ router.post('/save', function (req, res) {
         res.send(data)
     })
 })
+
 router.post('/delete', function (req, res) {
     userController.deleteUser(req.body, function (data) {
 
         res.send(data)
     })
 })
+
 router.post('/changepass', function (req, res) {
     userController.ChangePass(req.body, function (data) {
         res.send(data)
     })
 })
+
 router.post('/getdvcha', function (req, res) {
     userController.getdvcha(req.body, function (data) {
         res.send(data)
     })
 })
+
 router.post('/getlevel', function (req, res) {
     userController.getLevel(req.body.idlogin, (data) => {
         res.send(data)
     })
 })
+
 router.post('/gettinhthanh', function (req, res) {
     userController.getTinh(req.body.idtt, (data) => {
         res.send(data)
     })
 })
-
 
 module.exports = router 

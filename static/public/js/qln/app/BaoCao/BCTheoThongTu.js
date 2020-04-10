@@ -71,10 +71,11 @@ var BCTheoThongTu = function () {
 		}
 		var year_cr = (new Date()).getFullYear()
 		var option_value;
-		for (var j = 0; j < 20; j++) {
+		for (var j = -1; j < 21; j++) {
 			option_value = option_value + '<option value="' + (Number(year_cr) + Number(j)) + '">' + (Number(year_cr) + Number(j)) + '</option>'
 		}
 		$('#nam').html(option_value)
+		$('#nam').val('2020')
 		$('#ReportType').change(function () {
 			var _type = $('#ReportType').val();
 			switch (_type) {
@@ -92,6 +93,8 @@ var BCTheoThongTu = function () {
 		$("#ReportType").trigger('change')
 
 		$('.ACTIONS').on('click', '#btnReport', function () {
+			var dvt = $("#donvitinh").val();
+			var tendvt = $("#donvitinh option:selected").select2();
 			var tinhthanh = $("#tinhthanh").val()
 			var tentinhthanh=''
 			var nam = $('#nam').val()
@@ -102,7 +105,7 @@ var BCTheoThongTu = function () {
 			var vTieuDe = $('#ReportType option:selected').attr('data-tieude')
 			var vCao = $('#ReportType option:selected').attr('data-cao')
 			var vRong = $('#ReportType option:selected').attr('data-rong')
-			that.oDialog.show('' + vTieuDe, '' + vLinkFile + '?namquyetdinh=' + $('#nam').val() + '&tinhthanh=' + tinhthanh + '&tentinhthanh=' + tentinhthanh + '&nam=' + nam, '' + vRong + '', '' + vCao + '', 'test1');
+			that.oDialog.show('' + vTieuDe, '' + vLinkFile + '?namquyetdinh=' + $('#nam').val() + '&tinhthanh=' + tinhthanh + '&tentinhthanh=' + tentinhthanh + '&nam=' + nam + '&tendvt=' + tendvt.html() + '&dvt=' + dvt, '' + vRong + '', '' + vCao + '', 'test1');
 		});
 	});
 }
