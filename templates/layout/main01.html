@@ -141,20 +141,20 @@
         }
         $(document).click(function (e) {
             var timeload = localStorage.getItem('timeload');
-            if (timeload) {
-                var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
-                var today = new Date();
-                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
-                var subtractionTime = secondsTimeClick - secondsTimeLoad;
-                if (subtractionTime > 899) {
-                    var oAuthenHelper = new AuthenHelper();
-                    oAuthenHelper.logout();
-                }
-                else {
-                    localStorage.setItem("timeload", time)
-                }
+            // if (timeload) {
+            var secondsTimeLoad = (Number(timeload.split(':')[0]) * 3600) + (Number(timeload.split(':')[1]) * 60) + Number(timeload.split(':')[2])
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
+            var subtractionTime = secondsTimeClick - secondsTimeLoad;
+            if (subtractionTime > 899) {
+                var oAuthenHelper = new AuthenHelper();
+                oAuthenHelper.logout();
             }
+            else {
+                localStorage.setItem("timeload", time)
+            }
+            // }
         });
         $(window).ready(function () {
             oNguoiDung = new NguoiDung();
