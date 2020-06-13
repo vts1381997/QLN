@@ -261,6 +261,7 @@ var DuAnView = function () {
 
 		});
 		$('.ACTIONS').on('click', '#btnEdit', function () {
+			listNhaTaiTro = []
 			$("#exampleModalLongTitle").text('Sửa dự án')
 			$("#alert-cctc").show()
 			that.bindModal();
@@ -278,6 +279,7 @@ var DuAnView = function () {
 				}
 			})
 			$exampleMulti.val(listTinhthanh).trigger("change");
+			console.log(listNhaTaiTro,'listNhaTaiTro');
 			$nhataitro.val(listNhaTaiTro).trigger("change");
 			var oHopDongVayLai = new HopDongVayLai();
 			oHopDongVayLai.getAll();

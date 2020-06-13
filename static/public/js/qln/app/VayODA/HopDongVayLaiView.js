@@ -31,7 +31,8 @@ var HopDongVayLaiView = function () {
 		} catch (e) {
 			console.log(e)
 		}
-	};
+	}
+
 	this.filterAction = function (sState) {
 		switch (sState) {
 			case 'NEW':
@@ -205,30 +206,54 @@ var HopDongVayLaiView = function () {
 			return target.replace(new RegExp(search, 'g'), replacement);
 		};
 		$('body').on('keyup', '#TIENKYVAY', function () {
-			var soTienVay = $("#TIENKYVAY").val().replaceAll(',', '');
-			var tongMucDauTu = $("#DUANID option:selected").attr('data-tongmucdautu')
-			var luyKeTienKyVay = $("#DUANID option:selected").attr('data-luyketienkyvay')
-			var phanTramVayLai = $("#DUANID option:selected").attr('data-phantramvaylai')
-			var coCheTaiChinh = $("#DUANID option:selected").attr('data-loai')
-			if (coCheTaiChinh == "HH") {
-				var soTienVay1 = 0;
-				if (Number(luyKeTienKyVay) == 0) {
-					soTienVay1 = Number(phanTramVayLai / 100 * tongMucDauTu)
+			if (Number(idHopDongVayLai) > 0) {
+				var tongMucDauTu = $("#DUANID option:selected").attr('data-tongmucdautu')
+				var soTienVay = $("#TIENKYVAY").val().replaceAll(',', '')
+				var luyKeTienKyVay = $("#DUANID option:selected").attr('data-luyketienkyvay')
+				var phanTramVayLai = $("#DUANID option:selected").attr('data-phantramvaylai')
+				console.log(luyKeTienKyVay, 'luy ke ');
+				console.log(tongMucDauTu, 'tongMucDauTu  ');
+				if (Number(tongMucDauTu) == Number(luyKeTienKyVay)) { 
+					if (Number(soTienVay) > JSON.parse(rowhdvl).TIENKYVAY) {
+						$(this).val(formatMoney(JSON.parse(rowhdvl).TIENKYVAY))
+					}
 				}
-				if (Number(luyKeTienKyVay) == Number(phanTramVayLai / 100 * tongMucDauTu)) {
-					soTienVay1 = ''
-				}
-				if (Number(luyKeTienKyVay) > 0 && Number(luyKeTienKyVay) < Number(phanTramVayLai / 100 * tongMucDauTu)) {
-					soTienVay1 = Number(phanTramVayLai / 100 * tongMucDauTu) - Number(luyKeTienKyVay)
-				}
-				if (Number(soTienVay) > Number(soTienVay1)) {
-					$("#TIENKYVAY").val(formatMoney(soTienVay1))
+				else {
+					//$(this).val(formatMoney(Number(phanTramVayLai / 100 * tongMucDauTu)))
+					if (Number(phanTramVayLai / 100 * tongMucDauTu) == Number(luyKeTienKyVay)) {
+						$(this).val(formatMoney(JSON.parse(rowhdvl).TIENKYVAY))
+					}
+					// if (Number(soTienVay) > JSON.parse(rowhdvl).TIENKYVAY) {
+					// 	$(this).val(formatMoney(JSON.parse(rowhdvl).TIENKYVAY))
+					// }
 				}
 			}
-			if (coCheTaiChinh == "VL") {
-				var soTienConLai = Number(tongMucDauTu) - Number(luyKeTienKyVay)
-				if (Number($(this).val().replaceAll(',', '')) > Number(soTienConLai)) {
-					$(this).val(formatMoney(soTienConLai))
+			else {
+				var soTienVay = $("#TIENKYVAY").val().replaceAll(',', '');
+				var tongMucDauTu = $("#DUANID option:selected").attr('data-tongmucdautu')
+				var luyKeTienKyVay = $("#DUANID option:selected").attr('data-luyketienkyvay')
+				var phanTramVayLai = $("#DUANID option:selected").attr('data-phantramvaylai')
+				var coCheTaiChinh = $("#DUANID option:selected").attr('data-loai')
+				if (coCheTaiChinh == "HH") {
+					var soTienVay1 = 0;
+					if (Number(luyKeTienKyVay) == 0) {
+						soTienVay1 = Number(phanTramVayLai / 100 * tongMucDauTu)
+					}
+					if (Number(luyKeTienKyVay) == Number(phanTramVayLai / 100 * tongMucDauTu)) {
+						soTienVay1 = ''
+					}
+					if (Number(luyKeTienKyVay) > 0 && Number(luyKeTienKyVay) < Number(phanTramVayLai / 100 * tongMucDauTu)) {
+						soTienVay1 = Number(phanTramVayLai / 100 * tongMucDauTu) - Number(luyKeTienKyVay)
+					}
+					if (Number(soTienVay) > Number(soTienVay1)) {
+						$("#TIENKYVAY").val(formatMoney(soTienVay1))
+					}
+				}
+				if (coCheTaiChinh == "VL") {
+					var soTienConLai = Number(tongMucDauTu) - Number(luyKeTienKyVay)
+					if (Number($(this).val().replaceAll(',', '')) > Number(soTienConLai)) {
+						$(this).val(formatMoney(soTienConLai))
+					}
 				}
 			}
 		})

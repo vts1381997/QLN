@@ -14,7 +14,7 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 });
-
+// app.listen(port, () => console.log(`Example app listening on port ${port}!`)) //80
 https.createServer({
   key: fs.readFileSync('./key.pem'),
   cert: fs.readFileSync('./cert.pem'),

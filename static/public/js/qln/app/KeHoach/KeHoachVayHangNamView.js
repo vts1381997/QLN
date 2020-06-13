@@ -58,7 +58,7 @@ var KeHoachVayHangNamView = function () {
 			console.log(e)
 		}
 	}
-	this.bindGrid01 = function () {
+	this.bindGrid01 = function () { 
 		oKeHoachVayHangNam.getAll();
 		that.oTable.clear().draw();
 		var aRows = [];
@@ -84,11 +84,11 @@ var KeHoachVayHangNamView = function () {
 				download = ''
 			}
 			var _hidden = '<input type="hidden" class="rowID" value="' + _item.KEHOACHVAYHANGNAMID + '" />';
-			var button = ''
+			var button = ''  
 			if (_item.STATUS_APPROVE === 0 && jwt.id === _item.CREATEDBY) {
 				button = '<button style="font-size: 10px; padding: 3px !important; float: left;"  class= "btn btn-primary btnSendApprove" data-row-id=" ' + _item.KEHOACHVAYHANGNAMID + ' " data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Gửi phê duyệt">Gửi phê duyệt </button>'
-			}
-			if (_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.unitid === _item.DONVIID) {
+			} 
+			if ((_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.unitid === _item.DONVIID) || (_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.unitid == 'beac614d-c7de-4cbd-b3ec-33fa670e726c')) { 
 				button = '<button style=" font-size: 14px; padding: 3px !important; float: left "  class= "btn btn-success btnApprove" data-row-id=" ' + _item.KEHOACHVAYHANGNAMID + ' " data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Phê duyệt"><i class="fa fa-check"></i> </button>' + '<button  class= "btn btn-danger btnReject" style=" font-size: 14px; padding: 3px !important;" data-row-id="' + _item.KEHOACHVAYHANGNAMID + '" data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Từ chối"> <i class="fa fa-times"></i> </button>'
 			}
 			button = button + '<button style=" font-size: 14px; padding: 3px !important; float: right "  class= "btn btn-success btnSeeApprove" data-row-id=" ' + _item.KEHOACHVAYHANGNAMID + ' " data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Xem lịch sử phê duyệt"><i class="fa fa-eye"></i> </button>'

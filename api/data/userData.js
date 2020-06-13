@@ -543,7 +543,7 @@ var userData = {
                         }
                         else {
                             var RESULT = [
-                                { CODE: "SUCCESS", MESSAGE: "Mật khẩu reset về 123456" }
+                                { CODE: "SUCCESS", MESSAGE: "Mật khẩu đổi về 123456789" }
                             ]
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }

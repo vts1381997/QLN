@@ -65,7 +65,7 @@ let storage = multer.diskStorage({
   }
 });
 let upload = multer({ storage: storage }).single("file");
-app.post('/upload', (req, res) => {
+app.post('/upload', (req, res) => { 
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     var oldpath = files.filetoupload.path;
@@ -78,7 +78,7 @@ app.post('/upload', (req, res) => {
   });
 })
 
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+// app.listen(port, () => console.log(`Example app listening on port ${port}!`)) //80
 https.createServer({
   key: fs.readFileSync('./key.pem'),
   cert: fs.readFileSync('./cert.pem'),

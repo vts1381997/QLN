@@ -5,21 +5,17 @@ const cors = require("cors");
 var multer = require('multer')
 var bodyParser = require('body-parser')
 var uploadController = require('./controller/uploadController')
-
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
     // if(req.body.tablename=='VAYHANGNAM'){
     //   callback(null, './uploads/vayhangnam');
     // }
     // if(req.body.tablename=='HOPDONGVAYLAI'){
-
     //   callback(null, './uploads/hopdongvaylai');
     // }
     // else{
-
     callback(null, './uploads');
     // }
-
   },
   filename: function (req, file, callback) {
     callback(null, Date.now() + '-' + file.originalname);
