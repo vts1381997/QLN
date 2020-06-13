@@ -51,7 +51,7 @@ var DotRutVonView = function () {
 		var aRows = [];
 		if (oDotRutVon.LIST) {
 			for (var i = 0; i < oDotRutVon.LIST.length; i++) {
-				var _item = oDotRutVon.LIST[i]; 
+				var _item = oDotRutVon.LIST[i];
 				_item.nguyentecapphat = formatMoney(_item.NGUYENTECAPPHAT);
 				_item.luykevaylai = formatMoney(_item.LUYKERUTVONVAYLAI);
 				_item.luykecapphat = formatMoney(_item.LUYKERUTVONCAPPHAT);
@@ -385,20 +385,20 @@ var DotRutVonView = function () {
 						that.bindGrid01();
 					}
 					else {
-						// $("#idrowtable").val(rs.RESULT)
-						// $("#tablename").val(CurrentLayout)
-						// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-						// if (!rs1.success) {
-						// 	oDotRutVon.deluid(rs.RESULT)
-						// 	var oAlert = new AlertDialog('Thông báo');
-						// 	oAlert.show(rs1.message, '40%', '50px');
-						// 	that.bindGrid01();
-						// }
-						// else {
-						that.bindGrid01();
-						var oAlert = new AlertDialog('Thông báo');
-						oAlert.show(rs.MESSAGE, '40%', '50px');
-						// }
+						$("#idrowtable").val(rs.RESULT)
+						$("#tablename").val(CurrentLayout)
+						var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+						if (!rs1.success) {
+							oDotRutVon.deluid(rs.RESULT)
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs1.message, '40%', '50px');
+							that.bindGrid01();
+						}
+						else {
+							that.bindGrid01();
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs.MESSAGE, '40%', '50px');
+						}
 					}
 				}
 		});

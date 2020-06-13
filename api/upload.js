@@ -29,7 +29,7 @@ app.use('/uploads', express.static('uploads'))
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use(bodyParser.json({ type: 'application/json' }))
 
 
 
@@ -56,6 +56,7 @@ app.post('/upload', upload, function (req, res, next) {
   let dt = {
     URL, IDROWTABLE, TBLNAME, FILENAME, ROWID
   }
+  console.log(size,'size');
   if (size > 5242880) {
     fs.unlink(URL, function (err) {
       if (err) throw err;
@@ -94,6 +95,6 @@ app.post('/upload', upload, function (req, res, next) {
   }
 })
 
-app.listen(3000, function () {
-  console.log("Working on port 3000");
-});
+// app.listen(3000, function () {
+//   console.log("Working on port 3000");
+// });

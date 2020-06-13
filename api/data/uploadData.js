@@ -11,6 +11,7 @@ var uploadData = {
         obj.URL = body.URL
         obj.TBLNAME = body.TBLNAME
         obj.IDROWTABLE = body.IDROWTABLE
+        console.log(obj,'obj');
         oracledb.getConnection(
             connectString,
             function (err, connection) {

@@ -347,7 +347,6 @@ var VayKBNNView = function (isOtherView) {
 				$("#idrowtable").val(rs.RESULT)
 				$("#tablename").val(CurrentLayout)
 				var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-				console.log(rs1,'rs1')
 				if (!rs1.success) {
 					oVayKBNN.deluid(rs.RESULT)
 					var oAlert = new AlertDialog('Thông báo');
@@ -511,7 +510,6 @@ var VayKBNNView = function (isOtherView) {
 				alertcb.show('Số tiền trả không được lớn hơn tổng số tiền dư nợ còn lại!', '40%', '50px')
 				return;
 			}
-
 		} else {
 			var alertcb = new AlertDialog('Cảnh báo')
 			alertcb.show('Chưa có thông tin trả nợ trả lãi hoặc đã hoàn thành đợt trả nợ!', '40%', '50px')

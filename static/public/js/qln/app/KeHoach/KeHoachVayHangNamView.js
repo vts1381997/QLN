@@ -58,7 +58,7 @@ var KeHoachVayHangNamView = function () {
 			console.log(e)
 		}
 	}
-	this.bindGrid01 = function () { 
+	this.bindGrid01 = function () {
 		oKeHoachVayHangNam.getAll();
 		that.oTable.clear().draw();
 		var aRows = [];
@@ -67,12 +67,10 @@ var KeHoachVayHangNamView = function () {
 			_item.SOTIENVAY = formatMoney(Number(_item.SOTIENVAY) + Number(_item.SOTIENCAPPHAT))
 			_item.LUYKERUTVONVAYLAI = formatMoney(Number(_item.LUYKERUTVONVAYLAI) + Number(_item.LUYKERUTVONCAPPHAT))
 			_item.DUNOVAY = formatMoney(_item.DUNOVAY)
-			if(_item.COCHETAICHINH == "CP")
-			{
+			if (_item.COCHETAICHINH == "CP") {
 				_item.dunovaylai = 0
 			}
-			else
-			{
+			else {
 				var rs = oKeHoachVayHangNam.getDuNoVayLai(_item.KEHOACHVAYHANGNAMID)
 				_item.dunovaylai = formatMoney(Number(rs.TONGVAY) - Number(rs.TONGTRA))
 			}
@@ -84,11 +82,11 @@ var KeHoachVayHangNamView = function () {
 				download = ''
 			}
 			var _hidden = '<input type="hidden" class="rowID" value="' + _item.KEHOACHVAYHANGNAMID + '" />';
-			var button = ''  
+			var button = ''
 			if (_item.STATUS_APPROVE === 0 && jwt.id === _item.CREATEDBY) {
 				button = '<button style="font-size: 10px; padding: 3px !important; float: left;"  class= "btn btn-primary btnSendApprove" data-row-id=" ' + _item.KEHOACHVAYHANGNAMID + ' " data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Gửi phê duyệt">Gửi phê duyệt </button>'
-			} 
-			if ((_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.unitid === _item.DONVIID) || (_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.unitid == 'beac614d-c7de-4cbd-b3ec-33fa670e726c')) { 
+			}
+			if ((_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.unitid === _item.DONVIID) || (_item.STATUS_APPROVE === 2 && apr >= 0 && jwt.donvi.includes(_item.DONVIID))) {
 				button = '<button style=" font-size: 14px; padding: 3px !important; float: left "  class= "btn btn-success btnApprove" data-row-id=" ' + _item.KEHOACHVAYHANGNAMID + ' " data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Phê duyệt"><i class="fa fa-check"></i> </button>' + '<button  class= "btn btn-danger btnReject" style=" font-size: 14px; padding: 3px !important;" data-row-id="' + _item.KEHOACHVAYHANGNAMID + '" data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Từ chối"> <i class="fa fa-times"></i> </button>'
 			}
 			button = button + '<button style=" font-size: 14px; padding: 3px !important; float: right "  class= "btn btn-success btnSeeApprove" data-row-id=" ' + _item.KEHOACHVAYHANGNAMID + ' " data-nametb="' + _item.MATB + '" data-namefuntion="' + that.__proto__.constructor.name + '" title="Xem lịch sử phê duyệt"><i class="fa fa-eye"></i> </button>'
@@ -437,20 +435,20 @@ var KeHoachVayHangNamView = function () {
 								oKeHoachVayHangNam.updateApprove(Number(idKeHoachVayHangNam))
 							}
 						}
-						// $("#idrowtable").val(rs.RESULT)
-						// $("#tablename").val(CurrentLayout)
-						// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-						// if (!rs1.success) {
-						// 	oKeHoachVayHangNam.deluid(rs.RESULT)
-						// 	var oAlert = new AlertDialog('Thông báo');
-						// 	oAlert.show(rs1.message, '40%', '50px');
-						// 	that.bindGrid01();
-						// }
-						// else {
-						that.bindGrid01();
-						var oAlert = new AlertDialog('Thông báo');
-						oAlert.show(rs.MESSAGE, '40%', '50px');
-						// }
+						$("#idrowtable").val(rs.RESULT)
+						$("#tablename").val(CurrentLayout)
+						var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+						if (!rs1.success) {
+							oKeHoachVayHangNam.deluid(rs.RESULT)
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs1.message, '40%', '50px');
+							that.bindGrid01();
+						}
+						else {
+							that.bindGrid01();
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs.MESSAGE, '40%', '50px');
+						}
 					}
 				}
 			})

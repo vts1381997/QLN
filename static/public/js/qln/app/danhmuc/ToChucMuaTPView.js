@@ -30,8 +30,7 @@ var ToChucMuaTPView = function () {
 			default:
 				break;
 		}
-	}
-console.log(jwt,'jwt');
+	} 
 	this.bindTblLichSu = () => {
 		oToChucMuaTP.getLichSu(oToChucMuaTP.TOCHUCMUATPID);
 		that.oTable2.clear().draw();

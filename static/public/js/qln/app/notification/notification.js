@@ -10,6 +10,7 @@ $(document).ready(function () {
     var oda = []
     var qdt = []
     var tp = []
+    var vtp = []
     var tong_noti = 0
     try {
         res_noti.map(function (item, index) {
@@ -19,12 +20,12 @@ $(document).ready(function () {
     }
     catch (err) {
         console.log(err)
-    }
-
+    } 
     $('#nt_vdb').html(vdb.length > 5? '5+': vdb.length)
     $('#nt_tctc').html(tctc.length > 5? '5+': tctc.length)
     $('#nt_kbnn').html(kbnn.length > 5? '5+': kbnn.length)
     $('#nt_qdt').html(qdt.length > 5? '5+': qdt.length)
+    $('#nt_tctp').html(vtp.length > 5? '5+': vtp.length)
     if (Number(tong_noti) === 0) {
         $('.btn-notification').hide()
     } else {

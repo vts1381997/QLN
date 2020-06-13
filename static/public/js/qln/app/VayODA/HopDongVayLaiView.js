@@ -213,7 +213,7 @@ var HopDongVayLaiView = function () {
 				var phanTramVayLai = $("#DUANID option:selected").attr('data-phantramvaylai')
 				console.log(luyKeTienKyVay, 'luy ke ');
 				console.log(tongMucDauTu, 'tongMucDauTu  ');
-				if (Number(tongMucDauTu) == Number(luyKeTienKyVay)) { 
+				if (Number(tongMucDauTu) == Number(luyKeTienKyVay)) {
 					if (Number(soTienVay) > JSON.parse(rowhdvl).TIENKYVAY) {
 						$(this).val(formatMoney(JSON.parse(rowhdvl).TIENKYVAY))
 					}
@@ -491,20 +491,20 @@ var HopDongVayLaiView = function () {
 					else {
 						oHopDongVayLai.savedtl(pDelete, pDelete);
 					}
-					// $("#idrowtable").val(rs.RESULT)
-					// $("#tablename").val(CurrentLayout)
-					// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-					// if (!rs1.success) {
-					// 	oKeHoachVayHangNam.deluid(rs.RESULT)
-					// 	var oAlert = new AlertDialog('Thông báo');
-					// 	oAlert.show(rs1.message, '40%', '50px');
-					// 	that.bindGrid01();
-					// }
-					// else {
-					that.bindGrid01();
-					var oAlert = new AlertDialog('Thông báo');
-					oAlert.show(rs.MESSAGE, '40%', '50px');
-					// }
+					$("#idrowtable").val(rs.RESULT)
+					$("#tablename").val(CurrentLayout)
+					var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+					if (!rs1.success) {
+						oKeHoachVayHangNam.deluid(rs.RESULT)
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs1.message, '40%', '50px');
+						that.bindGrid01();
+					}
+					else {
+						that.bindGrid01();
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs.MESSAGE, '40%', '50px');
+					}
 				}
 			}
 		})

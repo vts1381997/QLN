@@ -551,20 +551,20 @@ var KeHoachVay05NamView = function () {
 					if (rs.CODE == 0) {
 						oKeHoachVay05Nam.savedtl(pDelete, query);
 					}
-					// $("#idrowtable").val(rs.RESULT)
-					// $("#tablename").val(CurrentLayout)
-					// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-					// if (!rs1.success) {
-					// 	oKeHoachVay05Nam.deluid(rs.RESULT)
-					// 	var oAlert = new AlertDialog('Thông báo');
-					// 	oAlert.show(rs1.message, '40%', '50px');
-					// 	that.bindGrid01();
-					// }
-					// else {
-					that.bindGrid01();
-					var oAlert = new AlertDialog('Thông báo');
-					oAlert.show(rs.MESSAGE, '40%', '50px');
-					// }
+					$("#idrowtable").val(rs.RESULT)
+					$("#tablename").val(CurrentLayout)
+					var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+					if (!rs1.success) {
+						oKeHoachVay05Nam.deluid(rs.RESULT)
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs1.message, '40%', '50px');
+						that.bindGrid01();
+					}
+					else {
+						that.bindGrid01();
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs.MESSAGE, '40%', '50px');
+					}
 				}
 
 			}

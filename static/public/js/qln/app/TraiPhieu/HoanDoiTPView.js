@@ -577,7 +577,7 @@ var HoanDoiTPView = function () {
 						fnc_nvl(r_list_tr_GIADUOCHOANDOI[i], 0) + ", " +
 						fnc_nvl(r_list_tr_MENHGIASAUHOANDOI[i], 0) + ") ";
 				}
-				querry = querry + " Select 1 from dual"; 
+				querry = querry + " Select 1 from dual";
 				if (querry == "Insert all  Select 1 from dual") {
 					var rs = oHoanDoiTP.save("Select 1 from dual");
 					that.bindGrid01();
@@ -585,21 +585,21 @@ var HoanDoiTPView = function () {
 					oAlert.show(rs.MESSAGE, '40%', '50px');
 				}
 				else {
-					var rs = oHoanDoiTP.save(querry); 
-					// $("#idrowtable").val(rs.RESULT)
-					// $("#tablename").val(CurrentLayout)
-					// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-					// if (!rs1.success) {
-					// 	oHoanDoiTP.deluid(rs.RESULT)
-					// 	var oAlert = new AlertDialog('Thông báo');
-					// 	oAlert.show(rs1.message, '40%', '50px');
-					// 	that.bindGrid01();
-					// }
-					// else {
-					that.bindGrid01();
-					var oAlert = new AlertDialog('Thông báo');
-					oAlert.show(rs.MESSAGE, '40%', '50px');
-					// }
+					var rs = oHoanDoiTP.save(querry);
+					$("#idrowtable").val(rs.RESULT)
+					$("#tablename").val(CurrentLayout)
+					var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+					if (!rs1.success) {
+						oHoanDoiTP.deluid(rs.RESULT)
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs1.message, '40%', '50px');
+						that.bindGrid01();
+					}
+					else {
+						that.bindGrid01();
+						var oAlert = new AlertDialog('Thông báo');
+						oAlert.show(rs.MESSAGE, '40%', '50px');
+					}
 				}
 			}
 		})

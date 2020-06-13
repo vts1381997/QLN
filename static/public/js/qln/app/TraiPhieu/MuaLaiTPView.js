@@ -108,22 +108,27 @@ var MuaLaiTPView = function () {
 			})
 			$('#DEANPHATHANHTRAIPHIEUID').html(option).trigger('change')
 			$('body').on('change', '#DEANPHATHANHTRAIPHIEUID', function () {
+				$("#TONGSOTIENMUALAI").val('')
+				$("#KHOILUONGMUALAI").val('')
 				let dataChiTiet = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-chitiet')
 				let dataDotPhatHanh = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh')
 				$("#txtThongTinDuAnHopDong").text(dataChiTiet)
-				$("#exampleModalLongTitle").text('Thêm mới đợt mua lại trái phiếu (Lần thứ ' + dataDotPhatHanh + ')')
-				$("#TEN").val('Đợt mua lại trái phiếu (Mã đề án: ' + $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-ma') + ');(Lần thứ: ' + $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh') + ')')
+				$("#exampleModalLongTitle").text('Thêm mới đợt mua lại trái phiếu (Lần thứ ' + (dataDotPhatHanh == undefined ? '' : dataDotPhatHanh) + ')')
+				$("#TEN").val('Đợt mua lại trái phiếu (Mã đề án: ' + ($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-ma') == undefined ? '' : $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-ma')) + ');(Lần thứ: ' + ($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh') == undefined ? '' : $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-dotphathanh')) + ')')
 				$("#LAISUAT").val($("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-laisuat'))
 				var MenhGiaNgayDaoHan = $("#DEANPHATHANHTRAIPHIEUID option:selected").attr('data-menhgia-ngaydaohan');
-				MenhGiaTraiPhieu = MenhGiaNgayDaoHan.split('@')[0];
-				optionMenhGia = '';
-				MenhGiaTraiPhieu.split(';').map(value => {
-					var vConvertGiaTri = fnc_replace(value.split('.').join(), ',', '')
-					if (String(vConvertGiaTri).length > 1) {
-						optionMenhGia = optionMenhGia + "<option value='" + vConvertGiaTri + "'>" + formatMoney(vConvertGiaTri) + " VNĐ</option>"
-					}
-				})
-				NgayDaoHanTraiPhieu = MenhGiaNgayDaoHan.split('@')[1].split('/')[2] + '-' + MenhGiaNgayDaoHan.split('@')[1].split('/')[1] + "-" + MenhGiaNgayDaoHan.split('@')[1].split('/')[0];
+				console.log(MenhGiaNgayDaoHan, 'MenhGiaNgayDaoHan');
+				if (MenhGiaNgayDaoHan != undefined) {
+					MenhGiaTraiPhieu = MenhGiaNgayDaoHan.split('@')[0];
+					optionMenhGia = '';
+					MenhGiaTraiPhieu.split(';').map(value => {
+						var vConvertGiaTri = fnc_replace(value.split('.').join(), ',', '')
+						if (String(vConvertGiaTri).length > 1) {
+							optionMenhGia = optionMenhGia + "<option value='" + vConvertGiaTri + "'>" + formatMoney(vConvertGiaTri) + " VNĐ</option>"
+						}
+					})
+					NgayDaoHanTraiPhieu = MenhGiaNgayDaoHan.split('@')[1].split('/')[2] + '-' + MenhGiaNgayDaoHan.split('@')[1].split('/')[1] + "-" + MenhGiaNgayDaoHan.split('@')[1].split('/')[0];
+				}
 				fnc_loadChiTietTheoDeAn();
 			})
 			$('body').on('change', '#GIA', function () {
@@ -447,20 +452,20 @@ var MuaLaiTPView = function () {
 			if (rs.CODE == 0) {
 				oMuaLaiTP.savedtl(pDelete, querry);
 			}
-			// $("#idrowtable").val(rs.RESULT)
-			// $("#tablename").val(CurrentLayout)
-			// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-			// if (!rs1.success) {
-			// 	oMuaLaiTP.deluid(rs.RESULT)
-			// 	var oAlert = new AlertDialog('Thông báo');
-			// 	oAlert.show(rs1.message, '40%', '50px');
-			// 	that.bindGrid01();
-			// }
-			// else {
-			that.bindGrid01();
-			var oAlert = new AlertDialog('Thông báo');
-			oAlert.show(rs.MESSAGE, '40%', '50px');
-			// }
+			$("#idrowtable").val(rs.RESULT)
+			$("#tablename").val(CurrentLayout)
+			var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+			if (!rs1.success) {
+				oMuaLaiTP.deluid(rs.RESULT)
+				var oAlert = new AlertDialog('Thông báo');
+				oAlert.show(rs1.message, '40%', '50px');
+				that.bindGrid01();
+			}
+			else {
+				that.bindGrid01();
+				var oAlert = new AlertDialog('Thông báo');
+				oAlert.show(rs.MESSAGE, '40%', '50px');
+			}
 		})
 		$('#Grid01 tbody').on('click', 'tr', function () {
 			if ($(this).hasClass('selected')) {

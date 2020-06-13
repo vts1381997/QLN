@@ -131,7 +131,7 @@ var DotTraNoView = function () {
 	$('#HOPDONGVAYLAIID').change(function (e) {
 		e.preventDefault()
 		$("#txtThongTinDuAnHopDong").text('')
-		$("#textSotienvay").text('') 
+		$("#textSotienvay").text('')
 		if ($('#HOPDONGVAYLAIID').text()) {
 			oHopDongVayLai.getAll();
 			var HopDongDetail = oHopDongVayLai.LIST;
@@ -639,20 +639,20 @@ var DotTraNoView = function () {
 						that.bindGrid01();
 					}
 					else {
-						// $("#idrowtable").val(rs.RESULT)
-						// $("#tablename").val(CurrentLayout)
-						// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-						// if (!rs1.success) {
-						// 	oDotTraNo.deluid(rs.RESULT)
-						// 	var oAlert = new AlertDialog('Thông báo');
-						// 	oAlert.show(rs1.message, '40%', '50px');
-						// 	that.bindGrid01();
-						// }
-						// else {
-						that.bindGrid01();
-						var oAlert = new AlertDialog('Thông báo');
-						oAlert.show(rs.MESSAGE, '40%', '50px');
-						// }
+						$("#idrowtable").val(rs.RESULT)
+						$("#tablename").val(CurrentLayout)
+						var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+						if (!rs1.success) {
+							oDotTraNo.deluid(rs.RESULT)
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs1.message, '40%', '50px');
+							that.bindGrid01();
+						}
+						else {
+							that.bindGrid01();
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs.MESSAGE, '40%', '50px');
+						}
 					}
 				}
 			}
@@ -684,20 +684,20 @@ var DotTraNoView = function () {
 						that.bindGrid01();
 					}
 					else {
-						// $("#idrowtable").val(rs.RESULT)
-						// $("#tablename").val(CurrentLayout)
-						// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-						// if (!rs1.success) {
-						// 	oDotTraNo.deluid(rs.RESULT)
-						// 	var oAlert = new AlertDialog('Thông báo');
-						// 	oAlert.show(rs1.message, '40%', '50px');
-						// 	that.bindGrid01();
-						// }
-						// else {
-						that.bindGrid01();
-						var oAlert = new AlertDialog('Thông báo');
-						oAlert.show(rs.MESSAGE, '40%', '50px');
-						// }
+						$("#idrowtable").val(rs.RESULT)
+						$("#tablename").val(CurrentLayout)
+						var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+						if (!rs1.success) {
+							oDotTraNo.deluid(rs.RESULT)
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs1.message, '40%', '50px');
+							that.bindGrid01();
+						}
+						else {
+							that.bindGrid01();
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs.MESSAGE, '40%', '50px');
+						}
 					}
 				} else {
 					if (Number($("#DUNO").val()) == 0 && Number(idDotTraNo) == 0) {
@@ -727,20 +727,20 @@ var DotTraNoView = function () {
 							that.bindGrid01();
 						}
 						else {
-							// $("#idrowtable").val(rs.RESULT)
-							// $("#tablename").val(CurrentLayout)
-							// var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-							// if (!rs1.success) {
-							// 	oDotTraNo.deluid(rs.RESULT)
-							// 	var oAlert = new AlertDialog('Thông báo');
-							// 	oAlert.show(rs1.message, '40%', '50px');
-							// 	that.bindGrid01();
-							// }
-							// else {
-							that.bindGrid01();
-							var oAlert = new AlertDialog('Thông báo');
-							oAlert.show(rs.MESSAGE, '40%', '50px');
-							// }
+							$("#idrowtable").val(rs.RESULT)
+							$("#tablename").val(CurrentLayout)
+							var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+							if (!rs1.success) {
+								oDotTraNo.deluid(rs.RESULT)
+								var oAlert = new AlertDialog('Thông báo');
+								oAlert.show(rs1.message, '40%', '50px');
+								that.bindGrid01();
+							}
+							else {
+								that.bindGrid01();
+								var oAlert = new AlertDialog('Thông báo');
+								oAlert.show(rs.MESSAGE, '40%', '50px');
+							}
 						}
 					}
 					else {
