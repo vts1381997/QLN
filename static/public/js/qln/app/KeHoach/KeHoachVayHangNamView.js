@@ -863,9 +863,9 @@ var KeHoachVayHangNamView = function () {
 				elemnts = '<tr class="input-table" id="elementdutoan-' + id + '">\
                     <td>' + selectNguonvon + '</td>\
                     <td><input type="text" class="PHUONGANVAYDUTOAN" id="PHUONGANVAYDUTOAN' + id + '"></td>\
-                    <td><input type="text" autocomplete="off" class="SOTIENVAYDUTOAN" id="SOTIENVAYDUTOAN' + id + '" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" style="text-align: right;"></td>\
+                    <td><input type="text" autocomplete="off" class="SOTIENVAYDUTOAN" id="SOTIENVAYDUTOAN' + id + '" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="money" style="text-align: right;"></td>\
                     <td>' + selectTiente + '</td>\
-                    <td><input type="text" class="SOTIENCAPPHATDUTOAN" id="SOTIENCAPPHATDUTOAN' + id + '" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" style="text-align: right;"></td>\
+                    <td><input type="text" class="SOTIENCAPPHATDUTOAN" id="SOTIENCAPPHATDUTOAN' + id + '" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="money" style="text-align: right;"></td>\
                     <td>' + selectTienteCP + '</td>\
                     <td><input type="text" disabled style="background-color: #EEEEEE; text-align: right;" class="NGUYENTEVAYDUTOAN" id="NGUYENTEVAYDUTOAN' + id + '"></td>\
                     <td><input type="text" disabled style="background-color: #EEEEEE; text-align: right;" class="NGUYENTECAPPHATDUTOAN" id="NGUYENTECAPPHATDUTOAN' + id + '"></td>\

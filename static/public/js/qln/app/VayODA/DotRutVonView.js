@@ -88,7 +88,7 @@ var DotRutVonView = function () {
 				}
 				else {
 					download = ''
-				}
+				} 
 				aRows.push([
 					(i + 1) + _hidden,
 					_item.GIAINGANTHEOKHNAM,
@@ -411,8 +411,9 @@ var DotRutVonView = function () {
 			else {
 				that.oTable.$('tr.selected').removeClass('selected');
 				$(this).addClass('selected');
-				idrutvon = $(this).find('.rowID').text();
+				idrutvon = $(this).find('.rowID').text(); 
 				oDotRutVon.DOTRUTVONID = JSON.parse(idrutvon).DOTRUTVONID;
+				console.log(JSON.parse(idrutvon),'JSON.parse(idrutvon)'); 
 				that.filterAction('SELECT');
 			}
 		});

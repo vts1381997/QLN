@@ -87,15 +87,30 @@ function fnc_formatKeyUp() {
       formatCurrency($(this), "blur");
     }
   });
+  $("input[data-type='money']").on({
+    keyup: function () { 
+      formatCurrency($(this));
+    },
+    blur: function () { 
+      //formatCurrency($(this), "blur");
+    }
+  });
   function formatNumber(n) {
     // format number 1000000 to 1,234,567
-    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (Number(fnc_replace(n, ',', '')) < 0) {
+      var soDuong = n.replace('-','')
+      var result = '-' + soDuong.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return '-' + soDuong.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    else {
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   }
-  function formatCurrency(input, blur) {
+  function formatCurrency(input, blur) { 
     // appends $ to value, validates decimal side
     // and puts cursor back in right position.
     // get input value
-    var input_val = input.val();
+    var input_val = input.val(); 
     // don't validate empty input
     if (input_val === "") {
       return;
@@ -461,8 +476,7 @@ function validateEmail(email) {
 }
 
 //Hàm tự động sinh mã
-function fnc_createCode(code)
-{
+function fnc_createCode(code) {
   var start = Date.now();
   return code + start + Math.floor(Math.random() * 10)
 }

@@ -135,6 +135,7 @@ var DotTraNoView = function () {
 		if ($('#HOPDONGVAYLAIID').text()) {
 			oHopDongVayLai.getAll();
 			var HopDongDetail = oHopDongVayLai.LIST;
+			console.log(HopDongDetail,'HopDongDetail');
 			HopDongDetail.map(value => {
 				if (Number(value.HOPDONGVAYLAIID) == Number($("#HOPDONGVAYLAIID option:selected").attr('value'))) {
 					var phiQuanLy = Number(value.TIENPHIQUANLYCHOVAYLAI) / 100 * Number(value.TIENKYVAY)
@@ -142,11 +143,13 @@ var DotTraNoView = function () {
 				}
 			})
 			var hdvselected = oHopDongVayLai.getById($(this).val())[0]
+			console.log(hdvselected,'hdvselected');
 			$('#NGAYTRA').val(hdvselected.NGAYTRANOTIEPTHEO)
-			if (Number(hdvselected.TIENKYVAY) === Number(hdvselected.LUYKETRAGOC)) {
+			if (Number(hdvselected.TIENKYVAY) === Number(hdvselected.LUYKETRAGOC)) { 
 				return
-			} else {
+			} else { 
 				var goclais = oHopDongVayLai.getAllGocLaiDotTraNo($(this).val())[0]
+				console.log(goclais,'goc lai	');
 				if (goclais) {
 					$('label').each(function (index, element) {
 						if ($(element).attr('id')) {
