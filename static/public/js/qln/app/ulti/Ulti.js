@@ -92,14 +92,13 @@ function fnc_formatKeyUp() {
       formatCurrency($(this));
     },
     blur: function () { 
-      //formatCurrency($(this), "blur");
+      formatCurrency($(this), "blur");
     }
   });
   function formatNumber(n) {
     // format number 1000000 to 1,234,567
     if (Number(fnc_replace(n, ',', '')) < 0) {
-      var soDuong = n.replace('-','')
-      var result = '-' + soDuong.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      var soDuong = n.replace('-','') 
       return '-' + soDuong.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     else {

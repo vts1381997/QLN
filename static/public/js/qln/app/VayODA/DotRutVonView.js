@@ -88,7 +88,7 @@ var DotRutVonView = function () {
 				}
 				else {
 					download = ''
-				} 
+				}
 				aRows.push([
 					(i + 1) + _hidden,
 					_item.GIAINGANTHEOKHNAM,
@@ -162,9 +162,20 @@ var DotRutVonView = function () {
 			else {
 				var txtSoTienVayLaiToiDa = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-sotienvaylaitoida')
 				var txtSoTienCapPhatToiDa = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-sotiencapphattoida')
+				var txtTienTeId = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-idtiente')
+				var txtTyGia = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-tientebanra').replace(',', '')
+				var txtTyGiaTienRut = $("#SOTIENGIAINGANVAYLAITIENTE option:selected").attr('data-tygia').replace(',', '')
 				var soTienRutToiDa = Number(txtSoTienVayLaiToiDa) + Number(txtSoTienCapPhatToiDa)
-				if (Number($(this).val().replaceAll(',', '')) > Number(soTienRutToiDa)) {
-					$(this).val(formatMoney(soTienRutToiDa))
+				if (txtTienTeId == $("#SOTIENGIAINGANVAYLAITIENTE").val()) {
+					if (Number($(this).val().replaceAll(',', '')) > Number(soTienRutToiDa)) {
+						$(this).val(formatMoney(soTienRutToiDa))
+					}
+				} else {
+					var soTienRutKhac = String($(this).val().replaceAll(',', '') * txtTyGiaTienRut / txtTyGia).split('.')[0]
+					var soTienRut = String(soTienRutToiDa * txtTyGia / txtTyGiaTienRut).split('.')[0]
+					if (Number(soTienRutKhac) > Number(soTienRutToiDa)) {
+						$(this).val(formatMoney(soTienRut))
+					}
 				}
 				$("#SOTIENGIAINGANVAYLAITIENTE").trigger('change')
 			}
@@ -411,9 +422,9 @@ var DotRutVonView = function () {
 			else {
 				that.oTable.$('tr.selected').removeClass('selected');
 				$(this).addClass('selected');
-				idrutvon = $(this).find('.rowID').text(); 
+				idrutvon = $(this).find('.rowID').text();
 				oDotRutVon.DOTRUTVONID = JSON.parse(idrutvon).DOTRUTVONID;
-				console.log(JSON.parse(idrutvon),'JSON.parse(idrutvon)'); 
+				console.log(JSON.parse(idrutvon), 'JSON.parse(idrutvon)');
 				that.filterAction('SELECT');
 			}
 		});
