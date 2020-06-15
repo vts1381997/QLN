@@ -1,6 +1,5 @@
 var express = require("express");
-var app = express();
-//var port = process.env.PORT || 3000; 
+var app = express(); 
 var multer = require('multer');
 var bodyParser = require('body-parser');
 var uploadController = require('./controller/uploadController')
@@ -44,8 +43,7 @@ app.post('/upload', upload, function (req, res, next) {
   } 
   let dt = {
     URL, IDROWTABLE, TBLNAME, FILENAME, ROWID
-  }
-  console.log(size,'size');
+  } 
   if (size > 5242880) {
     fs.unlink(URL, function (err) {
       if (err) throw err;
@@ -86,6 +84,5 @@ https.createServer({
   cert: fs.readFileSync('./cert.pem'),
   passphrase: 'Admin123'
 }, app)
-.listen(3000);
-//.listen(port);
+.listen(3000); 
 
