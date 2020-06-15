@@ -319,7 +319,7 @@ var HopDongVayLaiView = function () {
 			$('#LOAILAISUAT').val(oHopDongVayLai.LOAILAISUAT);
 			$('#GHICHU').val(oHopDongVayLai.GHICHU);
 			$('#DONVIID').val(oHopDongVayLai.DONVIID).select2();
-			$('#DUANID').val(oHopDongVayLai.DUANID);
+			$('#DUANID').val(oHopDongVayLai.DUANID).select2();
 			$('#TIENTEID').val(oHopDongVayLai.TIENTEID).select2();
 			$('#MAPHULUC').val(oHopDongVayLai.MAPHULUC);
 			$('#TENPHULUC').val(oHopDongVayLai.TENPHULUC);
