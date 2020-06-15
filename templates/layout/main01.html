@@ -187,64 +187,65 @@
                 }
             }
             //kiểm tra đăng nhập duy nhất
-            var check = oNguoiDung.getInformationLogin();
-            if (check.length == 0) {
-                var rs = oNguoiDung.insertInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
-            }
-            else
-                if (check.length == 1) {
-                    if (check[0].IP == localStorage.getItem('ip')) {
-                        //cùng địa chỉ ip thì kiểm tra địa chỉ brower 
-                        if (localStorage.getItem("browser") == check[0].BROWSER) {
-                            //cùng địa chỉ browser thì kiểm tra thời gian login
-                            if (localStorage.getItem("timelogin") == check[0].TIME) {
-                            }
-                            else {
-                                //update lại thời gian đăng nhập 
-                                var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
-                            }
-                        }
-                        else {
-                            //khác browser thì kiểm tra thởi gian login
-                            if (localStorage.getItem("timelogin") == check[0].TIME) {
-                            }
-                            else {
-                                a = moment(check[0].TIME, 'DD/MM/YYYY HH:mm:ss')
-                                b = moment(localStorage.getItem("timelogin"), 'DD/MM/YYYY HH:mm:ss')
-                                if (a < b) {
-                                    // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
-                                    var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
-                                }
-                                else {
-                                    var oAlert = new AlertDialog3('Thông báo');
-                                    oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
-                                    setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        //khác địa chỉ ip
-                        var timeLoginCheck = check[0].TIME
-                        var timeLogin = localStorage.getItem('timelogin')
-                        var dateStrA = timeLoginCheck.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
-                        var dateStrB = timeLogin.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
-                        a = moment(timeLoginCheck, 'DD/MM/YYYY HH:mm:ss')
-                        b = moment(timeLogin, 'DD/MM/YYYY HH:mm:ss')
-                        if (a < b) {
-                            // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
-                            var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
-                        }
-                        else {
-                            var oAlert = new AlertDialog3('Thông báo');
-                            oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
-                            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
-                        }
-                    }
-                }
-                else {
-                    var rs = oNguoiDung.deleteInformationLogin()
-                }
+            // var check = oNguoiDung.getInformationLogin();
+            // if (check.length == 0) {
+            //     var rs = oNguoiDung.insertInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+            // }
+            // else
+            //     if (check.length == 1) {
+            //         if (check[0].IP == localStorage.getItem('ip')) {
+            //             //cùng địa chỉ ip thì kiểm tra địa chỉ brower 
+            //             if (localStorage.getItem("browser") == check[0].BROWSER) {
+            //                 //cùng địa chỉ browser thì kiểm tra thời gian login
+            //                 if (localStorage.getItem("timelogin") == check[0].TIME) {
+            //                 }
+            //                 else {
+            //                     //update lại thời gian đăng nhập 
+            //                     var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+            //                 }
+            //             }
+            //             else {
+            //                 //khác browser thì kiểm tra thởi gian login
+            //                 if (localStorage.getItem("timelogin") == check[0].TIME) {
+            //                 }
+            //                 else {
+            //                     a = moment(check[0].TIME, 'DD/MM/YYYY HH:mm:ss')
+            //                     b = moment(localStorage.getItem("timelogin"), 'DD/MM/YYYY HH:mm:ss')
+            //                     if (a < b) {
+            //                         // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
+            //                         var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+            //                     }
+            //                     else {
+            //                         var oAlert = new AlertDialog3('Thông báo');
+            //                         oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+            //                         setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         else {
+            //             //khác địa chỉ ip
+            //             var timeLoginCheck = check[0].TIME
+            //             var timeLogin = localStorage.getItem('timelogin')
+            //             var dateStrA = timeLoginCheck.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+            //             var dateStrB = timeLogin.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+            //             a = moment(timeLoginCheck, 'DD/MM/YYYY HH:mm:ss')
+            //             b = moment(timeLogin, 'DD/MM/YYYY HH:mm:ss')
+            //             if (a < b) {
+            //                 // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
+            //                 var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+            //             }
+            //             else {
+            //                 var oAlert = new AlertDialog3('Thông báo');
+            //                 oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+            //                 setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
+            //             }
+            //         }
+            //     }
+            //     else {
+            //         var rs = oNguoiDung.deleteInformationLogin()
+            //     }
+
             if (typeof (Storage) !== "undefined") {
                 // Store
                 var today = new Date();
