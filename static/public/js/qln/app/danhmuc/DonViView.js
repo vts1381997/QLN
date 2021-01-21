@@ -147,7 +147,7 @@ var DonViView = function () {
 				return;
 			}
 			else {
-				const regex = /[^a-zA-Z0-9 ]/;
+				const regex = /[^a-zA-Z0-9_ áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữự]/;
 				if(regex.test($('#MA').val())){
 					oAlert.show('Mã không được chứa ký tự đặc biệt', '40%', '50px');
 					return;

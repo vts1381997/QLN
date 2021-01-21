@@ -382,11 +382,12 @@ var DuAnView = function () {
 						oAlert.show('Tên dự án bị thừa khoảng trắng', '40%', '50px');
 					}
 					else {
-						const regex = /[^a-zA-Z0-9 ]/;
+						const regex = /[^a-zA-Z0-9_ áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữự]/;
 						if (regex.test($('#MA').val())) {
 							oAlert1.show('Mã dự án không được chứa ký tự đặc biệt', '40%', '50px');
 							return;
 						}
+						console.log($('#TEN').val());
 						if (regex.test($('#TEN').val())) {
 							oAlert1.show('Tên dự án không được chứa ký tự đặc biệt', '40%', '50px');
 							return;

@@ -178,7 +178,7 @@ var KeHoachVayHangNamView = function () {
 		var soTienVayLaiTuChoi = $("#HOPDONGVAYLAIID option:selected").attr('data-sotienvaylaituchoi');
 		if (maHopDong) {
 			$("#MA").val(maDuAn + '-' + namKeHoach + '-' + maHopDong + '-' + text);
-			$("#TEN").val('Kế hoạch vốn năm ' + namKeHoach + ' cho dự án ' + tenDuAn);
+			$("#TEN").val('Kế hoạch vay vốn năm ' + namKeHoach + ' cho dự án ' + tenDuAn);
 			if (coCheTaiChinh == "HH") {
 				var soTienCapPhat = String(tongMucDauTu * phanTramCapPhat / 100)
 				var luyKeKeHoachCapPhat = $("#HOPDONGVAYLAIID option:selected").attr('data-luykekehoachcapphat');
@@ -192,7 +192,7 @@ var KeHoachVayHangNamView = function () {
 		}
 		else {
 			$("#MA").val(maDuAn + '-' + namKeHoach);
-			$("#TEN").val('Kế hoạch vốn năm ' + namKeHoach + ' cho dự án ' + tenDuAn);
+			$("#TEN").val('Kế hoạch vay vốn năm ' + namKeHoach + ' cho dự án ' + tenDuAn);
 		}
 	}
 
@@ -511,7 +511,7 @@ var KeHoachVayHangNamView = function () {
 						$('#DUNOCAPPHAT').val('0')
 						$('#HANMUCVAY').val('0')
 						$('#MA').val(maDuAn + '-' + $("#NAMKEHOACH").val())
-						$('#TEN').val('Kế hoạch vốn năm ' + $("#NAMKEHOACH").val() + ' cho dự án ' + tenDuAn)
+						$('#TEN').val('Kế hoạch vay vốn năm ' + $("#NAMKEHOACH").val() + ' cho dự án ' + tenDuAn)
 						$('#exampleModalLongTitle').text('Thêm kế hoạch vay hàng năm')
 					}
 				}
@@ -524,7 +524,7 @@ var KeHoachVayHangNamView = function () {
 					var hanmuccapphat = oKeHoachVayHangNam.getHanMucCapPhat(Number($(this).val()))
 					$('#HANMUCCAPPHAT').val(formatMoney(Number(hanmuccapphat[0].HANMUCCAPPHAT)))
 					$('#MA').val(maDuAn + '-' + $("#NAMKEHOACH").val())
-					$('#TEN').val('Kế hoạch vốn năm ' + $("#NAMKEHOACH").val() + ' cho dự án ' + tenDuAn)
+					$('#TEN').val('Kế hoạch vay vốn năm ' + $("#NAMKEHOACH").val() + ' cho dự án ' + tenDuAn)
 					$('#exampleModalLongTitle').text('Thêm kế hoạch vay hàng năm')
 				}
 			})
