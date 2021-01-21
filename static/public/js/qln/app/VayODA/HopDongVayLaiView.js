@@ -113,6 +113,7 @@ var HopDongVayLaiView = function () {
 		$('#DUANID').html(option).trigger('change')
 		$("#DONVIID").html(fnc_danhsachdonvi())
 		$('#TIENTENNID').html(option1)
+		$('#PHICAMKETTIENTE').html(option1)
 
 		$('body').on('change', '#TIENTEID', function () {
 			var tyGia = $("#TIENTEID option:selected").attr('data-tygia')
@@ -169,6 +170,7 @@ var HopDongVayLaiView = function () {
 			var luyKeTienKyVay = $("#DUANID option:selected").attr('data-luyketienkyvay')
 			$("#TIENTEID").val(donViTienTe).select2()
 			$("#TIENTENNID").val(donViTienTe).select2()
+			$("#PHICAMKETTIENTE").val(donViTienTe).select2()
 			if (duan.includes('HH')) {
 				if (Number(tongMucDauTu) > 0) {
 					if (Number(luyKeTienKyVay) > 0 && Number(luyKeTienKyVay) < Number(phanTramVayLai / 100 * tongMucDauTu)) {
