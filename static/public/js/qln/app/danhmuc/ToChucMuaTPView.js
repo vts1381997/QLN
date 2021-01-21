@@ -11,6 +11,7 @@ var ToChucMuaTPView = function () {
 	var xxx = 0;
 	var yyy = 0;
 	var zzz = 0;
+	var arrMa = [];
 	var oToChucMuaTP = new ToChucMuaTP();
 	var ngayhientai = fnc_ngayhientai().split('-')[0] + fnc_ngayhientai().split('-')[1] + fnc_ngayhientai().split('-')[2]
 	var jsonid;
@@ -30,7 +31,7 @@ var ToChucMuaTPView = function () {
 			default:
 				break;
 		}
-	} 
+	}
 	this.bindTblLichSu = () => {
 		oToChucMuaTP.getLichSu(oToChucMuaTP.TOCHUCMUATPID);
 		that.oTable2.clear().draw();
@@ -114,7 +115,7 @@ var ToChucMuaTPView = function () {
 				tienlai = tongtien * _item.LAISUATPHTHANHCONG / 100
 				pttra = '1 Năm'
 				ngaydonglai = String(Number(Nammua) + 1) + Thangmua + Ngaymua
-				datedonglai = Ngaymua + '/' + Thangmua  + '/' + String(Number(Nammua) + 1)
+				datedonglai = Ngaymua + '/' + Thangmua + '/' + String(Number(Nammua) + 1)
 			}
 			if (_item.PHUONGTHUCTRALAI == 'DH') {
 				tienlai = _item.NGAYKYHANTRAIPHIEU * tongtien * _item.LAISUATPHTHANHCONG / 100
@@ -188,8 +189,10 @@ var ToChucMuaTPView = function () {
 		oToChucMuaTP.getAll();
 		that.oTable.clear().draw();
 		var aRows = [];
+		arrMa = [];
 		for (var i = 0; i < oToChucMuaTP.LIST.length; i++) {
 			var _item = oToChucMuaTP.LIST[i];
+			arrMa.push(_item.MA)
 			that.bindTblDanhSach(_item.TOCHUCMUATPID);
 			var tt = ''
 			if (xxx > 0) {
@@ -221,6 +224,7 @@ var ToChucMuaTPView = function () {
 		}
 
 		that.oTable.rows.add(aRows).draw();
+		arrMa = deduplicate(arrMa)
 	}
 
 	this.init = function () {
@@ -244,13 +248,13 @@ var ToChucMuaTPView = function () {
 
 	$(document).ready(function () {
 		$('body').on('change', '.email', function () {
-			validateEmail($(".email").val())
-			if (validateEmail($(".email").val()) == true) {
-				return;
-			} else {
-				var oAlert = new AlertDialog1('Cảnh báo');
-				oAlert.show('Email này không hợp lệ', '40%', '50px');
-			}
+			// validateEmail($(".email").val())
+			// if (validateEmail($(".email").val()) == true) {
+			// 	return;
+			// } else {
+			// 	var oAlert = new AlertDialog1('Cảnh báo');
+			// 	oAlert.show('Email này không hợp lệ', '40%', '50px');
+			// }
 		})
 	})
 
@@ -328,7 +332,7 @@ var ToChucMuaTPView = function () {
 					oAlert.show('Chưa đến ngày trả lãi', '40%', '50px');
 					return false;
 				} else {
-					function ok() { 
+					function ok() {
 						var response = oToChucMuaTP.TraLaiGoc(data);
 						var oAlert = new AlertDialog('Thông báo');
 						oAlert.show(response.MESSAGE, '40%', '50px');
@@ -414,8 +418,9 @@ var ToChucMuaTPView = function () {
 						var rs = oToChucMuaTP.del(oToChucMuaTP.TOCHUCMUATPID);
 						var oAlert = new AlertDialog('Thông báo');
 						oAlert.show(rs.MESSAGE, '40%', '50px');
-						that.bindGrid01();
-						reload();
+						setTimeout(that.bindGrid01, 300)
+						// that.bindGrid01();
+						// reload();
 					}
 					function cancel() { }
 					var oConfirmDialog = new ConfirmDialog('Xác nhận xóa', ok, cancel);
@@ -429,13 +434,39 @@ var ToChucMuaTPView = function () {
 		});
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
-			e.preventDefault()
+			e.preventDefault();
+			var oAlert = new AlertDialog1('Thông báo');
 			if ($('#MA').val() == '') {
-				var oAlert = new AlertDialog1('Thông báo');
 				oAlert.show('Mã không được để trống', '40%', '50px');
 				return;
 			}
 			else {
+				validateEmail($(".email").val())
+				if (validateEmail($(".email").val()) == true) {
+				} else {
+					if ($(".email").val() != "") {
+						var oAlert = new AlertDialog1('Cảnh báo');
+						oAlert.show('Email này không hợp lệ', '40%', '50px');
+						return;
+					}
+				}
+				const regex = /[^a-zA-Z0-9_ ]/;
+				if (regex.test($('#MA').val())) {
+					oAlert.show('Mã tổ chức không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if (regex.test($('#TOCHUC').val())) {
+					oAlert.show('Tên tổ chức không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if (regex.test($('#DIACHI').val())) {
+					oAlert.show('Địa chỉ không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if (arrMa.includes($('#MA').val())) {
+					oAlert.show('Mã tổ chức đã bị trùng', '40%', '50px');
+					return;
+				}
 				oToChucMuaTP.TOCHUCMUATPID = idToChucMuaTP;
 				oToChucMuaTP.MA = $('#MA').val().trim();
 				oToChucMuaTP.TOCHUC = $('#TOCHUC').val();
@@ -451,10 +482,16 @@ var ToChucMuaTPView = function () {
 					oAlert.show('Mã này đã được sử dụng', '40%', '50px');
 				}
 				else {
-					that.bindGrid01();
 					var oAlert = new AlertDialog('Thông báo');
 					oAlert.show(rs.MESSAGE, '40%', '50px');
-					debugger
+					var interval = setInterval(() => {
+						if ($("#exampleModalCenter").attr("style").includes("none")) {
+							that.bindGrid01();
+							clearInterval(interval);
+						}
+					}, 100)
+					// setTimeout(that.bindGrid01, 300)
+					// that.bindGrid01();
 				}
 			}
 		})

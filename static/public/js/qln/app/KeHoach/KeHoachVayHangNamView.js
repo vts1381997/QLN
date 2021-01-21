@@ -265,7 +265,15 @@ var KeHoachVayHangNamView = function () {
 				$("#DUANID").prop('disabled', false);
 				$("#HOPDONGVAYLAIID").prop('disabled', false);
 			});
-
+			document.getElementsByName("userPhoto")[0].addEventListener("click", fileUpload);
+			function fileUpload(e){
+				var targetAfterX = e.offsetX >= 0 && e.offsetX <= 81;
+				var targetAfterY = e.offsetY >= 0 && e.offsetY <= 40;
+				if(targetAfterX && targetAfterY){
+				}else{
+					e.preventDefault();
+				}
+			}
 			$('.ACTIONS').on('click', '#btnEdit', function (e) {
 				e.preventDefault();
 				$("#Grid01").find('.selected').removeClass('selected');

@@ -316,6 +316,15 @@ var VayKBNNView = function (isOtherView) {
 		var oConfirmDialog = new ConfirmDialog('Xác nhận xóa', ok, cancel);
 		oConfirmDialog.show('Bạn có chắc chắn muốn xóa bản ghi này không?', '40%', '50px');
 	});
+	document.getElementsByName("userPhoto")[0].addEventListener("click", fileUpload);
+	function fileUpload(e) {
+		var targetAfterX = e.offsetX >= 0 && e.offsetX <= 81;
+		var targetAfterY = e.offsetY >= 0 && e.offsetY <= 40;
+		if (targetAfterX && targetAfterY) {
+		} else {
+			e.preventDefault();
+		}
+	}
 	$(".btnSave").on('click', function (e) {
 		if (isDoubleClicked($(this))) return;
 		e.preventDefault()
@@ -354,9 +363,9 @@ var VayKBNNView = function (isOtherView) {
 					that.bindGrid01();
 				}
 				else {
-				that.bindGrid01();
-				var oAlert = new AlertDialog('Thông báo');
-				oAlert.show(rs.MESSAGE, '40%', '50px');
+					that.bindGrid01();
+					var oAlert = new AlertDialog('Thông báo');
+					oAlert.show(rs.MESSAGE, '40%', '50px');
 				}
 			}
 		} else {

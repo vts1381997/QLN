@@ -372,7 +372,15 @@ var HopDongVayLaiView = function () {
 			var url = CONFIG_API.URL.SEVER + $(this).attr('val')
 			window.open(url)
 		})
-
+		document.getElementsByName("userPhoto")[0].addEventListener("click", fileUpload);
+		function fileUpload(e){
+			var targetAfterX = e.offsetX >= 0 && e.offsetX <= 81;
+			var targetAfterY = e.offsetY >= 0 && e.offsetY <= 40;
+			if(targetAfterX && targetAfterY){
+			}else{
+				e.preventDefault();
+			}
+		}
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
 			e.preventDefault()

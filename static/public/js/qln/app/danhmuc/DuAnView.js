@@ -297,7 +297,7 @@ var DuAnView = function () {
 			$("#TONGMUCDAUTU").on('change', function () {
 				if (Number($("#TONGMUCDAUTU").val()) > JSON.parse(idduan1).TONGTIEN) {
 				}
-			}) 
+			})
 			$exampleMulti.val(listTinhthanh).trigger("change");
 			$nhataitro.val(listNhaTaiTro).trigger("change");
 			var oHopDongVayLai = new HopDongVayLai();
@@ -353,7 +353,8 @@ var DuAnView = function () {
 		});
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
-			e.preventDefault()
+			e.preventDefault();
+			var oAlert1 = new AlertDialog1('Thông báo');
 			var tinhthanhid = ''
 			listTinhthanh.map(val => {
 				tinhthanhid = tinhthanhid + val + '@'
@@ -381,6 +382,27 @@ var DuAnView = function () {
 						oAlert.show('Tên dự án bị thừa khoảng trắng', '40%', '50px');
 					}
 					else {
+						const regex = /[^a-zA-Z0-9 ]/;
+						if (regex.test($('#MA').val())) {
+							oAlert1.show('Mã dự án không được chứa ký tự đặc biệt', '40%', '50px');
+							return;
+						}
+						if (regex.test($('#TEN').val())) {
+							oAlert1.show('Tên dự án không được chứa ký tự đặc biệt', '40%', '50px');
+							return;
+						}
+						if (regex.test($('#CHUDAUTU').val())) {
+							oAlert1.show('Chủ đầu tư không được chứa ký tự đặc biệt', '40%', '50px');
+							return;
+						}
+						if (regex.test($('#DONVITHUCHIEN').val())) {
+							oAlert1.show('Đơn vị thực hiện không được chứa ký tự đặc biệt', '40%', '50px');
+							return;
+						}
+						if (regex.test($('#NOTE').val())) {
+							oAlert1.show('Ghi chú không được chứa ký tự đặc biệt', '40%', '50px');
+							return;
+						}
 						if ($("#TIEUDUAN").val() == 'f') {
 							$("#MA").css('border-color', '')
 							$("#TEN").css('border-color', '')

@@ -35,7 +35,7 @@ const regex = {
 var Query = require('./query')
 
 const ExcellController = {
-    export: (data, callback) => {
+    export: (data, callback) => { 
         Export[(data.i_fnc + '').toLocaleLowerCase()](data, function (data_callback) {
             callback({ RESULT: data_callback, CODE: 1 })
         })
@@ -147,6 +147,112 @@ const Export = {
 
 
                         var filename = 'Danh_sách_vay_kho_bạc_nhà_nước_kết_xuất_ngày_' + (((new Date()).getUTCDay() + 7) + '-' + (new Date()).getMonth() + '-' + (new Date()).getFullYear() + '-') + ((new Date()).getTime()) + idlogin + '.xlsx'
+                        var urlFile = 'storage/excell/export/' + filename
+
+                        let _pWriteFile = new Promise((resolve, reject) => {
+                            var buildFile = workbook.toFileAsync(urlFile, {});
+                            resolve(buildFile)
+
+                        })
+                        _pWriteFile.then((buildFile) => {
+                            callback({ CODE: 1, urlFile: urlFile, MESSAGE: 'Xuất thành công!' })
+                        })
+
+                        _pWriteFile.catch(err => {
+                            callback({ CODE: 0, urlFile: urlFile, MESSAGE: 'Xuất không thành công!' })
+                        })
+                    });
+
+            })
+        } catch (err) {
+            callback({ CODE: 0, MESSAGE: 'Xuất không thành công!' })
+            console.log(err);
+        }
+    },
+    tochuctaichinh: (data, callback) => {
+        idlogin = data.idlogin
+        data.unitid = data.i_donviid
+        delete data.i_donviid
+        delete data.i_fnc
+        var keys = []
+        try {
+            Query(data, 'fn_dm_tochuctaichinh_getall', function (_rs) {
+                _rs_format = []
+                keys = _rs.length > 0 ? Object.keys(_rs[0]) : []
+                _rs.map((item, index_item) => { 
+                    item.TRANGTHAI = item.TRANGTHAI == 1 ? 'Đang hoạt động' : 'Tạm dừng hoạt động'
+                    delete item.TOCHUCTAICHINHID
+                    delete item.UUID
+                    delete item.IDFILE
+                    delete item.URL
+                    item_format = {
+                        STT: index_item + 1,
+                        ...item
+                    }
+                    _rs_format.push(item_format)
+                });
+
+                keys_format = Object.keys(_rs_format[0])
+                var arr_cell = arrCharCode.slice(0, keys_format.length)
+                XlsxPopulate.fromBlankAsync()
+                    .then(async workbook => {
+                        var sheetExport = workbook.addSheet("Danh sách TCTCTD");
+                        workbook.deleteSheet("Sheet1")
+
+                        const arrHeadTitle = [
+                            'STT',
+                            'Mã',
+                            'Tên tổ chức tài chính',
+                            'Địa chỉ',
+                            'Số giấy phép',
+                            'Ngày cấp',
+                            'Vốn điều lệ',
+                            'Trạng thái'
+                        ]
+
+                        const rangeHead = sheetExport.range("A1:" + arr_cell[arr_cell.length - 1] + 1); // vẽ  title
+                        rangeHead.merged(true)
+                        rangeHead.value('Danh sách tổ chức tài chính, tín dụng kết xuất ngày ' + (((new Date()).getUTCDay() + 7) + '/' + (new Date()).getMonth() + '/' + (new Date()).getFullYear()))
+                        rangeHead.style("verticalAlignment", "center")
+                        rangeHead.style("horizontalAlignment", "center")
+                        rangeHead.style('fontColor', 'FFFFFF')
+                        rangeHead.style("fill", '3366FF');
+                        rangeHead.style("fontSize", 20);
+
+
+                        sheetExport.row(1).height(80);
+                        sheetExport.row(2).style("verticalAlignment", "center")
+                        sheetExport.row(2).style("horizontalAlignment", "center")
+                        sheetExport.row(2).height(60)
+
+                        arr_cell.map((itemCelldraw, index) => { //vẽ head
+                            sheetExport.column(itemCelldraw).width(15)
+                            sheetExport.cell(itemCelldraw + 2).value(arrHeadTitle[index])
+                            sheetExport.cell(itemCelldraw + 2).style("fill", 'FFFF99')
+                            sheetExport.cell(itemCelldraw + 2).style('fontColor', '000000')
+                            sheetExport.cell(itemCelldraw + 2).style('fontSize', 14)
+                            sheetExport.cell(itemCelldraw + 2).style('wrapText', true)
+                            sheetExport.cell(itemCelldraw + 2).style('border', true)
+                        })
+
+
+
+                        _rs_format.map((item_rs, index_rs) => {
+                            arr_cell.map((itemCell, index_cell) => {
+                                sheetExport.cell(itemCell + (Number(index_rs) + 3)).value(item_rs[keys_format[index_cell]])
+                                if (regex.number.test(item_rs[keys_format[index_cell]]) & keys_format[index_cell].toUpperCase() !== 'STT') {
+                                    sheetExport.cell(itemCell + (Number(index_rs) + 3)).style("numberFormat", "0,0.0")
+                                    sheetExport.cell(itemCell + (Number(index_rs) + 3)).style("wrapText", true)
+                                }
+                                if (keys_format[index_cell].toUpperCase() !== 'STT') {
+                                    sheetExport.cell(itemCell + (Number(index_rs) + 3)).style('horizontalAlignment', 'center')
+                                }
+                                sheetExport.cell(itemCell + (Number(index_rs) + 3)).style("border", true)
+                            })
+                        })
+
+
+                        var filename = 'Danh_sách_vay_tổ_chức_tài_chính_tín_dụng_kết_xuất_ngày_' + (((new Date()).getUTCDay() + 7) + '-' + (new Date()).getMonth() + '-' + (new Date()).getFullYear() + '-') + ((new Date()).getTime()) + idlogin + '.xlsx'
                         var urlFile = 'storage/excell/export/' + filename
 
                         let _pWriteFile = new Promise((resolve, reject) => {

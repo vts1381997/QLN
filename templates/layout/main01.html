@@ -149,8 +149,9 @@
             var secondsTimeClick = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
             var subtractionTime = secondsTimeClick - secondsTimeLoad;
             if (subtractionTime > 899) {
-                var oAuthenHelper = new AuthenHelper();
-                oAuthenHelper.logout();
+                //không hoạt động 15 phút sẽ bị out ra
+                // var oAuthenHelper = new AuthenHelper();
+                // oAuthenHelper.logout();
             }
             else {
                 localStorage.setItem("timeload", time)

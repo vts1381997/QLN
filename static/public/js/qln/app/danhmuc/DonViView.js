@@ -8,6 +8,7 @@ var DonViView = function () {
 	var oDonVi = new DonVi();
 	var list = [];
 	var listdvcha = [];
+	var arrMa = [];
 	this.filterAction = function (sState) {
 		switch (sState) {
 			case 'NEW':
@@ -31,8 +32,10 @@ var DonViView = function () {
 		that.oTable.clear().draw();
 		list = oDonVi.LIST;
 		var aRows = [];
+		arrMa = [];
 		for (var i = 0; i < oDonVi.LIST.length; i++) {
 			var _item = oDonVi.LIST[i];
+			arrMa.push(_item.MA)
 			var _hidden = '<p style="display:none" class="rowID"  />' + JSON.stringify(_item) + '</p>';
 			aRows.push([
 				(i + 1) + _hidden,
@@ -43,6 +46,7 @@ var DonViView = function () {
 			]);
 		}
 		that.oTable.rows.add(aRows).draw();
+		arrMa = deduplicate(arrMa) 
 	}
 
 	this.init = function () {
@@ -128,22 +132,34 @@ var DonViView = function () {
 		});
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
-			e.preventDefault()
+			e.preventDefault();
+			var oAlert = new AlertDialog1('Thông báo');
 			String.prototype.replaceAll = function (search, replacement) {
 				var target = this;
 				return target.replace(new RegExp(search, 'g'), replacement);
 			};
 			if ($('#MA').val() == '' || $("#MA").val().trim() == '') {
-				var oAlert = new AlertDialog1('Thông báo');
 				oAlert.show('Mã không được để rỗng', '40%', '50px');
 				return;
 			}
 			if ($('#MA').val().length > 10) {
-				var oAlert = new AlertDialog1('Thông báo');
 				oAlert.show('Mã không được vượt quá 10 kí tự !', '40%', '50px');
 				return;
 			}
 			else {
+				const regex = /[^a-zA-Z0-9 ]/;
+				if(regex.test($('#MA').val())){
+					oAlert.show('Mã không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#TENDONVI').val())){
+					oAlert.show('Tên đơn vị không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(arrMa.includes($('#MA').val().trim())){
+					oAlert.show('Mã đã bị trùng', '40%', '50px');
+					return;
+				}
 				oDonVi.TENDONVI = $('#TENDONVI').val();
 				oDonVi.TINHTHANHID = Number($('#TINHTHANHID').val());
 				oDonVi.IDCHA = $('#IDCHA').val();

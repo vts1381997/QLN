@@ -255,7 +255,8 @@ var NhaTaiTroView = function () {
 
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
-			e.preventDefault()
+			e.preventDefault();
+			var oAlert1 = new AlertDialog1('Thông báo');
 			String.prototype.replaceAll = function (search, replacement) {
 				var target = this;
 				return target.replace(new RegExp(search, 'g'), replacement);
@@ -266,6 +267,19 @@ var NhaTaiTroView = function () {
 				return;
 			}
 			else {
+				const regex = /[^a-zA-Z0-9 ]/;
+				if(regex.test($('#MA').val())){
+					oAlert1.show('Mã không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#TEN').val())){
+					oAlert1.show('Tên không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#DIACHI').val())){
+					oAlert1.show('Địa chỉ không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
 				oNhaTaiTro.NHATAITROID = idNhaTaiTro;
 				oNhaTaiTro.MA = $('#MA').val().trim();
 				oNhaTaiTro.TEN = $('#TEN').val();

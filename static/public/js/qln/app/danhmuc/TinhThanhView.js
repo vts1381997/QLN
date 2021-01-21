@@ -124,6 +124,15 @@ var TinhThanhView = function () {
 				oAlert1.show('Mã địa bàn không được để trống', '40%', '50px');
 			}
 			else {
+				const regex = /[^a-zA-Z0-9 ]/;
+				if(regex.test($('#MA').val())){
+					oAlert1.show('Mã địa bàn không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#TEN').val())){
+					oAlert1.show('Tên tỉnh/thành phố không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
 				oTinhThanh.TINHTHANHID = idTinhThanh;
 				oTinhThanh.MA = $('#MA').val();
 				oTinhThanh.TEN = $('#TEN').val();

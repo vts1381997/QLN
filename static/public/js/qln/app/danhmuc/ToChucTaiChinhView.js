@@ -248,6 +248,15 @@ var ToChucTaiChinhView = function () {
 			fnc_validateSpace("DIACHI");
 			fnc_validateSpace("SOGIAYPHEP");
 		});
+		document.getElementsByName("userPhoto")[0].addEventListener("click", fileUpload);
+		function fileUpload(e){
+			var targetAfterX = e.offsetX >= 0 && e.offsetX <= 81;
+			var targetAfterY = e.offsetY >= 0 && e.offsetY <= 40;
+			if(targetAfterX && targetAfterY){
+			}else{
+				e.preventDefault();
+			}
+		}
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
 			e.preventDefault()
 			if (!oToChucTaiChinh.TOCHUCTAICHINHID) {
@@ -271,6 +280,7 @@ var ToChucTaiChinhView = function () {
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
 			e.preventDefault();
+			var oAlert1 = new AlertDialog1('Thông báo');
 			String.prototype.replaceAll = function (search, replacement) {
 				var target = this;
 				return target.replace(new RegExp(search, 'g'), replacement);
@@ -280,6 +290,23 @@ var ToChucTaiChinhView = function () {
 				oAlert.show('Mã không được để trống', '40%', '50px');
 			}
 			else {
+				const regex = /[^a-zA-Z0-9 ]/;
+				if(regex.test($('#MA').val())){
+					oAlert1.show('Mã không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#TEN').val())){
+					oAlert1.show('Tên không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#DIACHI').val())){
+					oAlert1.show('Địa chỉ không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
+				if(regex.test($('#SOGIAYPHEP').val())){
+					oAlert1.show('Số giấy phép không được chứa ký tự đặc biệt', '40%', '50px');
+					return;
+				}
 				oToChucTaiChinh.TOCHUCTAICHINHID = idToChucTaiChinh;
 				oToChucTaiChinh.MA = $('#MA').val();
 				oToChucTaiChinh.TEN = $('#TEN').val();
