@@ -99,7 +99,7 @@ var HopDongVayLaiView = function () {
 		})
 		$('#TIENTEID').html(option1)
 		$('#TIENTEIDCP').html(option1)
-		DuAns.getAll();
+		DuAns.getAllHopDong();
 		var resultDuan = DuAns.LIST
 		var option = ''
 		resultDuan.map(value => {

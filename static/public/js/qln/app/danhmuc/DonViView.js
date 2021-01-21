@@ -159,7 +159,7 @@ var DonViView = function () {
 				if(arrMa.includes($('#MA').val().trim())){
 					oAlert.show('Mã đã bị trùng', '40%', '50px');
 					return;
-				}
+				} 
 				oDonVi.TENDONVI = $('#TENDONVI').val();
 				oDonVi.TINHTHANHID = Number($('#TINHTHANHID').val());
 				oDonVi.IDCHA = $('#IDCHA').val();

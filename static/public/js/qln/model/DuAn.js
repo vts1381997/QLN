@@ -3,6 +3,7 @@ var DuAn = function () {
 
 	const URL = {
 		GETALL: CONFIG_API.URL.BASE_API + 'dm_duan/getall',
+		GETALLHOPDONG: CONFIG_API.URL.BASE_API + 'dm_duan/getallhopdong',
 		GETBYID: CONFIG_API.URL.BASE_API + 'dm_duan/getbyid',
 		GETALLBYNHATAITRO: CONFIG_API.URL.BASE_API + 'dm_duan/getallbynhataitro',
 		SEARCH: CONFIG_API.URL.BASE_API + 'dm_duan/search',
@@ -37,6 +38,11 @@ var DuAn = function () {
 	// Get all data
 	this.getAll = function () {
 		var rs = DATA.get(URL.GETALL);
+		that.LIST = rs;
+	}
+
+	this.getAllHopDong = function () {
+		var rs = DATA.get(URL.GETALLHOPDONG);
 		that.LIST = rs;
 	}
 
