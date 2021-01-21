@@ -15,15 +15,28 @@ var ExcelToJSON = function () {
 
         reader.onload = function (e) {
             var data = e.target.result;
-            var workbook = XLSX.read(data, {
-                type: 'binary'
-            });
+            try {
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                });
+            }
+            catch (err) {
+                if (err.toString().includes("Unsupported file")) {
+                    var oAlert1 = new AlertDialog1('Thông báo');
+                    oAlert1.show('File mẫu không hợp lệ', '40%', '50px');
+                    return;
+                }
+                else {
+                    var oAlert1 = new AlertDialog1('Thông báo');
+                    oAlert1.show('Có lỗi xảy ra, vui lòng thử lại', '40%', '50px');
+                    return;
+                }
+            }
 
             fn_import(workbook.Sheets)
         };
 
         reader.onerror = function (ex) {
-
         };
 
         reader.readAsBinaryString(file);
@@ -63,8 +76,8 @@ $(document).ready(() => {
         e.preventDefault()
         var oExcelToJSON = new ExcelToJSON()
         var inputfile = document.getElementById('FILEIMPORT')
-        oExcelToJSON.parseExcel(inputfile.files[ 0 ])
-
+        var a = oExcelToJSON.parseExcel(inputfile.files[0])
+        console.log(a);
     })
 })
 
@@ -74,4 +87,13 @@ fn_import = (i_sheets) => {
     paramPostImportTamplate.i_donviid = $('#modalImport #DONVIID').val()
     var _res = DATA.get(apiExcell.apiImport, paramPostImportTamplate)
     window.location.reload()
+    // if (_res) {
+    //     var oAlert1 = new AlertDialog1('Thông báo');
+    //     oAlert1.show('Nhận dữ liệu thành công', '40%', '50px');
+    //     // window.location.reload()
+    // }
+    // else {
+    //     var oAlert1 = new AlertDialog1('Thông báo');
+    //     oAlert1.show('Nhận dữ liệu không thành công', '40%', '50px');
+    // }
 }

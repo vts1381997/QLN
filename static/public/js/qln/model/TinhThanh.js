@@ -70,7 +70,6 @@ var TinhThanh = function(){
 			CREATEDBY:that.CREATEDBY,
 			UPDATEDDATE:that.UPDATEDDATE,
 			UPDATEDBY:that.UPDATEDBY
-			
 		}
 		return  DATA.set(URL.SAVE,data);
 	}

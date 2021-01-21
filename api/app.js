@@ -48,7 +48,7 @@ app.use('/phanquyen/search', authorize, search);
 app.use('/phanquyen/nguoidung', authorize, userRouter);
 app.use('/phanquyen/detail', authorize, DetailRouter);
 app.use('/sendmail', authorize, apiSendMail);
-app.use('/excell', authorize, excellRouter)
+app.use('/phanquyen/excell', authorize, excellRouter)
 
 app.use('/storage', express.static('storage'))
 
@@ -79,12 +79,12 @@ app.post('/upload', (req, res) => {
   });
 })
 
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`)) //80
-https.createServer({
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-  passphrase: 'Admin123'
-}, app)
-  .listen(8094);
+app.listen(port, () => console.log(`Example app listening on port ${port}!`)) //80
+// https.createServer({
+//   key: fs.readFileSync('./key.pem'),
+//   cert: fs.readFileSync('./cert.pem'),
+//   passphrase: 'Admin123'
+// }, app)
+//   .listen(8094);
 
 

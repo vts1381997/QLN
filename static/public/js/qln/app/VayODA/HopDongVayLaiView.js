@@ -495,7 +495,7 @@ var HopDongVayLaiView = function () {
 					$("#tablename").val(CurrentLayout)
 					var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
 					if (!rs1.success) {
-						oKeHoachVayHangNam.deluid(rs.RESULT)
+						oHopDongVayLai.deluid(rs.RESULT)
 						var oAlert = new AlertDialog('Thông báo');
 						oAlert.show(rs1.message, '40%', '50px');
 						that.bindGrid01();

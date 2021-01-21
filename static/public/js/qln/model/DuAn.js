@@ -30,6 +30,8 @@ var DuAn = function () {
 	this.CREATEDBY = "";
 	this.UPDATEDDATE = "";
 	this.UPDATEDBY = "";
+	this.MADUANCHA = "";
+	this.TIEUDUAN = "";
 	
 
 	// Get all data
@@ -60,6 +62,8 @@ var DuAn = function () {
 		that.CREATEDBY = item.CREATEDBY;
 		that.UPDATEDDATE = item.UPDATEDDATE;
 		that.UPDATEDBY = item.UPDATEDBY;
+		that.MADUANCHA = item.MADUANCHA;
+		that.TIEUDUAN = item.TIEUDUAN;
 	}
 	this.getAllByNhaTaiTro = function(sId){
 		var rs = DATA.get(URL.GETALLBYNHATAITRO, sId)
@@ -98,7 +102,9 @@ var DuAn = function () {
 			CREATEDBY : this.CREATEDBY,
 			UPDATEDDATE : this.UPDATEDDATE,
 			UPDATEDBY : this.UPDATEDBY,
-		}
+			MADUANCHA : this.MADUANCHA,
+			TIEUDUAN : this.TIEUDUAN,
+		} 
 		return DATA.set(URL.SAVE, data);
 	}
 

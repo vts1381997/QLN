@@ -51,6 +51,8 @@ var Header = function() {
 		setInterval(that.updateClock, 1000);
 
 		$('#btnSignOut').on('click',function(){
+			oNguoiDung = new NguoiDung();
+			oNguoiDung.deleteInformationLogin();
 			oAuthenHelper.logout();
 			//update status về 0
 		});

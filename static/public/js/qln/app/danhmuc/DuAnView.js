@@ -12,6 +12,7 @@ var DuAnView = function () {
 	var $exampleMulti
 	var $nhataitro
 	var nguoidungs = new NguoiDung();
+	var duans = new DuAn();
 	var TienTes = new TienTe()
 	TienTes.getAll();
 	var resultTiente = TienTes.LIST
@@ -32,7 +33,7 @@ var DuAnView = function () {
 		}
 	})
 	$('#NHATAITROID').html(option1)
-	$nhataitro = $("#TINHTHANHID").select2();
+	$nhataitro = $("#NHATAITROID").select2();
 	var optt = ''
 	list_tt.map(val => {
 		optt = optt + "<option value='" + val.TINHTHANHID + "'>" + val.TEN + "</option>"
@@ -241,8 +242,13 @@ var DuAnView = function () {
 			$("#exampleModalLongTitle").text('Thêm mới dự án');
 			$("#Grid01").find('.selected').removeClass('selected');
 			$("#alert-cctc").hide();
+			$("#TINHTHANHID").val(null).select2();
 			$exampleMulti.val(null).trigger("change");
 			$nhataitro.val(null).trigger("change");
+			listNhaTaiTro = [];
+			listTinhthanh = [];
+			$exampleMulti.val(listTinhthanh).trigger("change");
+			$nhataitro.val(listNhaTaiTro).trigger("change");
 			$('#MA').val('');
 			$('#TEN').val('');
 			$('#CHUDAUTU').val('');
@@ -251,6 +257,8 @@ var DuAnView = function () {
 			$('#NHATAITROID').val('').select2();
 			$('#TRANGTHAI').val('HD').select2();
 			$('#NOTE').val('');
+			// $("#TIEUDUAN").attr("checked","checked");
+			// $("#TIEUDUAN").removeAttr("checked");
 			idDuAn = 0;
 			that.bindModal();
 			$("#COCHETAICHINH").prop('disabled', false);
@@ -258,12 +266,24 @@ var DuAnView = function () {
 			$('#COCHETAICHINH').val('VL').select2();
 			$('#COCHETAICHINH').trigger('change');
 			$('#TIENTEID').val('19').select2();
-
+			oDuAn.getAll();
+			var dataSourceDuAn = oDuAn.LIST;
+			var option = ''
+			dataSourceDuAn.map(value => {
+				if (value.TIEUDUAN != 't') {
+					option += "<option value='" + value.MA + "'>" + value.MA + " - " + value.TEN + "</option>"
+				}
+			})
+			$("#MADUANCHA").html(option).select2();
+			$("#MADUANCHA").val(null).select2();
+			$("#TIEUDUAN").prop('checked', false)
+			$("#TIEUDUAN").val('f')
+			$(".tieu-du-an").hide()
 		});
 		$('.ACTIONS').on('click', '#btnEdit', function () {
-			listNhaTaiTro = []
-			$("#exampleModalLongTitle").text('Sửa dự án')
-			$("#alert-cctc").show()
+			// listNhaTaiTro = []
+			$("#exampleModalLongTitle").text('Sửa dự án');
+			$("#alert-cctc").show();
 			that.bindModal();
 			var $cochetaichinh = $("#COCHETAICHINH").select2()
 			var $nhataitro = $("#NHATAITROID").select2()
@@ -271,15 +291,14 @@ var DuAnView = function () {
 			$cochetaichinh.val(JSON.parse(idduan1).COCHETAICHINH).trigger('change')
 			$trangthai.val(JSON.parse(idduan1).TRANGTHAI).trigger('change')
 			listTinhthanh = JSON.parse(idduan1).TINHTHANHID.split('@')
-			if (JSON.parse(idduan1).NHATAITROID)
-				listNhaTaiTro = JSON.parse(idduan1).NHATAITROID.split('@')
+			// if (JSON.parse(idduan1).NHATAITROID)
+			listNhaTaiTro = JSON.parse(idduan1).NHATAITROID.split('@')
 			// $nhataitro.val(JSON.parse(idduan1).NHATAITROID).trigger('change')
 			$("#TONGMUCDAUTU").on('change', function () {
 				if (Number($("#TONGMUCDAUTU").val()) > JSON.parse(idduan1).TONGTIEN) {
 				}
-			})
+			}) 
 			$exampleMulti.val(listTinhthanh).trigger("change");
-			console.log(listNhaTaiTro,'listNhaTaiTro');
 			$nhataitro.val(listNhaTaiTro).trigger("change");
 			var oHopDongVayLai = new HopDongVayLai();
 			oHopDongVayLai.getAll();
@@ -347,7 +366,6 @@ var DuAnView = function () {
 			nttid = nttid.substring(0, nttid.length - 1)
 			oDuAn.NHATAITROID = nttid
 			oDuAn.TINHTHANHID = tinhthanhid
-
 			if ($('#MA').val() == '' || $('#MA').val().includes(' ')) {
 				var oAlert = new AlertDialog1('Thông báo');
 				oAlert.show('Mã không được chứa khoảng trắng hoặc rỗng', '40%', '50px');
@@ -362,67 +380,113 @@ var DuAnView = function () {
 						var oAlert = new AlertDialog1('Thông báo');
 						oAlert.show('Tên dự án bị thừa khoảng trắng', '40%', '50px');
 					}
-					else
-						if ($('#TONGMUCDAUTU').val() == '') {
-							var oAlert = new AlertDialog1('Thông báo');
-							oAlert.show('Tổng mức đầu tư không được để trống', '40%', '50px');
-						}
-						else {
-							if ($exampleMulti.val().length > 0 && $("#MA").val().length > 0 && $("#TEN").val().length > 0) {
-								$("#MA").css('border-color', '')
-								$("#TEN").css('border-color', '')
-								$("#TINHTHANHID").css('border-color', '')
-								oDuAn.DUANID = idDuAn;
-								oDuAn.MA = $('#MA').val();
-								oDuAn.TEN = $('#TEN').val().trim();
-								oDuAn.CHUDAUTU = $('#CHUDAUTU').val();
-								oDuAn.DONVITHUCHIEN = $('#DONVITHUCHIEN').val();
-								oDuAn.TRANGTHAI = $('#TRANGTHAI').val();
-								oDuAn.COCHETAICHINH = $('#COCHETAICHINH').val();
-								oDuAn.NOTE = $('#NOTE').val();
-								// oDuAn.NHATAITROID = $('#NHATAITROID').val();
-								oDuAn.TONGMUCDAUTU = fnc_replace($('#TONGMUCDAUTU').val(), ',', '');
-								oDuAn.TIENTEID = $('#TIENTEID').val();
-								if ($('#COCHETAICHINH').val() == "HH") {
-									oDuAn.PHANTRAMVAYLAI = $("#PHANTRAMVAYLAI").val()
-								}
-								else
-									if ($('#COCHETAICHINH').val() == "VL") {
-										oDuAn.PHANTRAMVAYLAI = 100
-									}
-									else {
-										oDuAn.PHANTRAMVAYLAI = 0
-									}
-								var rs = oDuAn.save();
-								that.bindGrid01();
-								if (rs.CODE == 3) {
-									var oAlert = new AlertDialog1('Thông báo');
-									oAlert.show('Mã này đã được sử dụng', '40%', '50px');
-								}
-								else {
-									var oAlert = new AlertDialog('Thông báo');
-									oAlert.show(rs.MESSAGE, '40%', '50px');
-									if (rs.LOAI == 1) {
-										$(function () {
-											$('#exampleModalCenter').modal('toggle');
-										});
-									}
-								}
-
+					else {
+						if ($("#TIEUDUAN").val() == 'f') {
+							$("#MA").css('border-color', '')
+							$("#TEN").css('border-color', '')
+							$("#TINHTHANHID").css('border-color', '')
+							oDuAn.DUANID = idDuAn;
+							oDuAn.MA = $('#MA').val();
+							oDuAn.TEN = $('#TEN').val().trim();
+							oDuAn.CHUDAUTU = $('#CHUDAUTU').val();
+							oDuAn.DONVITHUCHIEN = $('#DONVITHUCHIEN').val();
+							oDuAn.TRANGTHAI = $('#TRANGTHAI').val();
+							oDuAn.COCHETAICHINH = $('#COCHETAICHINH').val();
+							oDuAn.NOTE = $('#NOTE').val();
+							oDuAn.TONGMUCDAUTU = fnc_replace($('#TONGMUCDAUTU').val(), ',', '');
+							oDuAn.TIENTEID = $('#TIENTEID').val();
+							oDuAn.MADUANCHA = $('#MADUANCHA').val();
+							oDuAn.TIEUDUAN = $('#TIEUDUAN').val();
+							var rs = oDuAn.save();
+							that.bindGrid01();
+							if (rs.CODE == 3) {
+								var oAlert = new AlertDialog1('Thông báo');
+								oAlert.show('Mã này đã được sử dụng', '40%', '50px');
 							}
 							else {
-								if ($exampleMulti.val().length > 0 && $("#MA").val().length > 0)
-									$("#TINHTHANHID").css('border-color', 'red')
-								if ($("#TEN").val().length > 0)
-									$("#TEN").css('border-color', 'red')
-								if ($("#MA").val().length > 0)
-									$("#MA").css('border-color', 'red')
-								var oAlert = new AlertDialog1('Thông báo');
-								oAlert.show('không được để trống', '40%', '50px');
+								var oAlert = new AlertDialog('Thông báo');
+								oAlert.show(rs.MESSAGE, '40%', '50px');
+								if (rs.LOAI == 1) {
+									$(function () {
+										$('#exampleModalCenter').modal('toggle');
+									});
+								}
 							}
-
 						}
+						else
+							if ($('#TONGMUCDAUTU').val() == '') {
+								var oAlert = new AlertDialog1('Thông báo');
+								oAlert.show('Tổng tiền vay và cấp phát không được để trống', '40%', '50px');
+							}
+							else {
+								if ($exampleMulti.val().length > 0 && $("#MA").val().length > 0 && $("#TEN").val().length > 0) {
+									$("#MA").css('border-color', '')
+									$("#TEN").css('border-color', '')
+									$("#TINHTHANHID").css('border-color', '')
+									oDuAn.DUANID = idDuAn;
+									oDuAn.MA = $('#MA').val();
+									oDuAn.TEN = $('#TEN').val().trim();
+									oDuAn.CHUDAUTU = $('#CHUDAUTU').val();
+									oDuAn.DONVITHUCHIEN = $('#DONVITHUCHIEN').val();
+									oDuAn.TRANGTHAI = $('#TRANGTHAI').val();
+									oDuAn.COCHETAICHINH = $('#COCHETAICHINH').val();
+									oDuAn.NOTE = $('#NOTE').val();
+									// oDuAn.NHATAITROID = $('#NHATAITROID').val();
+									oDuAn.TONGMUCDAUTU = fnc_replace($('#TONGMUCDAUTU').val(), ',', '');
+									oDuAn.TIENTEID = $('#TIENTEID').val();
+									oDuAn.MADUANCHA = $('#MADUANCHA').val();
+									oDuAn.TIEUDUAN = $('#TIEUDUAN').val();
+									if ($('#COCHETAICHINH').val() == "HH") {
+										oDuAn.PHANTRAMVAYLAI = $("#PHANTRAMVAYLAI").val()
+									}
+									else
+										if ($('#COCHETAICHINH').val() == "VL") {
+											oDuAn.PHANTRAMVAYLAI = 100
+										}
+										else {
+											oDuAn.PHANTRAMVAYLAI = 0
+										}
+									var rs = oDuAn.save();
+									that.bindGrid01();
+									if (rs.CODE == 3) {
+										var oAlert = new AlertDialog1('Thông báo');
+										oAlert.show('Mã này đã được sử dụng', '40%', '50px');
+									}
+									else {
+										var oAlert = new AlertDialog('Thông báo');
+										oAlert.show(rs.MESSAGE, '40%', '50px');
+										if (rs.LOAI == 1) {
+											$(function () {
+												$('#exampleModalCenter').modal('toggle');
+											});
+										}
+									}
+								}
+								else {
+									// if ($exampleMulti.val().length == 0)
+									// 	$("#TINHTHANHID").css('border-color', 'red')
+									// if ($("#TEN").val().length > 0)
+									// 	$("#TEN").css('border-color', 'red')
+									// if ($("#MA").val().length > 0)
+									// 	$("#MA").css('border-color', 'red')
+									var oAlert = new AlertDialog1('Thông báo');
+									oAlert.show('Tỉnh thành phố không được để trống', '40%', '50px');
+								}
+							}
+					}
 		})
+		$('#TIEUDUAN').change(function () {
+			if ($('#TIEUDUAN').val() == 'f') {
+				$(this).val('t');
+				//hiển thị class tieu-du-an
+				$(".tieu-du-an").show();
+			}
+			else {
+				$(this).val('f');
+				//ẩn class tieu-du-an
+				$(".tieu-du-an").hide();
+			}
+		});
 		$('#Grid01 tbody').on('click', 'tr', function () {
 			if ($(this).hasClass('selected')) {
 				$(this).removeClass('selected');

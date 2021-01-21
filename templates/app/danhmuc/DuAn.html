@@ -103,6 +103,15 @@
         .select2-selection__choice {
             line-height: 21px;
         }
+
+        .modal-body {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+
+        span.select2-selection.select2-selection--multiple {
+            height: 250px !important;
+        }
     </style>
 </head>
 
@@ -151,6 +160,17 @@
                         <div class="brow" style="margin-top: 20px">
                             <div class="row" id="FORM">
                                 <div class="row" style="margin-bottom: 5px;">
+                                    <div class="col-sm-2"><label>Mã dự án cha</label></div>
+                                    <div class="col-sm-4">
+                                        <select id="MADUANCHA" class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2"><label>Tiểu dự án</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="checkbox" class="" name="name" id="TIEUDUAN" value="f" />
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-sm-2"><label>Mã dự án<span class="require">(*)</span></label></div>
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control validate-form" name="name" id="MA"
@@ -182,6 +202,13 @@
                                             <option value="DD">Đã đóng</option>
                                         </select>
                                     </div>
+                                    <div class="col-sm-2"><label>Ghi chú</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="NOTE" id="NOTE" value=""
+                                            autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="row tieu-du-an" style="margin-bottom: 5px;">
                                     <div class="col-sm-2"><label>Cơ chế tài chính</label></div>
                                     <div class="col-sm-4">
                                         <div class="input-group" style="width: 100%; display: flex;">
@@ -206,14 +233,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px;">
-                                    <div class="col-sm-2"><label>Ghi chú</label></div>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" name="NOTE" id="NOTE" value=""
-                                            autocomplete="off" />
-                                    </div>
-                                    <div class="col-sm-2"><label>Tổng mức đầu tư <span class="require">(*)</span></label></div>
+                                    <div class="col-sm-2"><label>Tổng tiền vay và cấp phát<span
+                                                class="require">(*)</span></label></div>
                                     <div class="col-sm-4">
                                         <div class="input-group" style="width: 100%;">
                                             <input type="text" class="form-control"
@@ -227,24 +248,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="margin-bottom: 5px;">
+                                <div class="row tieu-du-an" style="margin-bottom: 5px;">
                                     <div class="col-sm-2"><label>Nhà tài trợ</label></div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <select id="NHATAITROID" class="js-example-programmatic-multi" name="states[]"
                                             multiple="multiple" style="width: 100%">
                                         </select>
                                     </div>
-
-                                </div>
-
-                                <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-sm-2"><label>Tỉnh thành phố <span class="require">(*)</span></label>
                                     </div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <select id="TINHTHANHID" class="js-example-programmatic-multi"
                                             multiple="multiple" style="width: 100%">
                                         </select>
                                     </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-sm-6">
                                         <p id="alert-cctc" style="color: red;font-size: 15px; font-weight: bold;">
                                         </p>

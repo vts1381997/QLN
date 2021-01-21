@@ -39,7 +39,7 @@ var ApiController = {
           connection.execute(
             query, bindVarsSave, async function (error, rows) {
               if (error) { 
-                callback({ CODE: '400', MESSAGE: 'Lỗi Hệ thống' })
+                callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                 connection.release(function (err) {
                 });
               } else {

@@ -78,11 +78,11 @@ app.post('/upload', upload, function (req, res, next) {
     } 
   }
 }) 
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`)) //80
-https.createServer({
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-  passphrase: 'Admin123'
-}, app)
-.listen(3000); 
+app.listen(3000, () => console.log(`Example app listening on port 3000!`)) //80
+// https.createServer({
+//   key: fs.readFileSync('./key.pem'),
+//   cert: fs.readFileSync('./cert.pem'),
+//   passphrase: 'Admin123'
+// }, app)
+// .listen(3000); 
 

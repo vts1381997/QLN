@@ -221,10 +221,11 @@
 						message: '<h3 style="margin:10px">' + sMessage + '</h3>',
 						buttons: [{
 							label: that.CloseTitle,
-							cssClass: 'btn-info',
+							cssClass: 'btn-info focus-popup',
 							icon: 'glyphicon glyphicon-ok',
 							action: function (dialogItself) {
 								dialogItself.close();
+								$('#MA').focus();
 								// $(function () {
 								// 	$('#exampleModalCenter').modal('toggle');
 								// });

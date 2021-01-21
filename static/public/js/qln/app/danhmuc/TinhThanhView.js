@@ -56,7 +56,7 @@ var TinhThanhView = function () {
 		that.filterAction('NEW');
 		that.bindGrid01();
 	}
-	this.bindModal = function () {
+	this.bindModal = function () { 
 		if (idTinhThanh > 0) {
 			oTinhThanh.getById(idTinhThanh);
 			$('#MA').val(oTinhThanh.MA);
@@ -110,6 +110,8 @@ var TinhThanhView = function () {
 				var rs = oTinhThanh.del(oTinhThanh.TINHTHANHID)
 				var oAlert = new AlertDialog('Thông báo');
 				oAlert.show(rs.MESSAGE, '40%', '50px');
+				that.bindGrid01();
+				reload();
 			}
 			function cancel() { }
 
@@ -117,14 +119,25 @@ var TinhThanhView = function () {
 			oConfirmDialog.show('Bạn có chắc chắn muốn xóa bản ghi này không?', '40%', '50px');
 		});
 		$(".btnSave").on('click', function () {
-			oTinhThanh.TINHTHANHID = idTinhThanh;
-			oTinhThanh.MA = $('#MA').val();
-			oTinhThanh.TEN = $('#TEN').val();
-			oTinhThanh.NOTE = $('#NOTE').val();
-			var rs = oTinhThanh.save();
-			that.bindGrid01();
-			var oAlert = new AlertDialog('Thông báo');
-			oAlert.show(rs.MESSAGE, '40%', '50px');
+			var oAlert1 = new AlertDialog1('Thông báo');
+			if (!$('#MA').val()?.trim()) {
+				oAlert1.show('Mã địa bàn không được để trống', '40%', '50px');
+			}
+			else {
+				oTinhThanh.TINHTHANHID = idTinhThanh;
+				oTinhThanh.MA = $('#MA').val();
+				oTinhThanh.TEN = $('#TEN').val();
+				oTinhThanh.NOTE = $('#NOTE').val();
+				var rs = oTinhThanh.save(); 
+				if (rs.MESSAGE == "-1") {
+					oAlert1.show('Mã địa bàn bị trùng vui lòng nhập lại', '40%', '50px');
+				}
+				else {
+					that.bindGrid01();
+					var oAlert = new AlertDialog('Thông báo');
+					oAlert.show(rs.MESSAGE, '40%', '50px');
+				}
+			}
 		})
 		$('#Grid01 tbody').on('click', 'tr', function () {
 			if ($(this).hasClass('selected')) {

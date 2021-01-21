@@ -149,6 +149,6 @@ var LoginView = function () {
 				$("#btnLogin").trigger('click')
 			}
 		});
-		var myWindow = window.open(CONFIG_API.URL.USER_API + 'verify', "myWindow", "width=1000, height=1000")		//myWindow.close()
+		// var myWindow = window.open(CONFIG_API.URL.USER_API + 'verify', "myWindow", "width=1000, height=1000")		//myWindow.close()
 	});
 }

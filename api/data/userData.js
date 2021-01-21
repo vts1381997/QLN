@@ -18,15 +18,25 @@ var userData = {
             left join dm_donvi dv on dv.donviid = us.diaban\
             left join role_level rl on rl.lvl = us.lvl\
             left join dm_tinhthanh tt on tt.tinhthanhid = dv.tinhthanhid \
-            left join users u on u.id = us.createdby where us.diaban in("+ bd + ") and us.diaban <>'" + body.unitid + "' and us.tinhthanhid in(" + listtttt + ")"
+            left join users u on u.id = us.createdby where us.diaban in("+ bd + ") and us.diaban <> '" + body.unitid + "' and us.tinhthanhid in(" + listtttt + ") order by us.username"
         }
         else {
-            query = "select rl.tenlv,us.*,dv.tendonvi,tt.ten,u.username as NGUOITAO \
+            if (body.unitid == 'beac614d-c7de-4cbd-b3ec-33fa670e726c') {
+                query = "select rl.tenlv,us.*,dv.tendonvi,tt.ten,u.username as NGUOITAO \
+                from users us \
+                left join dm_donvi dv on dv.donviid = us.diaban\
+                left join role_level rl on rl.lvl = us.lvl\
+                left join dm_tinhthanh tt on tt.tinhthanhid = dv.tinhthanhid \
+                left join users u on u.id = us.createdby where us.diaban in("+ bd + ") order by us.username"
+            }
+            else {
+                query = "select rl.tenlv,us.*,dv.tendonvi,tt.ten,u.username as NGUOITAO \
             from users us \
             left join dm_donvi dv on dv.donviid = us.diaban\
             left join role_level rl on rl.lvl = us.lvl\
             left join dm_tinhthanh tt on tt.tinhthanhid = dv.tinhthanhid \
-            left join users u on u.id = us.createdby where us.diaban in("+ bd + ") and us.diaban <>'" + body.unitid + "'"
+            left join users u on u.id = us.createdby where us.diaban in("+ bd + ") and us.diaban <> '" + body.unitid + "' order by us.username"
+            }
         }
         oracledb.getConnection(
             connectString,
@@ -37,10 +47,10 @@ var userData = {
                 connection.execute(
                     query, [], function (error, rows) {
                         if (rows) {
-                            var values = rows.rows
-                            var keys = rows.metaData
-                            var obj = []
-                            var vICountOfKeys = keys.length;
+                            var values = rows.rows;
+                            var keys = rows.metaData;
+                            var obj = [];
+                            var vICountOfKeys = keys.length; 
                             values.forEach(element => {
                                 var obj2 = {}
                                 for (index = 0; index < vICountOfKeys; index++) {
@@ -51,7 +61,7 @@ var userData = {
                                 }
                                 obj.push(obj2)
                             });
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
@@ -91,7 +101,7 @@ var userData = {
                                 }
                                 obj.push(obj2)
                             });
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
@@ -130,8 +140,8 @@ var userData = {
                                     obj2.CREATEDDATE = dateFormat(obj2.CREATEDDATE, " dd/mm/yyyy h:MM:ss TT")
                                 }
                                 obj.push(obj2)
-                            }); 
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
+                            });
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
@@ -388,26 +398,28 @@ var userData = {
                                 }
                                 obj.push(obj2)
                             });
-                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj }) 
+                            callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT: obj })
                         }
                         else {
                             callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                         }
                     }
-                ) 
+                )
             }
         )
     },
     saveUser: (users, callback) => {
         if (users.ID === 0) {
             users.ID = uuid();
+            users.NGAYDOIMATKHAU = '';
+            users.STATUS = 1;
             oracledb.getConnection(
                 connectString,
                 function (err, connection) {
                     if (err) {
                         return;
                     }
-                    query = "insert into users values(:ID,:USERNAME,:PASSWORD,:EMAIL,:PHONENUMBER,:FULLNAME,:SHKB,:DIABAN,:CREATEDDATE,:CREATEDBY,:UPDATEDDATE,:UPDATEDBY,:LVL,:TINHTHANHID,:NHANTHONGBAO)"
+                    query = "insert into users values(:ID,:USERNAME,:PASSWORD,:EMAIL,:PHONENUMBER,:FULLNAME,:SHKB,:DIABAN,:CREATEDDATE,:CREATEDBY,:UPDATEDDATE,:UPDATEDBY,:LVL,:TINHTHANHID,:NHANTHONGBAO,:STATUS,:NGAYDOIMATKHAU)"
                     connection.execute(
                         query, users, { autoCommit: true }, function (error, rows) {
                             if (error) {
@@ -415,6 +427,7 @@ var userData = {
                                     callback({ CODE: '400', MESSAGE: 'Tài khoản đã tồn tại' })
                                 }
                                 else {
+                                    console.log(error, 'error');
                                     callback({ CODE: '400', MESSAGE: 'Lỗi hệ thống' })
                                 }
 
@@ -422,11 +435,11 @@ var userData = {
                             else {
                                 var RESULT = [
                                     { MESSAGE: "Thêm mới thành công" }
-                                ] 
+                                ]
                                 callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                             }
                         }
-                    ) 
+                    )
                 }
             )
         }
@@ -471,13 +484,13 @@ var userData = {
                         else {
                             var RESULT = [
                                 { MESSAGE: "Thêm mới thành công" }
-                            ] 
+                            ]
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }
                     }
-                ) 
+                )
             }
-        ) 
+        )
     },
     deleteUser: (id, callback) => {
         oracledb.getConnection(
@@ -495,7 +508,7 @@ var userData = {
                         else {
                             var RESULT = [
                                 { MESSAGE: "Xóa thành công" }
-                            ] 
+                            ]
                             callback({ CODE: "0", MESSAGE: 'SUCCESS', RESULT })
                         }
                     }

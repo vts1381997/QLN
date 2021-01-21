@@ -21,6 +21,19 @@ var NguoiDungView = function () {
 	var optionlv = ''
 	BMBaoCao.getAll()
 
+	function removeDuplicates(originalArray, prop) {
+		var newArray = [];
+		var lookupObject  = {};
+   
+		for(var i in originalArray) {
+		   lookupObject[originalArray[i][prop]] = originalArray[i];
+		}
+   
+		for(i in lookupObject) {
+			newArray.push(lookupObject[i]);
+		}
+		 return newArray;
+	}
 
 	// listlevel.map(valu => {
 	// 	optionlv = optionlv + "<option value='" + valu.LVL + "'>" + valu.TENLV + "</option>"
@@ -33,6 +46,7 @@ var NguoiDungView = function () {
 		that.filterAction('NEW');
 		that.bindGrid01();
 	}
+
 	this.filterAction = function (sState) {
 		switch (sState) {
 			case 'NEW':
@@ -50,59 +64,53 @@ var NguoiDungView = function () {
 				break;
 		}
 	}
+
 	this.bindModal = function () {
 		$(".sim-tree li").css('margin-left', '30px')
 		$('#treeMenu').html('')
 		$('#treeChucnang').html('')
-		$('#treeBC').html('')
+		$('#treeBC').html('') 
 		let obj = []
 		let nd = []
 		let roledata = []
 		oNguoiDung = new NguoiDung();
 		nd = oNguoiDung.getRole()
 		// nd = oNguoiDung.getClaim(jwt.id).role
-
 		userchecked = oNguoiDung.getClaim(idd).RESULT;
 		userchecked1 = oNguoiDung.getClaim(jwt.id).RESULT;
 		if (jwt.userName == 'trungnq94') {
 			menuInDB = oNguoiDung.getMenu()
-
 		}
 		else {
 			menuInDB = jwt.menu;
 		}
 		roledata = oNguoiDung.getClaim(idd).role
 		// roledata = jwt.role
-
-
 		if (userchecked.length > 0) {
 			for (var i = 0; i < menuInDB.length; i++) {
 				let con = menuInDB[i]
 				var obj2 = {}
 				for (var j = 0; j < userchecked.length; j++) {
-
 					let cha = userchecked[j]
 					if (con.ID === cha.ID) {
 						obj2.id = con.ID;
 						obj2.pid = con.IDCHA;
 						obj2.name = con.NAME;
 						obj2.checked = 'checked'
-
 					}
 					else {
 						obj2.id = con.ID;
 						obj2.pid = con.IDCHA;
 						obj2.name = con.NAME;
-						// obj2.checked = false
+						//obj2.checked = ''
 					}
 				}
 				obj.push(obj2)
 			}
 		}
 		else {
-
 			menuInDB.map(function (value) {
-				obj.push({ id: value.ID, pid: value.IDCHA, name: value.NAME, checked: false })
+				obj.push({ id: value.ID, pid: value.IDCHA, name: value.NAME })
 			})
 		}
 		listt.listRole = roledata.map(valu => {
@@ -118,10 +126,8 @@ var NguoiDungView = function () {
 				name: val.NAME
 			}
 		})
-
-
 		var xxx = []
-		var ccc = []
+		var ccc = [] 
 		jwt.role.map(val => {
 			xxx.push(nd.filter(a => a.pid == val.split('.')[0] && a.value == val.split('.')[1])[0])
 		})
@@ -130,7 +136,6 @@ var NguoiDungView = function () {
 				ccc.push(valu.pid)
 			}
 		})
-
 		nd.map(value => {
 			if (ccc.indexOf(value.id) >= 0 && value.pid == '') {
 				xxx.push(value)
@@ -150,10 +155,8 @@ var NguoiDungView = function () {
 			}
 		}
 
-
-
 		simTree({
-			linkParent: false,
+			// linkParent: false,
 			childNodeAsy: false,
 			el: '#treeMenu',
 			data: obj,
@@ -170,22 +173,14 @@ var NguoiDungView = function () {
 					if (listpid.indexOf(val.pid) < 0) {
 						listpid.push(val.pid)
 					}
-
 				})
 				for (i = 0; i < listpid.length; i++) {
 					if (listid.indexOf(listpid[i]) < 0) {
-
 						var x = { id: listpid[i], pid: '' }
-
-
 						item.push(x)
-
-
-
 					}
 				}
 				listt.listMenu = item;
-
 			}
 		});
 
@@ -225,22 +220,18 @@ var NguoiDungView = function () {
 		// 	{ id: 'KHAC', pid: '', name: 'Báo cáo khác' }
 		// )
 
-
-
 		var objectxx = []
 		if (BCchecked.length > 0) {
 			for (var i = 0; i < listbc.length; i++) {
 				let con = listbc[i]
 				var obj2 = {}
 				for (var j = 0; j < BCchecked.length; j++) {
-
 					let cha = BCchecked[j]
 					if (con.id === cha.BIEUMAUBAOCAOID) {
 						obj2.id = con.id;
 						obj2.pid = con.pid;
 						obj2.name = con.name;
 						obj2.checked = 'checked'
-
 					}
 					else {
 						obj2.id = con.id;
@@ -253,7 +244,6 @@ var NguoiDungView = function () {
 			}
 		}
 		else {
-
 			listbc.map(function (value) {
 				objectxx.push({ id: value.id, pid: value.pid, name: value.name, checked: false })
 			})
@@ -277,11 +267,8 @@ var NguoiDungView = function () {
 			},
 			onChange: function (item) {
 				listt.listBaocao = item;
-
 			}
 		});
-
-
 
 		simTree({
 			el: '#treeChucnang',
@@ -290,10 +277,8 @@ var NguoiDungView = function () {
 			linkParent: true,
 			//check: true,
 			onClick: function (item) {
-
 			},
 			onChange: function (item) {
-
 				listt.listRole = item;
 			}
 		});
@@ -315,10 +300,10 @@ var NguoiDungView = function () {
 
 		oNguoiDung.getAll(dta);
 		that.oTable.clear().draw();
-		listnd = oNguoiDung.LIST;
+		listnd = removeDuplicates(oNguoiDung.LIST, "ID");  
 		var aRows = [];
-		for (var i = 0; i < oNguoiDung.LIST.length; i++) {
-			var _item = oNguoiDung.LIST[i];
+		for (var i = 0; i < listnd.length; i++) {
+			var _item = listnd[i];
 			var _hidden = '<p style="display:none" class="rowID"  />' + JSON.stringify(_item) + '</p>';
 			var trangthai = _item.status == 1 ? '<span class="label label-success">Kích hoạt</span>' : '<span class="label label-danger">Khóa</span>';
 			aRows.push([
@@ -353,7 +338,7 @@ var NguoiDungView = function () {
 				if (optlv == '') {
 					optlv = "<option value='error'>Không có quyền tạo đơn vị này</option>"
 				}
-				$("#LEVEL").html(optlv+"<option value='3'>Khóa tài khoản</option>")
+				$("#LEVEL").html(optlv)
 				$("#LEVEL").val($("#LEVEL option:selected").attr('value')).select2()
 			}
 			else {
@@ -361,7 +346,7 @@ var NguoiDungView = function () {
 				listlevel.map(val => {
 					optlv = optlv + "<option value='" + val.LVL + "'>" + val.TENLV + "</option>"
 				})
-				$("#LEVEL").html(optlv+"<option value='3'>Khóa tài khoản</option>")
+				$("#LEVEL").html(optlv)
 				$("#LEVEL").val($("#LEVEL option:selected").attr('value')).select2()
 			}
 			if ($("#DONVI").val() == jwt.dvtong) {
@@ -447,7 +432,7 @@ var NguoiDungView = function () {
 			}
 			else {
 				oNguoiDung.NHANTHONGBAO = statusCheck;
-				var rs = oNguoiDung.save();
+				var rs = oNguoiDung.save(); 
 				var oAlert = new AlertDialog('Thông báo');
 				oAlert.show(rs.MESSAGE, '40%', '50px');
 				that.bindGrid01();

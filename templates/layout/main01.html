@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/ico" th:href="@{/public/skinqln/img/cash.ico}">
     <link type="text/css" rel='stylesheet' th:href="@{/public/skinqln/vendor/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/public/skinqln/vendor/slick/slick.css}">
     <link rel="stylesheet" th:href="@{/public/skinqln/vendor/ap8/css/style.css}">
@@ -163,6 +164,8 @@
             if (kiemTraTaiKhoan[0].LVL == 3) {
                 var oAlert = new AlertDialog3('Thông báo');
                 oAlert.show('Tài khoản của bạn đã bị khóa', '40%', '50px');
+                oNguoiDung = new NguoiDung();
+                oNguoiDung.deleteInformationLogin();
                 setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
             }
             //kiểm tra đến ngày đổi mật khẩu
@@ -202,44 +205,47 @@
                             else {
                                 //update lại thời gian đăng nhập 
                                 var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+                                // var oAlert = new AlertDialog3('Thông báo');
+                                // oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+                                // setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
                             }
                         }
                         else {
                             //khác browser thì kiểm tra thởi gian login
-                            if (localStorage.getItem("timelogin") == check[0].TIME) {
-                            }
-                            else {
-                                a = moment(check[0].TIME, 'DD/MM/YYYY HH:mm:ss')
-                                b = moment(localStorage.getItem("timelogin"), 'DD/MM/YYYY HH:mm:ss')
-                                if (a < b) {
-                                    // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
-                                    var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
-                                }
-                                else {
-                                    var oAlert = new AlertDialog3('Thông báo');
-                                    oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
-                                    setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
-                                }
-                            }
+                            // if (localStorage.getItem("timelogin") == check[0].TIME) {
+                            // }
+                            // else {
+                            //     a = moment(check[0].TIME, 'DD/MM/YYYY HH:mm:ss')
+                            //     b = moment(localStorage.getItem("timelogin"), 'DD/MM/YYYY HH:mm:ss')
+                            //     if (a < b) {
+                            //         // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
+                            //         var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+                            //     }
+                            //     else {
+                            var oAlert = new AlertDialog3('Thông báo');
+                            oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+                            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
+                            // }
+                            // }
                         }
                     }
                     else {
                         //khác địa chỉ ip
-                        var timeLoginCheck = check[0].TIME
-                        var timeLogin = localStorage.getItem('timelogin')
-                        var dateStrA = timeLoginCheck.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
-                        var dateStrB = timeLogin.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
-                        a = moment(timeLoginCheck, 'DD/MM/YYYY HH:mm:ss')
-                        b = moment(timeLogin, 'DD/MM/YYYY HH:mm:ss')
-                        if (a < b) {
-                            // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
-                            var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
-                        }
-                        else {
-                            var oAlert = new AlertDialog3('Thông báo');
-                            oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
-                            setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
-                        }
+                        // var timeLoginCheck = check[0].TIME
+                        // var timeLogin = localStorage.getItem('timelogin')
+                        // var dateStrA = timeLoginCheck.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+                        // var dateStrB = timeLogin.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+                        // a = moment(timeLoginCheck, 'DD/MM/YYYY HH:mm:ss')
+                        // b = moment(timeLogin, 'DD/MM/YYYY HH:mm:ss')
+                        // if (a < b) {
+                        //     // update lại địa chỉ ip, địa chỉ browser và thời gian đăng nhập
+                        //     var rs = oNguoiDung.updateInformationLogin(localStorage.getItem("ip"), localStorage.getItem("timelogin"), localStorage.getItem("browser"))
+                        // }
+                        // else {
+                        var oAlert = new AlertDialog3('Thông báo');
+                        oAlert.show('Tài khoản của bạn đang được đăng nhập ở một nơi khác', '40%', '50px');
+                        setTimeout(function () { var oAuthenHelper = new AuthenHelper(); oAuthenHelper.logout(); }, 5000);
+                        // }
                     }
                 }
                 else {
@@ -279,13 +285,13 @@
                 $('.modal#modalImport').on('show.bs.modal', function (e) {
                     $('.modal#modalImport .modal-content').attr('style', '').css('padding', 20)
                 })
-                //var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-                //link.type = 'image/x-icon';
-                //link.rel = 'shortcut icon';
+                // var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                // link.type = 'image/x-icon';
+                // link.rel = 'shortcut icon';
                 // link.href = 'http://www.stackoverflow.com/favicon.ico';
-                //link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
-                //link.href = './icon';
-                //document.getElementsByTagName('head')[0].appendChild(link);
+                // link.href = 'http://www.iconarchive.com/download/i77830/custom-icon-design/pretty-office-11/cash.ico';
+                // link.href = './icon';
+                // document.getElementsByTagName('head')[0].appendChild(link);
                 $('.wec-control-date').datetimepicker({
                     locale: 'vi',
                     format: 'DD/MM/YYYY',

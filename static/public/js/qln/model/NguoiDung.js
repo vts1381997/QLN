@@ -69,7 +69,7 @@ var NguoiDung = function () {
 			UPDATEDBY: that.UPDATEDBY,
 			LVL: that.LVL,
 			TINHTHANHID: that.TINHTHANHID,
-			NHANTHONGBAO: that.NHANTHONGBAO,
+			NHANTHONGBAO: that.NHANTHONGBAO
 		}
 		return DATA.set(URL.SAVE, data);
 	}

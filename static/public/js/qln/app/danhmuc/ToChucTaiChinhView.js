@@ -303,7 +303,7 @@ var ToChucTaiChinhView = function () {
 					var rs = oToChucTaiChinh.save();
 					if (rs.CODE == 3) {
 						var oAlert = new AlertDialog1('Thông báo');
-						oAlert.show('Dữ liệu nhập lỗi!', '40%', '50px');
+						oAlert.show('Mã này đã tồn tại', '40%', '50px');
 						return;
 					}
 					else {
