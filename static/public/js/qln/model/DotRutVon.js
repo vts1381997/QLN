@@ -15,6 +15,7 @@ var DotRutVon = function () {
 		getAllDuAn: CONFIG_API.URL.BASE_API + 'dm_duan/getall',
 		getAllTienTe: CONFIG_API.URL.BASE_API + 'dm_tiente/getall',
 		getAllNhaTaiTro: CONFIG_API.URL.BASE_API + 'dm_nhataitro/getall',
+		getAllRutVonByHopDong: CONFIG_API.URL.BASE_API + 'qln_dotrutvon/getallbyhopdong',
 		searchdotrutvon: CONFIG_API.URL.USER_API + 'search/dotrutvon'
 	}
 
@@ -40,13 +41,22 @@ var DotRutVon = function () {
 	this.CREATEDBY = "";
 	this.UPDATEDDATE = "";
 	this.UPDATEDBY = "";
-	this.UUID = ''
-	this.NHATAITROID = 0
-	this.PHANTRAMVAYLAI = 0
+	this.UUID = '';
+	this.NHATAITROID = 0;
+	this.PHANTRAMVAYLAI = 0;
+	this.LAISUATANHAN = 0;
+	this.LAISUATCONLAI = 0;
+	this.PHICAMKET = 0;
+	this.PHICAMKETTIENTE = 0;
+	this.TYGIANGANHANG = 0;
 	// Get all data
 	this.getAll = function () {
 		var rs = DATA.get(URL.GETALL);
 		that.LIST = rs;
+	}
+	this.getAllRutVonByHopDong = function (sId) {
+		var rs = DATA.get(URL.getAllRutVonByHopDong, { HOPDONGVAYLAIID: sId });
+		return rs;
 	}
 	this.getAllNgayNhanNo = function (sId) {
 		var rs = DATA.get(URL.GETALLNGAYNHANNO, { KEHOACHVAYHANGNAMID: sId }); 
@@ -82,6 +92,11 @@ var DotRutVon = function () {
 		that.CREATEDBY = item.CREATEDBY;
 		that.UPDATEDDATE = item.UPDATEDDATE;
 		that.UPDATEDBY = item.UPDATEDBY;
+		that.LAISUATANHAN = item.LAISUATANHAN;
+		that.LAISUATCONLAI = item.LAISUATCONLAI;
+		that.PHICAMKET = item.PHICAMKET;
+		that.PHICAMKETTIENTE = item.PHICAMKETTIENTE;
+		that.TYGIANGANHANG = item.TYGIANGANHANG;
 	}
 
 	// get data with keyword
@@ -117,7 +132,12 @@ var DotRutVon = function () {
 			DONVIID: this.DONVIID,
 			UUID: this.UUID,
 			NHATAITROID: this.NHATAITROID,
-			PHANTRAMVAYLAI: this.PHANTRAMVAYLAI
+			PHANTRAMVAYLAI: this.PHANTRAMVAYLAI,
+			LAISUATANHAN: this.LAISUATANHAN,
+			LAISUATCONLAI: this.LAISUATCONLAI,
+			PHICAMKET: this.PHICAMKET,
+			PHICAMKETTIENTE: this.PHICAMKETTIENTE,
+			TYGIANGANHANG: this.TYGIANGANHANG
 		} 
 		return DATA.set(URL.SAVE, data);
 	}
@@ -132,5 +152,4 @@ var DotRutVon = function () {
 	this.delete = function (sID) {
 		return DATA.set(URL.DELETE, { DOTRUTVONID: sID });
 	}
-
 }

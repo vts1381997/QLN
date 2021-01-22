@@ -127,6 +127,7 @@ var DotRutVonView = function () {
 		})
 		$('#SOTIENGIAINGANVAYLAITIENTE').html(option)
 		$('#SOTIENGIAINGANCAPPHATTIENTE').html(option)
+		$('#PHICAMKETTIENTE').html(option)
 		KeHoach.getAll();
 		var resultKeHoach = KeHoach.LIST
 		var option2 = ''
@@ -235,6 +236,7 @@ var DotRutVonView = function () {
 			$("#NGUYENTECAPPHAT").val(formatMoney(txtSoTienCapPhatToiDa))
 			$("#SOTIENGIAINGANVAYLAITIENTE").val(txtIdTienTe).trigger('change')
 			$("#SOTIENGIAINGANCAPPHATTIENTE").val(txtTienCP).trigger('change')
+			$("#PHICAMKETTIENTE").val(txtTienCP).trigger('change')
 			if ($("#KEHOACHVAYHANGNAMID").val()) {
 				$(".btnSave").prop('disabled', false)
 			} else {
@@ -296,13 +298,17 @@ var DotRutVonView = function () {
 			$("#NGAYNHANNO").val($.datepicker.formatDate('dd/mm/yy', new Date()));
 			$('#GIATRIGIAINGANVAYLAI').val('');
 			$('#LUYKEGIAINGANVAYLAI').val('');
+			$('#LAISUATCONLAI').val('');
+			$('#LAISUATANHAN').val('');
+			$('#PHICAMKET').val('');
 			$('#GHICHU').val('');
 			$("#DONVIID").val($("#DONVIID option:selected").attr('value')).select2();
 			idrutvon = 0;
 			oDotRutVon.DOTRUTVONID = 0;
 			fnc_removeSpace();
 			fnc_validateSpace("GHICHU");
-			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', false)
+			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', false);
+			$("#TYGIANGANHANG").val($("#SOTIENGIAINGANVAYLAITIENTE option:selected").attr('data-tygia'))
 		});
 		$('.ACTIONS').on('click', '#btnEdit', function () {
 			that.bindModal();
@@ -326,8 +332,13 @@ var DotRutVonView = function () {
 			$("#SOTIENGIAINGANCAPPHATTIENTE").val(data.SOTIENGIAINGANCAPPHATTIENTE);
 			$("#NGUYENTEVAYLAI").val(formatMoney(Number(data.NGUYENTEVAYLAI + data.NGUYENTECAPPHAT)));
 			$("#NGUYENTECAPPHAT").val(formatMoney(data.NGUYENTECAPPHAT));
+			$("#TYGIANGANHANG").val(formatMoney(data.TYGIANGANHANG));
+			$("#PHICAMKET").val(formatMoney(data.PHICAMKET));
 			$("#GHICHU").val(data.GHICHU);
+			$("#PHICAMKETTIENTE").val(data.PHICAMKETTIENTE);
 			$("#PHANTRAMVAYLAI").val(data.PHANTRAMVAYLAI);
+			$("#LAISUATANHAN").val(data.LAISUATANHAN);
+			$("#LAISUATCONLAI").val(data.LAISUATCONLAI);
 			$("#SOTIENGIAINGANVAYLAITIENTE").prop('disabled', true);
 		});
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
@@ -386,6 +397,8 @@ var DotRutVonView = function () {
 					oDotRutVon.NGAYNHANNO = $('#NGAYNHANNO').val();
 					oDotRutVon.GIAINGANTHEOKHNAM = $('#GIAINGANTHEOKHNAM').val();
 					oDotRutVon.SOTIENGIAINGANVAYLAI = Number($("#SOTIENGIAINGANVAYLAI").val().replaceAll(',', '') * $("#PHANTRAMVAYLAI").val() / 100);
+					oDotRutVon.PHICAMKET = Number($("#PHICAMKET").val().replaceAll(',', ''));
+					oDotRutVon.TYGIANGANHANG = Number($("#TYGIANGANHANG").val().replaceAll(',', ''));
 					oDotRutVon.SOTIENGIAINGANVAYLAITIENTE = $("#SOTIENGIAINGANVAYLAITIENTE").val();
 					oDotRutVon.SOTIENGIAINGANCAPPHAT = Number($("#SOTIENGIAINGANVAYLAI").val().replaceAll(',', '')) - Number($("#SOTIENGIAINGANVAYLAI").val().replaceAll(',', '') * $("#PHANTRAMVAYLAI").val() / 100);
 					oDotRutVon.SOTIENGIAINGANCAPPHATTIENTE = $("#SOTIENGIAINGANVAYLAITIENTE").val();
@@ -394,9 +407,12 @@ var DotRutVonView = function () {
 					oDotRutVon.NGUYENTECAPPHAT = Number($("#NGUYENTEVAYLAI").val().replaceAll(',', '')) - Number($("#NGUYENTEVAYLAI").val().replaceAll(',', '') * $("#PHANTRAMVAYLAI").val() / 100);
 					oDotRutVon.NGUYENTECAPPHATTIENTE = $("#KEHOACHVAYHANGNAMID option:selected").attr('data-idtiente');
 					oDotRutVon.GHICHU = $('#GHICHU').val();
+					oDotRutVon.PHICAMKETTIENTE = $('#PHICAMKETTIENTE').val();
 					oDotRutVon.DONVIID = $('#DONVIID').val();
 					oDotRutVon.NHATAITROID = $("#NHATAITROID").val();
 					oDotRutVon.PHANTRAMVAYLAI = $("#PHANTRAMVAYLAI").val();
+					oDotRutVon.LAISUATANHAN = $("#LAISUATANHAN").val();
+					oDotRutVon.LAISUATCONLAI = $("#LAISUATCONLAI").val();
 					oDotRutVon.UUID = uuidv4();
 					var rs = oDotRutVon.save();
 					if (rs.CODE = 3 && rs.MESSAGE == '-1') {

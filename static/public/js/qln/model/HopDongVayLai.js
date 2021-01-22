@@ -50,18 +50,18 @@ var HopDongVayLai = function () {
 	this.TENPHULUC = "";
 	this.NGAYKYPHULUC = "";
 	this.NGUOIKY = "";
-	this.TIENTEIDCP = 0
-	this.UID = ""
-	this.TYGIA = ''
+	this.TIENTEIDCP = 0;
+	this.UID = "";
+	this.TYGIA = '';
+	this.PHICAMKET = 0;
 	// Get all data
 	this.getAll = function () {
 		var rs = DATA.get(URL.GETALL);
-
 		that.LIST = rs;
 	}
+
 	this.gethd = function () {
 		var rs = DATA.get(URL.gethd);
-
 		that.LIST = rs;
 	}
 
@@ -103,6 +103,7 @@ var HopDongVayLai = function () {
 		that.TENPHULUC = item.TENPHULUC;
 		that.NGAYKYPHULUC = item.NGAYKYPHULUC;
 		that.NGUOIKY = item.NGUOIKY;
+		that.PHICAMKET = item.PHICAMKET;
 		return rs;
 	}
 
@@ -120,6 +121,7 @@ var HopDongVayLai = function () {
 			})
 		}
 	}
+
 	this.loadDetail = async function (value_row, id, arr_key_detail) {
 		// Lấy dữ liệu các chủ sở hữu		
 		var option = '<tr class="input-table" id="element-' + id + '"><td><input type="text" class="MAPHULUC" id="MAPHULUC' + id + '" />\
@@ -138,7 +140,6 @@ var HopDongVayLai = function () {
 				return
 			};
 		}, 10);
-
 		// Fill dữ liệu chi tiết
 		$('#MAPHULUC' + id).val(value_row.MAPHULUC);
 		$('#TENPHULUC' + id).val(value_row.TENPHULUC);
@@ -147,7 +148,6 @@ var HopDongVayLai = function () {
 		// Tăng id cho lần add tiếp theo
 		id++;
 	}
-
 
 	this.reSetDetail = function () {
 		$("#table-multi").html('')
@@ -197,10 +197,12 @@ var HopDongVayLai = function () {
 			SOTIENCAPPHAT: that.SOTIENCAPPHAT,
 			TIENTEIDCP: that.TIENTEIDCP,
 			UID: that.UID,
-			TYGIA: that.TYGIA
+			TYGIA: that.TYGIA,
+			PHICAMKET: that.PHICAMKET
 		}
 		return DATA.set(URL.SAVE, data);
 	}
+
 	this.savedtl = function (pDelete, pData) {
 		var dataDtl = {
 			delete: pDelete,
@@ -213,12 +215,13 @@ var HopDongVayLai = function () {
 	this.del = function (sID) {
 		return DATA.set(URL.DEL, { HOPDONGVAYLAIID: sID });	
 	}
+
 	this.deluid = function (sID) {
 		return DATA.set(URL.DELUID, { UID: sID });
 	}
+
 	this.getAllGocLaiDotTraNo = (sHopDongVayLaiId) => {
 		var rs = DATA.get(URL.getAllGocLaiDotTraNo, { i_hopdongvaylaiid: Number(sHopDongVayLaiId) });
 		return rs
 	}
-
 }

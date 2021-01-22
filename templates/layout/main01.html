@@ -12,19 +12,24 @@
     <link rel="stylesheet" type="text/css" th:href="@{/public/skinqln/css/style.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/public/skinqln/css/custom.css}">
     <link th:href="@{/public/libs/jquery-ui-1.12.1.custom/jquery-ui.min.css}" rel="stylesheet" />
+    <link th:href="@{/public/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"
+        media="screen">
+    <link rel="stylesheet" type="text/css" th:href="@{/public/libs/bootstrapdialog/dilogbootstrap.css}" />
+    <link type="text/css" th:src="@{/public/libs/jqueryloading/jquery-loading.css}">
+    <link type="text/css" th:src="@{/public/libs/bootbox.min.js}">
+    <link href="/qln/public/libs/utils/uploadfile.css" rel="stylesheet">
+    <link type="text/css" th:src="@{/public/libs/jquery.form.min.js}">
+    <link rel="stylesheet" th:href="@{/public/libs/utils/select2.min.css}">
     <script type="text/javascript" th:src="@{/public/libs/jquery/jquery-3.3.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/bootstrap/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/datatable/js/jquery.dataTables.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/datatable/js/dataTables.bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/datatable/js/fnAddTr.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/jquery-ui-1.12.1.custom/jquery-ui.min.js}"></script>
-    <link th:href="@{/public/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"
-        media="screen">
     <script type="text/javascript" th:src="@{/public/libs/bootstrap-datetimepicker/moment.js}"></script>
     <script type="text/javascript"
         th:src="@{/public/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js}"></script>
     <script th:src="@{/public/libs/bootstrapdialog/bootstrap-dialog.min.js}"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/public/libs/bootstrapdialog/dilogbootstrap.css}" />
     <script type="text/javascript" th:src="@{/public/js/qln/configs/ConfigApi.js}"></script>
     <script type="text/javascript" th:src="@{/public/js/qln/core/AuthenHelper.js}"></script>
     <script type="text/javascript" th:src="@{/public/js/qln/core/DataHelper.js}"></script>
@@ -33,16 +38,11 @@
     <script type="text/javascript" th:src="@{/public/libs/utils/Util.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/validate_form/jquery.validation.min.js}"></script>
     <script type="text/javascript" th:src="@{/public/libs/jqueryloading/jquery-loading.js}"></script>
-    <link type="text/css" th:src="@{/public/libs/jqueryloading/jquery-loading.css}">
     <script type="text/javascript" src="/qln/public/js/qln/model/NguoiDung.js"></script>
     <script type="text/javascript" src="/qln/public/js/qln/model/DonViTienTe.js"></script>
-    <link type="text/css" th:src="@{/public/libs/bootbox.min.js}">
-    <link href="/qln/public/libs/utils/uploadfile.css" rel="stylesheet">
     <script src="/qln/public/libs/utils/jquery.uploadfile.js"></script>
     <script th:src="@{/public/libs/numeral.min.js}"></script>
-    <link type="text/css" th:src="@{/public/libs/jquery.form.min.js}">
     <script type="text/javascript" th:src="@{/public/libs/select2.full.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/public/libs/utils/select2.min.css}">
     <script type="text/javascript" src="/qln/public/js/qln/app/ulti/format.js"></script>
     <script th:src="@{/public/libs/jszip.js}"></script>
     <script th:src="@{/public/libs/xlsx.js}"></script>
@@ -65,7 +65,7 @@
         if (Sys.chrome) IdBrowser = Sys.chrome;
         if (Sys.opera) IdBrowser = Sys.opera;
         if (Sys.safari) IdBrowser = Sys.safari;
-        localStorage.setItem("browser", IdBrowser)
+        localStorage.setItem("browser", IdBrowser) 
     </script>
     <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     <script type="text/javascript">
@@ -718,7 +718,7 @@
             if ((a + a1 + a2 + a3) == 0) {
                 $(".topaction").hide();
             }
-            $('.donviid').html(fnc_danhsachdonvi()).select2()
+            $('.donviid').html(fnc_danhsachdonvi()).select2() 
         })
     </script>
     <div id="modalRject" class="modal fade">

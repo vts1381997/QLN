@@ -61,7 +61,7 @@ var NhaTaiTroView = function () {
 				var _hidden = '<input type="hidden" class="rowID" value="' + _item.NHATAITROID + '" />';
 				var trangthai = _item.TRANGTHAI == "1" ? '<span style="font-size: 11px !important;" class="label label-success">Kích hoạt</span>' : '<span style="font-size: 11px !important; padding-left: 17px !important; padding-right: 17px !important" class="label label-danger">Khóa</span>';
 				if (Number(_item.TONGDUAN) > 0) {
-					
+
 					var buttonXemDuAn = '<span style="font-size: 11px !important; padding-left: 25px; padding-right: 25px" class="label label-info"><a href="/qln/app/danhmuc/DuAn?nhataitroid=' + _item.NHATAITROID + '">Chi tiết</a></span>'
 				}
 				else {
@@ -185,7 +185,7 @@ var NhaTaiTroView = function () {
 			that.bindGrid01(rs)
 		})
 
-		$('.ACTIONS').on('click', '#btnAddNew', function (e) { 
+		$('.ACTIONS').on('click', '#btnAddNew', function (e) {
 			e.preventDefault()
 			$("#exampleModalLongTitle").text('Thêm mới nhà tài trợ')
 			$("#Grid01").find('.selected').removeClass('selected');
@@ -267,16 +267,17 @@ var NhaTaiTroView = function () {
 				return;
 			}
 			else {
-				const regex = /[^a-zA-Z0-9_ áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữự]/;
-				if(regex.test($('#MA').val())){
+				const regexMa = /[^a-zA-Z0-9_ ]/
+				const regex = /[^a-zA-Z0-9_ ,.()áÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬđĐéÉèÈẻẺẽẼẹẸêÊếẾềỀểỂễỄệỆíÍìÌỉỈĩĨịỊóÓòÒỏỎõÕọỌôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢúÚùÙủỦũŨụỤưƯứỨừỪửỬữỮựỰ]/;
+				if (regexMa.test($('#MA').val())) {
 					oAlert1.show('Mã không được chứa ký tự đặc biệt', '40%', '50px');
 					return;
 				}
-				if(regex.test($('#TEN').val())){
+				if (regex.test($('#TEN').val())) {
 					oAlert1.show('Tên không được chứa ký tự đặc biệt', '40%', '50px');
 					return;
 				}
-				if(regex.test($('#DIACHI').val())){
+				if (regex.test($('#DIACHI').val())) {
 					oAlert1.show('Địa chỉ không được chứa ký tự đặc biệt', '40%', '50px');
 					return;
 				}

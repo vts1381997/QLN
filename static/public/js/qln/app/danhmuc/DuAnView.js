@@ -382,8 +382,9 @@ var DuAnView = function () {
 						oAlert.show('Tên dự án bị thừa khoảng trắng', '40%', '50px');
 					}
 					else {
-						const regex = /[^a-zA-Z0-9_ áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữự]/;
-						if (regex.test($('#MA').val())) {
+						const regexMa = /[^a-zA-Z0-9_ ]/
+						const regex = /[^a-zA-Z0-9_ ,.()áÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬđĐéÉèÈẻẺẽẼẹẸêÊếẾềỀểỂễỄệỆíÍìÌỉỈĩĨịỊóÓòÒỏỎõÕọỌôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢúÚùÙủỦũŨụỤưƯứỨừỪửỬữỮựỰ]/;
+						if (regexMa.test($('#MA').val())) {
 							oAlert1.show('Mã dự án không được chứa ký tự đặc biệt', '40%', '50px');
 							return;
 						}

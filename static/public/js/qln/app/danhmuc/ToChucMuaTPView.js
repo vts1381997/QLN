@@ -450,8 +450,9 @@ var ToChucMuaTPView = function () {
 						return;
 					}
 				}
-				const regex = /[^a-zA-Z0-9_ áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữự]/;
-				if (regex.test($('#MA').val())) {
+				const regexMa = /[^a-zA-Z0-9_ ]/
+				const regex = /[^a-zA-Z0-9_ ,.()áÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬđĐéÉèÈẻẺẽẼẹẸêÊếẾềỀểỂễỄệỆíÍìÌỉỈĩĨịỊóÓòÒỏỎõÕọỌôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢúÚùÙủỦũŨụỤưƯứỨừỪửỬữỮựỰ]/;
+				if (regexMa.test($('#MA').val())) {
 					oAlert.show('Mã tổ chức không được chứa ký tự đặc biệt', '40%', '50px');
 					return;
 				}

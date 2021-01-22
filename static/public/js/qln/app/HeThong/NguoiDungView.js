@@ -283,12 +283,11 @@ var NguoiDungView = function () {
 			}
 		});
 
-		$(".btnSave").on('click', function (e) {
+		$(".btnSave").one('click', function (e) {
 			e.preventDefault();
 			var a = oNguoiDung.setClaims(listt, idd);
 			var oAlert = new AlertDialog('Thông báo');
 			oAlert.show(a.MESSAGE, '40%', '50px');
-
 		})
 	}
 

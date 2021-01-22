@@ -1,12 +1,14 @@
 const NgayHomNay = $.datepicker.formatDate('yy-mm-dd', new Date());
 var HopDongVayLaiView = function () {
 	var DuAns = new DuAn();
+	var DotRutVons = new DotRutVon();
 	var idHopDongVayLai = 0;
 	var that = this;
 	this.AppTitle = 'Hợp đồng vay lại';
 	this.Id = '';
 	this.oTable = null;
 	this.oDialog = null;
+	var isRutVon = false;
 	var rowhdvl;
 	var oHopDongVayLai = new HopDongVayLai();
 	var TienTes = new TienTe()
@@ -55,6 +57,7 @@ var HopDongVayLaiView = function () {
 		oHopDongVayLai.getAll();
 		that.oTable.clear().draw();
 		var aRows = [];
+		console.log(oHopDongVayLai.LIST);
 		for (var i = 0; i < oHopDongVayLai.LIST.length; i++) {
 			var _item = oHopDongVayLai.LIST[i];
 			_item.tienkyvay = formatMoney(_item.TIENKYVAY)
@@ -63,7 +66,7 @@ var HopDongVayLaiView = function () {
 			var _hidden1 = '<p style="display:none" class="rowhdvl"  />' + JSON.stringify(_item) + '</p>';
 			var download = ''
 			if (_item.URL) {
-				download = '<button  val="' + _item.URL + '" class= "btn btn-primary btnTaixuong" >Tải xuống</button>'
+				download = '<button val="' + _item.URL + '" class= "btn btn-primary btnTaixuong">Tải xuống</button>'
 			}
 			else {
 				download = ''
@@ -103,18 +106,12 @@ var HopDongVayLaiView = function () {
 		var resultDuan = DuAns.LIST
 		var option = ''
 		resultDuan.map(value => {
-			if (value.COCHETAICHINH == "CP") {
-				return;
-			}
-			else {
-				option = option + "<option data-luyketienkyvay='" + value.LUYKETIENKYVAY + "' data-tienteid='" + value.TIENTEID + "' data-phantramvaylai='" + value.PHANTRAMVAYLAI + "' data-tongmucdautu='" + value.TONGMUCDAUTU + "' data-loai='" + value.COCHETAICHINH + "' value='" + value.DUANID + "'>" + value.MA + " - " + value.COCHETAICHINH + ' - ' + value.TEN + "</option>"
-			}
+			option = option + "<option data-luyketienkyvay='" + value.LUYKETIENKYVAY + "' data-tienteid='" + value.TIENTEID + "' data-phantramvaylai='" + value.PHANTRAMVAYLAI + "' data-tongmucdautu='" + value.TONGMUCDAUTU + "' data-loai='" + value.COCHETAICHINH + "' value='" + value.DUANID + "'>" + value.MA + " - " + value.COCHETAICHINH + ' - ' + value.TEN + "</option>"
 		})
 		$('#DUANID').html(option).trigger('change')
 		$("#DONVIID").html(fnc_danhsachdonvi())
 		$('#TIENTENNID').html(option1)
 		$('#PHICAMKETTIENTE').html(option1)
-
 		$('body').on('change', '#TIENTEID', function () {
 			var tyGia = $("#TIENTEID option:selected").attr('data-tygia')
 			if (Number(tyGia) === 1) {
@@ -276,6 +273,7 @@ var HopDongVayLaiView = function () {
 			$('#COQUANVAYLAI').val('');
 			$('#TIENKYVAY').val('');
 			$('#TIENPHIHIEPDINHVAYNN').val('');
+			$('#PHICAMKET').val('');
 			$('#LAISUATVAY').val('');
 			$('#NGAYHIEULUC').val($.datepicker.formatDate('dd/mm/yy', new Date()));
 			$('#NGAYKYPHULUC').val($.datepicker.formatDate('dd/mm/yy', new Date()));
@@ -317,6 +315,7 @@ var HopDongVayLaiView = function () {
 			$('#TIENLAIPHAT').val(oHopDongVayLai.TIENLAIPHAT);
 			$('#SOHIEPDINHVAYNN').val(oHopDongVayLai.SOHIEPDINHVAYNN);
 			$('#TIENPHIHIEPDINHVAYNN').val(formatMoney(oHopDongVayLai.TIENPHIHIEPDINHVAYNN));
+			$('#PHICAMKET').val(formatMoney(oHopDongVayLai.PHICAMKET));
 			$('#TIENPHIQUANLYCHOVAYLAI').val(oHopDongVayLai.TIENPHIQUANLYCHOVAYLAI);
 			$('#LOAILAISUAT').val(oHopDongVayLai.LOAILAISUAT);
 			$('#GHICHU').val(oHopDongVayLai.GHICHU);
@@ -345,6 +344,13 @@ var HopDongVayLaiView = function () {
 			fnc_removeName();
 			fnc_validateSpace("COQUANUYQUYENVAYLAI");
 			fnc_validateSpace("SOHIEPDINHVAYNN");
+			var dataSource = DotRutVons.getAllRutVonByHopDong(idHopDongVayLai)
+			if (dataSource.length > 0) {
+				isRutVon = true;
+			}
+			else {
+				isRutVon = false;
+			}
 		});
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
 			e.preventDefault()
@@ -375,145 +381,152 @@ var HopDongVayLaiView = function () {
 			window.open(url)
 		})
 		document.getElementsByName("userPhoto")[0].addEventListener("click", fileUpload);
-		function fileUpload(e){
+		function fileUpload(e) {
 			var targetAfterX = e.offsetX >= 0 && e.offsetX <= 81;
 			var targetAfterY = e.offsetY >= 0 && e.offsetY <= 40;
-			if(targetAfterX && targetAfterY){
-			}else{
+			if (targetAfterX && targetAfterY) {
+			} else {
 				e.preventDefault();
 			}
 		}
 		$(".btnSave").on('click', function (e) {
 			if (isDoubleClicked($(this))) return;
-			e.preventDefault()
-			var list_tr_MAPHULUC = $('.input-table .MAPHULUC')
-			var list_tr_TENPHULUC = $('.input-table .TENPHULUC')
-			var list_tr_NGAYKYPHULUC = $('.input-table .NGAYKYPHULUC')
-			var list_tr_NGUOIKYPHULUC = $('.input-table .NGUOIKYPHULUC')
-			var r_list_tr_MAPHULUC = []
-			var r_list_tr_TENPHULUC = []
-			var r_list_tr_NGAYKYPHULUC = []
-			var r_list_tr_NGUOIKYPHULUC = []
-			list_tr_MAPHULUC.map((index, value) => {
-				r_list_tr_MAPHULUC.push($(value).val())
-			})
-			list_tr_TENPHULUC.map((index, value) => {
-				r_list_tr_TENPHULUC.push($(value).val())
-			})
-			list_tr_NGAYKYPHULUC.map((index, value) => {
-				r_list_tr_NGAYKYPHULUC.push($(value).val())
-			})
-			list_tr_NGUOIKYPHULUC.map((index, value) => {
-				r_list_tr_NGUOIKYPHULUC.push($(value).val())
-			})
-			oHopDongVayLai.HOPDONGVAYLAIID = idHopDongVayLai;
-			oHopDongVayLai.MA = $('#MA').val();
-			oHopDongVayLai.TEN = $('#TEN').val();
-			oHopDongVayLai.DUANID = $('#DUANID').val();
-			oHopDongVayLai.NGAYKY = $('#NGAYKY').val();
-			oHopDongVayLai.COQUANUYQUYENVAYLAI = $('#COQUANUYQUYENVAYLAI').val();
-			oHopDongVayLai.TIENKYVAY = $('#TIENKYVAY').val().replaceAll(',', '');
-			oHopDongVayLai.NGAYHIEULUC = $('#NGAYHIEULUC').val();
-			oHopDongVayLai.LAISUATVAY = $('#LAISUATVAY').val();
-			oHopDongVayLai.LOAILAISUAT = $('#LOAILAISUAT').val();
-			oHopDongVayLai.NGAYTRANOGOCDAUTIEN = $('#NGAYTRANOGOCDAUTIEN').val();
-			oHopDongVayLai.NGAYTRANOLAIDAUTIEN = $('#NGAYTRANOLAIDAUTIEN').val();
-			oHopDongVayLai.NGAYTRANOGOCCUOICUNG = $('#NGAYTRANOGOCCUOICUNG').val();
-			oHopDongVayLai.NGAYTRANOLAICUOICUNG = $('#NGAYTRANOLAICUOICUNG').val();
-			oHopDongVayLai.PHUONGTHUCTRANOGOC = $('#PHUONGTHUCTRANOGOC').val();
-			oHopDongVayLai.PHUONGTHUCTRANOLAI = $('#PHUONGTHUCTRANOLAI').val();
-			oHopDongVayLai.TIENLAIPHAT = $('#TIENLAIPHAT').val();
-			oHopDongVayLai.SOHIEPDINHVAYNN = $('#SOHIEPDINHVAYNN').val();
-			oHopDongVayLai.TIENPHIHIEPDINHVAYNN = $('#TIENPHIHIEPDINHVAYNN').val().replaceAll(',', '');
-			oHopDongVayLai.TIENPHIQUANLYCHOVAYLAI = $('#TIENPHIQUANLYCHOVAYLAI').val();
-			oHopDongVayLai.TIENTEID = $('#TIENTEID').val();
-			oHopDongVayLai.DONVIID = $('#DONVIID').val();
-			oHopDongVayLai.TIENTEIDCP = 19;
-			oHopDongVayLai.SOTIENCAPPHAT = 0;
-			oHopDongVayLai.MAPHULUC = $('#MAPHULUC').val();
-			oHopDongVayLai.TENPHULUC = $('#TENPHULUC').val();
-			oHopDongVayLai.NGAYKYPHULUC = $('#NGAYKYPHULUC').val();
-			oHopDongVayLai.NGUOIKY = $('#NGUOIKY').val();
-			oHopDongVayLai.UID = uuidv4();
-			oHopDongVayLai.TYGIA = JSON.parse(window.localStorage.getItem('TIENTE')).filter(a => a.TIENTEID == $("#TIENTEID").val())[0].BANRA
-			var ngayBatDau = Number($("#NGAYTRANOGOCDAUTIEN").val().split('/')[2] + $("#NGAYTRANOGOCDAUTIEN").val().split('/')[1] + $("#NGAYTRANOGOCDAUTIEN").val().split('/')[0])
-			var ngayBatDau1 = Number($("#NGAYTRANOLAIDAUTIEN").val().split('/')[2] + $("#NGAYTRANOLAIDAUTIEN").val().split('/')[1] + $("#NGAYTRANOLAIDAUTIEN").val().split('/')[0])
-			var ngayKetThuc = Number($("#NGAYTRANOGOCCUOICUNG").val().split('/')[2] + $("#NGAYTRANOGOCCUOICUNG").val().split('/')[1] + $("#NGAYTRANOGOCCUOICUNG").val().split('/')[0])
-			var ngayKetThuc1 = Number($("#NGAYTRANOLAICUOICUNG").val().split('/')[2] + $("#NGAYTRANOLAICUOICUNG").val().split('/')[1] + $("#NGAYTRANOLAICUOICUNG").val().split('/')[0])
-			var ngaykyhd = Number($("#NGAYKY").val().split('/')[2] + $("#NGAYKY").val().split('/')[1] + $("#NGAYKY").val().split('/')[0])
-			var ngayhieuluc = Number($("#NGAYHIEULUC").val().split('/')[2] + $("#NGAYHIEULUC").val().split('/')[1] + $("#NGAYHIEULUC").val().split('/')[0])
-			if (ngayhieuluc < ngaykyhd) {
-				$("#NGAYHIEULUC").css('border-color', 'red')
-				$("#NGAYKY").css('border-color', 'red')
+			e.preventDefault();
+			if (isRutVon) {
+				var oAlert = new AlertDialog1('Thông báo');
+				oAlert.show('Không được sửa hợp đồng đã được rút vốn', '40%', '50px');
 			}
 			else {
-				$("#NGAYKY").css('border-color', '')
-				$("#NGAYHIEULUC").css('border-color', '')
-			}
-			if (ngayBatDau > ngayKetThuc) {
-				$("#NGAYTRANOGOCDAUTIEN").css('border-color', 'red')
-				$("#NGAYTRANOGOCCUOICUNG").css('border-color', 'red')
-			}
-			else {
-				$("#NGAYTRANOGOCDAUTIEN").css('border-color', '')
-				$("#NGAYTRANOGOCCUOICUNG").css('border-color', '')
-			}
-			if (ngayBatDau1 > ngayKetThuc1) {
-				$("#NGAYTRANOLAIDAUTIEN").css('border-color', 'red')
-				$("#NGAYTRANOLAICUOICUNG").css('border-color', 'red')
-			}
-			else {
-				$("#NGAYTRANOLAIDAUTIEN").css('border-color', '')
-				$("#NGAYTRANOLAICUOICUNG").css('border-color', '')
-			}
-			if (oHopDongVayLai.MA == '') {
-				$('#MA').css('border-color', 'red')
-			} else {
-				$('#MA').css('border-color', '')
-			}
-			if (oHopDongVayLai.MA == '' || ngayBatDau > ngayKetThuc || ngayBatDau1 > ngayKetThuc1 || ngayhieuluc < ngaykyhd) {
-			}
-			else {
-				var querry = '';
-				querry = "Insert all ";
-				for (var i = 0; i < list_tr_MAPHULUC.length; i++) {
-					querry = querry +
-						" Into QLN_HOPDONGVAYLAI_PHULUC(MA, MAPHULUC, TENPHULUC, NGAYKYPHULUC, NGUOIKYPHULUC) VALUES('" +
-						$("#MA").val() + "','" +
-						r_list_tr_MAPHULUC[i] + "', '" +
-						r_list_tr_TENPHULUC[i] + "',  to_date('" +
-						r_list_tr_NGAYKYPHULUC[i] + "', 'YYYY-MM-DD'),'" +
-						r_list_tr_NGUOIKYPHULUC[i] + "') ";
-				}
-				querry = querry + " Select 1 from dual";
-				var rs = oHopDongVayLai.save();
-				if (rs.CODE = 3 && rs.MESSAGE == '-1') {
-					var oAlert = new AlertDialog1('Thông báo');
-					oAlert.show('Mã này đã tồn tại', '40%', '50px');
-					that.bindGrid01();
+				var list_tr_MAPHULUC = $('.input-table .MAPHULUC')
+				var list_tr_TENPHULUC = $('.input-table .TENPHULUC')
+				var list_tr_NGAYKYPHULUC = $('.input-table .NGAYKYPHULUC')
+				var list_tr_NGUOIKYPHULUC = $('.input-table .NGUOIKYPHULUC')
+				var r_list_tr_MAPHULUC = []
+				var r_list_tr_TENPHULUC = []
+				var r_list_tr_NGAYKYPHULUC = []
+				var r_list_tr_NGUOIKYPHULUC = []
+				list_tr_MAPHULUC.map((index, value) => {
+					r_list_tr_MAPHULUC.push($(value).val())
+				})
+				list_tr_TENPHULUC.map((index, value) => {
+					r_list_tr_TENPHULUC.push($(value).val())
+				})
+				list_tr_NGAYKYPHULUC.map((index, value) => {
+					r_list_tr_NGAYKYPHULUC.push($(value).val())
+				})
+				list_tr_NGUOIKYPHULUC.map((index, value) => {
+					r_list_tr_NGUOIKYPHULUC.push($(value).val())
+				})
+				oHopDongVayLai.HOPDONGVAYLAIID = idHopDongVayLai;
+				oHopDongVayLai.MA = $('#MA').val();
+				oHopDongVayLai.TEN = $('#TEN').val();
+				oHopDongVayLai.DUANID = $('#DUANID').val();
+				oHopDongVayLai.NGAYKY = $('#NGAYKY').val();
+				oHopDongVayLai.COQUANUYQUYENVAYLAI = $('#COQUANUYQUYENVAYLAI').val();
+				oHopDongVayLai.TIENKYVAY = $('#TIENKYVAY').val().replaceAll(',', '');
+				oHopDongVayLai.NGAYHIEULUC = $('#NGAYHIEULUC').val();
+				oHopDongVayLai.LAISUATVAY = $('#LAISUATVAY').val();
+				oHopDongVayLai.LOAILAISUAT = $('#LOAILAISUAT').val();
+				oHopDongVayLai.NGAYTRANOGOCDAUTIEN = $('#NGAYTRANOGOCDAUTIEN').val();
+				oHopDongVayLai.NGAYTRANOLAIDAUTIEN = $('#NGAYTRANOLAIDAUTIEN').val();
+				oHopDongVayLai.NGAYTRANOGOCCUOICUNG = $('#NGAYTRANOGOCCUOICUNG').val();
+				oHopDongVayLai.NGAYTRANOLAICUOICUNG = $('#NGAYTRANOLAICUOICUNG').val();
+				oHopDongVayLai.PHUONGTHUCTRANOGOC = $('#PHUONGTHUCTRANOGOC').val();
+				oHopDongVayLai.PHUONGTHUCTRANOLAI = $('#PHUONGTHUCTRANOLAI').val();
+				oHopDongVayLai.TIENLAIPHAT = $('#TIENLAIPHAT').val();
+				oHopDongVayLai.SOHIEPDINHVAYNN = $('#SOHIEPDINHVAYNN').val();
+				oHopDongVayLai.TIENPHIHIEPDINHVAYNN = $('#TIENPHIHIEPDINHVAYNN').val().replaceAll(',', '');
+				oHopDongVayLai.PHICAMKET = $('#PHICAMKET').val().replaceAll(',', '');
+				oHopDongVayLai.TIENPHIQUANLYCHOVAYLAI = $('#TIENPHIQUANLYCHOVAYLAI').val();
+				oHopDongVayLai.TIENTEID = $('#TIENTEID').val();
+				oHopDongVayLai.DONVIID = $('#DONVIID').val();
+				oHopDongVayLai.TIENTEIDCP = 19;
+				oHopDongVayLai.SOTIENCAPPHAT = 0;
+				oHopDongVayLai.MAPHULUC = $('#MAPHULUC').val();
+				oHopDongVayLai.TENPHULUC = $('#TENPHULUC').val();
+				oHopDongVayLai.NGAYKYPHULUC = $('#NGAYKYPHULUC').val();
+				oHopDongVayLai.NGUOIKY = $('#NGUOIKY').val();
+				oHopDongVayLai.UID = uuidv4();
+				oHopDongVayLai.TYGIA = JSON.parse(window.localStorage.getItem('TIENTE')).filter(a => a.TIENTEID == $("#TIENTEID").val())[0].BANRA
+				var ngayBatDau = Number($("#NGAYTRANOGOCDAUTIEN").val().split('/')[2] + $("#NGAYTRANOGOCDAUTIEN").val().split('/')[1] + $("#NGAYTRANOGOCDAUTIEN").val().split('/')[0])
+				var ngayBatDau1 = Number($("#NGAYTRANOLAIDAUTIEN").val().split('/')[2] + $("#NGAYTRANOLAIDAUTIEN").val().split('/')[1] + $("#NGAYTRANOLAIDAUTIEN").val().split('/')[0])
+				var ngayKetThuc = Number($("#NGAYTRANOGOCCUOICUNG").val().split('/')[2] + $("#NGAYTRANOGOCCUOICUNG").val().split('/')[1] + $("#NGAYTRANOGOCCUOICUNG").val().split('/')[0])
+				var ngayKetThuc1 = Number($("#NGAYTRANOLAICUOICUNG").val().split('/')[2] + $("#NGAYTRANOLAICUOICUNG").val().split('/')[1] + $("#NGAYTRANOLAICUOICUNG").val().split('/')[0])
+				var ngaykyhd = Number($("#NGAYKY").val().split('/')[2] + $("#NGAYKY").val().split('/')[1] + $("#NGAYKY").val().split('/')[0])
+				var ngayhieuluc = Number($("#NGAYHIEULUC").val().split('/')[2] + $("#NGAYHIEULUC").val().split('/')[1] + $("#NGAYHIEULUC").val().split('/')[0])
+				if (ngayhieuluc < ngaykyhd) {
+					$("#NGAYHIEULUC").css('border-color', 'red')
+					$("#NGAYKY").css('border-color', 'red')
 				}
 				else {
-					var pDelete = '';
-					pDelete = "Delete QLN_HOPDONGVAYLAI_PHULUC  where MA ='" + $('#MA').val() + "'"
-					if (querry != "Insert all  Select 1 from dual") {
-						oHopDongVayLai.savedtl(pDelete, querry);
+					$("#NGAYKY").css('border-color', '')
+					$("#NGAYHIEULUC").css('border-color', '')
+				}
+				if (ngayBatDau > ngayKetThuc) {
+					$("#NGAYTRANOGOCDAUTIEN").css('border-color', 'red')
+					$("#NGAYTRANOGOCCUOICUNG").css('border-color', 'red')
+				}
+				else {
+					$("#NGAYTRANOGOCDAUTIEN").css('border-color', '')
+					$("#NGAYTRANOGOCCUOICUNG").css('border-color', '')
+				}
+				if (ngayBatDau1 > ngayKetThuc1) {
+					$("#NGAYTRANOLAIDAUTIEN").css('border-color', 'red')
+					$("#NGAYTRANOLAICUOICUNG").css('border-color', 'red')
+				}
+				else {
+					$("#NGAYTRANOLAIDAUTIEN").css('border-color', '')
+					$("#NGAYTRANOLAICUOICUNG").css('border-color', '')
+				}
+				if (oHopDongVayLai.MA == '') {
+					$('#MA').css('border-color', 'red')
+				} else {
+					$('#MA').css('border-color', '')
+				}
+				if (oHopDongVayLai.MA == '' || ngayBatDau > ngayKetThuc || ngayBatDau1 > ngayKetThuc1 || ngayhieuluc < ngaykyhd) {
+				}
+				else {
+					var querry = '';
+					querry = "Insert all ";
+					for (var i = 0; i < list_tr_MAPHULUC.length; i++) {
+						querry = querry +
+							" Into QLN_HOPDONGVAYLAI_PHULUC(MA, MAPHULUC, TENPHULUC, NGAYKYPHULUC, NGUOIKYPHULUC) VALUES('" +
+							$("#MA").val() + "','" +
+							r_list_tr_MAPHULUC[i] + "', '" +
+							r_list_tr_TENPHULUC[i] + "',  to_date('" +
+							r_list_tr_NGAYKYPHULUC[i] + "', 'YYYY-MM-DD'),'" +
+							r_list_tr_NGUOIKYPHULUC[i] + "') ";
 					}
-					else {
-						oHopDongVayLai.savedtl(pDelete, pDelete);
-					}
-					$("#idrowtable").val(rs.RESULT)
-					$("#tablename").val(CurrentLayout)
-					var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
-					if (!rs1.success) {
-						oHopDongVayLai.deluid(rs.RESULT)
-						var oAlert = new AlertDialog('Thông báo');
-						oAlert.show(rs1.message, '40%', '50px');
+					querry = querry + " Select 1 from dual";
+					var rs = oHopDongVayLai.save();
+					if (rs.CODE = 3 && rs.MESSAGE == '-1') {
+						var oAlert = new AlertDialog1('Thông báo');
+						oAlert.show('Mã này đã tồn tại', '40%', '50px');
 						that.bindGrid01();
 					}
 					else {
-						that.bindGrid01();
-						var oAlert = new AlertDialog('Thông báo');
-						oAlert.show(rs.MESSAGE, '40%', '50px');
+						var pDelete = '';
+						pDelete = "Delete QLN_HOPDONGVAYLAI_PHULUC  where MA ='" + $('#MA').val() + "'"
+						if (querry != "Insert all  Select 1 from dual") {
+							oHopDongVayLai.savedtl(pDelete, querry);
+						}
+						else {
+							oHopDongVayLai.savedtl(pDelete, pDelete);
+						}
+						$("#idrowtable").val(rs.RESULT)
+						$("#tablename").val(CurrentLayout)
+						var rs1 = DATA.ajaxPostForm(CONFIG_API.URL.SEVER + 'upload', 'uploadForm')
+						if (!rs1.success) {
+							oHopDongVayLai.deluid(rs.RESULT)
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs1.message, '40%', '50px');
+							that.bindGrid01();
+						}
+						else {
+							that.bindGrid01();
+							var oAlert = new AlertDialog('Thông báo');
+							oAlert.show(rs.MESSAGE, '40%', '50px');
+						}
 					}
 				}
 			}

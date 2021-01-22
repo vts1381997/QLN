@@ -56,7 +56,7 @@ var TinhThanhView = function () {
 		that.filterAction('NEW');
 		that.bindGrid01();
 	}
-	this.bindModal = function () { 
+	this.bindModal = function () {
 		if (idTinhThanh > 0) {
 			oTinhThanh.getById(idTinhThanh);
 			$('#MA').val(oTinhThanh.MA);
@@ -124,12 +124,13 @@ var TinhThanhView = function () {
 				oAlert1.show('Mã địa bàn không được để trống', '40%', '50px');
 			}
 			else {
-				const regex = /[^a-zA-Z0-9_ áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữự]/;
-				if(regex.test($('#MA').val())){
+				const regexMa = /[^a-zA-Z0-9_ ]/
+				const regex = /[^a-zA-Z0-9_ ,.()áÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬđĐéÉèÈẻẺẽẼẹẸêÊếẾềỀểỂễỄệỆíÍìÌỉỈĩĨịỊóÓòÒỏỎõÕọỌôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢúÚùÙủỦũŨụỤưƯứỨừỪửỬữỮựỰ]/;
+				if (regexMa.test($('#MA').val())) {
 					oAlert1.show('Mã địa bàn không được chứa ký tự đặc biệt', '40%', '50px');
 					return;
 				}
-				if(regex.test($('#TEN').val())){
+				if (regex.test($('#TEN').val())) {
 					oAlert1.show('Tên tỉnh/thành phố không được chứa ký tự đặc biệt', '40%', '50px');
 					return;
 				}
@@ -137,7 +138,7 @@ var TinhThanhView = function () {
 				oTinhThanh.MA = $('#MA').val();
 				oTinhThanh.TEN = $('#TEN').val();
 				oTinhThanh.NOTE = $('#NOTE').val();
-				var rs = oTinhThanh.save(); 
+				var rs = oTinhThanh.save();
 				if (rs.MESSAGE == "-1") {
 					oAlert1.show('Mã địa bàn bị trùng vui lòng nhập lại', '40%', '50px');
 				}

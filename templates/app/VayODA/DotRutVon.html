@@ -135,6 +135,10 @@
         #select2-SOTIENGIAINGANCAPPHATTIENTE-container {
             font-weight: bold;
         }
+
+        #select2-PHICAMKETTIENTE-container {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -143,7 +147,7 @@
         <div class="row" style="margin-top:10px">
             <span class="glyphicon glyphicon-align-justify"></span><label style="color:red;">&nbspĐỢT RÚT VỐN</label>
             <hr />
-            <div class="col-sm-12" style="margin:0px"> 
+            <div class="col-sm-12" style="margin:0px">
                 <div class="row panel panel-primary" id="LIST" style="margin-top: 11px;">
                     <div class="panel-heading">Danh sách đợt rút vốn </div>
                     <div class="panel-body">
@@ -205,7 +209,8 @@
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: 5px;">
-                            <div class="col-sm-3"><label>Số đơn rút vốn/Tham chiếu<span class="require">(*)</span></label></div>
+                            <div class="col-sm-3"><label>Số đơn rút vốn/Tham chiếu<span
+                                        class="require">(*)</span></label></div>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" name="name" id="MA" value=""
                                     autocomplete="off" />
@@ -277,6 +282,48 @@
                             <div class="col-sm-3">
                                 <select id="DONVIID" class="form-control" value="">
                                 </select>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-sm-3"><label>Lãi suất trong khoảng thời gian ân hạn</label></div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" value="" min="0.0"
+                                        style="text-align: right;" max="10.0" step="0.01" id="LAISUATANHAN"
+                                        name="LAISUATANHAN" autocomplete="off" />
+                                    <span class="input-group-btn">
+                                        <button type="button" id="phantramlaisuatvay" class="btn btn-default">%</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3"><label>Lãi suất còn lại</label></div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" value="" min="0.0"
+                                        style="text-align: right;" max="10.0" step="0.01" id="LAISUATCONLAI"
+                                        name="LAISUATCONLAI" autocomplete="off" />
+                                    <span class="input-group-btn">
+                                        <button type="button" id="phantramlaisuatvay" class="btn btn-default">%</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-sm-3"><label>Phí cam kết</label></div>
+                            <div class="col-sm-3">
+                                <div style="display: flex">
+                                    <input id="PHICAMKET" class="form-control" style="text-align: right;"
+                                        pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"
+                                        autocomplete="off" />
+                                    <select class="form-control" id="PHICAMKETTIENTE">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3"><label>Tỷ giá ngân hàng</label></div>
+                            <div class="col-sm-3">
+                                <input id="TYGIANGANHANG" class="form-control" style="text-align: right;"
+                                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"
+                                    autocomplete="off" />
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: 5px;">
