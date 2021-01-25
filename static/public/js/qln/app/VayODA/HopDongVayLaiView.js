@@ -57,7 +57,6 @@ var HopDongVayLaiView = function () {
 		oHopDongVayLai.getAll();
 		that.oTable.clear().draw();
 		var aRows = [];
-		console.log(oHopDongVayLai.LIST);
 		for (var i = 0; i < oHopDongVayLai.LIST.length; i++) {
 			var _item = oHopDongVayLai.LIST[i];
 			_item.tienkyvay = formatMoney(_item.TIENKYVAY)
@@ -210,8 +209,6 @@ var HopDongVayLaiView = function () {
 				var soTienVay = $("#TIENKYVAY").val().replaceAll(',', '')
 				var luyKeTienKyVay = $("#DUANID option:selected").attr('data-luyketienkyvay')
 				var phanTramVayLai = $("#DUANID option:selected").attr('data-phantramvaylai')
-				console.log(luyKeTienKyVay, 'luy ke ');
-				console.log(tongMucDauTu, 'tongMucDauTu  ');
 				if (Number(tongMucDauTu) == Number(luyKeTienKyVay)) {
 					if (Number(soTienVay) > JSON.parse(rowhdvl).TIENKYVAY) {
 						$(this).val(formatMoney(JSON.parse(rowhdvl).TIENKYVAY))
@@ -347,9 +344,59 @@ var HopDongVayLaiView = function () {
 			var dataSource = DotRutVons.getAllRutVonByHopDong(idHopDongVayLai)
 			if (dataSource.length > 0) {
 				isRutVon = true;
+				$("#MA").attr("disabled", true);
+				$("#TEN").attr("disabled", true);
+				$("#NGAYKY").attr("disabled", true);
+				$("#NGAYHIEULUC").attr("disabled", true);
+				$("#COQUANUYQUYENVAYLAI").attr("disabled", true);
+				$("#DONVIID").attr("disabled", true);
+				$("#TIENKYVAY").attr("disabled", true);
+				$("#TIENLAIPHAT").attr("disabled", true);
+				$("#LAISUATVAY").attr("disabled", true);
+				$("#LOAILAISUAT").attr("disabled", true);
+				$("#PHUONGTHUCTRANOGOC").attr("disabled", true);
+				$("#PHUONGTHUCTRANOLAI").attr("disabled", true);
+				$("#NGAYTRANOGOCDAUTIEN").attr("disabled", true);
+				$("#NGAYTRANOGOCCUOICUNG").attr("disabled", true);
+				$("#NGAYTRANOLAIDAUTIEN").attr("disabled", true);
+				$("#NGAYTRANOLAICUOICUNG").attr("disabled", true);
+				$("#TIENPHIHIEPDINHVAYNN").attr("disabled", true);
+				$("#SOHIEPDINHVAYNN").attr("disabled", true);
+				$("#PHICAMKET").attr("disabled", true);
+				$("#customRadio1").attr("disabled", true);
+				$("#customRadio2").attr("disabled", true);
+				$("#customRadio3").attr("disabled", true);
+				$("#TIENPHIQUANLYCHOVAYLAI").attr("disabled", true);
+				$("#btnUploadFile").attr('disabled', true); 
+				$("#ActionThemMoi").attr('disabled', true); 
 			}
 			else {
 				isRutVon = false;
+				$("#MA").attr("disabled", false);
+				$("#TEN").attr("disabled", false);
+				$("#NGAYKY").attr("disabled", false);
+				$("#NGAYHIEULUC").attr("disabled", false);
+				$("#COQUANUYQUYENVAYLAI").attr("disabled", false);
+				$("#DONVIID").attr("disabled", false);
+				$("#TIENKYVAY").attr("disabled", false);
+				$("#TIENLAIPHAT").attr("disabled", false);
+				$("#LAISUATVAY").attr("disabled", false);
+				$("#LOAILAISUAT").attr("disabled", false);
+				$("#PHUONGTHUCTRANOGOC").attr("disabled", false);
+				$("#PHUONGTHUCTRANOLAI").attr("disabled", false);
+				$("#NGAYTRANOGOCDAUTIEN").attr("disabled", false);
+				$("#NGAYTRANOGOCCUOICUNG").attr("disabled", false);
+				$("#NGAYTRANOLAIDAUTIEN").attr("disabled", false);
+				$("#NGAYTRANOLAICUOICUNG").attr("disabled", false);
+				$("#TIENPHIHIEPDINHVAYNN").attr("disabled", false);
+				$("#SOHIEPDINHVAYNN").attr("disabled", false);
+				$("#PHICAMKET").attr("disabled", false);
+				$("#customRadio1").attr("disabled", false);
+				$("#customRadio2").attr("disabled", false);
+				$("#customRadio3").attr("disabled", false);
+				$("#TIENPHIQUANLYCHOVAYLAI").attr("disabled", false);
+				$("#btnUploadFile").attr('disabled', false); 
+				$("#ActionThemMoi").attr('disabled', false); 
 			}
 		});
 		$('.ACTIONS').on('click', '#btnDelete', function (e) {
@@ -362,7 +409,7 @@ var HopDongVayLaiView = function () {
 			function ok() {
 				if (JSON.parse(rowhdvl).STATUS_DELETE > 0) {
 					var oAlert = new AlertDialog('Cảnh báo');
-					oAlert.show('Không thể xóa HĐ này (HĐ này còn các trường con)', '40%', '50px');
+					oAlert.show('Hợp đồng đã rút vốn, không được phép xóa', '40%', '50px');
 				}
 				else {
 					var rs = oHopDongVayLai.del(oHopDongVayLai.HOPDONGVAYLAIID);

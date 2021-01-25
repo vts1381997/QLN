@@ -90,8 +90,7 @@
             width: 658px !important;
             border: 1px solid gray;
         }
-    </style>
-    <style>
+
         .select2-selection__rendered {
             font-size: 15px !important;
         }
@@ -111,6 +110,52 @@
 
         span.select2-selection.select2-selection--multiple {
             height: 250px !important;
+        }
+
+        .close-project {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        input#TIEUDUAN {
+            appearance: none;
+            position: relative;
+            outline: none;
+        }
+
+        input#TIEUDUAN::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -13px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 1px solid #888;
+        }
+
+        input#TIEUDUAN:checked::after {
+            opacity: 1;
+        }
+
+        input#TIEUDUAN::after {
+            content: "";
+            display: block;
+            background: url('/qln/public/skinqln/img/checkicon.png');
+            width: 30px;
+            height: 15px;
+            width: 15px;
+            background-size: cover;
+            border: none;
+            outline: none;
+            position: absolute;
+            background-color: transparent;
+            top: -10px;
+            left: 3px;
+            opacity: 0;
+            transition: .2s opacity;
         }
     </style>
 </head>
@@ -167,7 +212,7 @@
                                     </div>
                                     <div class="col-sm-2"><label>Tiểu dự án</label></div>
                                     <div class="col-sm-4">
-                                        <input type="checkbox" class="" name="name" id="TIEUDUAN" value="f" />
+                                        <input type="checkbox" name="name" id="TIEUDUAN" value="f" />
                                     </div>
                                 </div>
                                 <div class="row" style="margin-bottom: 5px;">

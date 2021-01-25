@@ -114,11 +114,16 @@ var DuAnView = function () {
 			var _hidden = '<input type="hidden" class="rowID" value="' + _item.DUANID + '" />';
 			var _hidden1 = '<p style="display:none" class="rowID1"  />' + JSON.stringify(_item) + '</p>';
 			var trangThaiDuAn = '';
-			if (_item.COCHETAICHINH == 'CP') {
-				trangThaiDuAn = '<div class="alert-danger" style="font-size:10px; text-align:center">100% cấp phát</div>'
+			if (_item.TRANGTHAI == 'HD') {
+				if (_item.COCHETAICHINH == 'CP') {
+					trangThaiDuAn = '<div class="alert-danger" style="font-size:10px; text-align:center">100% cấp phát</div>'
+				}
+				else {
+					_item.STATUS_DELETE + '' !== '0' ? trangThaiDuAn = '<div class="alert-danger" style="font-size:10px; text-align:center">Đã tạo hợp đồng</div>' : trangThaiDuAn = '<div class="alert-success" style="font-size:10px;  text-align:center">Chưa tạo hợp đồng</div>'
+				}
 			}
 			else {
-				_item.STATUS_DELETE + '' !== '0' ? trangThaiDuAn = '<div class="alert-danger" style="font-size:10px; text-align:center">Đã tạo hợp đồng</div>' : trangThaiDuAn = '<div class="alert-success" style="font-size:10px;  text-align:center">Chưa tạo hợp đồng</div>'
+				trangThaiDuAn = '<div class="close-project" style="font-size:10px; text-align:center">Đã đóng</div>'
 			}
 			aRows.push([
 				(i + 1) + _hidden + _hidden1,
@@ -383,7 +388,7 @@ var DuAnView = function () {
 					}
 					else {
 						const regexMa = /[^a-zA-Z0-9_ ]/
-						const regex = /[^a-zA-Z0-9_ ,.()áÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬđĐéÉèÈẻẺẽẼẹẸêÊếẾềỀểỂễỄệỆíÍìÌỉỈĩĨịỊóÓòÒỏỎõÕọỌôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢúÚùÙủỦũŨụỤưƯứỨừỪửỬữỮựỰ]/;
+						const regex = /[^a-zA-Z0-9-_ ,.()áÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬđĐéÉèÈẻẺẽẼẹẸêÊếẾềỀểỂễỄệỆíÍìÌỉỈĩĨịỊóÓòÒỏỎõÕọỌôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢúÚùÙủỦũŨụỤưƯứỨừỪửỬữỮựỰ]/;
 						if (regexMa.test($('#MA').val())) {
 							oAlert1.show('Mã dự án không được chứa ký tự đặc biệt', '40%', '50px');
 							return;
